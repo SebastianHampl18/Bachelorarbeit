@@ -1,0 +1,7 @@
+NPN:
+https://www.reichelt.de/de/de/shop/produkt/bipolartransistor_npn_25v_1a_0_25w_sot-23-45228?PROVID=2788
+
+Microcontroller:
+Hardware Design Guidelines: 	https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32/index.html
+Schematic Checklist: 		https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32/schematic-checklist.html
+PCB Layout Design: 		https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32/pcb-layout-design.html

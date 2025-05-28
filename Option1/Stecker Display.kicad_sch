@@ -1,0 +1,160 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "bde14263-ef47-4042-a0b3-29aacb8ba21e")
+	(paper "A4")
+	(title_block
+		(title "E-Kart Option 1")
+		(date "2025-04-01")
+		(rev "1")
+		(company "Leomax")
+		(comment 1 "zentrale Steuer- und Kommunkationsplatine")
+		(comment 2 "Bachelorarbiet")
+		(comment 3 "Sebastian Hampl")
+	)
+	(lib_symbols)
+	(hierarchical_label "LCD_CS"
+		(shape input)
+		(at 38.1 46.99 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "16c34c8f-62f7-41fa-9d5b-96c732725616")
+	)
+	(hierarchical_label "3V3"
+		(shape input)
+		(at 38.1 22.86 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "2495da28-1792-4459-ab55-225e0680d584")
+	)
+	(hierarchical_label "TP_INT"
+		(shape input)
+		(at 38.1 72.39 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "3209639c-bcca-487c-8295-d3c4254492eb")
+	)
+	(hierarchical_label "SPI_CLK"
+		(shape input)
+		(at 38.1 40.64 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "4038aba3-084a-4e36-96fc-91047726133d")
+	)
+	(hierarchical_label "LCD_RST"
+		(shape input)
+		(at 38.1 54.61 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "6dddbf88-d964-4509-b5dc-c0cfc00243f2")
+	)
+	(hierarchical_label "SPI_MISO"
+		(shape input)
+		(at 38.1 33.02 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "973b164b-2049-41fd-8ab5-96ab501d4301")
+	)
+	(hierarchical_label "SPI_MOSI"
+		(shape input)
+		(at 38.1 36.83 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "99bb1197-f503-47f4-968d-81b5abc31d47")
+	)
+	(hierarchical_label "I2C_SCL"
+		(shape input)
+		(at 38.1 68.58 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "9e73bd8a-1bd2-4eb8-847c-b7a0ae5740a2")
+	)
+	(hierarchical_label "LCD_BL"
+		(shape input)
+		(at 38.1 58.42 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b11585ac-69e7-4cd9-a965-111aee8136a3")
+	)
+	(hierarchical_label "TP_RST"
+		(shape input)
+		(at 38.1 76.2 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "ba020471-ff44-4602-b358-d7bd771772b1")
+	)
+	(hierarchical_label "LCD_DC"
+		(shape input)
+		(at 38.1 50.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "eeaa99a6-4baf-458e-8c96-7b724a76ce92")
+	)
+	(hierarchical_label "I2C_SDA"
+		(shape input)
+		(at 38.1 64.77 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f444da85-266d-40c7-8e8a-5e69e4cd9e95")
+	)
+	(hierarchical_label "GND"
+		(shape input)
+		(at 38.1 26.67 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f56b19df-dd49-4b42-972b-5b7b1cc3ab38")
+	)
+)

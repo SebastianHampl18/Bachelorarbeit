@@ -1,0 +1,14 @@
+LTspice 24.1.2 for Windows
+Circuit: C:\Users\shampl\Documents\E-Kart_Option1\Option1\LED Schaltungen.net
+Start Time: Thu Mar  6 16:31:43 2025
+solver = Normal
+Maximum thread count: 8
+tnom = 27
+temp = 27
+method = trap
+Direct Newton iteration for .op point succeeded.
+Total elapsed time: 0.034 seconds.
+
+Files loaded:
+C:\Users\shampl\Documents\E-Kart_Option1\Option1\LED Schaltungen.net
+

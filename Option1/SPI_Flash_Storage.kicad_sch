@@ -1,0 +1,83 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "df07e921-20f2-4542-9863-1b35b44debcd")
+	(paper "A4")
+	(title_block
+		(title "E-Kart Option 1")
+		(date "2025-04-01")
+		(rev "1")
+		(company "Leomax")
+		(comment 1 "zentrale Steuer- und Kommunkationsplatine")
+		(comment 2 "Bachelorarbiet")
+		(comment 3 "Sebastian Hampl")
+	)
+	(lib_symbols)
+	(hierarchical_label "3V3"
+		(shape input)
+		(at 39.37 53.34 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "1293c5a1-d877-4b3f-a647-d19c86f5068a")
+	)
+	(hierarchical_label "HSPI_MOSI"
+		(shape input)
+		(at 39.37 48.26 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "30ea35a4-6689-4316-989b-748880a6ee36")
+	)
+	(hierarchical_label "GND"
+		(shape input)
+		(at 39.37 55.88 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5f956f86-0f53-4c87-b67d-c45c716b5553")
+	)
+	(hierarchical_label "HSPI_CLK"
+		(shape input)
+		(at 39.37 40.64 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "67914d65-6045-444a-a255-8770da30232e")
+	)
+	(hierarchical_label "HSPI_MISO"
+		(shape input)
+		(at 39.37 45.72 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "9e9486e1-6152-4886-ba1a-5b4ba980273a")
+	)
+	(hierarchical_label "HSPI_CS"
+		(shape input)
+		(at 39.37 43.18 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d18b541f-7638-4aeb-a263-cb80207c0b2e")
+	)
+)

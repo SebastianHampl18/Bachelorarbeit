@@ -1,0 +1,6 @@
+LTspice 24.1.2 for Windows
+Circuit: C:\Users\shampl\Documents\E-Kart_Option1\Option1\Draft1.net
+Start Time: Mon Mar 10 15:51:21 2025
+C:\Users\shampl\Documents\E-Kart_Option1\Option1\Draft1.net(2): Undefined model "bzt52c2v4".
+D1 0 LED BZT52C2V4
+         ^^^^^^^^^

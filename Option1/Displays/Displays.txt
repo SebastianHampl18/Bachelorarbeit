@@ -1,0 +1,8 @@
+Arduino Shield 2.8"
+https://www.reichelt.de/de/de/shop/produkt/arduino_shield_-_display_2_8_touch_320_x_240_pixel_ili9341-282497?PROVID=2788&gad_source=1&gad_campaignid=18342381572&gbraid=0AAAAADwnxtZ39c-K1mrhBcpqeEdONh9e0&gclid=Cj0KCQjw5ubABhDIARIsAHMighbNQdgYJ6CkKcjR1aAjo7mhw_2bI8bJpx5yxaBwwdQAqqwPkPsLHMMaAmGUEALw_wcB
+
+waveshare rund
+https://www.berrybase.de/waveshare-1-28-rundes-ips-display-modul-kapazitiv-touch-lcd-240-240-ips-spi-und-i2c-io-pins?utm_source=google&utm_medium=cpc&gad_source=1&gad_campaignid=21582945112&gbraid=0AAAAADSQJK4WkYKHWxORdoKPfMBBJ17Ot&gclid=Cj0KCQjw5ubABhDIARIsAHMighbkcgcfWYYV6Jpnv_wLhoHQ8inUG4moATZat5ay0_I6of8YMaJTe6QaArrNEALw_wcB
+
+waveshare 4.3"
+https://botland.de/lcd-tft-und-ips-displays/15508-kapazitiver-ips-lcd-touchscreen-43-800x480px-i2c-rgb-waveshare-16249-5904422343484.html
