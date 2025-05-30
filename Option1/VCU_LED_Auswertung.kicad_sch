@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "e6ca4133-229b-4743-b131-f66dab5760d7")
 	(paper "A4")
 	(title_block
@@ -119,6 +119,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:0603WAF4702T5E"
 			(exclude_from_sim no)
@@ -225,6 +226,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:BZT52C3V6_C2113"
 			(exclude_from_sim no)
@@ -344,7 +346,32 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
+	)
+	(text "0 - 3.32V"
+		(exclude_from_sim no)
+		(at 117.094 65.024 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+			)
+		)
+		(uuid "405222af-d01e-4fb9-a8ab-3cd1664b24c3")
+	)
+	(text "Zenerdiode hinzufügen\n"
+		(exclude_from_sim no)
+		(at 112.522 50.038 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+			)
+		)
+		(uuid "a912d03e-7968-424a-a982-2220c710d24f")
 	)
 	(junction
 		(at 113.03 66.04)
@@ -424,32 +451,8 @@
 		)
 		(uuid "e90b17dc-fef3-470e-8b34-dc5a5d54fbbd")
 	)
-	(text "0 - 3.32V"
-		(exclude_from_sim no)
-		(at 117.094 65.024 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.254)
-				(bold yes)
-			)
-		)
-		(uuid "405222af-d01e-4fb9-a8ab-3cd1664b24c3")
-	)
-	(text "Zenerdiode hinzufügen\n"
-		(exclude_from_sim no)
-		(at 112.522 50.038 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.254)
-				(bold yes)
-			)
-		)
-		(uuid "a912d03e-7968-424a-a982-2220c710d24f")
-	)
 	(hierarchical_label "LED_Signal"
-		(shape input)
+		(shape output)
 		(at 128.27 66.04 0)
 		(effects
 			(font

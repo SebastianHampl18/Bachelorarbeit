@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "44fc073b-d913-4c10-a279-600993a3f48b")
 	(paper "A4")
 	(title_block
@@ -16,7 +16,9 @@
 	(lib_symbols
 		(symbol "Connector:Conn_01x02_Socket"
 			(pin_names
-				(offset 1.016) hide)
+				(offset 1.016)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -90,10 +92,10 @@
 				)
 			)
 			(symbol "Conn_01x02_Socket_1_1"
-				(arc
-					(start 0 -2.032)
-					(mid -0.5058 -2.54)
-					(end 0 -3.048)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -114,10 +116,10 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -1.27 0) (xy -0.508 0)
-					)
+				(arc
+					(start 0 -0.508)
+					(mid -0.5058 0)
+					(end 0 0.508)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -127,9 +129,9 @@
 					)
 				)
 				(arc
-					(start 0 0.508)
-					(mid -0.5058 0)
-					(end 0 -0.508)
+					(start 0 -3.048)
+					(mid -0.5058 -2.54)
+					(end 0 -2.032)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -175,7 +177,30 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
+	)
+	(text_box "2-Pin Header als Platzhalter für Stecker"
+		(exclude_from_sim no)
+		(at 20.32 39.37 0)
+		(size 21.082 9.398)
+		(margins 1.143 1.143 1.143 1.143)
+		(stroke
+			(width 0.381)
+			(type default)
+			(color 251 0 0 1)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 255 0 0 1)
+			)
+			(justify left top)
+		)
+		(uuid "773eb6b9-0a3d-42dd-ad4a-164ed98ac9b4")
 	)
 	(wire
 		(pts
@@ -196,27 +221,6 @@
 			(type default)
 		)
 		(uuid "a31d3e9a-07c8-4f17-a07d-45da583d944e")
-	)
-	(text_box "2-Pin Header als Platzhalter für Stecker"
-		(exclude_from_sim no)
-		(at 20.32 39.37 0)
-		(size 21.082 9.398)
-		(stroke
-			(width 0.381)
-			(type default)
-			(color 251 0 0 1)
-		)
-		(fill
-			(type none)
-		)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(color 255 0 0 1)
-			)
-			(justify left top)
-		)
-		(uuid "773eb6b9-0a3d-42dd-ad4a-164ed98ac9b4")
 	)
 	(hierarchical_label "CAN_L"
 		(shape input)

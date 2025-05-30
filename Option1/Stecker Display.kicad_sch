@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "bde14263-ef47-4042-a0b3-29aacb8ba21e")
 	(paper "A4")
 	(title_block
@@ -14,9 +14,20 @@
 		(comment 3 "Sebastian Hampl")
 	)
 	(lib_symbols)
+	(hierarchical_label "TP_INT"
+		(shape output)
+		(at 38.1 64.77 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "04a16392-b22f-4642-8b7d-4f58f92b5c47")
+	)
 	(hierarchical_label "LCD_CS"
 		(shape input)
-		(at 38.1 46.99 180)
+		(at 38.1 41.91 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -24,6 +35,17 @@
 			(justify right)
 		)
 		(uuid "16c34c8f-62f7-41fa-9d5b-96c732725616")
+	)
+	(hierarchical_label "LCD_DC"
+		(shape output)
+		(at 38.1 45.72 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "1c0d6cb5-5765-4c47-9819-596529520676")
 	)
 	(hierarchical_label "3V3"
 		(shape input)
@@ -36,20 +58,9 @@
 		)
 		(uuid "2495da28-1792-4459-ab55-225e0680d584")
 	)
-	(hierarchical_label "TP_INT"
-		(shape input)
-		(at 38.1 72.39 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "3209639c-bcca-487c-8295-d3c4254492eb")
-	)
 	(hierarchical_label "SPI_CLK"
 		(shape input)
-		(at 38.1 40.64 180)
+		(at 38.1 38.1 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -58,9 +69,20 @@
 		)
 		(uuid "4038aba3-084a-4e36-96fc-91047726133d")
 	)
+	(hierarchical_label "I2C_SDA"
+		(shape bidirectional)
+		(at 38.1 57.15 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "57b4d5a8-0276-4fd8-a609-7ae5b0c560ee")
+	)
 	(hierarchical_label "LCD_RST"
 		(shape input)
-		(at 38.1 54.61 180)
+		(at 38.1 49.53 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -69,20 +91,9 @@
 		)
 		(uuid "6dddbf88-d964-4509-b5dc-c0cfc00243f2")
 	)
-	(hierarchical_label "SPI_MISO"
-		(shape input)
-		(at 38.1 33.02 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "973b164b-2049-41fd-8ab5-96ab501d4301")
-	)
 	(hierarchical_label "SPI_MOSI"
 		(shape input)
-		(at 38.1 36.83 180)
+		(at 38.1 34.29 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -93,7 +104,7 @@
 	)
 	(hierarchical_label "I2C_SCL"
 		(shape input)
-		(at 38.1 68.58 180)
+		(at 38.1 60.96 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -104,7 +115,7 @@
 	)
 	(hierarchical_label "LCD_BL"
 		(shape input)
-		(at 38.1 58.42 180)
+		(at 38.1 53.34 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -115,7 +126,7 @@
 	)
 	(hierarchical_label "TP_RST"
 		(shape input)
-		(at 38.1 76.2 180)
+		(at 38.1 68.58 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -124,27 +135,16 @@
 		)
 		(uuid "ba020471-ff44-4602-b358-d7bd771772b1")
 	)
-	(hierarchical_label "LCD_DC"
-		(shape input)
-		(at 38.1 50.8 180)
+	(hierarchical_label "SPI_MISO"
+		(shape output)
+		(at 38.1 30.48 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right)
 		)
-		(uuid "eeaa99a6-4baf-458e-8c96-7b724a76ce92")
-	)
-	(hierarchical_label "I2C_SDA"
-		(shape input)
-		(at 38.1 64.77 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "f444da85-266d-40c7-8e8a-5e69e4cd9e95")
+		(uuid "d40e47e8-2748-4863-ab48-090422e034d4")
 	)
 	(hierarchical_label "GND"
 		(shape input)

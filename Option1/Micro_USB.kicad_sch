@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "dcc573f2-5976-4522-833b-8c8626474eaf")
 	(paper "A4")
 	(title_block
@@ -15,9 +15,13 @@
 	)
 	(lib_symbols
 		(symbol "Diode:1N5819WS"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 1.016) hide)
+				(offset 1.016)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -85,10 +89,10 @@
 			(symbol "1N5819WS_0_1"
 				(polyline
 					(pts
-						(xy 1.27 0) (xy -1.27 0)
+						(xy -1.905 0.635) (xy -1.905 1.27) (xy -1.27 1.27) (xy -1.27 -1.27) (xy -0.635 -1.27) (xy -0.635 -0.635)
 					)
 					(stroke
-						(width 0)
+						(width 0.254)
 						(type default)
 					)
 					(fill
@@ -109,10 +113,10 @@
 				)
 				(polyline
 					(pts
-						(xy -1.905 0.635) (xy -1.905 1.27) (xy -1.27 1.27) (xy -1.27 -1.27) (xy -0.635 -1.27) (xy -0.635 -0.635)
+						(xy 1.27 0) (xy -1.27 0)
 					)
 					(stroke
-						(width 0.254)
+						(width 0)
 						(type default)
 					)
 					(fill
@@ -158,6 +162,251 @@
 					)
 				)
 			)
+			(embedded_fonts no)
+		)
+		(symbol "Simulation_SPICE:NPN"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "Q"
+				(at -2.54 7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "NPN"
+				(at -2.54 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 63.5 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#cha_BJTs"
+				(at 63.5 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Bipolar transistor symbol for simulation only, substrate tied to the emitter"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Sim.Device" "NPN"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Sim.Type" "GUMMELPOON"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Sim.Pins" "1=C 2=B 3=E"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "simulation"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "NPN_0_1"
+				(polyline
+					(pts
+						(xy -2.54 0) (xy 0.635 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.635 1.905) (xy 0.635 -1.905) (xy 0.635 -1.905)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.635 0.635) (xy 2.54 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.635 -0.635) (xy 2.54 -2.54) (xy 2.54 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 1.27 0)
+					(radius 2.8194)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -1.778) (xy 1.778 -1.27) (xy 2.286 -2.286) (xy 1.27 -1.778) (xy 1.27 -1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.794 -1.27) (xy 2.794 -1.27)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.794 -1.27) (xy 2.794 -1.27)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "NPN_1_1"
+				(pin input line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin open_collector line
+					(at 2.54 5.08 270)
+					(length 2.54)
+					(name "C"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin open_emitter line
+					(at 2.54 -5.08 90)
+					(length 2.54)
+					(name "E"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
 		)
 		(symbol "dk_Diodes-Rectifiers-Single:SS14"
 			(pin_names
@@ -313,7 +562,7 @@
 			(symbol "SS14_0_1"
 				(polyline
 					(pts
-						(xy 0 0) (xy 2.54 0)
+						(xy 0 1.27) (xy 0 -1.27)
 					)
 					(stroke
 						(width 0)
@@ -325,7 +574,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 1.27) (xy 0 -1.27)
+						(xy 0 0) (xy 2.54 0)
 					)
 					(stroke
 						(width 0)
@@ -350,24 +599,6 @@
 			)
 			(symbol "SS14_1_1"
 				(pin passive line
-					(at 5.08 0 180)
-					(length 2.54)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
 					(at -2.54 0 0)
 					(length 2.54)
 					(name "~"
@@ -385,7 +616,26 @@
 						)
 					)
 				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "dk_USB-DVI-HDMI-Connectors:10118194-0001LF"
 			(pin_names
@@ -541,33 +791,8 @@
 			(symbol "10118194-0001LF_0_1"
 				(polyline
 					(pts
-						(xy 3.7846 12.2428) (xy 3.7846 -12.5476)
-					)
-					(stroke
-						(width 0)
-						(type solid)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.4826 -4.2926) (xy 0.4826 -3.2766) (xy 1.8796 -3.2766) (xy 1.8796 -4.2926) (xy 0.4826 -4.2926)
-						(xy 1.1176 -3.7846) (xy 0.4826 -3.2766) (xy 1.8796 -3.2766) (xy 1.8796 -3.7846) (xy 1.1176 -3.7846)
-					)
-					(stroke
-						(width 0)
-						(type solid)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.4826 -1.7526) (xy 0.4826 -0.7366) (xy 1.8796 -0.7366) (xy 1.8796 -1.7526) (xy 0.4826 -1.7526)
-						(xy 1.1176 -1.2446) (xy 0.4826 -0.7366) (xy 1.8796 -0.7366) (xy 1.8796 -1.2446) (xy 1.1176 -1.2446)
+						(xy 0.4826 4.2926) (xy 0.4826 3.2766) (xy 1.8796 3.2766) (xy 1.8796 4.2926) (xy 0.4826 4.2926)
+						(xy 1.1176 3.7846) (xy 0.4826 3.2766) (xy 1.8796 3.2766) (xy 1.8796 3.7846) (xy 1.1176 3.7846)
 					)
 					(stroke
 						(width 0)
@@ -592,8 +817,101 @@
 				)
 				(polyline
 					(pts
-						(xy 0.4826 4.2926) (xy 0.4826 3.2766) (xy 1.8796 3.2766) (xy 1.8796 4.2926) (xy 0.4826 4.2926)
-						(xy 1.1176 3.7846) (xy 0.4826 3.2766) (xy 1.8796 3.2766) (xy 1.8796 3.7846) (xy 1.1176 3.7846)
+						(xy 0.4826 -1.7526) (xy 0.4826 -0.7366) (xy 1.8796 -0.7366) (xy 1.8796 -1.7526) (xy 0.4826 -1.7526)
+						(xy 1.1176 -1.2446) (xy 0.4826 -0.7366) (xy 1.8796 -0.7366) (xy 1.8796 -1.2446) (xy 1.1176 -1.2446)
+					)
+					(stroke
+						(width 0)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.4826 -4.2926) (xy 0.4826 -3.2766) (xy 1.8796 -3.2766) (xy 1.8796 -4.2926) (xy 0.4826 -4.2926)
+						(xy 1.1176 -3.7846) (xy 0.4826 -3.2766) (xy 1.8796 -3.2766) (xy 1.8796 -3.7846) (xy 1.1176 -3.7846)
+					)
+					(stroke
+						(width 0)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 0.889 4.318)
+					(end 1.905 5.842)
+					(stroke
+						(width 0)
+						(type solid)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.889 3.302)
+					(end 1.905 1.778)
+					(stroke
+						(width 0)
+						(type solid)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.889 0.635)
+					(end 1.905 -0.381)
+					(stroke
+						(width 0)
+						(type solid)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.889 -0.635)
+					(end 1.905 0.381)
+					(stroke
+						(width 0)
+						(type solid)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.889 -3.302)
+					(end 1.905 -1.778)
+					(stroke
+						(width 0)
+						(type solid)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.889 -4.318)
+					(end 1.905 -5.842)
+					(stroke
+						(width 0)
+						(type solid)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.905 0.0254) (xy 1.905 -5.842) (xy 0.635 -5.842) (xy 0.635 -6.1468) (xy 0.8128 -6.4262) (xy 1.1938 -6.5786)
+						(xy 1.651 -6.6294) (xy 2.2606 -6.5532) (xy 2.7178 -6.3246) (xy 2.9464 -6.0706) (xy 3.0226 -5.6388)
+						(xy 3.0226 -4.8006) (xy 3.0226 0.127)
 					)
 					(stroke
 						(width 0)
@@ -619,27 +937,7 @@
 				)
 				(polyline
 					(pts
-						(xy 1.905 0.0254) (xy 1.905 -5.842) (xy 0.635 -5.842) (xy 0.635 -6.1468) (xy 0.8128 -6.4262) (xy 1.1938 -6.5786)
-						(xy 1.651 -6.6294) (xy 2.2606 -6.5532) (xy 2.7178 -6.3246) (xy 2.9464 -6.0706) (xy 3.0226 -5.6388)
-						(xy 3.0226 -4.8006) (xy 3.0226 0.127)
-					)
-					(stroke
-						(width 0)
-						(type solid)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 4.8514 -12.5476) (xy 3.8354 -12.5476) (xy 3.7846 -12.5476) (xy 3.7846 -12.9032) (xy 3.6068 -13.2334)
-						(xy 3.429 -13.3604) (xy 3.2258 -13.4366) (xy 0.4572 -13.4366) (xy 0.0508 -13.4112) (xy -0.3302 -13.3096)
-						(xy -0.6604 -13.1318) (xy -0.9906 -12.9032) (xy -3.1496 -10.8458) (xy -3.4036 -10.3886) (xy -3.5306 -9.779)
-						(xy -3.556 -8.636) (xy -3.556 9.2202) (xy -3.5306 9.4234) (xy -3.4544 9.8298) (xy -3.302 10.1854)
-						(xy -3.0226 10.6172) (xy -1.7526 11.8364) (xy -0.8636 12.5984) (xy -0.3302 12.8778) (xy 0.0762 13.0048)
-						(xy 0.6096 13.081) (xy 3.0734 13.081) (xy 3.3274 13.0048) (xy 3.5814 12.8524) (xy 3.7846 12.5222)
-						(xy 3.7846 12.2174) (xy 4.8514 12.2174)
+						(xy 3.7846 12.2428) (xy 3.7846 -12.5476)
 					)
 					(stroke
 						(width 0)
@@ -667,74 +965,44 @@
 						(type background)
 					)
 				)
-				(rectangle
-					(start 0.889 -4.318)
-					(end 1.905 -5.842)
+				(polyline
+					(pts
+						(xy 4.8514 -12.5476) (xy 3.8354 -12.5476) (xy 3.7846 -12.5476) (xy 3.7846 -12.9032) (xy 3.6068 -13.2334)
+						(xy 3.429 -13.3604) (xy 3.2258 -13.4366) (xy 0.4572 -13.4366) (xy 0.0508 -13.4112) (xy -0.3302 -13.3096)
+						(xy -0.6604 -13.1318) (xy -0.9906 -12.9032) (xy -3.1496 -10.8458) (xy -3.4036 -10.3886) (xy -3.5306 -9.779)
+						(xy -3.556 -8.636) (xy -3.556 9.2202) (xy -3.5306 9.4234) (xy -3.4544 9.8298) (xy -3.302 10.1854)
+						(xy -3.0226 10.6172) (xy -1.7526 11.8364) (xy -0.8636 12.5984) (xy -0.3302 12.8778) (xy 0.0762 13.0048)
+						(xy 0.6096 13.081) (xy 3.0734 13.081) (xy 3.3274 13.0048) (xy 3.5814 12.8524) (xy 3.7846 12.5222)
+						(xy 3.7846 12.2174) (xy 4.8514 12.2174)
+					)
 					(stroke
 						(width 0)
 						(type solid)
 					)
 					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0.889 -3.302)
-					(end 1.905 -1.778)
-					(stroke
-						(width 0)
-						(type solid)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0.889 -0.635)
-					(end 1.905 0.381)
-					(stroke
-						(width 0)
-						(type solid)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0.889 0.635)
-					(end 1.905 -0.381)
-					(stroke
-						(width 0)
-						(type solid)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0.889 3.302)
-					(end 1.905 1.778)
-					(stroke
-						(width 0)
-						(type solid)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0.889 4.318)
-					(end 1.905 5.842)
-					(stroke
-						(width 0)
-						(type solid)
-					)
-					(fill
-						(type outline)
+						(type none)
 					)
 				)
 			)
 			(symbol "10118194-0001LF_1_1"
+				(pin passive line
+					(at -2.54 -15.24 90)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "SH"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 				(pin passive line
 					(at 7.62 5.08 180)
 					(length 2.794)
@@ -825,27 +1093,10 @@
 						)
 					)
 				)
-				(pin passive line
-					(at -2.54 -15.24 90)
-					(length 2.032)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "SH"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 			)
+			(embedded_fonts no)
 		)
-		(symbol "easyeda2kicad:0603WAF1001T5E"
+		(symbol "easyeda2kicad:0603WAF1202T5E"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -857,7 +1108,7 @@
 					)
 				)
 			)
-			(property "Value" "0603WAF1001T5E"
+			(property "Value" "0603WAF1202T5E"
 				(at 0 -5.08 0)
 				(effects
 					(font
@@ -874,7 +1125,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_1KR-1001-1_C21190.html"
+			(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_12KR-1202-1_C22790.html"
 				(at 0 -10.16 0)
 				(effects
 					(font
@@ -892,7 +1143,7 @@
 					(hide yes)
 				)
 			)
-			(property "LCSC Part" "C21190"
+			(property "LCSC Part" "C22790"
 				(at 0 -12.7 0)
 				(effects
 					(font
@@ -901,7 +1152,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "0603WAF1001T5E_0_1"
+			(symbol "0603WAF1202T5E_0_1"
 				(rectangle
 					(start -2.54 1.02)
 					(end 2.54 -1.02)
@@ -950,6 +1201,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:0603WAF4990T5E"
 			(exclude_from_sim no)
@@ -1056,6 +1308,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:CH340X"
 			(exclude_from_sim no)
@@ -1155,24 +1408,6 @@
 					)
 				)
 				(pin unspecified line
-					(at 15.24 5.08 180)
-					(length 2.54)
-					(name "V3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
 					(at -15.24 2.54 0)
 					(length 2.54)
 					(name "UD-"
@@ -1245,16 +1480,16 @@
 					)
 				)
 				(pin unspecified line
-					(at 15.24 -5.08 180)
+					(at 15.24 5.08 180)
 					(length 2.54)
-					(name "TNOW/~{DTR}"
+					(name "V3"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "6"
+					(number "10"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1263,16 +1498,16 @@
 					)
 				)
 				(pin unspecified line
-					(at 15.24 -2.54 180)
+					(at 15.24 2.54 180)
 					(length 2.54)
-					(name "VCC"
+					(name "RXD"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "7"
+					(number "9"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1299,16 +1534,34 @@
 					)
 				)
 				(pin unspecified line
-					(at 15.24 2.54 180)
+					(at 15.24 -2.54 180)
 					(length 2.54)
-					(name "RXD"
+					(name "VCC"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "9"
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 15.24 -5.08 180)
+					(length 2.54)
+					(name "TNOW/~{DTR}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1317,6 +1570,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:CL10B104KA8NNNC"
 			(exclude_from_sim no)
@@ -1401,7 +1655,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0.51 0) (xy 1.27 0)
+						(xy 0.51 2.03) (xy 0.51 -2.03)
 					)
 					(stroke
 						(width 0)
@@ -1413,7 +1667,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0.51 2.03) (xy 0.51 -2.03)
+						(xy 0.51 0) (xy 1.27 0)
 					)
 					(stroke
 						(width 0)
@@ -1460,13 +1714,32 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 	)
-	(junction
-		(at 87.63 60.96)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "02e8a6d0-8613-485f-86fd-9ce6977b34a5")
+	(text_box "Transistor tauschen / kontrollieren"
+		(exclude_from_sim no)
+		(at 133.35 93.98 0)
+		(size 29.21 17.78)
+		(margins 1.524 1.524 1.524 1.524)
+		(stroke
+			(width 0)
+			(type default)
+			(color 247 0 0 1)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 2.032 2.032)
+				(thickness 0.4064)
+				(bold yes)
+				(color 247 0 0 1)
+			)
+			(justify left top)
+		)
+		(uuid "20000c44-8ef0-4853-8094-b2ec83ed4133")
 	)
 	(junction
 		(at 53.34 55.88)
@@ -1475,16 +1748,10 @@
 		(uuid "3c33af2e-7147-4f96-bd05-60f83c7d7f1c")
 	)
 	(junction
-		(at 76.2 58.42)
+		(at 114.3 86.36)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "4c379211-4fbd-47b6-8462-3cb64b6acc2e")
-	)
-	(junction
-		(at 76.2 71.12)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "928ef4d6-a063-432b-a145-5567ae447aea")
+		(uuid "887b78db-f32a-4ced-a8df-6e2bc9ed3ee0")
 	)
 	(junction
 		(at 53.34 71.12)
@@ -1499,10 +1766,10 @@
 		(uuid "b36a1c4a-5c56-4176-865b-7dab1dd7a6bc")
 	)
 	(junction
-		(at 87.63 71.12)
+		(at 120.65 68.58)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "b7debafb-a58a-4594-86a9-c216ddb1f58c")
+		(uuid "ced077bd-ac5e-43de-ab7b-3bfa894de536")
 	)
 	(junction
 		(at 72.39 36.83)
@@ -1516,10 +1783,6 @@
 		(color 0 0 0 0)
 		(uuid "fd0e0f1a-6eb9-4b02-b326-35c537799b2c")
 	)
-	(no_connect
-		(at 123.19 60.96)
-		(uuid "1dfcf521-3692-498f-82e7-c108f22a0cbe")
-	)
 	(wire
 		(pts
 			(xy 120.65 50.8) (xy 124.46 50.8)
@@ -1529,16 +1792,6 @@
 			(type default)
 		)
 		(uuid "051ac996-d8fc-476d-ab53-3796ccbbec91")
-	)
-	(wire
-		(pts
-			(xy 76.2 71.12) (xy 87.63 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "07791554-194e-4ad7-bb7f-7cab9cb571b6")
 	)
 	(wire
 		(pts
@@ -1552,13 +1805,13 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 71.12) (xy 92.71 71.12)
+			(xy 81.28 86.36) (xy 114.3 86.36)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "1555e493-e896-47c0-af0f-71b87dbf56be")
+		(uuid "16962c8b-8967-4f2f-bd92-0f506c7d7d5a")
 	)
 	(wire
 		(pts
@@ -1572,16 +1825,6 @@
 	)
 	(wire
 		(pts
-			(xy 67.31 36.83) (xy 72.39 36.83)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1bc89763-8d35-4fac-ad50-5e2915a9706e")
-	)
-	(wire
-		(pts
 			(xy 53.34 55.88) (xy 90.17 55.88)
 		)
 		(stroke
@@ -1592,6 +1835,26 @@
 	)
 	(wire
 		(pts
+			(xy 147.32 63.5) (xy 171.45 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "25f585b0-3407-46aa-9d92-034083fabd2f")
+	)
+	(wire
+		(pts
+			(xy 133.35 86.36) (xy 139.7 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "317eaf2f-183c-4b67-88a8-34ade868e192")
+	)
+	(wire
+		(pts
 			(xy 133.35 36.83) (xy 140.97 36.83)
 		)
 		(stroke
@@ -1599,6 +1862,16 @@
 			(type default)
 		)
 		(uuid "34964f04-e0b2-4bd6-96fc-cd15a942a993")
+	)
+	(wire
+		(pts
+			(xy 114.3 86.36) (xy 123.19 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3727d83c-66df-4e01-af28-1c0fef6f19ea")
 	)
 	(wire
 		(pts
@@ -1632,13 +1905,13 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 60.96) (xy 87.63 60.96)
+			(xy 133.35 68.58) (xy 139.7 68.58)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "45e5791d-bf82-4d9e-9b62-648790999117")
+		(uuid "4775eaac-cc63-491d-906d-25967426a123")
 	)
 	(wire
 		(pts
@@ -1652,13 +1925,13 @@
 	)
 	(wire
 		(pts
-			(xy 76.2 69.85) (xy 76.2 71.12)
+			(xy 81.28 58.42) (xy 90.17 58.42)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "4ab29970-ef25-47af-9824-f7523d056302")
+		(uuid "4aedeb77-d542-4bc7-865b-d77aa7383712")
 	)
 	(wire
 		(pts
@@ -1672,16 +1945,6 @@
 	)
 	(wire
 		(pts
-			(xy 76.2 58.42) (xy 90.17 58.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "51d873e1-6ef5-4b13-974f-9e00e3421a4c")
-	)
-	(wire
-		(pts
 			(xy 149.86 55.88) (xy 171.45 55.88)
 		)
 		(stroke
@@ -1692,13 +1955,13 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 58.42) (xy 76.2 58.42)
+			(xy 114.3 76.2) (xy 114.3 86.36)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "5a497bd2-85ef-4187-b7bd-c76f4d46c885")
+		(uuid "55efa764-6699-43b1-8aab-38f14d4238fa")
 	)
 	(wire
 		(pts
@@ -1732,6 +1995,16 @@
 	)
 	(wire
 		(pts
+			(xy 120.65 81.28) (xy 147.32 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7a7337f7-dc51-4d0b-bd54-984b31cd143b")
+	)
+	(wire
+		(pts
 			(xy 72.39 36.83) (xy 72.39 45.72)
 		)
 		(stroke
@@ -1739,6 +2012,16 @@
 			(type default)
 		)
 		(uuid "7d97a2b6-53c0-41fc-b825-e73a8d1bba2b")
+	)
+	(wire
+		(pts
+			(xy 147.32 76.2) (xy 114.3 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "858afb6e-9503-447e-b5ed-ef0fa17c341a")
 	)
 	(wire
 		(pts
@@ -1802,6 +2085,16 @@
 	)
 	(wire
 		(pts
+			(xy 81.28 86.36) (xy 81.28 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ae330ca6-8ca3-47e9-ba50-e6a0626ae82f")
+	)
+	(wire
+		(pts
 			(xy 133.35 50.8) (xy 132.08 50.8)
 		)
 		(stroke
@@ -1809,16 +2102,6 @@
 			(type default)
 		)
 		(uuid "b03f8eb5-aad7-4b1c-904c-9927ec74a391")
-	)
-	(wire
-		(pts
-			(xy 87.63 60.96) (xy 90.17 60.96)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ba9d2b27-cea3-42f1-b2b4-53f3ebcb2c49")
 	)
 	(wire
 		(pts
@@ -1832,16 +2115,6 @@
 	)
 	(wire
 		(pts
-			(xy 76.2 59.69) (xy 76.2 58.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c2dec24f-3ebc-4524-9e7e-0bb21d85c17e")
-	)
-	(wire
-		(pts
 			(xy 120.65 55.88) (xy 142.24 55.88)
 		)
 		(stroke
@@ -1849,6 +2122,26 @@
 			(type default)
 		)
 		(uuid "c762f1c5-acf6-4bc3-be30-25f254f77ab4")
+	)
+	(wire
+		(pts
+			(xy 147.32 73.66) (xy 147.32 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d0aaf38a-72d0-4da2-9177-ec2a51df5895")
+	)
+	(wire
+		(pts
+			(xy 147.32 91.44) (xy 172.72 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d9db010f-0a42-42a6-8ac1-58b62539e634")
 	)
 	(wire
 		(pts
@@ -1862,13 +2155,23 @@
 	)
 	(wire
 		(pts
-			(xy 120.65 60.96) (xy 123.19 60.96)
+			(xy 120.65 68.58) (xy 120.65 81.28)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "e41c5f76-a0e0-4939-a32e-00230f401219")
+		(uuid "dca846d1-65ac-43d7-bf6c-c7d700250023")
+	)
+	(wire
+		(pts
+			(xy 120.65 60.96) (xy 120.65 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e7e1a1e9-17cf-4afe-bcd0-d9d5aa3b2ff6")
 	)
 	(wire
 		(pts
@@ -1892,13 +2195,33 @@
 	)
 	(wire
 		(pts
-			(xy 53.34 71.12) (xy 76.2 71.12)
+			(xy 120.65 68.58) (xy 123.19 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f856897c-680e-42ce-9459-14d2281a150c")
+	)
+	(wire
+		(pts
+			(xy 53.34 71.12) (xy 60.96 71.12)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "f896c546-d4dd-40bb-913a-370cb79bd775")
+	)
+	(wire
+		(pts
+			(xy 67.31 36.83) (xy 72.39 36.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fc5d15ec-6b79-4059-999f-3cb75a17ea43")
 	)
 	(label "GND"
 		(at 67.31 55.88 0)
@@ -1950,6 +2273,28 @@
 		)
 		(uuid "b4db89c7-15bc-4be4-b922-00aa8d7df5b7")
 	)
+	(hierarchical_label "ESP_EN"
+		(shape output)
+		(at 171.45 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "23fd4fa3-7c28-46ee-a8f2-e91e451557b5")
+	)
+	(hierarchical_label "ESP_Boot"
+		(shape output)
+		(at 172.72 91.44 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "4f4af92f-92a5-4ba2-9741-60a9613449d2")
+	)
 	(hierarchical_label "5V"
 		(shape input)
 		(at 55.88 36.83 180)
@@ -1961,7 +2306,7 @@
 		)
 		(uuid "621cbeea-969a-42d7-8127-012ac894b317")
 	)
-	(hierarchical_label "U0TXD"
+	(hierarchical_label "U0RXD"
 		(shape input)
 		(at 171.45 53.34 0)
 		(effects
@@ -1972,8 +2317,8 @@
 		)
 		(uuid "7c17ad62-aa43-4a5b-972c-f565680bfb21")
 	)
-	(hierarchical_label "U0RXD"
-		(shape input)
+	(hierarchical_label "U0TXD"
+		(shape output)
 		(at 171.45 55.88 0)
 		(effects
 			(font
@@ -1983,31 +2328,9 @@
 		)
 		(uuid "7fd5ba82-e2ef-4476-924f-3580f272349e")
 	)
-	(hierarchical_label "ESP_CTS"
-		(shape output)
-		(at 73.66 58.42 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "9805dcf8-70f3-49ce-b515-9d4ad7670cae")
-	)
-	(hierarchical_label "ESP_RTS"
-		(shape input)
-		(at 73.66 60.96 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "a0196fc0-3349-48e1-981f-b411c07d1c6d")
-	)
 	(hierarchical_label "GND"
 		(shape input)
-		(at 92.71 71.12 0)
+		(at 60.96 71.12 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2285,7 +2608,7 @@
 	)
 	(symbol
 		(lib_id "dk_Diodes-Rectifiers-Single:SS14")
-		(at 64.77 36.83 180)
+		(at 62.23 36.83 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2310,7 +2633,7 @@
 			)
 		)
 		(property "Footprint" "digikey-footprints:DO-214AC"
-			(at 59.69 41.91 0)
+			(at 67.31 31.75 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -2320,7 +2643,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/SS19-D.PDF"
-			(at 59.69 44.45 0)
+			(at 67.31 29.21 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -2330,7 +2653,7 @@
 			)
 		)
 		(property "Description" "DIODE SCHOTTKY 40V 1A SMA"
-			(at 64.77 36.83 0)
+			(at 62.23 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2339,7 +2662,7 @@
 			)
 		)
 		(property "Digi-Key_PN" "SS14CT-ND"
-			(at 59.69 46.99 0)
+			(at 67.31 26.67 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -2349,7 +2672,7 @@
 			)
 		)
 		(property "MPN" "SS14"
-			(at 59.69 49.53 0)
+			(at 67.31 24.13 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -2359,7 +2682,7 @@
 			)
 		)
 		(property "Category" "Discrete Semiconductor Products"
-			(at 59.69 52.07 0)
+			(at 67.31 21.59 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -2369,7 +2692,7 @@
 			)
 		)
 		(property "Family" "Diodes - Rectifiers - Single"
-			(at 59.69 54.61 0)
+			(at 67.31 19.05 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -2379,7 +2702,7 @@
 			)
 		)
 		(property "DK_Datasheet_Link" "https://www.onsemi.com/pub/Collateral/SS19-D.PDF"
-			(at 59.69 57.15 0)
+			(at 67.31 16.51 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -2389,7 +2712,7 @@
 			)
 		)
 		(property "DK_Detail_Page" "/product-detail/en/on-semiconductor/SS14/SS14CT-ND/965729"
-			(at 59.69 59.69 0)
+			(at 67.31 13.97 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -2399,7 +2722,7 @@
 			)
 		)
 		(property "Description_1" "DIODE SCHOTTKY 40V 1A SMA"
-			(at 59.69 62.23 0)
+			(at 67.31 11.43 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -2409,7 +2732,7 @@
 			)
 		)
 		(property "Manufacturer" "ON Semiconductor"
-			(at 59.69 64.77 0)
+			(at 67.31 8.89 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -2419,7 +2742,7 @@
 			)
 		)
 		(property "Status" "Active"
-			(at 59.69 67.31 0)
+			(at 67.31 6.35 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -2616,8 +2939,108 @@
 		)
 	)
 	(symbol
+		(lib_id "Simulation_SPICE:NPN")
+		(at 144.78 68.58 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4e7f3fe0-875c-4047-a543-d1beb48eb608")
+		(property "Reference" "Q3"
+			(at 149.86 69.8501 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "NPN"
+			(at 149.86 67.3101 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 208.28 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#cha_BJTs"
+			(at 208.28 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Bipolar transistor symbol for simulation only, substrate tied to the emitter"
+			(at 144.78 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "NPN"
+			(at 144.78 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Type" "GUMMELPOON"
+			(at 144.78 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=C 2=B 3=E"
+			(at 144.78 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "df00e2dc-599e-435f-b145-77c4fee1d58f")
+		)
+		(pin "1"
+			(uuid "80e5b833-26dc-44b1-ab28-2dd81aa18c47")
+		)
+		(pin "3"
+			(uuid "c0294215-367f-4ca5-adcd-8f8439d0f859")
+		)
+		(instances
+			(project ""
+				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
+					(reference "Q3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Diode:1N5819WS")
-		(at 146.05 55.88 0)
+		(at 146.05 55.88 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2625,7 +3048,7 @@
 		(dnp no)
 		(uuid "629b49b9-3594-4d35-b141-1e1088bb68cf")
 		(property "Reference" "D1403"
-			(at 146.304 58.928 0)
+			(at 146.05 61.468 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2633,7 +3056,7 @@
 			)
 		)
 		(property "Value" "1N5819WS"
-			(at 146.304 61.468 0)
+			(at 145.796 59.182 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2641,7 +3064,7 @@
 			)
 		)
 		(property "Footprint" "Diode_SMD:D_SOD-323"
-			(at 146.05 60.325 0)
+			(at 146.05 51.435 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2761,44 +3184,36 @@
 		)
 	)
 	(symbol
-		(lib_id "easyeda2kicad:0603WAF1001T5E")
-		(at 87.63 66.04 90)
+		(lib_id "Simulation_SPICE:NPN")
+		(at 144.78 86.36 0)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "d9621534-88ca-4fe0-a968-ddd763580e29")
-		(property "Reference" "R1402"
-			(at 90.17 64.7699 90)
+		(uuid "6a30c615-b456-4aba-b825-222e0d3f77c1")
+		(property "Reference" "Q4"
+			(at 149.86 85.0899 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
-		(property "Value" "1k"
-			(at 90.17 67.3099 90)
+		(property "Value" "NPN"
+			(at 149.86 87.6299 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
-		(property "Footprint" "easyeda2kicad:R0603"
-			(at 95.25 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_1KR-1001-1_C21190.html"
-			(at 97.79 66.04 0)
+		(property "Footprint" ""
+			(at 208.28 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2806,8 +3221,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 87.63 66.04 0)
+		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#cha_BJTs"
+			(at 208.28 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2815,8 +3230,35 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part" "C21190"
-			(at 100.33 66.04 0)
+		(property "Description" "Bipolar transistor symbol for simulation only, substrate tied to the emitter"
+			(at 144.78 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "NPN"
+			(at 144.78 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Type" "GUMMELPOON"
+			(at 144.78 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=C 2=B 3=E"
+			(at 144.78 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2825,15 +3267,174 @@
 			)
 		)
 		(pin "2"
-			(uuid "e28b44b9-3eb5-43d9-bd3e-6bf69c2c001b")
+			(uuid "6577e5eb-04ff-4368-9fae-fd4e7cf36369")
+		)
+		(pin "3"
+			(uuid "e96fae68-d445-446c-a41e-0ba583668128")
 		)
 		(pin "1"
-			(uuid "5d0aef4d-e89e-4183-8bce-28ea738398e2")
+			(uuid "b2f9f0ba-3b66-4659-a8db-1e98c159caa3")
+		)
+		(instances
+			(project ""
+				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
+					(reference "Q4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "easyeda2kicad:0603WAF1202T5E")
+		(at 128.27 68.58 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "9615453a-3fa2-4397-a6da-05993c711323")
+		(property "Reference" "R3"
+			(at 128.27 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "12k"
+			(at 128.27 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "easyeda2kicad:R0603"
+			(at 128.27 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_12KR-1202-1_C22790.html"
+			(at 128.27 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 128.27 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C22790"
+			(at 128.27 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "36f05b17-da2b-46b0-9c75-f3c81982cd2a")
+		)
+		(pin "1"
+			(uuid "200a7689-abc6-4599-af44-861472eda8a4")
 		)
 		(instances
 			(project "Option1"
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
-					(reference "R1402")
+					(reference "R3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "easyeda2kicad:0603WAF1202T5E")
+		(at 128.27 86.36 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d87442bb-ff9a-4ec9-a5dd-f7b1fcdfb4bc")
+		(property "Reference" "R2"
+			(at 128.27 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "12k"
+			(at 128.27 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "easyeda2kicad:R0603"
+			(at 128.27 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_12KR-1202-1_C22790.html"
+			(at 128.27 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 128.27 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C22790"
+			(at 128.27 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "33d3d472-44e0-4b61-a9ab-536eb41015d6")
+		)
+		(pin "1"
+			(uuid "e59f654a-b030-49f2-9438-9be2f0df5ceb")
+		)
+		(instances
+			(project "Option1"
+				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
+					(reference "R2")
 					(unit 1)
 				)
 			)
@@ -2841,7 +3442,7 @@
 	)
 	(symbol
 		(lib_id "Diode:1N5819WS")
-		(at 149.86 53.34 180)
+		(at 149.86 53.34 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2850,7 +3451,7 @@
 		(fields_autoplaced yes)
 		(uuid "e83dc791-1da2-4ff4-9315-83726a59a86e")
 		(property "Reference" "D1402"
-			(at 150.1775 46.99 0)
+			(at 149.5425 46.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2858,7 +3459,7 @@
 			)
 		)
 		(property "Value" "1N5819WS"
-			(at 150.1775 49.53 0)
+			(at 149.5425 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2866,7 +3467,7 @@
 			)
 		)
 		(property "Footprint" "Diode_SMD:D_SOD-323"
-			(at 149.86 48.895 0)
+			(at 149.86 57.785 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2902,85 +3503,6 @@
 			(project "Option1"
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
 					(reference "D1402")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "easyeda2kicad:0603WAF1001T5E")
-		(at 76.2 64.77 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "ed0a023d-7d84-4418-954f-590679805829")
-		(property "Reference" "R1401"
-			(at 78.74 63.4999 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "1k"
-			(at 78.74 66.0399 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "easyeda2kicad:R0603"
-			(at 83.82 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_1KR-1001-1_C21190.html"
-			(at 86.36 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 76.2 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC Part" "C21190"
-			(at 88.9 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "71eaa2be-2cc5-4a3d-b2f1-d0b808f9b365")
-		)
-		(pin "1"
-			(uuid "769a1b4f-ab72-4e5f-b096-fe17c4e9a377")
-		)
-		(instances
-			(project ""
-				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
-					(reference "R1401")
 					(unit 1)
 				)
 			)

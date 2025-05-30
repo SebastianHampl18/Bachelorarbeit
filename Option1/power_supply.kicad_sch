@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "5170b83a-e1b1-42ef-b4b0-6262e5e1d792")
 	(paper "A4")
 	(title_block
@@ -154,6 +154,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:0603WAF2201T5E"
 			(exclude_from_sim no)
@@ -260,6 +261,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:0603WAF2203T5E"
 			(exclude_from_sim no)
@@ -366,6 +368,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:0603WAF2700T5E"
 			(exclude_from_sim no)
@@ -472,6 +475,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:0603WAF4992T5E"
 			(exclude_from_sim no)
@@ -578,6 +582,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:0603WAF6800T5E"
 			(exclude_from_sim no)
@@ -684,6 +689,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:CL10A226MQ8NRNC"
 			(exclude_from_sim no)
@@ -744,7 +750,7 @@
 			(symbol "CL10A226MQ8NRNC_0_1"
 				(polyline
 					(pts
-						(xy -0.51 -2.03) (xy -0.51 2.03)
+						(xy -0.51 0) (xy -2.54 0)
 					)
 					(stroke
 						(width 0)
@@ -756,7 +762,7 @@
 				)
 				(polyline
 					(pts
-						(xy -0.51 0) (xy -2.54 0)
+						(xy -0.51 -2.03) (xy -0.51 2.03)
 					)
 					(stroke
 						(width 0)
@@ -827,6 +833,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:CL10B104KA8NNNC"
 			(exclude_from_sim no)
@@ -911,7 +918,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0.51 0) (xy 1.27 0)
+						(xy 0.51 2.03) (xy 0.51 -2.03)
 					)
 					(stroke
 						(width 0)
@@ -923,7 +930,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0.51 2.03) (xy 0.51 -2.03)
+						(xy 0.51 0) (xy 1.27 0)
 					)
 					(stroke
 						(width 0)
@@ -970,6 +977,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:CL21A106KAYNNNE"
 			(exclude_from_sim no)
@@ -1030,7 +1038,7 @@
 			(symbol "CL21A106KAYNNNE_0_1"
 				(polyline
 					(pts
-						(xy -0.51 -2.03) (xy -0.51 2.03)
+						(xy -0.51 0) (xy -2.54 0)
 					)
 					(stroke
 						(width 0)
@@ -1042,7 +1050,7 @@
 				)
 				(polyline
 					(pts
-						(xy -0.51 0) (xy -2.54 0)
+						(xy -0.51 -2.03) (xy -0.51 2.03)
 					)
 					(stroke
 						(width 0)
@@ -1113,6 +1121,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:CL21A226MAQNNNE"
 			(exclude_from_sim no)
@@ -1173,7 +1182,7 @@
 			(symbol "CL21A226MAQNNNE_0_1"
 				(polyline
 					(pts
-						(xy -0.51 -2.03) (xy -0.51 2.03)
+						(xy -0.51 0) (xy -2.54 0)
 					)
 					(stroke
 						(width 0)
@@ -1185,7 +1194,7 @@
 				)
 				(polyline
 					(pts
-						(xy -0.51 0) (xy -2.54 0)
+						(xy -0.51 -2.03) (xy -0.51 2.03)
 					)
 					(stroke
 						(width 0)
@@ -1256,6 +1265,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:CL21C220JBANNNC"
 			(exclude_from_sim no)
@@ -1340,7 +1350,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0.51 0) (xy 1.27 0)
+						(xy 0.51 2.03) (xy 0.51 -2.03)
 					)
 					(stroke
 						(width 0)
@@ -1352,7 +1362,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0.51 2.03) (xy 0.51 -2.03)
+						(xy 0.51 0) (xy 1.27 0)
 					)
 					(stroke
 						(width 0)
@@ -1399,6 +1409,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:EMK212BBJ106KGHT"
 			(exclude_from_sim no)
@@ -1459,7 +1470,7 @@
 			(symbol "EMK212BBJ106KGHT_0_1"
 				(polyline
 					(pts
-						(xy -0.51 -2.03) (xy -0.51 2.03)
+						(xy -0.51 0) (xy -2.54 0)
 					)
 					(stroke
 						(width 0)
@@ -1471,7 +1482,7 @@
 				)
 				(polyline
 					(pts
-						(xy -0.51 0) (xy -2.54 0)
+						(xy -0.51 -2.03) (xy -0.51 2.03)
 					)
 					(stroke
 						(width 0)
@@ -1542,6 +1553,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:GRM32ER71J106KA12L_C437568"
 			(exclude_from_sim no)
@@ -1602,7 +1614,7 @@
 			(symbol "GRM32ER71J106KA12L_C437568_0_1"
 				(polyline
 					(pts
-						(xy -0.51 -2.03) (xy -0.51 2.03)
+						(xy -0.51 0) (xy -2.54 0)
 					)
 					(stroke
 						(width 0)
@@ -1614,7 +1626,7 @@
 				)
 				(polyline
 					(pts
-						(xy -0.51 0) (xy -2.54 0)
+						(xy -0.51 -2.03) (xy -0.51 2.03)
 					)
 					(stroke
 						(width 0)
@@ -1685,6 +1697,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:JK-MSMD020-60V"
 			(exclude_from_sim no)
@@ -1803,6 +1816,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:JK-NSMD075-13.2"
 			(exclude_from_sim no)
@@ -1921,6 +1935,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:K7805-500R2_C909663"
 			(exclude_from_sim no)
@@ -2056,6 +2071,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:KT-0603R"
 			(exclude_from_sim no)
@@ -2116,6 +2132,30 @@
 			(symbol "KT-0603R_0_1"
 				(polyline
 					(pts
+						(xy -3.81 3.3) (xy -2.79 2.79) (xy -3.3 2.29) (xy -3.81 3.3)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.79 4.32) (xy -1.78 3.81) (xy -2.29 3.3) (xy -2.79 4.32)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
 						(xy -2.03 1.52) (xy -3.81 3.3)
 					)
 					(stroke
@@ -2148,30 +2188,6 @@
 					)
 					(fill
 						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -3.81 3.3) (xy -2.79 2.79) (xy -3.3 2.29) (xy -3.81 3.3)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.79 4.32) (xy -1.78 3.81) (xy -2.29 3.3) (xy -2.79 4.32)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
 					)
 				)
 				(polyline
@@ -2223,6 +2239,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:NR3015T2R2M"
 			(exclude_from_sim no)
@@ -2282,9 +2299,9 @@
 			)
 			(symbol "NR3015T2R2M_0_1"
 				(arc
-					(start -2.27 -0.02)
+					(start -4.29 -0.02)
 					(mid -3.28 0.897)
-					(end -4.29 -0.02)
+					(end -2.27 -0.02)
 					(stroke
 						(width 0)
 						(type default)
@@ -2294,9 +2311,9 @@
 					)
 				)
 				(arc
-					(start -0.11 -0.02)
+					(start -2.13 -0.02)
 					(mid -1.12 0.897)
-					(end -2.13 -0.02)
+					(end -0.11 -0.02)
 					(stroke
 						(width 0)
 						(type default)
@@ -2306,9 +2323,9 @@
 					)
 				)
 				(arc
-					(start 2.04 -0.02)
+					(start 0.02 -0.02)
 					(mid 1.03 0.897)
-					(end 0.02 -0.02)
+					(end 2.04 -0.02)
 					(stroke
 						(width 0)
 						(type default)
@@ -2318,9 +2335,9 @@
 					)
 				)
 				(arc
-					(start 4.23 -0.02)
+					(start 2.21 -0.02)
 					(mid 3.22 0.9048)
-					(end 2.21 -0.02)
+					(end 4.23 -0.02)
 					(stroke
 						(width 0)
 						(type default)
@@ -2366,6 +2383,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:SS310_C14281"
 			(exclude_from_sim no)
@@ -2426,18 +2444,6 @@
 			(symbol "SS310_C14281_0_1"
 				(polyline
 					(pts
-						(xy 1.27 1.52) (xy -1.27 0) (xy 1.27 -1.78) (xy 1.27 1.52)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(polyline
-					(pts
 						(xy -2.03 1.52) (xy -2.03 1.78) (xy -1.52 1.78) (xy -1.52 -2.03) (xy -1.02 -2.03) (xy -1.02 -1.78)
 					)
 					(stroke
@@ -2448,22 +2454,16 @@
 						(type none)
 					)
 				)
-				(pin unspecified line
-					(at 5.08 0 180)
-					(length 3.81)
-					(name "A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
+				(polyline
+					(pts
+						(xy 1.27 1.52) (xy -1.27 0) (xy 1.27 -1.78) (xy 1.27 1.52)
 					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
 					)
 				)
 				(pin unspecified line
@@ -2484,7 +2484,26 @@
 						)
 					)
 				)
+				(pin unspecified line
+					(at 5.08 0 180)
+					(length 3.81)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:SY8089AAAC"
 			(exclude_from_sim no)
@@ -2631,24 +2650,6 @@
 					)
 				)
 				(pin unspecified line
-					(at 10.16 -2.54 180)
-					(length 2.54)
-					(name "IN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
 					(at 10.16 2.54 180)
 					(length 2.54)
 					(name "FB"
@@ -2666,8 +2667,166 @@
 						)
 					)
 				)
+				(pin unspecified line
+					(at 10.16 -2.54 180)
+					(length 2.54)
+					(name "IN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(text "Spannungserzeugung 3.3V"
+		(exclude_from_sim no)
+		(at 160.782 16.764 0)
+		(effects
+			(font
+				(size 1.524 1.524)
 			)
 		)
+		(uuid "11e76129-7c81-45eb-8616-8cc2e250ccad")
+	)
+	(text "I_out = 2A"
+		(exclude_from_sim no)
+		(at 262.636 60.198 0)
+		(effects
+			(font
+				(size 1.778 1.778)
+			)
+		)
+		(uuid "1bfdc9c4-feb8-4428-96cd-553d438b0d23")
+	)
+	(text "Spannungserzeugung 5V "
+		(exclude_from_sim no)
+		(at 27.94 64.008 0)
+		(effects
+			(font
+				(size 1.524 1.524)
+			)
+		)
+		(uuid "68f4d7f4-5496-43f4-a761-2d9f72b203f1")
+	)
+	(text "I_out = 0.5A"
+		(exclude_from_sim no)
+		(at 135.89 20.066 0)
+		(effects
+			(font
+				(size 1.778 1.778)
+			)
+		)
+		(uuid "ab91437b-8500-4609-948f-5c7e55745981")
+	)
+	(text "I_In = 350 mA"
+		(exclude_from_sim no)
+		(at 23.114 74.168 0)
+		(effects
+			(font
+				(size 1.778 1.778)
+			)
+		)
+		(uuid "bb17ac6c-4347-4dfc-a832-78dee0a9afcc")
+	)
+	(text "I_out = 0.5A"
+		(exclude_from_sim no)
+		(at 110.49 77.978 0)
+		(effects
+			(font
+				(size 1.778 1.778)
+			)
+		)
+		(uuid "d08d160f-ec20-46ae-964f-2498f907e4ae")
+	)
+	(text "Spannungserzeugung 12V\n"
+		(exclude_from_sim no)
+		(at 28.194 14.732 0)
+		(effects
+			(font
+				(size 1.524 1.524)
+			)
+		)
+		(uuid "dbe5b05f-03ed-49b3-853f-590bdb20ba88")
+	)
+	(text_box "LED Kontrollieren"
+		(exclude_from_sim no)
+		(at 22.86 36.83 0)
+		(size 30.48 16.51)
+		(margins 1.905 1.905 1.905 1.905)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 2.54 2.54)
+				(thickness 0.508)
+				(bold yes)
+				(color 253 0 0 1)
+			)
+			(justify left top)
+		)
+		(uuid "5e352d8c-6f84-4ff0-8b0b-dda06f3f38d8")
+	)
+	(text_box "LED Kontrollieren"
+		(exclude_from_sim no)
+		(at 99.06 82.55 0)
+		(size 30.48 16.51)
+		(margins 1.905 1.905 1.905 1.905)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 2.54 2.54)
+				(thickness 0.508)
+				(bold yes)
+				(color 253 0 0 1)
+			)
+			(justify left top)
+		)
+		(uuid "a89a3330-53cf-49a0-bfe7-6035699096b8")
+	)
+	(text_box "LED Kontrollieren"
+		(exclude_from_sim no)
+		(at 246.38 29.21 0)
+		(size 30.48 16.51)
+		(margins 1.905 1.905 1.905 1.905)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 2.54 2.54)
+				(thickness 0.508)
+				(bold yes)
+				(color 253 0 0 1)
+			)
+			(justify left top)
+		)
+		(uuid "d4769fc3-997c-4986-873a-4dbfc95a7088")
 	)
 	(junction
 		(at 76.2 104.14)
@@ -3998,142 +4157,6 @@
 			(type default)
 		)
 		(uuid "ff0c8c49-6a98-4a43-b468-83731d43f33f")
-	)
-	(text_box "LED Kontrollieren"
-		(exclude_from_sim no)
-		(at 22.86 36.83 0)
-		(size 30.48 16.51)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(effects
-			(font
-				(size 2.54 2.54)
-				(thickness 0.508)
-				(bold yes)
-				(color 253 0 0 1)
-			)
-			(justify left top)
-		)
-		(uuid "5e352d8c-6f84-4ff0-8b0b-dda06f3f38d8")
-	)
-	(text_box "LED Kontrollieren"
-		(exclude_from_sim no)
-		(at 99.06 82.55 0)
-		(size 30.48 16.51)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(effects
-			(font
-				(size 2.54 2.54)
-				(thickness 0.508)
-				(bold yes)
-				(color 253 0 0 1)
-			)
-			(justify left top)
-		)
-		(uuid "a89a3330-53cf-49a0-bfe7-6035699096b8")
-	)
-	(text_box "LED Kontrollieren"
-		(exclude_from_sim no)
-		(at 246.38 29.21 0)
-		(size 30.48 16.51)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(effects
-			(font
-				(size 2.54 2.54)
-				(thickness 0.508)
-				(bold yes)
-				(color 253 0 0 1)
-			)
-			(justify left top)
-		)
-		(uuid "d4769fc3-997c-4986-873a-4dbfc95a7088")
-	)
-	(text "Spannungserzeugung 3.3V"
-		(exclude_from_sim no)
-		(at 160.782 16.764 0)
-		(effects
-			(font
-				(size 1.524 1.524)
-			)
-		)
-		(uuid "11e76129-7c81-45eb-8616-8cc2e250ccad")
-	)
-	(text "I_out = 2A"
-		(exclude_from_sim no)
-		(at 262.636 60.198 0)
-		(effects
-			(font
-				(size 1.778 1.778)
-			)
-		)
-		(uuid "1bfdc9c4-feb8-4428-96cd-553d438b0d23")
-	)
-	(text "Spannungserzeugung 5V "
-		(exclude_from_sim no)
-		(at 27.94 64.008 0)
-		(effects
-			(font
-				(size 1.524 1.524)
-			)
-		)
-		(uuid "68f4d7f4-5496-43f4-a761-2d9f72b203f1")
-	)
-	(text "I_out = 0.5A"
-		(exclude_from_sim no)
-		(at 135.89 20.066 0)
-		(effects
-			(font
-				(size 1.778 1.778)
-			)
-		)
-		(uuid "ab91437b-8500-4609-948f-5c7e55745981")
-	)
-	(text "I_In = 350 mA"
-		(exclude_from_sim no)
-		(at 23.114 74.168 0)
-		(effects
-			(font
-				(size 1.778 1.778)
-			)
-		)
-		(uuid "bb17ac6c-4347-4dfc-a832-78dee0a9afcc")
-	)
-	(text "I_out = 0.5A"
-		(exclude_from_sim no)
-		(at 110.49 77.978 0)
-		(effects
-			(font
-				(size 1.778 1.778)
-			)
-		)
-		(uuid "d08d160f-ec20-46ae-964f-2498f907e4ae")
-	)
-	(text "Spannungserzeugung 12V\n"
-		(exclude_from_sim no)
-		(at 28.194 14.732 0)
-		(effects
-			(font
-				(size 1.524 1.524)
-			)
-		)
-		(uuid "dbe5b05f-03ed-49b3-853f-590bdb20ba88")
 	)
 	(global_label "GND"
 		(shape input)

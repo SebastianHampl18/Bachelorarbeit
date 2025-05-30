@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "0fa93f5c-2309-4fa0-8f3c-382cdbe21632")
 	(paper "A4")
 	(title_block
@@ -16,7 +16,9 @@
 	(lib_symbols
 		(symbol "Conn_01x05_Pin_1"
 			(pin_names
-				(offset 1.016) hide)
+				(offset 1.016)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -90,33 +92,64 @@
 				)
 			)
 			(symbol "Conn_01x05_Pin_1_1_1"
-				(polyline
-					(pts
-						(xy 1.27 -5.08) (xy 0.8636 -5.08)
-					)
+				(rectangle
+					(start 0.8636 5.207)
+					(end 0 4.953)
 					(stroke
 						(width 0.1524)
 						(type default)
 					)
 					(fill
-						(type none)
+						(type outline)
 					)
 				)
-				(polyline
-					(pts
-						(xy 1.27 -2.54) (xy 0.8636 -2.54)
-					)
+				(rectangle
+					(start 0.8636 2.667)
+					(end 0 2.413)
 					(stroke
 						(width 0.1524)
 						(type default)
 					)
 					(fill
-						(type none)
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 -2.413)
+					(end 0 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 -4.953)
+					(end 0 -5.207)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
 					)
 				)
 				(polyline
 					(pts
-						(xy 1.27 0) (xy 0.8636 0)
+						(xy 1.27 5.08) (xy 0.8636 5.08)
 					)
 					(stroke
 						(width 0.1524)
@@ -140,7 +173,7 @@
 				)
 				(polyline
 					(pts
-						(xy 1.27 5.08) (xy 0.8636 5.08)
+						(xy 1.27 0) (xy 0.8636 0)
 					)
 					(stroke
 						(width 0.1524)
@@ -150,59 +183,28 @@
 						(type none)
 					)
 				)
-				(rectangle
-					(start 0.8636 -4.953)
-					(end 0 -5.207)
+				(polyline
+					(pts
+						(xy 1.27 -2.54) (xy 0.8636 -2.54)
+					)
 					(stroke
 						(width 0.1524)
 						(type default)
 					)
 					(fill
-						(type outline)
+						(type none)
 					)
 				)
-				(rectangle
-					(start 0.8636 -2.413)
-					(end 0 -2.667)
+				(polyline
+					(pts
+						(xy 1.27 -5.08) (xy 0.8636 -5.08)
+					)
 					(stroke
 						(width 0.1524)
 						(type default)
 					)
 					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0.8636 0.127)
-					(end 0 -0.127)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0.8636 2.667)
-					(end 0 2.413)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0.8636 5.207)
-					(end 0 4.953)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
+						(type none)
 					)
 				)
 				(pin passive line
@@ -296,10 +298,13 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Connector:Conn_01x04_Pin"
 			(pin_names
-				(offset 1.016) hide)
+				(offset 1.016)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -373,21 +378,53 @@
 				)
 			)
 			(symbol "Conn_01x04_Pin_1_1"
-				(polyline
-					(pts
-						(xy 1.27 -5.08) (xy 0.8636 -5.08)
-					)
+				(rectangle
+					(start 0.8636 2.667)
+					(end 0 2.413)
 					(stroke
 						(width 0.1524)
 						(type default)
 					)
 					(fill
-						(type none)
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 -2.413)
+					(end 0 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 -4.953)
+					(end 0 -5.207)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
 					)
 				)
 				(polyline
 					(pts
-						(xy 1.27 -2.54) (xy 0.8636 -2.54)
+						(xy 1.27 2.54) (xy 0.8636 2.54)
 					)
 					(stroke
 						(width 0.1524)
@@ -411,7 +448,7 @@
 				)
 				(polyline
 					(pts
-						(xy 1.27 2.54) (xy 0.8636 2.54)
+						(xy 1.27 -2.54) (xy 0.8636 -2.54)
 					)
 					(stroke
 						(width 0.1524)
@@ -421,48 +458,16 @@
 						(type none)
 					)
 				)
-				(rectangle
-					(start 0.8636 -4.953)
-					(end 0 -5.207)
+				(polyline
+					(pts
+						(xy 1.27 -5.08) (xy 0.8636 -5.08)
+					)
 					(stroke
 						(width 0.1524)
 						(type default)
 					)
 					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0.8636 -2.413)
-					(end 0 -2.667)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0.8636 0.127)
-					(end 0 -0.127)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0.8636 2.667)
-					(end 0 2.413)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
+						(type none)
 					)
 				)
 				(pin passive line
@@ -538,10 +543,13 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Connector:Conn_01x05_Pin"
 			(pin_names
-				(offset 1.016) hide)
+				(offset 1.016)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -615,33 +623,64 @@
 				)
 			)
 			(symbol "Conn_01x05_Pin_1_1"
-				(polyline
-					(pts
-						(xy 1.27 -5.08) (xy 0.8636 -5.08)
-					)
+				(rectangle
+					(start 0.8636 5.207)
+					(end 0 4.953)
 					(stroke
 						(width 0.1524)
 						(type default)
 					)
 					(fill
-						(type none)
+						(type outline)
 					)
 				)
-				(polyline
-					(pts
-						(xy 1.27 -2.54) (xy 0.8636 -2.54)
-					)
+				(rectangle
+					(start 0.8636 2.667)
+					(end 0 2.413)
 					(stroke
 						(width 0.1524)
 						(type default)
 					)
 					(fill
-						(type none)
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 -2.413)
+					(end 0 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 -4.953)
+					(end 0 -5.207)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
 					)
 				)
 				(polyline
 					(pts
-						(xy 1.27 0) (xy 0.8636 0)
+						(xy 1.27 5.08) (xy 0.8636 5.08)
 					)
 					(stroke
 						(width 0.1524)
@@ -665,7 +704,7 @@
 				)
 				(polyline
 					(pts
-						(xy 1.27 5.08) (xy 0.8636 5.08)
+						(xy 1.27 0) (xy 0.8636 0)
 					)
 					(stroke
 						(width 0.1524)
@@ -675,59 +714,28 @@
 						(type none)
 					)
 				)
-				(rectangle
-					(start 0.8636 -4.953)
-					(end 0 -5.207)
+				(polyline
+					(pts
+						(xy 1.27 -2.54) (xy 0.8636 -2.54)
+					)
 					(stroke
 						(width 0.1524)
 						(type default)
 					)
 					(fill
-						(type outline)
+						(type none)
 					)
 				)
-				(rectangle
-					(start 0.8636 -2.413)
-					(end 0 -2.667)
+				(polyline
+					(pts
+						(xy 1.27 -5.08) (xy 0.8636 -5.08)
+					)
 					(stroke
 						(width 0.1524)
 						(type default)
 					)
 					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0.8636 0.127)
-					(end 0 -0.127)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0.8636 2.667)
-					(end 0 2.413)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0.8636 5.207)
-					(end 0 4.953)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
+						(type none)
 					)
 				)
 				(pin passive line
@@ -821,6 +829,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:0603WAF1002T5E"
 			(exclude_from_sim no)
@@ -927,6 +936,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:0603WAF2700T5E"
 			(exclude_from_sim no)
@@ -1033,6 +1043,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:4*4*1.7"
 			(exclude_from_sim no)
@@ -1091,9 +1102,10 @@
 				)
 			)
 			(symbol "4*4*1.7_0_1"
-				(circle
-					(center 0 -3.81)
-					(radius 0.38)
+				(polyline
+					(pts
+						(xy -5.08 3.81) (xy 5.08 3.81)
+					)
 					(stroke
 						(width 0)
 						(type default)
@@ -1116,31 +1128,7 @@
 				)
 				(polyline
 					(pts
-						(xy -5.08 3.81) (xy 5.08 3.81)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
 						(xy -0.51 -3.81) (xy -1.78 1.52)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 -4.32) (xy 0 -6.35)
 					)
 					(stroke
 						(width 0)
@@ -1173,6 +1161,29 @@
 						(type none)
 					)
 				)
+				(circle
+					(center 0 -3.81)
+					(radius 0.38)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -4.32) (xy 0 -6.35)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
 				(pin unspecified line
 					(at -7.62 3.81 0)
 					(length 2.54)
@@ -1184,24 +1195,6 @@
 						)
 					)
 					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 7.62 3.81 180)
-					(length 2.54)
-					(name "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1228,6 +1221,24 @@
 					)
 				)
 				(pin unspecified line
+					(at 7.62 3.81 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
 					(at 7.62 -6.35 180)
 					(length 2.54)
 					(name "4"
@@ -1246,6 +1257,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "easyeda2kicad:KT-0603R"
 			(exclude_from_sim no)
@@ -1306,6 +1318,30 @@
 			(symbol "KT-0603R_0_1"
 				(polyline
 					(pts
+						(xy -3.81 3.3) (xy -2.79 2.79) (xy -3.3 2.29) (xy -3.81 3.3)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.79 4.32) (xy -1.78 3.81) (xy -2.29 3.3) (xy -2.79 4.32)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
 						(xy -2.03 1.52) (xy -3.81 3.3)
 					)
 					(stroke
@@ -1338,30 +1374,6 @@
 					)
 					(fill
 						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -3.81 3.3) (xy -2.79 2.79) (xy -3.3 2.29) (xy -3.81 3.3)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.79 4.32) (xy -1.78 3.81) (xy -2.29 3.3) (xy -2.79 4.32)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
 					)
 				)
 				(polyline
@@ -1413,7 +1425,167 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
+	)
+	(text "lowactive"
+		(exclude_from_sim no)
+		(at 145.288 47.244 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "272b3b19-2686-4cd5-a015-f4f6db0673e5")
+	)
+	(text "Piezoausgang unbenutzt"
+		(exclude_from_sim no)
+		(at 89.662 129.54 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "5c36f0b9-bf85-4ca3-8274-18e1d47bee38")
+	)
+	(text "lowactive"
+		(exclude_from_sim no)
+		(at 144.272 140.97 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "6c2700ec-2560-40ca-a445-ddf046320301")
+	)
+	(text "I_LED = 5mA -> R = 270Ω"
+		(exclude_from_sim no)
+		(at 104.902 145.034 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "6cd17ee1-f939-43e9-bf0e-57e4ad39530f")
+	)
+	(text "RX_Analog unbenutzt"
+		(exclude_from_sim no)
+		(at 91.44 82.55 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "6f5fd64d-c92c-455e-a232-c0115449cee9")
+	)
+	(text "Pinheader"
+		(exclude_from_sim no)
+		(at 24.384 17.526 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "738ba85d-90f5-4158-93a7-f8d9279083fd")
+	)
+	(text "Nicht bestücken!\n"
+		(exclude_from_sim no)
+		(at 107.188 104.14 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+				(color 253 0 0 1)
+			)
+		)
+		(uuid "f944cd1e-45e8-4ddd-9222-4c4905c496c7")
+	)
+	(text_box "LED Kontrollieren"
+		(exclude_from_sim no)
+		(at 149.86 135.89 0)
+		(size 30.48 16.51)
+		(margins 1.905 1.905 1.905 1.905)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 2.54 2.54)
+				(thickness 0.508)
+				(bold yes)
+				(color 253 0 0 1)
+			)
+			(justify left top)
+		)
+		(uuid "281c08aa-4473-4ef7-9e1c-ca04f3ecfbfa")
+	)
+	(text_box "3.3V -> f1 (433,62 MHz); GND -> f2 (434,22 MHz)"
+		(exclude_from_sim no)
+		(at 121.92 85.09 0)
+		(size 29.21 5.08)
+		(margins 0.9525 0.9525 0.9525 0.9525)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "47b1d998-cce8-49fe-98e5-8e191a767db0")
+	)
+	(text_box "Sparmodus verstehen"
+		(exclude_from_sim no)
+		(at 128.27 13.97 0)
+		(size 25.4 12.7)
+		(margins 1.905 1.905 1.905 1.905)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 2.54 2.54)
+				(thickness 0.508)
+				(bold yes)
+				(color 251 0 0 1)
+			)
+			(justify left top)
+		)
+		(uuid "dceb8017-fcb0-418b-8f64-7332c893f291")
+	)
+	(text_box "Rückmeldung an den Sender bei Batteriebetrieb (ungenutzt)"
+		(exclude_from_sim no)
+		(at 139.7 123.19 0)
+		(size 31.75 5.08)
+		(margins 0.9525 0.9525 0.9525 0.9525)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "e221e575-dded-42af-acdc-bcac01d460e1")
 	)
 	(junction
 		(at 85.09 46.99)
@@ -2100,161 +2272,6 @@
 			(type default)
 		)
 		(uuid "fb4671dc-f4bb-419a-8ccd-fe2aefaa92cd")
-	)
-	(text_box "LED Kontrollieren"
-		(exclude_from_sim no)
-		(at 149.86 135.89 0)
-		(size 30.48 16.51)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(effects
-			(font
-				(size 2.54 2.54)
-				(thickness 0.508)
-				(bold yes)
-				(color 253 0 0 1)
-			)
-			(justify left top)
-		)
-		(uuid "281c08aa-4473-4ef7-9e1c-ca04f3ecfbfa")
-	)
-	(text_box "3.3V -> f1 (433,62 MHz); GND -> f2 (434,22 MHz)"
-		(exclude_from_sim no)
-		(at 121.92 85.09 0)
-		(size 29.21 5.08)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left top)
-		)
-		(uuid "47b1d998-cce8-49fe-98e5-8e191a767db0")
-	)
-	(text_box "Sparmodus verstehen"
-		(exclude_from_sim no)
-		(at 128.27 13.97 0)
-		(size 25.4 12.7)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(effects
-			(font
-				(size 2.54 2.54)
-				(thickness 0.508)
-				(bold yes)
-				(color 251 0 0 1)
-			)
-			(justify left top)
-		)
-		(uuid "dceb8017-fcb0-418b-8f64-7332c893f291")
-	)
-	(text_box "Rückmeldung an den Sender bei Batteriebetrieb (ungenutzt)"
-		(exclude_from_sim no)
-		(at 139.7 123.19 0)
-		(size 31.75 5.08)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left top)
-		)
-		(uuid "e221e575-dded-42af-acdc-bcac01d460e1")
-	)
-	(text "lowactive"
-		(exclude_from_sim no)
-		(at 145.288 47.244 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "272b3b19-2686-4cd5-a015-f4f6db0673e5")
-	)
-	(text "Piezoausgang unbenutzt"
-		(exclude_from_sim no)
-		(at 89.662 129.54 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "5c36f0b9-bf85-4ca3-8274-18e1d47bee38")
-	)
-	(text "lowactive"
-		(exclude_from_sim no)
-		(at 144.272 140.97 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "6c2700ec-2560-40ca-a445-ddf046320301")
-	)
-	(text "I_LED = 5mA -> R = 270Ω"
-		(exclude_from_sim no)
-		(at 104.902 145.034 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "6cd17ee1-f939-43e9-bf0e-57e4ad39530f")
-	)
-	(text "RX_Analog unbenutzt"
-		(exclude_from_sim no)
-		(at 91.44 82.55 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "6f5fd64d-c92c-455e-a232-c0115449cee9")
-	)
-	(text "Pinheader"
-		(exclude_from_sim no)
-		(at 24.384 17.526 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "738ba85d-90f5-4158-93a7-f8d9279083fd")
-	)
-	(text "Nicht bestücken!\n"
-		(exclude_from_sim no)
-		(at 107.188 104.14 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.254)
-				(bold yes)
-				(color 253 0 0 1)
-			)
-		)
-		(uuid "f944cd1e-45e8-4ddd-9222-4c4905c496c7")
 	)
 	(label "GND"
 		(at 31.75 60.96 0)
@@ -3035,7 +3052,7 @@
 		)
 	)
 	(hierarchical_label "RX_2 (Remote Drive)"
-		(shape input)
+		(shape output)
 		(at 134.62 68.58 0)
 		(effects
 			(font
@@ -3048,7 +3065,7 @@
 		(uuid "3653cc02-e192-496b-b765-94de3f5b6f71")
 	)
 	(hierarchical_label "Fehler_LED"
-		(shape input)
+		(shape output)
 		(at 132.08 151.13 0)
 		(effects
 			(font
@@ -3074,7 +3091,7 @@
 		(uuid "717cd912-00f4-428e-8269-afe1b4bdc23d")
 	)
 	(hierarchical_label "RX_4 (Identification)"
-		(shape input)
+		(shape output)
 		(at 134.62 78.74 0)
 		(effects
 			(font
@@ -3087,7 +3104,7 @@
 		(uuid "b1016264-6121-4201-92f1-f3d712af3f62")
 	)
 	(hierarchical_label "RX_1 (Notaus)"
-		(shape input)
+		(shape output)
 		(at 134.62 63.5 0)
 		(effects
 			(font
@@ -3100,7 +3117,7 @@
 		(uuid "bd2a34ec-ac41-46b9-a8cb-e1f634380316")
 	)
 	(hierarchical_label "RX_3 (SOC)"
-		(shape input)
+		(shape output)
 		(at 134.62 73.66 0)
 		(effects
 			(font

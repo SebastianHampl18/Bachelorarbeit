@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "58ec0641-ad63-4243-be49-1868f6c3773d")
 	(paper "A4")
 	(title_block
@@ -16,7 +16,9 @@
 	(lib_symbols
 		(symbol "Connector:Conn_01x02_Socket"
 			(pin_names
-				(offset 1.016) hide)
+				(offset 1.016)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -90,10 +92,10 @@
 				)
 			)
 			(symbol "Conn_01x02_Socket_1_1"
-				(arc
-					(start 0 -2.032)
-					(mid -0.5058 -2.54)
-					(end 0 -3.048)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -114,10 +116,10 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -1.27 0) (xy -0.508 0)
-					)
+				(arc
+					(start 0 -0.508)
+					(mid -0.5058 0)
+					(end 0 0.508)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -127,9 +129,9 @@
 					)
 				)
 				(arc
-					(start 0 0.508)
-					(mid -0.5058 0)
-					(end 0 -0.508)
+					(start 0 -3.048)
+					(mid -0.5058 -2.54)
+					(end 0 -2.032)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -175,104 +177,14 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
-	)
-	(junction
-		(at 35.56 55.88)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "b016341e-2e6f-4834-9fb5-5affca86c438")
-	)
-	(junction
-		(at 35.56 53.34)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "ebe6242a-db21-42bf-af67-98ab56d416ad")
-	)
-	(wire
-		(pts
-			(xy 35.56 53.34) (xy 39.37 53.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "087ab0e4-b570-4372-8f12-b93bdba73e8a")
-	)
-	(wire
-		(pts
-			(xy 33.02 59.69) (xy 35.56 59.69)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "102a25c1-6d35-4d40-971f-60ae1300c086")
-	)
-	(wire
-		(pts
-			(xy 35.56 59.69) (xy 35.56 55.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2e79eda7-5aaf-4847-bc4c-f94f6cfe8748")
-	)
-	(wire
-		(pts
-			(xy 33.02 49.53) (xy 35.56 49.53)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "32146a04-c244-4781-ae4c-77e010b79d7d")
-	)
-	(wire
-		(pts
-			(xy 35.56 55.88) (xy 39.37 55.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a9a1ac91-2d2b-44e7-b672-e734f32b2de4")
-	)
-	(wire
-		(pts
-			(xy 33.02 55.88) (xy 35.56 55.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b89969f8-662c-4a68-b39d-40562dfe4dd3")
-	)
-	(wire
-		(pts
-			(xy 33.02 53.34) (xy 35.56 53.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c7ad573c-e29f-4380-9a3a-1c137a2b4907")
-	)
-	(wire
-		(pts
-			(xy 35.56 49.53) (xy 35.56 53.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ecf0ea56-9262-4916-8b7c-75a1c828ba6b")
 	)
 	(text_box "Pinheader als Platzhalter für Stecker"
 		(exclude_from_sim no)
 		(at 20.32 20.32 0)
 		(size 29.21 21.59)
+		(margins 1.905 1.905 1.905 1.905)
 		(stroke
 			(width 0)
 			(type default)
@@ -291,57 +203,29 @@
 		)
 		(uuid "ee416773-85be-461e-b1b2-852f4ac1d197")
 	)
-	(global_label "Status_LED -"
-		(shape input)
-		(at 33.02 53.34 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.254)
-				(bold yes)
-			)
-			(justify right)
+	(wire
+		(pts
+			(xy 33.02 55.88) (xy 39.37 55.88)
 		)
-		(uuid "1ee9e6b0-36b8-48aa-806a-4de8ce744593")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 16.6171 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
+		(stroke
+			(width 0)
+			(type default)
 		)
+		(uuid "102a25c1-6d35-4d40-971f-60ae1300c086")
 	)
-	(global_label "Status_LED +"
-		(shape input)
-		(at 33.02 55.88 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.254)
-				(bold yes)
-			)
-			(justify right)
+	(wire
+		(pts
+			(xy 33.02 53.34) (xy 39.37 53.34)
 		)
-		(uuid "8f891b19-d6b2-47d5-8008-615caea64d6b")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 16.6171 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
+		(stroke
+			(width 0)
+			(type default)
 		)
+		(uuid "32146a04-c244-4781-ae4c-77e010b79d7d")
 	)
 	(hierarchical_label "Status_LED +"
 		(shape input)
-		(at 33.02 59.69 180)
+		(at 33.02 55.88 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -353,8 +237,8 @@
 		(uuid "a8c232db-b51d-40c9-9e67-a8c9fbb0a580")
 	)
 	(hierarchical_label "Status_LED -"
-		(shape input)
-		(at 33.02 49.53 180)
+		(shape output)
+		(at 33.02 53.34 180)
 		(effects
 			(font
 				(size 1.27 1.27)
