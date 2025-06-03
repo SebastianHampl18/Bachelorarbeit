@@ -361,18 +361,6 @@
 		)
 		(uuid "405222af-d01e-4fb9-a8ab-3cd1664b24c3")
 	)
-	(text "Zenerdiode hinzufügen\n"
-		(exclude_from_sim no)
-		(at 112.522 50.038 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.254)
-				(bold yes)
-			)
-		)
-		(uuid "a912d03e-7968-424a-a982-2220c710d24f")
-	)
 	(junction
 		(at 113.03 66.04)
 		(diameter 0)

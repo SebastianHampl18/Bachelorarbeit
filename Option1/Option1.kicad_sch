@@ -14,28 +14,6 @@
 		(comment 3 "Sebastian Hampl")
 	)
 	(lib_symbols)
-	(text_box "Display\nSPI Flash (Speicher)\n"
-		(exclude_from_sim no)
-		(at 82.55 166.37 0)
-		(size 91.44 29.21)
-		(margins 3.81 3.81 3.81 3.81)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(effects
-			(font
-				(size 5.08 5.08)
-				(thickness 1.016)
-				(bold yes)
-			)
-			(justify left top)
-		)
-		(uuid "8511a99e-e980-4013-8b03-177c93cc4c53")
-	)
 	(junction
 		(at 62.23 44.45)
 		(diameter 0)

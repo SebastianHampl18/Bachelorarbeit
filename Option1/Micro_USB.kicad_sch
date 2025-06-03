@@ -2948,8 +2948,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "4e7f3fe0-875c-4047-a543-d1beb48eb608")
-		(property "Reference" "Q3"
-			(at 149.86 69.8501 0)
+		(property "Reference" "Q1401"
+			(at 149.86 67.3099 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2958,7 +2958,7 @@
 			)
 		)
 		(property "Value" "NPN"
-			(at 149.86 67.3101 0)
+			(at 149.86 69.8499 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3032,7 +3032,7 @@
 		(instances
 			(project ""
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
-					(reference "Q3")
+					(reference "Q1401")
 					(unit 1)
 				)
 			)
@@ -3194,7 +3194,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6a30c615-b456-4aba-b825-222e0d3f77c1")
-		(property "Reference" "Q4"
+		(property "Reference" "Q1402"
 			(at 149.86 85.0899 0)
 			(effects
 				(font
@@ -3278,7 +3278,7 @@
 		(instances
 			(project ""
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
-					(reference "Q4")
+					(reference "Q1402")
 					(unit 1)
 				)
 			)
