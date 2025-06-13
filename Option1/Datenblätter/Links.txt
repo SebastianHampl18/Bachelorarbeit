@@ -5,3 +5,5 @@ Microcontroller:
 Hardware Design Guidelines: 	https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32/index.html
 Schematic Checklist: 		https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32/schematic-checklist.html
 PCB Layout Design: 		https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32/pcb-layout-design.html
+
+RFID: https://www.berrybase.de/rfid-lesegeraet-mit-spi-schnittstelle-inkl.-karte-dongle?utm_source=google&utm_medium=cpc&gad_source=1&gad_campaignid=21582944854&gbraid=0AAAAADSQJK5UZJmxkNwEjdd3kuj0EJOYu&gclid=Cj0KCQjwjJrCBhCXARIsAI5x66WeiN7am4waP5XUBuVuZC6ei-ggc2Ns0pUokuIjAVuvpGaqe9BAf54aApqQEALw_wcB

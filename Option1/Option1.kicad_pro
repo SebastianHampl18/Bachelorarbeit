@@ -683,6 +683,10 @@
     [
       "09daa8db-a615-4efc-9912-47e942ec8e61",
       "CAN1_Tranciever"
+    ],
+    [
+      "d6314c0c-60fd-43d5-8ae3-bda346c748ab",
+      "RFID Antenne"
     ]
   ],
   "text_variables": {}

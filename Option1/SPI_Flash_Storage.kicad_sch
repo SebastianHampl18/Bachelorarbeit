@@ -755,7 +755,7 @@
 		(uuid "67914d65-6045-444a-a255-8770da30232e")
 	)
 	(hierarchical_label "SPI_MISO"
-		(shape input)
+		(shape output)
 		(at 54.61 46.99 180)
 		(effects
 			(font

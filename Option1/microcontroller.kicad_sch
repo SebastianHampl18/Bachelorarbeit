@@ -2585,6 +2585,16 @@
 	)
 	(wire
 		(pts
+			(xy 238.76 120.65) (xy 250.19 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "171ec7d9-fb4b-4963-8e8a-6814b7348494")
+	)
+	(wire
+		(pts
 			(xy 203.2 82.55) (xy 207.01 82.55)
 		)
 		(stroke
@@ -2805,6 +2815,16 @@
 	)
 	(wire
 		(pts
+			(xy 238.76 118.11) (xy 250.19 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3725fa9f-3852-4ecb-9210-b63aed0b53fa")
+	)
+	(wire
+		(pts
 			(xy 177.8 71.12) (xy 180.34 71.12)
 		)
 		(stroke
@@ -2955,16 +2975,6 @@
 	)
 	(wire
 		(pts
-			(xy 238.76 120.65) (xy 250.19 120.65)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "58894c67-6316-4c27-b6b3-54938a57df4a")
-	)
-	(wire
-		(pts
 			(xy 255.27 41.91) (xy 255.27 46.99)
 		)
 		(stroke
@@ -3032,6 +3042,16 @@
 			(type default)
 		)
 		(uuid "63e7a65f-adc7-489b-a540-30aeddf3b386")
+	)
+	(wire
+		(pts
+			(xy 238.76 123.19) (xy 250.19 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "646b1281-9f1c-4e06-9956-ba208b18a655")
 	)
 	(wire
 		(pts
@@ -3315,16 +3335,6 @@
 	)
 	(wire
 		(pts
-			(xy 238.76 123.19) (xy 250.19 123.19)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9bb8735a-1692-4557-820d-ed1bb6668217")
-	)
-	(wire
-		(pts
 			(xy 255.27 77.47) (xy 274.32 77.47)
 		)
 		(stroke
@@ -3602,6 +3612,16 @@
 			(type default)
 		)
 		(uuid "c82b841c-88fc-4e38-aa56-302e9ed966b9")
+	)
+	(wire
+		(pts
+			(xy 238.76 125.73) (xy 250.19 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ca50c95f-4326-41b5-9fc0-142db5eb2b4a")
 	)
 	(wire
 		(pts
@@ -5530,6 +5550,17 @@
 		)
 		(uuid "13bb78f2-17e1-49e7-a895-3fe64f8d53cb")
 	)
+	(hierarchical_label "SPI_RST_RFID"
+		(shape output)
+		(at 250.19 120.65 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1674d300-17fe-49ac-bf54-7aa2b6428568")
+	)
 	(hierarchical_label "I2C_SDA"
 		(shape bidirectional)
 		(at 41.91 109.22 180)
@@ -5657,6 +5688,17 @@
 		)
 		(uuid "7361ad44-91c8-457d-aafe-0ceed94d2c4e")
 	)
+	(hierarchical_label "SPI_CS_RFID"
+		(shape output)
+		(at 250.19 118.11 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "73871b4b-93bc-4704-a0e1-039cc9505f9c")
+	)
 	(hierarchical_label "CAN1_S-Mode"
 		(shape output)
 		(at 250.19 128.27 0)
@@ -5765,7 +5807,7 @@
 	)
 	(hierarchical_label "TX_2 (Remote Drive)"
 		(shape output)
-		(at 250.19 120.65 0)
+		(at 250.19 123.19 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5810,7 +5852,7 @@
 	)
 	(hierarchical_label "TX_3 (SOC)"
 		(shape output)
-		(at 250.19 123.19 0)
+		(at 250.19 125.73 0)
 		(effects
 			(font
 				(size 1.27 1.27)

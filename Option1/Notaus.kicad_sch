@@ -14,6 +14,562 @@
 		(comment 3 "Sebastian Hampl")
 	)
 	(lib_symbols
+		(symbol "EasyEda2KiCad:CSD13381F4"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "Q"
+				(at 0 10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "CSD13381F4"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "easyeda2kicad:PICOSTAR-3_L1.0-W0.6-P0.40-S0.65-BL-1"
+				(at 0 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part" "C179868"
+				(at 0 -15.24 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "CSD13381F4_0_1"
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.76 2.54) (xy 0.76 1.78)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.76 1.78) (xy 0.76 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.76 1.78) (xy 4.06 1.78) (xy 4.06 1.78)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.76 0.51) (xy 0.76 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.76 0) (xy 0.76 -0.51)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.76 0) (xy 1.78 0.25)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.76 0) (xy 1.78 -0.25)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.76 -1.78) (xy 0.76 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.76 -1.78) (xy 2.54 -1.78)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.76 -2.54) (xy 0.76 -1.78)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.02 0) (xy 0.76 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.02 0) (xy 1.78 -0.25)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.02 0) (xy 2.54 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.78 0.25) (xy 1.02 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.78 -0.25) (xy 1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.78 -0.25) (xy 1.78 0.25)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 2.54) (xy 2.54 1.78)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.54 1.78)
+					(radius 0.25)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 0) (xy 2.54 -1.78)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 -1.78) (xy 2.54 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.54 -1.78)
+					(radius 0.25)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.56 -0.51) (xy 4.06 0.51)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.81 -0.51) (xy 3.56 -0.51)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 4.06 1.78) (xy 4.06 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 4.06 0.51) (xy 3.56 0.51)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 4.06 0.51) (xy 4.57 -0.51)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 4.06 0) (xy 3.81 -0.25)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 4.06 0) (xy 3.81 -0.51)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 4.06 0) (xy 4.06 0.51)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 4.06 -0.25) (xy 4.06 -1.78)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 4.06 -1.78) (xy 2.54 -1.78)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 4.32 -0.25) (xy 4.06 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 4.32 -0.51) (xy 3.81 -0.51)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 4.32 -0.51) (xy 4.06 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 4.57 0.51) (xy 4.06 0.51)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 4.57 -0.51) (xy 4.32 -0.51)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin unspecified line
+					(at -2.54 0 0)
+					(length 2.54)
+					(name "G"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 2.54 5.08 90)
+					(length 2.54)
+					(name "D"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 2.54 -5.08 270)
+					(length 2.54)
+					(name "S"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "easyeda2kicad:0603WAF1001T5E"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -228,341 +784,16 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "easyeda2kicad:AON6284"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "Q"
-				(at 0 10.16 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "AON6284"
-				(at 0 -10.16 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "easyeda2kicad:POWERVDFN-8_L6.2-W5.2-P1.27-LS6.0-BL"
-				(at 0 -12.7 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "LCSC Part" "C3277770"
-				(at 0 -15.24 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "AON6284_0_1"
-				(polyline
-					(pts
-						(xy -5.08 0) (xy -3.05 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -3.05 2.29) (xy -3.05 -2.29)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.54 2.29) (xy -2.54 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.54 1.78) (xy 0 1.78) (xy 0 2.54) (xy 2.54 2.54) (xy 2.54 2.54) (xy 2.54 0.51)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.54 0) (xy -1.02 -0.51) (xy -1.02 0.51) (xy -2.54 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.54 0) (xy 0 0) (xy 0 -2.54) (xy 5.08 -2.54) (xy 2.54 -2.54) (xy 2.54 -0.76)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.54 -0.51) (xy -2.54 0.51)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.54 -2.29) (xy -2.54 -1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 -1.78) (xy -2.54 -1.78)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 0.51) (xy 1.78 -0.76) (xy 3.3 -0.76) (xy 2.54 0.51)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(polyline
-					(pts
-						(xy 3.56 0.51) (xy 3.05 0.51) (xy 2.03 0.51) (xy 1.52 0.51)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin unspecified line
-					(at -7.62 0 0)
-					(length 2.54)
-					(name "G"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 0 5.08 270)
-					(length 2.54)
-					(name "D"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 0 -5.08 90)
-					(length 2.54)
-					(name "S"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 2.54 -5.08 90)
-					(length 2.54)
-					(name "S"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 5.08 -5.08 90)
-					(length 2.54)
-					(name "S"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-	)
-	(text_box "MOSFET austauschen"
-		(exclude_from_sim no)
-		(at 132.08 64.77 0)
-		(size 22.86 11.43)
-		(margins 0.9525 0.9525 0.9525 0.9525)
-		(stroke
-			(width 0)
-			(type default)
-			(color 255 0 0 1)
-		)
-		(fill
-			(type none)
-		)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left top)
-		)
-		(uuid "d891d939-87e2-41bf-b974-9e3fbb50a3d0")
 	)
 	(junction
-		(at 118.11 85.09)
+		(at 121.92 77.47)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "e6507595-4681-4bbe-ac5f-1785b43620c0")
-	)
-	(junction
-		(at 115.57 77.47)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "ecee9665-da98-4d79-956a-b8bd4485be11")
-	)
-	(junction
-		(at 118.11 77.47)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f4c29032-33ba-453c-9986-82b5b057fcee")
+		(uuid "bf2ef554-7d2f-4448-9660-a1f70d658715")
 	)
 	(wire
 		(pts
-			(xy 115.57 77.47) (xy 113.03 77.47)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "052516d5-6773-4bd8-ad0d-a2be67cc6ef9")
-	)
-	(wire
-		(pts
-			(xy 100.33 63.5) (xy 113.03 63.5)
+			(xy 102.87 67.31) (xy 121.92 67.31)
 		)
 		(stroke
 			(width 0)
@@ -572,57 +803,37 @@
 	)
 	(wire
 		(pts
-			(xy 118.11 77.47) (xy 118.11 85.09)
+			(xy 121.92 77.47) (xy 127 77.47)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "4d643377-ff20-4161-a7cd-169273d62677")
+		(uuid "37a0c9dc-ccce-485c-85c1-53d0336892f1")
 	)
 	(wire
 		(pts
-			(xy 113.03 63.5) (xy 113.03 67.31)
+			(xy 116.84 72.39) (xy 115.57 72.39)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "648ae841-3cc2-45ca-8bdd-a393fd7505da")
+		(uuid "3e30e5c1-5e20-4d8b-9e1e-2f330fe59ef1")
 	)
 	(wire
 		(pts
-			(xy 118.11 85.09) (xy 125.73 85.09)
+			(xy 102.87 72.39) (xy 105.41 72.39)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "7948a271-bad5-4b15-b67b-96eb69e4a0fd")
+		(uuid "a775b2d6-0439-4045-921f-88e1afee0387")
 	)
 	(wire
 		(pts
-			(xy 85.09 72.39) (xy 90.17 72.39)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "99e2f501-3d3d-4856-a1b2-63baf31a2150")
-	)
-	(wire
-		(pts
-			(xy 118.11 77.47) (xy 115.57 77.47)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ae83abf0-ee97-46e0-aaa2-f5874d3a10b0")
-	)
-	(wire
-		(pts
-			(xy 114.3 85.09) (xy 118.11 85.09)
+			(xy 115.57 77.47) (xy 121.92 77.47)
 		)
 		(stroke
 			(width 0)
@@ -632,7 +843,7 @@
 	)
 	(wire
 		(pts
-			(xy 100.33 85.09) (xy 104.14 85.09)
+			(xy 102.87 77.47) (xy 105.41 77.47)
 		)
 		(stroke
 			(width 0)
@@ -640,19 +851,9 @@
 		)
 		(uuid "cdf0f40d-775d-42e3-8ae6-131506440512")
 	)
-	(wire
-		(pts
-			(xy 100.33 72.39) (xy 105.41 72.39)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ceb86313-e6af-43ee-85ca-e57cc4a99f06")
-	)
 	(hierarchical_label "Notaus_VCU"
 		(shape output)
-		(at 125.73 85.09 0)
+		(at 127 77.47 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -665,7 +866,7 @@
 	)
 	(hierarchical_label "12V"
 		(shape input)
-		(at 100.33 85.09 180)
+		(at 102.87 77.47 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -678,7 +879,7 @@
 	)
 	(hierarchical_label "TX_1 (Notaus)"
 		(shape input)
-		(at 85.09 72.39 180)
+		(at 102.87 72.39 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -691,10 +892,12 @@
 	)
 	(hierarchical_label "GND"
 		(shape input)
-		(at 100.33 63.5 180)
+		(at 102.87 67.31 180)
 		(effects
 			(font
 				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
 			)
 			(justify right)
 		)
@@ -702,16 +905,15 @@
 	)
 	(symbol
 		(lib_id "easyeda2kicad:0603WAF1001T5E")
-		(at 95.25 72.39 180)
+		(at 110.49 72.39 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "4dc8c4e4-9ea3-43a6-8aee-95c4732a0cbb")
 		(property "Reference" "R901"
-			(at 95.25 66.04 0)
+			(at 110.49 74.422 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -719,7 +921,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 95.25 68.58 0)
+			(at 110.49 70.358 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -727,7 +929,7 @@
 			)
 		)
 		(property "Footprint" "easyeda2kicad:R0603"
-			(at 95.25 64.77 0)
+			(at 110.49 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -736,7 +938,7 @@
 			)
 		)
 		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_1KR-1001-1_C21190.html"
-			(at 95.25 62.23 0)
+			(at 110.49 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -745,7 +947,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 95.25 72.39 0)
+			(at 110.49 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -754,7 +956,7 @@
 			)
 		)
 		(property "LCSC Part" "C21190"
-			(at 95.25 59.69 0)
+			(at 110.49 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -778,17 +980,17 @@
 		)
 	)
 	(symbol
-		(lib_id "easyeda2kicad:AON6284")
-		(at 113.03 72.39 0)
+		(lib_id "EasyEda2KiCad:CSD13381F4")
+		(at 119.38 72.39 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "9ec3786f-5c84-46f9-95a5-79b01875bb17")
-		(property "Reference" "Q901"
-			(at 119.38 71.1199 0)
+		(uuid "bf2b09bf-a014-4f29-a98f-eeb970648b63")
+		(property "Reference" "Q2"
+			(at 125.73 71.1199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -796,8 +998,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "AON6284"
-			(at 119.38 73.6599 0)
+		(property "Value" "CSD13381F4"
+			(at 125.73 73.6599 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -805,8 +1007,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "easyeda2kicad:POWERVDFN-8_L6.2-W5.2-P1.27-LS6.0-BL"
-			(at 113.03 85.09 0)
+		(property "Footprint" "easyeda2kicad:PICOSTAR-3_L1.0-W0.6-P0.40-S0.65-BL-1"
+			(at 119.38 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -815,7 +1017,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 113.03 72.39 0)
+			(at 119.38 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -824,7 +1026,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 113.03 72.39 0)
+			(at 119.38 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -832,34 +1034,28 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part" "C3277770"
-			(at 113.03 87.63 0)
+		(property "LCSC Part" "C179868"
+			(at 119.38 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(hide yes)
 			)
-		)
-		(pin "4"
-			(uuid "45115301-eb08-4ef2-8825-f1cb0e8db648")
-		)
-		(pin "2"
-			(uuid "2613583d-4791-4df4-8813-6f5cb4b44ee8")
-		)
-		(pin "1"
-			(uuid "93169641-0f7d-4362-b405-5dbbffd08ffe")
 		)
 		(pin "3"
-			(uuid "b9a2b16f-a11e-45d2-b2b7-1dde5960d08a")
+			(uuid "7b6965cc-e789-4368-a33d-c2ad4c41ea21")
 		)
-		(pin "5"
-			(uuid "29969e06-504d-4b70-9ea8-9fd17dfed776")
+		(pin "1"
+			(uuid "922aeb1c-af66-4578-97d8-f80646508438")
+		)
+		(pin "2"
+			(uuid "0d872a86-92a0-4f65-bb3e-096c4f67a973")
 		)
 		(instances
 			(project "Option1"
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/75c49fff-0cff-45a7-88f1-e27f7e1370db"
-					(reference "Q901")
+					(reference "Q2")
 					(unit 1)
 				)
 			)
@@ -867,16 +1063,15 @@
 	)
 	(symbol
 		(lib_id "easyeda2kicad:0603WAF1002T5E")
-		(at 109.22 85.09 180)
+		(at 110.49 77.47 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "e6a9770a-9769-491d-97a2-8ba70a902d37")
 		(property "Reference" "R902"
-			(at 109.22 78.74 0)
+			(at 110.49 81.788 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -884,7 +1079,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 109.22 81.28 0)
+			(at 110.49 79.502 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -892,7 +1087,7 @@
 			)
 		)
 		(property "Footprint" "easyeda2kicad:R0603"
-			(at 109.22 77.47 0)
+			(at 110.49 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -901,7 +1096,7 @@
 			)
 		)
 		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_10KR-1002-1_C25804.html"
-			(at 109.22 74.93 0)
+			(at 110.49 67.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -910,7 +1105,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 109.22 85.09 0)
+			(at 110.49 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -919,7 +1114,7 @@
 			)
 		)
 		(property "LCSC Part" "C25804"
-			(at 109.22 72.39 0)
+			(at 110.49 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)

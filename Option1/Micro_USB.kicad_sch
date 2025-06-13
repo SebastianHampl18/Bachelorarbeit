@@ -164,43 +164,28 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Simulation_SPICE:NPN"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-			)
+		(symbol "EasyEda2KiCad:BFP420H6327XTSA1"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
 			(property "Reference" "Q"
-				(at -2.54 7.62 0)
+				(at 0 10.16 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Value" "NPN"
-				(at -2.54 5.08 0)
+			(property "Value" "BFP420H6327XTSA1"
+				(at 0 -10.16 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Footprint" ""
-				(at 63.5 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#cha_BJTs"
-				(at 63.5 0 0)
+			(property "Footprint" "easyeda2kicad:SOT343_L2.0-W1.3-P1.30-LS2.1-BL"
+				(at 0 -12.7 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -208,7 +193,16 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Bipolar transistor symbol for simulation only, substrate tied to the emitter"
+			(property "Datasheet" "https://lcsc.com/product-detail/Transistors-NPN-PNP_Infineon_BFP420H6327XTSA1_BFP420H6327XTSA1_C83872.html"
+				(at 0 -15.24 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
 				(at 0 0 0)
 				(effects
 					(font
@@ -217,8 +211,8 @@
 					(hide yes)
 				)
 			)
-			(property "Sim.Device" "NPN"
-				(at 0 0 0)
+			(property "LCSC Part" "C83872"
+				(at 0 -17.78 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -226,61 +220,10 @@
 					(hide yes)
 				)
 			)
-			(property "Sim.Type" "GUMMELPOON"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Sim.Pins" "1=C 2=B 3=E"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "simulation"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "NPN_0_1"
+			(symbol "BFP420H6327XTSA1_0_1"
 				(polyline
 					(pts
-						(xy -2.54 0) (xy 0.635 0)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.635 1.905) (xy 0.635 -1.905) (xy 0.635 -1.905)
-					)
-					(stroke
-						(width 0.508)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.635 0.635) (xy 2.54 2.54)
+						(xy -1.27 2.29) (xy -1.27 -2.29)
 					)
 					(stroke
 						(width 0)
@@ -292,7 +235,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0.635 -0.635) (xy 2.54 -2.54) (xy 2.54 -2.54)
+						(xy -1.27 -0.76) (xy 1.27 -2.54)
 					)
 					(stroke
 						(width 0)
@@ -302,35 +245,24 @@
 						(type none)
 					)
 				)
-				(circle
-					(center 1.27 0)
-					(radius 2.8194)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
 				(polyline
 					(pts
-						(xy 1.27 -1.778) (xy 1.778 -1.27) (xy 2.286 -2.286) (xy 1.27 -1.778) (xy 1.27 -1.778)
+						(xy 1.27 2.54) (xy -1.27 0.76)
 					)
 					(stroke
 						(width 0)
 						(type default)
 					)
 					(fill
-						(type outline)
+						(type none)
 					)
 				)
 				(polyline
 					(pts
-						(xy 2.794 -1.27) (xy 2.794 -1.27)
+						(xy 1.27 -2.54) (xy 3.81 -2.54)
 					)
 					(stroke
-						(width 0.1524)
+						(width 0)
 						(type default)
 					)
 					(fill
@@ -339,40 +271,20 @@
 				)
 				(polyline
 					(pts
-						(xy 2.794 -1.27) (xy 2.794 -1.27)
+						(xy 1.27 -2.54) (xy 0.51 -1.27) (xy -0.25 -2.29) (xy 1.27 -2.54)
 					)
 					(stroke
-						(width 0.1524)
+						(width 0)
 						(type default)
 					)
 					(fill
-						(type none)
+						(type background)
 					)
 				)
-			)
-			(symbol "NPN_1_1"
-				(pin input line
-					(at -5.08 0 0)
+				(pin unspecified line
+					(at -3.81 0 0)
 					(length 2.54)
 					(name "B"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin open_collector line
-					(at 2.54 5.08 270)
-					(length 2.54)
-					(name "C"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -387,10 +299,10 @@
 						)
 					)
 				)
-				(pin open_emitter line
-					(at 2.54 -5.08 90)
+				(pin unspecified line
+					(at 1.27 5.08 270)
 					(length 2.54)
-					(name "E"
+					(name "C"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -405,210 +317,17 @@
 						)
 					)
 				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "dk_Diodes-Rectifiers-Single:SS14"
-			(pin_names
-				(offset 1.016)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "D"
-				(at 1.27 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "SS14"
-				(at 1.27 -2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "digikey-footprints:DO-214AC"
-				(at 5.08 5.08 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://www.onsemi.com/pub/Collateral/SS19-D.PDF"
-				(at 5.08 7.62 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Description" "DIODE SCHOTTKY 40V 1A SMA"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Digi-Key_PN" "SS14CT-ND"
-				(at 5.08 10.16 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "MPN" "SS14"
-				(at 5.08 12.7 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Category" "Discrete Semiconductor Products"
-				(at 5.08 15.24 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Family" "Diodes - Rectifiers - Single"
-				(at 5.08 17.78 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "DK_Datasheet_Link" "https://www.onsemi.com/pub/Collateral/SS19-D.PDF"
-				(at 5.08 20.32 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "DK_Detail_Page" "/product-detail/en/on-semiconductor/SS14/SS14CT-ND/965729"
-				(at 5.08 22.86 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Description_1" "DIODE SCHOTTKY 40V 1A SMA"
-				(at 5.08 25.4 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer" "ON Semiconductor"
-				(at 5.08 27.94 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Status" "Active"
-				(at 5.08 30.48 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "SS14CT-ND"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "SS14_0_1"
-				(polyline
-					(pts
-						(xy 0 1.27) (xy 0 -1.27)
-					)
-					(stroke
-						(width 0)
-						(type solid)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 2.54 0)
-					)
-					(stroke
-						(width 0)
-						(type solid)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 1.27) (xy 2.54 -1.27) (xy 0 0) (xy 2.54 1.27)
-					)
-					(stroke
-						(width 0)
-						(type solid)
-					)
-					(fill
-						(type outline)
-					)
-				)
-			)
-			(symbol "SS14_1_1"
-				(pin passive line
-					(at -2.54 0 0)
+				(pin unspecified line
+					(at 1.27 -5.08 90)
 					(length 2.54)
-					(name "~"
+					(name "E"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "K"
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -616,17 +335,17 @@
 						)
 					)
 				)
-				(pin passive line
-					(at 5.08 0 180)
+				(pin unspecified line
+					(at 3.81 -5.08 90)
 					(length 2.54)
-					(name "~"
+					(name "E"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "A"
+					(number "4"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1717,30 +1436,6 @@
 			(embedded_fonts no)
 		)
 	)
-	(text_box "Transistor tauschen / kontrollieren"
-		(exclude_from_sim no)
-		(at 133.35 93.98 0)
-		(size 29.21 17.78)
-		(margins 1.524 1.524 1.524 1.524)
-		(stroke
-			(width 0)
-			(type default)
-			(color 247 0 0 1)
-		)
-		(fill
-			(type none)
-		)
-		(effects
-			(font
-				(size 2.032 2.032)
-				(thickness 0.4064)
-				(bold yes)
-				(color 247 0 0 1)
-			)
-			(justify left top)
-		)
-		(uuid "20000c44-8ef0-4853-8094-b2ec83ed4133")
-	)
 	(junction
 		(at 53.34 55.88)
 		(diameter 0)
@@ -1754,16 +1449,28 @@
 		(uuid "887b78db-f32a-4ced-a8df-6e2bc9ed3ee0")
 	)
 	(junction
+		(at 128.27 50.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8f2bfc9c-bcb8-43c3-93db-b1eb1778c608")
+	)
+	(junction
+		(at 144.78 73.66)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9dca07a9-4a80-44e0-9ee6-d4faf8a85847")
+	)
+	(junction
 		(at 53.34 71.12)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a1c2c257-db97-416c-86c8-51d3ba6e0f7b")
 	)
 	(junction
-		(at 133.35 36.83)
+		(at 128.27 45.72)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "b36a1c4a-5c56-4176-865b-7dab1dd7a6bc")
+		(uuid "c47b7314-9bce-4936-ae4f-97e366c90006")
 	)
 	(junction
 		(at 120.65 68.58)
@@ -1772,26 +1479,24 @@
 		(uuid "ced077bd-ac5e-43de-ab7b-3bfa894de536")
 	)
 	(junction
-		(at 72.39 36.83)
+		(at 144.78 81.28)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "d8e9a0e4-2181-42d2-8837-f6df63d5bc46")
+		(uuid "fc2cdc41-8b08-475f-a6cd-346864c1325c")
 	)
-	(junction
-		(at 133.35 50.8)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "fd0e0f1a-6eb9-4b02-b326-35c537799b2c")
+	(no_connect
+		(at 72.39 45.72)
+		(uuid "f6b188b9-0fdb-4c62-9fe1-10315d2ff74a")
 	)
 	(wire
 		(pts
-			(xy 120.65 50.8) (xy 124.46 50.8)
+			(xy 139.7 45.72) (xy 137.16 45.72)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "051ac996-d8fc-476d-ab53-3796ccbbec91")
+		(uuid "059a86f6-697a-46cd-9502-86e18333c5ec")
 	)
 	(wire
 		(pts
@@ -1835,13 +1540,13 @@
 	)
 	(wire
 		(pts
-			(xy 147.32 63.5) (xy 171.45 63.5)
+			(xy 144.78 63.5) (xy 171.45 63.5)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "25f585b0-3407-46aa-9d92-034083fabd2f")
+		(uuid "2bcad70b-4d57-4639-addc-f06d7d3008fc")
 	)
 	(wire
 		(pts
@@ -1852,16 +1557,6 @@
 			(type default)
 		)
 		(uuid "317eaf2f-183c-4b67-88a8-34ade868e192")
-	)
-	(wire
-		(pts
-			(xy 133.35 36.83) (xy 140.97 36.83)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "34964f04-e0b2-4bd6-96fc-cd15a942a993")
 	)
 	(wire
 		(pts
@@ -1915,7 +1610,7 @@
 	)
 	(wire
 		(pts
-			(xy 120.65 58.42) (xy 140.97 58.42)
+			(xy 120.65 58.42) (xy 128.27 58.42)
 		)
 		(stroke
 			(width 0)
@@ -1955,7 +1650,7 @@
 	)
 	(wire
 		(pts
-			(xy 114.3 76.2) (xy 114.3 86.36)
+			(xy 114.3 73.66) (xy 114.3 86.36)
 		)
 		(stroke
 			(width 0)
@@ -1965,23 +1660,13 @@
 	)
 	(wire
 		(pts
-			(xy 140.97 36.83) (xy 140.97 58.42)
+			(xy 128.27 50.8) (xy 128.27 58.42)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "6ef45ff0-3ee8-475e-94cb-1c66cf297af4")
-	)
-	(wire
-		(pts
-			(xy 134.62 50.8) (xy 133.35 50.8)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "70507a52-8a2d-4e19-a4ab-82d380f60990")
 	)
 	(wire
 		(pts
@@ -1995,7 +1680,7 @@
 	)
 	(wire
 		(pts
-			(xy 120.65 81.28) (xy 147.32 81.28)
+			(xy 120.65 81.28) (xy 144.78 81.28)
 		)
 		(stroke
 			(width 0)
@@ -2005,17 +1690,7 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 36.83) (xy 72.39 45.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7d97a2b6-53c0-41fc-b825-e73a8d1bba2b")
-	)
-	(wire
-		(pts
-			(xy 147.32 76.2) (xy 114.3 76.2)
+			(xy 114.3 73.66) (xy 144.78 73.66)
 		)
 		(stroke
 			(width 0)
@@ -2025,7 +1700,17 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 36.83) (xy 133.35 36.83)
+			(xy 129.54 45.72) (xy 128.27 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "976dfb0b-0207-48ac-8d23-0b713f6d85d5")
+	)
+	(wire
+		(pts
+			(xy 118.11 45.72) (xy 128.27 45.72)
 		)
 		(stroke
 			(width 0)
@@ -2065,16 +1750,6 @@
 	)
 	(wire
 		(pts
-			(xy 133.35 39.37) (xy 133.35 36.83)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a94ba8d9-de62-4f56-a55b-a204a69ad114")
-	)
-	(wire
-		(pts
 			(xy 153.67 53.34) (xy 156.21 53.34)
 		)
 		(stroke
@@ -2095,23 +1770,13 @@
 	)
 	(wire
 		(pts
-			(xy 133.35 50.8) (xy 132.08 50.8)
+			(xy 144.78 73.66) (xy 147.32 73.66)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "b03f8eb5-aad7-4b1c-904c-9927ec74a391")
-	)
-	(wire
-		(pts
-			(xy 55.88 36.83) (xy 59.69 36.83)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c1cebe10-04e1-4d67-af29-7174aa20e730")
+		(uuid "beea0914-0bf9-4ce5-be4f-b9e4c3706953")
 	)
 	(wire
 		(pts
@@ -2125,23 +1790,13 @@
 	)
 	(wire
 		(pts
-			(xy 147.32 73.66) (xy 147.32 76.2)
+			(xy 120.65 50.8) (xy 128.27 50.8)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "d0aaf38a-72d0-4da2-9177-ec2a51df5895")
-	)
-	(wire
-		(pts
-			(xy 147.32 91.44) (xy 172.72 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d9db010f-0a42-42a6-8ac1-58b62539e634")
+		(uuid "d40576e6-9968-4876-823b-b652760ecc2c")
 	)
 	(wire
 		(pts
@@ -2175,6 +1830,26 @@
 	)
 	(wire
 		(pts
+			(xy 144.78 81.28) (xy 147.32 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eb06c625-ac39-43f5-bf78-a0e006be8a8b")
+	)
+	(wire
+		(pts
+			(xy 144.78 91.44) (xy 172.72 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eb62c8f6-9e6c-4e79-a939-8d90781b01b8")
+	)
+	(wire
+		(pts
 			(xy 46.99 48.26) (xy 81.28 48.26)
 		)
 		(stroke
@@ -2185,13 +1860,13 @@
 	)
 	(wire
 		(pts
-			(xy 133.35 46.99) (xy 133.35 50.8)
+			(xy 128.27 50.8) (xy 128.27 45.72)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "f2a5aa99-c70c-42b3-b861-cf1116544c9d")
+		(uuid "f1e28d54-0cb4-47cf-92e8-8a0f36e8dac0")
 	)
 	(wire
 		(pts
@@ -2212,16 +1887,6 @@
 			(type default)
 		)
 		(uuid "f896c546-d4dd-40bb-913a-370cb79bd775")
-	)
-	(wire
-		(pts
-			(xy 67.31 36.83) (xy 72.39 36.83)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fc5d15ec-6b79-4059-999f-3cb75a17ea43")
 	)
 	(label "GND"
 		(at 67.31 55.88 0)
@@ -2295,16 +1960,16 @@
 		)
 		(uuid "4f4af92f-92a5-4ba2-9741-60a9613449d2")
 	)
-	(hierarchical_label "5V"
+	(hierarchical_label "3V3"
 		(shape input)
-		(at 55.88 36.83 180)
+		(at 118.11 45.72 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right)
 		)
-		(uuid "621cbeea-969a-42d7-8127-012ac894b317")
+		(uuid "712b87b4-ba14-410d-a984-250849b6c7e3")
 	)
 	(hierarchical_label "U0RXD"
 		(shape input)
@@ -2341,7 +2006,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape input)
-		(at 134.62 50.8 0)
+		(at 139.7 45.72 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2530,15 +2195,15 @@
 	)
 	(symbol
 		(lib_id "easyeda2kicad:CL10B104KA8NNNC")
-		(at 133.35 43.18 270)
+		(at 133.35 45.72 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "34dc3103-6325-4b8a-9667-6359cf513a9d")
-		(property "Reference" "C1402"
-			(at 135.636 46.736 0)
+		(property "Reference" "C1401"
+			(at 135.636 41.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2547,7 +2212,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 137.668 46.228 0)
+			(at 135.636 40.132 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2556,7 +2221,7 @@
 			)
 		)
 		(property "Footprint" "easyeda2kicad:C0603"
-			(at 125.73 43.18 0)
+			(at 133.35 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2565,7 +2230,7 @@
 			)
 		)
 		(property "Datasheet" "https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_SAMSUNG_CL10B104KA8NNNC_100nF-104-10-25V_C1590.html"
-			(at 123.19 43.18 0)
+			(at 133.35 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2574,7 +2239,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 133.35 43.18 0)
+			(at 133.35 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2583,7 +2248,7 @@
 			)
 		)
 		(property "LCSC Part" "C1590"
-			(at 120.65 43.18 0)
+			(at 133.35 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2600,167 +2265,7 @@
 		(instances
 			(project "Option1"
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
-					(reference "C1402")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "dk_Diodes-Rectifiers-Single:SS14")
-		(at 62.23 36.83 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "3dfd0640-8131-4d25-b8ed-3f552964498e")
-		(property "Reference" "D1401"
-			(at 63.5 30.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SS14"
-			(at 63.5 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "digikey-footprints:DO-214AC"
-			(at 67.31 31.75 0)
-			(effects
-				(font
-					(size 1.524 1.524)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/SS19-D.PDF"
-			(at 67.31 29.21 0)
-			(effects
-				(font
-					(size 1.524 1.524)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "DIODE SCHOTTKY 40V 1A SMA"
-			(at 62.23 36.83 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Digi-Key_PN" "SS14CT-ND"
-			(at 67.31 26.67 0)
-			(effects
-				(font
-					(size 1.524 1.524)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "MPN" "SS14"
-			(at 67.31 24.13 0)
-			(effects
-				(font
-					(size 1.524 1.524)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Category" "Discrete Semiconductor Products"
-			(at 67.31 21.59 0)
-			(effects
-				(font
-					(size 1.524 1.524)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Family" "Diodes - Rectifiers - Single"
-			(at 67.31 19.05 0)
-			(effects
-				(font
-					(size 1.524 1.524)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "DK_Datasheet_Link" "https://www.onsemi.com/pub/Collateral/SS19-D.PDF"
-			(at 67.31 16.51 0)
-			(effects
-				(font
-					(size 1.524 1.524)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "DK_Detail_Page" "/product-detail/en/on-semiconductor/SS14/SS14CT-ND/965729"
-			(at 67.31 13.97 0)
-			(effects
-				(font
-					(size 1.524 1.524)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description_1" "DIODE SCHOTTKY 40V 1A SMA"
-			(at 67.31 11.43 0)
-			(effects
-				(font
-					(size 1.524 1.524)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "ON Semiconductor"
-			(at 67.31 8.89 0)
-			(effects
-				(font
-					(size 1.524 1.524)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Status" "Active"
-			(at 67.31 6.35 0)
-			(effects
-				(font
-					(size 1.524 1.524)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "K"
-			(uuid "7b432f52-e63b-488d-810f-3dc330d60017")
-		)
-		(pin "A"
-			(uuid "05c9ec2e-0509-4d30-898c-edb8c4ae5e12")
-		)
-		(instances
-			(project "Option1"
-				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
-					(reference "D1401")
+					(reference "C1401")
 					(unit 1)
 				)
 			)
@@ -2939,17 +2444,18 @@
 		)
 	)
 	(symbol
-		(lib_id "Simulation_SPICE:NPN")
-		(at 144.78 68.58 0)
+		(lib_id "EasyEda2KiCad:BFP420H6327XTSA1")
+		(at 143.51 86.36 0)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "4e7f3fe0-875c-4047-a543-d1beb48eb608")
-		(property "Reference" "Q1401"
-			(at 149.86 67.3099 0)
+		(uuid "538bbeee-ea78-4dfa-b6f0-038b1304068a")
+		(property "Reference" "Q1402"
+			(at 148.59 85.0899 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2957,8 +2463,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "NPN"
-			(at 149.86 69.8499 0)
+		(property "Value" "BFP420H6327XTSA1"
+			(at 148.59 87.6299 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2966,8 +2472,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 208.28 68.58 0)
+		(property "Footprint" "easyeda2kicad:SOT343_L2.0-W1.3-P1.30-LS2.1-BL"
+			(at 143.51 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2975,8 +2481,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#cha_BJTs"
-			(at 208.28 68.58 0)
+		(property "Datasheet" "https://lcsc.com/product-detail/Transistors-NPN-PNP_Infineon_BFP420H6327XTSA1_BFP420H6327XTSA1_C83872.html"
+			(at 143.51 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2984,8 +2490,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Bipolar transistor symbol for simulation only, substrate tied to the emitter"
-			(at 144.78 68.58 0)
+		(property "Description" ""
+			(at 143.51 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2993,46 +2499,31 @@
 				(hide yes)
 			)
 		)
-		(property "Sim.Device" "NPN"
-			(at 144.78 68.58 0)
+		(property "LCSC Part" "C83872"
+			(at 143.51 68.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(hide yes)
 			)
-		)
-		(property "Sim.Type" "GUMMELPOON"
-			(at 144.78 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" "1=C 2=B 3=E"
-			(at 144.78 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "df00e2dc-599e-435f-b145-77c4fee1d58f")
-		)
-		(pin "1"
-			(uuid "80e5b833-26dc-44b1-ab28-2dd81aa18c47")
 		)
 		(pin "3"
-			(uuid "c0294215-367f-4ca5-adcd-8f8439d0f859")
+			(uuid "ea94284c-d9bb-4634-a720-15e80fe0ed13")
+		)
+		(pin "4"
+			(uuid "c02186f2-f181-4517-9dd0-37a5a14ef5b2")
+		)
+		(pin "2"
+			(uuid "4240eb15-a529-4268-ac2a-a400970c104f")
+		)
+		(pin "1"
+			(uuid "5dfef7a5-78b1-498a-9070-811d5551993b")
 		)
 		(instances
 			(project ""
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
-					(reference "Q1401")
+					(reference "Q1402")
 					(unit 1)
 				)
 			)
@@ -3100,185 +2591,6 @@
 			(project "Option1"
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
 					(reference "D1403")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "easyeda2kicad:CL10B104KA8NNNC")
-		(at 128.27 50.8 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "66029291-2daa-430a-b411-83db6d4e7d32")
-		(property "Reference" "C1401"
-			(at 127 48.514 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "100nF"
-			(at 129.54 48.514 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "easyeda2kicad:C0603"
-			(at 128.27 43.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_SAMSUNG_CL10B104KA8NNNC_100nF-104-10-25V_C1590.html"
-			(at 128.27 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 128.27 50.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC Part" "C1590"
-			(at 128.27 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "48014fc9-d3c2-4982-bb8f-99eb8bbee20e")
-		)
-		(pin "2"
-			(uuid "4f9308a1-6cdb-4191-8ec6-75f078ac96da")
-		)
-		(instances
-			(project "Option1"
-				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
-					(reference "C1401")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Simulation_SPICE:NPN")
-		(at 144.78 86.36 0)
-		(mirror x)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "6a30c615-b456-4aba-b825-222e0d3f77c1")
-		(property "Reference" "Q1402"
-			(at 149.86 85.0899 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "NPN"
-			(at 149.86 87.6299 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 208.28 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#cha_BJTs"
-			(at 208.28 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Bipolar transistor symbol for simulation only, substrate tied to the emitter"
-			(at 144.78 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" "NPN"
-			(at 144.78 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Type" "GUMMELPOON"
-			(at 144.78 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" "1=C 2=B 3=E"
-			(at 144.78 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "6577e5eb-04ff-4368-9fae-fd4e7cf36369")
-		)
-		(pin "3"
-			(uuid "e96fae68-d445-446c-a41e-0ba583668128")
-		)
-		(pin "1"
-			(uuid "b2f9f0ba-3b66-4659-a8db-1e98c159caa3")
-		)
-		(instances
-			(project ""
-				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
-					(reference "Q1402")
 					(unit 1)
 				)
 			)
@@ -3503,6 +2815,91 @@
 			(project "Option1"
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
 					(reference "D1402")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "EasyEda2KiCad:BFP420H6327XTSA1")
+		(at 143.51 68.58 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ecc66aa0-ede9-4749-bcda-2dca42f44067")
+		(property "Reference" "Q1401"
+			(at 148.59 67.3099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BFP420H6327XTSA1"
+			(at 148.59 69.8499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "easyeda2kicad:SOT343_L2.0-W1.3-P1.30-LS2.1-BL"
+			(at 143.51 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Transistors-NPN-PNP_Infineon_BFP420H6327XTSA1_BFP420H6327XTSA1_C83872.html"
+			(at 143.51 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 143.51 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C83872"
+			(at 143.51 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0ee95eef-cd6e-4d29-97ce-4dd354bb21b6")
+		)
+		(pin "3"
+			(uuid "a122a54a-c977-4e42-9ec4-fada7a946d7b")
+		)
+		(pin "2"
+			(uuid "d14108e1-2ca2-4a27-9629-612176357564")
+		)
+		(pin "4"
+			(uuid "56355222-3f1a-4d30-8fb1-07a8392ebbc2")
+		)
+		(instances
+			(project ""
+				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
+					(reference "Q1401")
 					(unit 1)
 				)
 			)
