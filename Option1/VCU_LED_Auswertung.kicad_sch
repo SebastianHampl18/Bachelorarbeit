@@ -14,7 +14,7 @@
 		(comment 3 "Sebastian Hampl")
 	)
 	(lib_symbols
-		(symbol "easyeda2kicad:0603WAF1802T5E"
+		(symbol "EasyEda2KiCad:0603WAF1002T5E"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -26,7 +26,7 @@
 					)
 				)
 			)
-			(property "Value" "0603WAF1802T5E"
+			(property "Value" "0603WAF1002T5E"
 				(at 0 -5.08 0)
 				(effects
 					(font
@@ -43,7 +43,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_18KR-1802-1_C25810.html"
+			(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_10KR-1002-1_C25804.html"
 				(at 0 -10.16 0)
 				(effects
 					(font
@@ -61,7 +61,7 @@
 					(hide yes)
 				)
 			)
-			(property "LCSC Part" "C25810"
+			(property "LCSC Part" "C25804"
 				(at 0 -12.7 0)
 				(effects
 					(font
@@ -70,7 +70,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "0603WAF1802T5E_0_1"
+			(symbol "0603WAF1002T5E_0_1"
 				(rectangle
 					(start -2.54 1.02)
 					(end 2.54 -1.02)
@@ -121,7 +121,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "easyeda2kicad:0603WAF4702T5E"
+		(symbol "EasyEda2KiCad:0603WAF2702T5E"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -133,7 +133,7 @@
 					)
 				)
 			)
-			(property "Value" "0603WAF4702T5E"
+			(property "Value" "0603WAF2702T5E"
 				(at 0 -5.08 0)
 				(effects
 					(font
@@ -150,7 +150,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_47KR-4702-1_C25819.html"
+			(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_27KR-2702-1_C22967.html"
 				(at 0 -10.16 0)
 				(effects
 					(font
@@ -168,7 +168,7 @@
 					(hide yes)
 				)
 			)
-			(property "LCSC Part" "C25819"
+			(property "LCSC Part" "C22967"
 				(at 0 -12.7 0)
 				(effects
 					(font
@@ -177,7 +177,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "0603WAF4702T5E_0_1"
+			(symbol "0603WAF2702T5E_0_1"
 				(rectangle
 					(start -2.54 1.02)
 					(end 2.54 -1.02)
@@ -349,7 +349,7 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "0 - 3.32V"
+	(text "0 - 3.2V"
 		(exclude_from_sim no)
 		(at 117.094 65.024 0)
 		(effects
@@ -377,7 +377,7 @@
 		(at 105.41 66.04)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "e40933b9-f008-433f-b29d-c6d62fe3ac84")
+		(uuid "b5b4725e-c630-4892-9769-1f4589219dc2")
 	)
 	(wire
 		(pts
@@ -437,7 +437,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "e90b17dc-fef3-470e-8b34-dc5a5d54fbbd")
+		(uuid "da587095-a5ec-4b19-b4c1-305dbf048c7d")
 	)
 	(hierarchical_label "LED_Signal"
 		(shape output)
@@ -473,15 +473,15 @@
 		(uuid "8cf9e686-ad19-4e1f-89de-c9ba235890db")
 	)
 	(symbol
-		(lib_id "easyeda2kicad:0603WAF4702T5E")
-		(at 97.79 66.04 0)
+		(lib_id "EasyEda2KiCad:0603WAF2702T5E")
+		(at 97.79 66.04 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "2f93e301-61fe-4eda-b0fe-5e535edfabca")
+		(uuid "0c56cfcb-c7fe-42a0-9a61-8e0d277d73e2")
 		(property "Reference" "R1201"
 			(at 97.79 59.69 0)
 			(effects
@@ -490,7 +490,7 @@
 				)
 			)
 		)
-		(property "Value" "47k"
+		(property "Value" "27k"
 			(at 97.79 62.23 0)
 			(effects
 				(font
@@ -499,7 +499,7 @@
 			)
 		)
 		(property "Footprint" "easyeda2kicad:R0603"
-			(at 97.79 73.66 0)
+			(at 97.79 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -507,8 +507,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_47KR-4702-1_C25819.html"
-			(at 97.79 76.2 0)
+		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_27KR-2702-1_C22967.html"
+			(at 97.79 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -525,8 +525,8 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part" "C25819"
-			(at 97.79 78.74 0)
+		(property "LCSC Part" "C22967"
+			(at 97.79 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -535,15 +535,93 @@
 			)
 		)
 		(pin "2"
-			(uuid "a53d1f7d-0777-4f14-bbd6-3d241a47d053")
+			(uuid "18325bd1-c158-4d28-a143-6249cdb142a6")
 		)
 		(pin "1"
-			(uuid "6fef8766-37c1-44a2-b994-8df0b71b48b3")
+			(uuid "fc86975a-1d4e-4683-bbb9-7d57e0ffa14a")
 		)
 		(instances
-			(project "Option1"
+			(project ""
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/3c8ea371-444a-4744-b7e3-225c455221a8"
 					(reference "R1201")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "EasyEda2KiCad:0603WAF1002T5E")
+		(at 105.41 71.12 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "394f5eb0-f167-4da5-bf99-84ba8009d13d")
+		(property "Reference" "R1202"
+			(at 97.536 69.596 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "10k"
+			(at 97.536 72.136 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "easyeda2kicad:R0603"
+			(at 113.03 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_10KR-1002-1_C25804.html"
+			(at 115.57 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 105.41 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C25804"
+			(at 118.11 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "62c3ad24-76bf-4b5d-8aaf-e046ca68f8b6")
+		)
+		(pin "1"
+			(uuid "06748e7e-a857-45d7-bcfd-603326b76422")
+		)
+		(instances
+			(project ""
+				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/3c8ea371-444a-4744-b7e3-225c455221a8"
+					(reference "R1202")
 					(unit 1)
 				)
 			)
@@ -623,84 +701,6 @@
 			(project ""
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/3c8ea371-444a-4744-b7e3-225c455221a8"
 					(reference "ZD1201")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "easyeda2kicad:0603WAF1802T5E")
-		(at 105.41 71.12 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "afee8411-1aee-4216-bb8a-1863cf3f8256")
-		(property "Reference" "R1202"
-			(at 97.536 70.612 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "18k"
-			(at 99.314 72.898 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "easyeda2kicad:R0603"
-			(at 113.03 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_18KR-1802-1_C25810.html"
-			(at 115.57 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 105.41 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC Part" "C25810"
-			(at 118.11 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "1939ad02-55e5-4b90-a747-0d7171ae1158")
-		)
-		(pin "1"
-			(uuid "afe518ca-61b4-4d94-95cc-9649fc20254e")
-		)
-		(instances
-			(project ""
-				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/3c8ea371-444a-4744-b7e3-225c455221a8"
-					(reference "R1202")
 					(unit 1)
 				)
 			)
