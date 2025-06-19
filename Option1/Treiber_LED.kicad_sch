@@ -14,7 +14,7 @@
 		(comment 3 "Sebastian Hampl")
 	)
 	(lib_symbols
-		(symbol "EasyEda2KiCad:CSD13381F4"
+		(symbol "EasyEda2KiCad:JY2302"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -26,7 +26,7 @@
 					)
 				)
 			)
-			(property "Value" "CSD13381F4"
+			(property "Value" "JY2302"
 				(at 0 -10.16 0)
 				(effects
 					(font
@@ -34,7 +34,7 @@
 					)
 				)
 			)
-			(property "Footprint" "easyeda2kicad:PICOSTAR-3_L1.0-W0.6-P0.40-S0.65-BL-1"
+			(property "Footprint" "easyeda2kicad:SOT-23-3_L2.9-W1.3-P0.95-LS2.4-BR"
 				(at 0 -12.7 0)
 				(effects
 					(font
@@ -61,7 +61,7 @@
 					(hide yes)
 				)
 			)
-			(property "LCSC Part" "C179868"
+			(property "LCSC Part" "C3038095"
 				(at 0 -15.24 0)
 				(effects
 					(font
@@ -70,22 +70,10 @@
 					(hide yes)
 				)
 			)
-			(symbol "CSD13381F4_0_1"
+			(symbol "JY2302_0_1"
 				(polyline
 					(pts
-						(xy 0 2.54) (xy 0 -2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.76 2.54) (xy 0.76 1.78)
+						(xy -2.54 -2.54) (xy -0.51 -2.54)
 					)
 					(stroke
 						(width 0)
@@ -97,7 +85,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0.76 1.78) (xy 0.76 1.27)
+						(xy -0.51 2.54) (xy -0.51 -2.54)
 					)
 					(stroke
 						(width 0)
@@ -109,7 +97,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0.76 1.78) (xy 4.06 1.78) (xy 4.06 1.78)
+						(xy 0 1.27) (xy 0 2.54)
 					)
 					(stroke
 						(width 0)
@@ -121,7 +109,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0.76 0.51) (xy 0.76 0)
+						(xy 0 0) (xy 2.54 0) (xy 2.54 -2.54)
 					)
 					(stroke
 						(width 0)
@@ -133,7 +121,19 @@
 				)
 				(polyline
 					(pts
-						(xy 0.76 0) (xy 0.76 -0.51)
+						(xy 0 0) (xy 1.52 0.51) (xy 1.52 -0.51) (xy 0 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -0.51) (xy 0 0.51)
 					)
 					(stroke
 						(width 0)
@@ -145,7 +145,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0.76 0) (xy 1.78 0.25)
+						(xy 0 -2.54) (xy 0 -1.27)
 					)
 					(stroke
 						(width 0)
@@ -157,7 +157,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0.76 0) (xy 1.78 -0.25)
+						(xy 2.54 1.78) (xy 0 1.78)
 					)
 					(stroke
 						(width 0)
@@ -169,7 +169,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0.76 -1.78) (xy 0.76 -1.27)
+						(xy 2.54 1.78) (xy 2.54 2.54) (xy 5.08 2.54) (xy 5.08 0.76)
 					)
 					(stroke
 						(width 0)
@@ -181,7 +181,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0.76 -1.78) (xy 2.54 -1.78)
+						(xy 2.54 -1.78) (xy 0 -1.78)
 					)
 					(stroke
 						(width 0)
@@ -193,7 +193,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0.76 -2.54) (xy 0.76 -1.78)
+						(xy 2.54 -2.54) (xy 5.08 -2.54) (xy 5.08 -0.51)
 					)
 					(stroke
 						(width 0)
@@ -205,305 +205,19 @@
 				)
 				(polyline
 					(pts
-						(xy 1.02 0) (xy 0.76 0)
+						(xy 5.08 0.76) (xy 4.32 -0.51) (xy 5.84 -0.51) (xy 5.08 0.76)
 					)
 					(stroke
 						(width 0)
 						(type default)
 					)
 					(fill
-						(type none)
+						(type background)
 					)
 				)
 				(polyline
 					(pts
-						(xy 1.02 0) (xy 1.78 -0.25)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.02 0) (xy 2.54 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.78 0.25) (xy 1.02 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.78 -0.25) (xy 1.27 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.78 -0.25) (xy 1.78 0.25)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 2.54) (xy 2.54 1.78)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.54 1.78)
-					(radius 0.25)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 0) (xy 2.54 -1.78)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 -1.78) (xy 2.54 -2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.54 -1.78)
-					(radius 0.25)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 3.56 -0.51) (xy 4.06 0.51)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 3.81 -0.51) (xy 3.56 -0.51)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 4.06 1.78) (xy 4.06 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 4.06 0.51) (xy 3.56 0.51)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 4.06 0.51) (xy 4.57 -0.51)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 4.06 0) (xy 3.81 -0.25)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 4.06 0) (xy 3.81 -0.51)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 4.06 0) (xy 4.06 0.51)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 4.06 -0.25) (xy 4.06 -1.78)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 4.06 -1.78) (xy 2.54 -1.78)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 4.32 -0.25) (xy 4.06 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 4.32 -0.51) (xy 3.81 -0.51)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 4.32 -0.51) (xy 4.06 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 4.57 0.51) (xy 4.06 0.51)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 4.57 -0.51) (xy 4.32 -0.51)
+						(xy 5.84 0.76) (xy 5.59 0.76) (xy 4.57 0.76) (xy 4.32 0.76)
 					)
 					(stroke
 						(width 0)
@@ -514,7 +228,7 @@
 					)
 				)
 				(pin unspecified line
-					(at -2.54 0 0)
+					(at -5.08 -2.54 0)
 					(length 2.54)
 					(name "G"
 						(effects
@@ -532,7 +246,7 @@
 					)
 				)
 				(pin unspecified line
-					(at 2.54 5.08 90)
+					(at 2.54 5.08 270)
 					(length 2.54)
 					(name "D"
 						(effects
@@ -550,7 +264,7 @@
 					)
 				)
 				(pin unspecified line
-					(at 2.54 -5.08 270)
+					(at 2.54 -5.08 90)
 					(length 2.54)
 					(name "S"
 						(effects
@@ -704,16 +418,6 @@
 	)
 	(wire
 		(pts
-			(xy 143.51 85.09) (xy 142.24 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "300f6e86-a339-4203-bf20-84498d892de9")
-	)
-	(wire
-		(pts
 			(xy 129.54 73.66) (xy 154.94 73.66)
 		)
 		(stroke
@@ -744,13 +448,23 @@
 	)
 	(wire
 		(pts
-			(xy 129.54 85.09) (xy 132.08 85.09)
+			(xy 127 87.63) (xy 129.54 87.63)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "ef5c5173-0470-42d2-86e1-77fbe69cf760")
+	)
+	(wire
+		(pts
+			(xy 140.97 87.63) (xy 139.7 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fa046c91-010d-4df7-9bae-aab5b9d26e5c")
 	)
 	(hierarchical_label "Status-LED +"
 		(shape output)
@@ -767,7 +481,7 @@
 	)
 	(hierarchical_label "LED On"
 		(shape input)
-		(at 129.54 85.09 180)
+		(at 127 87.63 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -818,84 +532,7 @@
 		(uuid "f29d8194-e838-43ee-9205-33513ed1a192")
 	)
 	(symbol
-		(lib_id "easyeda2kicad:0603WAF1001T5E")
-		(at 137.16 85.09 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "57267308-c1c7-4f7b-b0e8-fe011706b59a")
-		(property "Reference" "R601"
-			(at 137.16 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1k"
-			(at 137.16 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "easyeda2kicad:R0603"
-			(at 137.16 77.47 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_1KR-1001-1_C21190.html"
-			(at 137.16 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 137.16 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC Part" "C21190"
-			(at 137.16 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "ce0bc624-1b75-4e8c-ac51-f989cb0fe0a0")
-		)
-		(pin "1"
-			(uuid "5c597f19-cd96-4a13-beac-bc291fa50823")
-		)
-		(instances
-			(project "Option1"
-				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/a452be95-5969-43b6-804d-0a34f3106ddf"
-					(reference "R601")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "EasyEda2KiCad:CSD13381F4")
+		(lib_id "EasyEda2KiCad:JY2302")
 		(at 146.05 85.09 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -903,9 +540,9 @@
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "db302851-b01c-4d3e-b51b-35985aa845f3")
-		(property "Reference" "Q3"
-			(at 152.4 83.8199 0)
+		(uuid "06335eef-01a3-4e46-b0a4-b06926bd56d9")
+		(property "Reference" "Q601"
+			(at 153.67 83.8199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -913,8 +550,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "CSD13381F4"
-			(at 152.4 86.3599 0)
+		(property "Value" "JY2302"
+			(at 153.67 86.3599 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -922,7 +559,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "easyeda2kicad:PICOSTAR-3_L1.0-W0.6-P0.40-S0.65-BL-1"
+		(property "Footprint" "easyeda2kicad:SOT-23-3_L2.9-W1.3-P0.95-LS2.4-BR"
 			(at 146.05 97.79 0)
 			(effects
 				(font
@@ -949,7 +586,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part" "C179868"
+		(property "LCSC Part" "C3038095"
 			(at 146.05 100.33 0)
 			(effects
 				(font
@@ -958,19 +595,96 @@
 				(hide yes)
 			)
 		)
-		(pin "3"
-			(uuid "274727d5-92e8-4b3e-bc29-71843ed41149")
+		(pin "2"
+			(uuid "40515b01-c8c0-4944-aee7-c3b8f5ffcd0d")
 		)
 		(pin "1"
-			(uuid "7a08f3df-555a-4a1f-a164-76ca839d88b7")
+			(uuid "b5fbc928-9470-4cf0-9d51-bc09aa08f92b")
+		)
+		(pin "3"
+			(uuid "30c3da77-ed05-4601-8656-b5fee75aa741")
+		)
+		(instances
+			(project ""
+				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/a452be95-5969-43b6-804d-0a34f3106ddf"
+					(reference "Q601")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "easyeda2kicad:0603WAF1001T5E")
+		(at 134.62 87.63 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "57267308-c1c7-4f7b-b0e8-fe011706b59a")
+		(property "Reference" "R601"
+			(at 134.62 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 134.62 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "easyeda2kicad:R0603"
+			(at 134.62 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_1KR-1001-1_C21190.html"
+			(at 134.62 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 134.62 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C21190"
+			(at 134.62 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
 		)
 		(pin "2"
-			(uuid "82ff5110-7a1e-4b96-b000-d867d50f4a51")
+			(uuid "ce0bc624-1b75-4e8c-ac51-f989cb0fe0a0")
+		)
+		(pin "1"
+			(uuid "5c597f19-cd96-4a13-beac-bc291fa50823")
 		)
 		(instances
 			(project "Option1"
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/a452be95-5969-43b6-804d-0a34f3106ddf"
-					(reference "Q3")
+					(reference "R601")
 					(unit 1)
 				)
 			)
