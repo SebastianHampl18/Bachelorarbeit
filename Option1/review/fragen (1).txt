@@ -1,0 +1,41 @@
+Style:
+- schön das du ein Übersichtsblatt gemacht hast
+- Spannungssymbole verwenden
+- gut das deine Referenzen zur Schaltplanseite passen z.b. R301
+- wenn du Widerstände auf "nicht bestücken" setzt dann musst du Sie auch in der Stückliste ausschließen (sonst werden die bestückt, ist mir schon passiert)
+- Seite 8 Bereich 1 u. 2: Wusste garnicht dass man Signale derart verbinden kann. Klappt das im PCB Designer?
+- U802 gefällt mir gut, dass du einen Port für Eingänge und einen für Ausgänge nimmst	
+- wenn du schon auf dem Level deinen Schaltplan machst, dann müsstest Signalnamen mit Seitenreferenz machen ;)
+
+Inhalt:
+// - nimm bei LEDs die von der Laderack2PCB
+// - U201 würde keinen Linearreagler verwenden => OptionsPCB von mir hat einen DCDC
+// - U201:3 Signalklasse 12V für höhere Signalbreite
+// - U203:3 braucht auch die Signalklasse 3.3V für die höhere Leiterbahnbreite
+- wofür R301 / R302 / C303?
+- Seite4 hab ich nicht wirklich gecheckt, lass und das wenn nötig zusammen machen
+// - Q601 ist doch etwas arg groß für eine LED die keine 12W hat :)
+// am Gate arbeitest du mit 3,3V kann der FET das?
+- Hast du einen DebugPin am ESP32? Kann sehr praktisch sein um ein Oszi anzuschließen bei Tests.
+// - R806 / R807 ich kenn da ehr 4k7 Ohm
+// - U802 100nF
+// - C804 an einem CLK?
+- U801 SPI Anbindung Display / Flash habe ich nicht geprüft da aus meiner Sicht noch ein CAN Controller fehlt
+  habe nicht geprüft ob die Pins bei der Beschaltung alle verwendet werden können. Wenn das Pinning von LR2 PCB übernommen ist gehts 
+? - Q901 nimm FET aus der LaderackPCB (3,3V Pegel bedenken)
+  muss der nicht Notaus_VCU an Masse schalten? und ist so verdreht? Drain<>Source
+? - R902 raus (ich habe ihn drin gegen die 12V Versorgung vom Akku, du aber die internen 12V das könnte Probleme machen
+- Q1001 siehe Q901
+- Q1101 siehe Q901
+- R1202 ich finde es nicht schön, wenn du schon berechnet auf über 3,3V gehst. Lieber etwas drunter bleiben
+- Schaltplan Seite 14 
+  "Meine" Schaltung hatte meine ich irgendeinen kleinen Fehler drin (Zettel liegt auf dem Tisch am Schreibtisch)
+  Willst du das Risiko wirklich eingehen, dass da ein Fehler drin schlummert und du Nacharbeiten musst, oder vielleicht ehr ne Bekannte Schaltung nehmen?
+- IC1601 SDFlash von der Laderack2PCB verwenden (ich wollte kein BGA bei uns einführen, daher ist er nicht sooo groß)
+- wofür R1701 / R1702 / C1703?
+  Seite 17 ist glaube ich nicht vollständig
+  der ESP hat nur einen CanController, CAN2 muss also anders angebunden werden (siehe Laderack2PCB)
+  Signalnamen Duplikat von Seite 3
+- Stecker => lass uns quatschen
+
+- Display: Du hättest es leichter, wenn es vorab auf 1-2 eingeschrängt wird. Single Source ist es eh, wenn wir bei Waveshare kaufen.

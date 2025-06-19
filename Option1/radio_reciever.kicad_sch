@@ -831,6 +831,305 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "EasyEda2KiCad:0603WAJ0221T5E"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "0603WAJ0221T5E"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "easyeda2kicad:R0603"
+				(at 0 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_220R-221-5_C1226.html"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part" "C1226"
+				(at 0 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "0603WAJ0221T5E_0_1"
+				(rectangle
+					(start -2.54 1.02)
+					(end 2.54 -1.02)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin input line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "EasyEda2KiCad:XL-1608SYGC-06"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "LED"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "XL-1608SYGC-06"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "easyeda2kicad:LED0603-RD_GREEN"
+				(at 0 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part" "C965805"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "XL-1608SYGC-06_0_1"
+				(polyline
+					(pts
+						(xy -4.06 3.3) (xy -3.05 2.79) (xy -3.56 2.29) (xy -4.06 3.3)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy -3.05 4.32) (xy -2.03 3.81) (xy -2.54 3.3) (xy -3.05 4.32)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.29 1.52) (xy -3.3 2.54) (xy -2.29 1.52)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 2.54) (xy -2.29 3.56) (xy -1.27 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 1.78) (xy -1.27 -1.78)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -2.54 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 1.78) (xy -1.27 0) (xy 1.27 -1.78) (xy 1.27 1.78)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 0) (xy 1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin unspecified line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "easyeda2kicad:0603WAF1002T5E"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -888,113 +1187,6 @@
 				)
 			)
 			(symbol "0603WAF1002T5E_0_1"
-				(rectangle
-					(start -2.54 1.02)
-					(end 2.54 -1.02)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(pin input line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 5.08 0 180)
-					(length 2.54)
-					(name "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "easyeda2kicad:0603WAF2700T5E"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "R"
-				(at 0 5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "0603WAF2700T5E"
-				(at 0 -5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "easyeda2kicad:R0603"
-				(at 0 -7.62 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_270R-2700-1_C22966.html"
-				(at 0 -10.16 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "LCSC Part" "C22966"
-				(at 0 -12.7 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "0603WAF2700T5E_0_1"
 				(rectangle
 					(start -2.54 1.02)
 					(end 2.54 -1.02)
@@ -1259,174 +1451,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "easyeda2kicad:KT-0603R"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "LED"
-				(at 0 5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "KT-0603R"
-				(at 0 -5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "easyeda2kicad:LED0603-RD"
-				(at 0 -7.62 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://lcsc.com/product-detail/Light-Emitting-Diodes-LED_Red-LED-0603_C2286.html"
-				(at 0 -10.16 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "LCSC Part" "C2286"
-				(at 0 -12.7 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "KT-0603R_0_1"
-				(polyline
-					(pts
-						(xy -3.81 3.3) (xy -2.79 2.79) (xy -3.3 2.29) (xy -3.81 3.3)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.79 4.32) (xy -1.78 3.81) (xy -2.29 3.3) (xy -2.79 4.32)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.03 1.52) (xy -3.81 3.3)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.27 2.03) (xy -1.27 -2.03)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.02 2.54) (xy -2.79 4.32)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 -1.52) (xy -1.27 0) (xy 1.27 1.78) (xy 1.27 -1.52)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(pin unspecified line
-					(at -5.08 0 0)
-					(length 3.81)
-					(name "K"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 5.08 0 180)
-					(length 3.81)
-					(name "A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 	)
 	(text "lowactive"
 		(exclude_from_sim no)
@@ -1458,9 +1482,9 @@
 		)
 		(uuid "6c2700ec-2560-40ca-a445-ddf046320301")
 	)
-	(text "I_LED = 5mA -> R = 270Ω"
+	(text "I_LED = 5mA\n"
 		(exclude_from_sim no)
-		(at 104.902 145.034 0)
+		(at 99.06 143.51 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1500,29 +1524,6 @@
 			)
 		)
 		(uuid "f944cd1e-45e8-4ddd-9222-4c4905c496c7")
-	)
-	(text_box "LED Kontrollieren"
-		(exclude_from_sim no)
-		(at 149.86 135.89 0)
-		(size 30.48 16.51)
-		(margins 1.905 1.905 1.905 1.905)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(effects
-			(font
-				(size 2.54 2.54)
-				(thickness 0.508)
-				(bold yes)
-				(color 253 0 0 1)
-			)
-			(justify left top)
-		)
-		(uuid "281c08aa-4473-4ef7-9e1c-ca04f3ecfbfa")
 	)
 	(text_box "3.3V -> f1 (433,62 MHz); GND -> f2 (434,22 MHz)"
 		(exclude_from_sim no)
@@ -1812,6 +1813,16 @@
 			(type default)
 		)
 		(uuid "55b7416a-28a5-40e1-b9d1-c7b55603612f")
+	)
+	(wire
+		(pts
+			(xy 99.06 46.99) (xy 106.68 46.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "57f57b93-9f8c-4aac-aba1-60eea53038cd")
 	)
 	(wire
 		(pts
@@ -2125,16 +2136,6 @@
 	)
 	(wire
 		(pts
-			(xy 106.68 46.99) (xy 99.06 46.99)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bdc34756-b8a2-40d7-b4f5-5c6a2c5f56f6")
-	)
-	(wire
-		(pts
 			(xy 101.6 101.6) (xy 86.36 101.6)
 		)
 		(stroke
@@ -2273,6 +2274,66 @@
 		)
 		(uuid "fb4671dc-f4bb-419a-8ccd-fe2aefaa92cd")
 	)
+	(label "TX_Analog"
+		(at 109.22 124.46 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "09954115-62ec-42c2-91ce-1563bec3bf0d")
+	)
+	(label "RX_1"
+		(at 91.44 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0997d477-f89f-4b1f-93b4-93a250f23d65")
+	)
+	(label "3.3V"
+		(at 120.65 92.71 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1077975f-d06b-4067-a38b-876f232a9182")
+	)
+	(label "F2_Sel"
+		(at 86.36 92.71 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "10ce8ba2-5b4f-4ebc-9acd-b24ad9aae69d")
+	)
+	(label "RX_4"
+		(at 91.44 78.74 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2aa60386-254f-42ec-8648-d4e4596bda77")
+	)
+	(label "LED_Modus"
+		(at 91.44 57.15 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "30954f27-baf0-4c0f-9f40-29e1b9e90e9e")
+	)
 	(label "GND"
 		(at 31.75 60.96 0)
 		(effects
@@ -2282,6 +2343,66 @@
 			(justify left bottom)
 		)
 		(uuid "4ed0b8e5-6ca3-4652-8dbc-afeea7a11784")
+	)
+	(label "3.3V"
+		(at 83.82 124.46 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6482100e-f831-4d64-b171-17289abc673a")
+	)
+	(label "GND"
+		(at 86.36 114.3 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6a126878-1180-4d57-aa37-9a1559a94377")
+	)
+	(label "Fehler_LED"
+		(at 81.28 140.97 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6e07207c-ba7e-403a-9eea-be13d5859c10")
+	)
+	(label "RX_2"
+		(at 91.44 68.58 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "74e18823-4da6-47a6-81b4-159ee939b0c6")
+	)
+	(label "Lernmodus"
+		(at 83.82 31.75 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7f2941f1-d07a-413a-8e18-98cc35345917")
+	)
+	(label "3.3V"
+		(at 125.73 46.99 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9031ae25-ce6e-484e-a1da-1808b44804f7")
 	)
 	(label "f_Sel"
 		(at 31.75 45.72 0)
@@ -2293,6 +2414,16 @@
 		)
 		(uuid "925a5c0d-3c49-4d37-b330-dcae67ded5de")
 	)
+	(label "3.3V"
+		(at 128.27 140.97 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9e936956-4a35-4dce-9a5a-6a0ca20adbba")
+	)
 	(label "VCC"
 		(at 31.75 58.42 0)
 		(effects
@@ -2302,6 +2433,26 @@
 			(justify left bottom)
 		)
 		(uuid "a7154313-fdf1-4374-b843-7eeefb14f7a9")
+	)
+	(label "3.3V"
+		(at 86.36 109.22 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ac909370-9ff1-4120-ba8f-74250c16070f")
+	)
+	(label "RX_3"
+		(at 91.44 73.66 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "eb7e2ed3-5034-44be-86a9-4ff38bcb29e4")
 	)
 	(global_label "RX_4"
 		(shape input)
@@ -3548,33 +3699,33 @@
 		)
 	)
 	(symbol
-		(lib_id "easyeda2kicad:KT-0603R")
-		(at 118.11 140.97 0)
+		(lib_id "EasyEda2KiCad:0603WAJ0221T5E")
+		(at 93.98 46.99 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "34949120-9706-42cd-b55c-4b629ec6d2ad")
-		(property "Reference" "LED402"
-			(at 116.84 132.08 0)
+		(uuid "33be0fd9-7a34-4b1b-aedd-f41e7de682c8")
+		(property "Reference" "R401"
+			(at 93.98 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "Rot"
-			(at 116.84 134.62 0)
+		(property "Value" "220Ω"
+			(at 93.98 43.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "easyeda2kicad:LED0603-RD"
-			(at 118.11 148.59 0)
+		(property "Footprint" "easyeda2kicad:R0603"
+			(at 93.98 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3582,8 +3733,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://lcsc.com/product-detail/Light-Emitting-Diodes-LED_Red-LED-0603_C2286.html"
-			(at 118.11 151.13 0)
+		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_220R-221-5_C1226.html"
+			(at 93.98 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3592,7 +3743,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 118.11 140.97 0)
+			(at 93.98 46.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3600,25 +3751,101 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part" "C2286"
-			(at 118.11 153.67 0)
+		(property "LCSC Part" "C1226"
+			(at 93.98 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(hide yes)
 			)
-		)
-		(pin "2"
-			(uuid "1951d089-75c0-4212-91f3-ebb22b6bd370")
 		)
 		(pin "1"
-			(uuid "e7b3c1d1-6f6c-4344-bfb5-d4992764221a")
+			(uuid "5224ddd5-55b6-4ef2-ab78-2b5243ea38bc")
+		)
+		(pin "2"
+			(uuid "e2a1a5eb-463d-4132-a615-3c7b876a898e")
 		)
 		(instances
 			(project "Option1"
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/23e58ba0-291f-4c3f-a823-9b20e599b3f1"
-					(reference "LED402")
+					(reference "R401")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "EasyEda2KiCad:XL-1608SYGC-06")
+		(at 111.76 46.99 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "389022c4-2d34-47ea-a6d0-9468ee4654c3")
+		(property "Reference" "LED_Learn"
+			(at 111.76 50.038 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "XL-1608SYGC-06"
+			(at 111.76 52.578 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "easyeda2kicad:LED0603-RD_GREEN"
+			(at 111.76 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 111.76 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 111.76 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C965805"
+			(at 111.76 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "71d882b8-4e56-403b-96a7-d5629f88e724")
+		)
+		(pin "2"
+			(uuid "3ef37ec3-076f-439c-94c3-2f9424a60770")
+		)
+		(instances
+			(project ""
+				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/23e58ba0-291f-4c3f-a823-9b20e599b3f1"
+					(reference "LED_Learn")
 					(unit 1)
 				)
 			)
@@ -3778,6 +4005,83 @@
 		)
 	)
 	(symbol
+		(lib_id "EasyEda2KiCad:0603WAJ0221T5E")
+		(at 99.06 140.97 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "841aec9c-2dd4-4a38-9052-94ea1ace8021")
+		(property "Reference" "R406"
+			(at 99.06 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "220Ω"
+			(at 99.06 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "easyeda2kicad:R0603"
+			(at 99.06 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_220R-221-5_C1226.html"
+			(at 99.06 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 99.06 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C1226"
+			(at 99.06 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7804de75-a5ba-40e9-87c0-bde2dfc1c13e")
+		)
+		(pin "2"
+			(uuid "8cff3892-59fe-43d1-8e84-ea4e713e230e")
+		)
+		(instances
+			(project ""
+				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/23e58ba0-291f-4c3f-a823-9b20e599b3f1"
+					(reference "R406")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "easyeda2kicad:0603WAF1002T5E")
 		(at 125.73 52.07 90)
 		(unit 1)
@@ -3861,7 +4165,7 @@
 		(at 106.68 101.6 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp yes)
 		(fields_autoplaced yes)
@@ -3934,185 +4238,33 @@
 		)
 	)
 	(symbol
-		(lib_id "easyeda2kicad:KT-0603R")
-		(at 111.76 46.99 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "b83940c5-d3bb-4595-8e75-b2a9f5363dde")
-		(property "Reference" "LED401"
-			(at 110.49 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "Rot"
-			(at 110.49 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "easyeda2kicad:LED0603-RD"
-			(at 111.76 54.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://lcsc.com/product-detail/Light-Emitting-Diodes-LED_Red-LED-0603_C2286.html"
-			(at 111.76 57.15 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 111.76 46.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC Part" "C2286"
-			(at 111.76 59.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "6ac9d03a-98fe-473c-a3a4-3573c8b455c1")
-		)
-		(pin "1"
-			(uuid "1097a6fd-81e1-4d10-8fb3-0657e7793fcb")
-		)
-		(instances
-			(project "Option1"
-				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/23e58ba0-291f-4c3f-a823-9b20e599b3f1"
-					(reference "LED401")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "easyeda2kicad:0603WAF2700T5E")
-		(at 93.98 46.99 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "e1cba6f0-7e0c-4835-8400-63c3f052c8e5")
-		(property "Reference" "R401"
-			(at 93.98 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "270"
-			(at 93.98 43.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "easyeda2kicad:R0603"
-			(at 93.98 54.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_270R-2700-1_C22966.html"
-			(at 93.98 57.15 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 93.98 46.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC Part" "C22966"
-			(at 93.98 59.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "7c69e3a3-13dc-4401-94ec-9895d33a91d4")
-		)
-		(pin "2"
-			(uuid "86a95fb8-08f2-4109-8c6a-b9ff0381880a")
-		)
-		(instances
-			(project "Option1"
-				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/23e58ba0-291f-4c3f-a823-9b20e599b3f1"
-					(reference "R401")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "easyeda2kicad:0603WAF2700T5E")
-		(at 99.06 140.97 0)
+		(lib_id "EasyEda2KiCad:XL-1608SYGC-06")
+		(at 118.11 140.97 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "fe4b239f-828f-4522-a606-c7151e3b95f0")
-		(property "Reference" "R406"
-			(at 99.06 134.62 0)
+		(uuid "cc047155-f7b2-45e1-8c6c-907f1e620145")
+		(property "Reference" "LED_Error"
+			(at 117.35 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "270"
-			(at 99.06 137.16 0)
+		(property "Value" "XL-1608SYGC-06"
+			(at 117.35 134.62 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "easyeda2kicad:R0603"
-			(at 99.06 148.59 0)
+		(property "Footprint" "easyeda2kicad:LED0603-RD_GREEN"
+			(at 118.11 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4120,8 +4272,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_270R-2700-1_C22966.html"
-			(at 99.06 151.13 0)
+		(property "Datasheet" ""
+			(at 118.11 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4130,7 +4282,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 99.06 140.97 0)
+			(at 118.11 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4138,8 +4290,8 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part" "C22966"
-			(at 99.06 153.67 0)
+		(property "LCSC Part" "C965805"
+			(at 118.11 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4148,15 +4300,15 @@
 			)
 		)
 		(pin "1"
-			(uuid "98054da6-0ae6-4c25-86fe-ff9659f50961")
+			(uuid "79996ed5-d70c-4033-80b6-71b0586629d3")
 		)
 		(pin "2"
-			(uuid "e4fe5afc-a09b-42c2-bf4a-087fa38e511e")
+			(uuid "1ff03133-f958-4fc4-adb1-496d15f5813b")
 		)
 		(instances
-			(project "Option1"
+			(project ""
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/23e58ba0-291f-4c3f-a823-9b20e599b3f1"
-					(reference "R406")
+					(reference "LED_Error")
 					(unit 1)
 				)
 			)

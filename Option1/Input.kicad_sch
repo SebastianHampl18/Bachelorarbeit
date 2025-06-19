@@ -526,6 +526,26 @@
 		)
 		(uuid "f765d9da-4eb8-4964-a5f8-db19d1e82bba")
 	)
+	(label "48V_IN"
+		(at 41.91 21.59 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1fc33f2b-5e9d-4537-85b8-652f792aa16e")
+	)
+	(label "GND"
+		(at 41.91 24.13 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8166aea3-65c0-4d99-83ef-e914b6bb1f21")
+	)
 	(hierarchical_label "GND"
 		(shape input)
 		(at 77.47 24.13 0)
