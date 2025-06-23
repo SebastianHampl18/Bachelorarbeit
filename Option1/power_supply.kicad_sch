@@ -2739,7 +2739,7 @@
 	)
 	(text "5mA - Green"
 		(exclude_from_sim no)
-		(at 249.428 99.06 0)
+		(at 251.714 97.536 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2759,7 +2759,7 @@
 	)
 	(text "5mA - Green"
 		(exclude_from_sim no)
-		(at 249.428 48.26 0)
+		(at 250.952 48.514 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5385,7 +5385,7 @@
 	)
 	(symbol
 		(lib_id "EasyEda2KiCad:XL-1608SYGC-06")
-		(at 240.03 101.6 90)
+		(at 240.03 101.6 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5394,25 +5394,25 @@
 		(fields_autoplaced yes)
 		(uuid "19a3d96d-452b-4ef3-9e3f-ac5b74d151a4")
 		(property "Reference" "LED3V3D1"
-			(at 242.57 101.0899 90)
+			(at 245.11 99.5699 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "XL-1608SYGC-06"
-			(at 242.57 103.6299 90)
+			(at 245.11 102.1099 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" "easyeda2kicad:LED0603-RD_GREEN"
-			(at 247.65 101.6 0)
+			(at 232.41 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5439,7 +5439,7 @@
 			)
 		)
 		(property "LCSC Part" "C965805"
-			(at 250.19 101.6 0)
+			(at 229.87 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6254,34 +6254,33 @@
 	)
 	(symbol
 		(lib_id "EasyEda2KiCad:XL-1608SYGC-06")
-		(at 240.03 50.8 90)
+		(at 240.03 50.8 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "59992bfb-5abc-44d2-86b1-0e9262eb09ec")
 		(property "Reference" "LED3V3"
-			(at 242.57 50.2899 90)
+			(at 244.348 50.8 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "XL-1608SYGC-06"
-			(at 242.57 52.8299 90)
+			(at 244.348 53.34 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" "easyeda2kicad:LED0603-RD_GREEN"
-			(at 247.65 50.8 0)
+			(at 232.41 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6308,7 +6307,7 @@
 			)
 		)
 		(property "LCSC Part" "C965805"
-			(at 250.19 50.8 0)
+			(at 229.87 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
