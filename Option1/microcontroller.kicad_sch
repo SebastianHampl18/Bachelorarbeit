@@ -3198,6 +3198,16 @@
 	)
 	(wire
 		(pts
+			(xy 43.18 22.86) (xy 49.53 22.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "682d809b-e723-4c2e-beaa-5d35b2575949")
+	)
+	(wire
+		(pts
 			(xy 43.18 43.18) (xy 50.8 43.18)
 		)
 		(stroke
@@ -5857,6 +5867,18 @@
 		)
 		(uuid "7b5a1a8a-da4a-4c26-b9c0-31de2b79e748")
 	)
+	(hierarchical_label "ESP_Boot2"
+		(shape input)
+		(at 43.18 22.86 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 255 0 0 1)
+			)
+			(justify right)
+		)
+		(uuid "8a07ecca-e1f5-4038-9757-13915239e411")
+	)
 	(hierarchical_label "VSPI_MOSI"
 		(shape output)
 		(at 43.18 63.5 180)
@@ -7087,7 +7109,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c27411cf-10b2-44ba-8163-78e6ba191b8a")
-		(property "Reference" "R801"
+		(property "Reference" "R809"
 			(at 161.544 35.814 0)
 			(effects
 				(font
@@ -7148,7 +7170,7 @@
 		(instances
 			(project ""
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/a426bcde-d9ce-4e9f-9f44-1267601fc8f5"
-					(reference "R801")
+					(reference "R809")
 					(unit 1)
 				)
 			)

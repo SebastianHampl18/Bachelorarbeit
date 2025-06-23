@@ -5393,7 +5393,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "19a3d96d-452b-4ef3-9e3f-ac5b74d151a4")
-		(property "Reference" "LED3V3D"
+		(property "Reference" "LED3V3D1"
 			(at 242.57 101.0899 90)
 			(effects
 				(font
@@ -5456,7 +5456,7 @@
 		(instances
 			(project "Option1"
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/ff0aab3a-6ec2-4a6b-b0bf-5e79396b738a"
-					(reference "LED3V3D")
+					(reference "LED3V3D1")
 					(unit 1)
 				)
 			)
@@ -7079,7 +7079,7 @@
 				)
 			)
 		)
-		(property "Footprint" "easyeda2kicad:SMB_L4.6-W3.6-LS5.3-R-RD"
+		(property "Footprint" "easyeda2kicad:SMB_L4.6-W3.6-LS5.3-RD"
 			(at 57.15 17.78 0)
 			(effects
 				(font
@@ -7529,7 +7529,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e50b6299-c94a-4d7e-a28c-f7de4f3e790a")
-		(property "Reference" "LED12V"
+		(property "Reference" "LED12V1"
 			(at 129.54 47.7499 90)
 			(effects
 				(font
@@ -7592,7 +7592,7 @@
 		(instances
 			(project ""
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/ff0aab3a-6ec2-4a6b-b0bf-5e79396b738a"
-					(reference "LED12V")
+					(reference "LED12V1")
 					(unit 1)
 				)
 			)
@@ -7921,7 +7921,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fd5db5b8-843a-406c-96d2-0255c8ceebba")
-		(property "Reference" "LED5V"
+		(property "Reference" "LED5V1"
 			(at 88.9 96.0099 90)
 			(effects
 				(font
@@ -7984,7 +7984,7 @@
 		(instances
 			(project ""
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/ff0aab3a-6ec2-4a6b-b0bf-5e79396b738a"
-					(reference "LED5V")
+					(reference "LED5V1")
 					(unit 1)
 				)
 			)

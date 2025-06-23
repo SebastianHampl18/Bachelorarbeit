@@ -465,7 +465,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0bc9fc37-b98f-4091-9329-fec244b00546")
-		(property "Reference" "U1_I/O_Old"
+		(property "Reference" "U1_I/O_Old1"
 			(at 21.59 41.91 0)
 			(effects
 				(font
@@ -538,7 +538,7 @@
 		(instances
 			(project ""
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/f9f0c67f-dd50-4740-b345-6512cc3de02a"
-					(reference "U1_I/O_Old")
+					(reference "U1_I/O_Old1")
 					(unit 1)
 				)
 			)
@@ -554,7 +554,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f201bba8-d4c1-46e6-97a0-9d1d005b5dae")
-		(property "Reference" "U2_CAN"
+		(property "Reference" "U2_CAN1"
 			(at 21.59 66.04 0)
 			(effects
 				(font
@@ -627,7 +627,7 @@
 		(instances
 			(project "Option1"
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/f9f0c67f-dd50-4740-b345-6512cc3de02a"
-					(reference "U2_CAN")
+					(reference "U2_CAN1")
 					(unit 1)
 				)
 			)

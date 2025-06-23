@@ -1095,7 +1095,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 83.82) (xy 205.74 83.82)
+			(xy 187.96 86.36) (xy 205.74 86.36)
 		)
 		(stroke
 			(width 0)
@@ -1439,6 +1439,16 @@
 	)
 	(wire
 		(pts
+			(xy 187.96 88.9) (xy 205.74 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b277f5f4-73b6-44a6-aa85-6bc82a468ea8")
+	)
+	(wire
+		(pts
 			(xy 57.15 72.39) (xy 142.24 72.39)
 		)
 		(stroke
@@ -1514,16 +1524,6 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 91.44) (xy 205.74 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bac75e31-f8f3-49f1-9c0a-eb53a5827a8b")
-	)
-	(wire
-		(pts
 			(xy 39.37 36.83) (xy 198.12 36.83)
 		)
 		(stroke
@@ -1592,16 +1592,6 @@
 			(type default)
 		)
 		(uuid "c5ae8d65-1ab2-4a5a-8b4e-65271cca8d77")
-	)
-	(wire
-		(pts
-			(xy 205.74 87.63) (xy 187.96 87.63)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c7522fe1-d87f-42ad-a1a3-a65c3a0bd690")
 	)
 	(wire
 		(pts
@@ -1855,6 +1845,16 @@
 	)
 	(wire
 		(pts
+			(xy 187.96 82.55) (xy 205.74 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ee105ec9-e553-4fed-a5c1-030b2fab68a3")
+	)
+	(wire
+		(pts
 			(xy 92.71 113.03) (xy 232.41 113.03)
 		)
 		(stroke
@@ -1895,6 +1895,16 @@
 			(color 0 133 255 1)
 		)
 		(uuid "f4ff86e9-8493-46b2-85b1-028788c41910")
+	)
+	(wire
+		(pts
+			(xy 187.96 92.71) (xy 205.74 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f9370bd1-c89b-4c2c-8e8b-f38b0d7baaa3")
 	)
 	(wire
 		(pts
@@ -2430,7 +2440,7 @@
 			)
 		)
 		(pin "U0TXD" output
-			(at 187.96 91.44 0)
+			(at 187.96 92.71 0)
 			(uuid "537f109b-64f2-4166-a5dd-e501521330b1")
 			(effects
 				(font
@@ -2440,7 +2450,7 @@
 			)
 		)
 		(pin "ESP_EN" output
-			(at 187.96 87.63 0)
+			(at 187.96 88.9 0)
 			(uuid "3177ef96-9552-46f9-937d-3b2fe46b7618")
 			(effects
 				(font
@@ -2450,7 +2460,7 @@
 			)
 		)
 		(pin "ESP_Boot" output
-			(at 187.96 83.82 0)
+			(at 187.96 86.36 0)
 			(uuid "6287e436-bd49-4663-a2c8-600251a487c7")
 			(effects
 				(font
@@ -2477,6 +2487,16 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
+			)
+		)
+		(pin "ESP_GPIO2" output
+			(at 187.96 82.55 0)
+			(uuid "efb6bffe-17dd-4f9f-b315-6df08cb052be")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(instances
@@ -3164,7 +3184,7 @@
 			)
 		)
 		(pin "ESP_EN" input
-			(at 205.74 87.63 180)
+			(at 205.74 88.9 180)
 			(uuid "70b00e6d-1870-4ebf-8716-f5fa26e0c10d")
 			(effects
 				(font
@@ -3174,7 +3194,7 @@
 			)
 		)
 		(pin "ESP_Boot" input
-			(at 205.74 83.82 180)
+			(at 205.74 86.36 180)
 			(uuid "418bb851-3a2d-4cc2-8d39-0e0defab3dc6")
 			(effects
 				(font
@@ -3194,7 +3214,7 @@
 			)
 		)
 		(pin "U0RXD" input
-			(at 205.74 91.44 180)
+			(at 205.74 92.71 180)
 			(uuid "d1e484f1-3c83-4991-8788-f7654494851f")
 			(effects
 				(font
@@ -3386,6 +3406,16 @@
 		(pin "SPI_INT_CAN2" input
 			(at 205.74 53.34 180)
 			(uuid "58575764-bec4-4d82-a593-48ad5a8d5534")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ESP_Boot2" input
+			(at 205.74 82.55 180)
+			(uuid "ef1cc791-165b-4115-94ed-4f37f3890030")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3701,39 +3731,9 @@
 				(justify left top)
 			)
 		)
-		(pin "CAN2_L" input
-			(at 39.37 44.45 0)
-			(uuid "82ddf6bf-6205-4ded-a9b3-bd32b13a142e")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
 		(pin "48V" input
 			(at 39.37 53.34 0)
 			(uuid "51ee2a42-e8b5-40a9-a0a2-7fc5ab6195b0")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "CAN2_H" input
-			(at 39.37 46.99 0)
-			(uuid "3d65f568-bfdb-4fd6-9b01-d3030a1dca84")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "Notaus" input
-			(at 39.37 58.42 0)
-			(uuid "2bf0c174-83a7-43ce-a066-96c75214f28d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3751,26 +3751,6 @@
 				(justify right)
 			)
 		)
-		(pin "SOC" input
-			(at 39.37 63.5 0)
-			(uuid "f3bbb3b9-be57-407f-b3e8-d93fa2630762")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "RemoteDrive" input
-			(at 39.37 60.96 0)
-			(uuid "43f312f7-303c-44eb-952e-079c9d819622")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
 		(pin "VCU_LED" input
 			(at 39.37 36.83 0)
 			(uuid "a29c5ad2-7d14-431e-9fe3-311952868db4")
@@ -3781,9 +3761,9 @@
 				(justify right)
 			)
 		)
-		(pin "CAN1_H" input
-			(at 39.37 41.91 0)
-			(uuid "4bdc6ea8-d621-44ee-8b98-f97dc8a1295e")
+		(pin "CAN2_L" bidirectional
+			(at 39.37 44.45 0)
+			(uuid "6f61de0f-d8b4-414a-9d7e-c3f7f485c15a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3791,9 +3771,59 @@
 				(justify right)
 			)
 		)
-		(pin "CAN1_L" input
+		(pin "RemoteDrive" output
+			(at 39.37 60.96 0)
+			(uuid "365516ec-f79f-445d-868c-8e1cc442be00")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "SOC" output
+			(at 39.37 63.5 0)
+			(uuid "9c0536aa-df56-47ff-8ec5-2e01dd6a2190")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "CAN2_H" bidirectional
+			(at 39.37 46.99 0)
+			(uuid "1331a695-f121-4c23-9714-ca52aefb1ef4")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "CAN1_H" bidirectional
+			(at 39.37 41.91 0)
+			(uuid "5d387b6d-9fcc-457f-a34b-b4704a72cf3b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "CAN1_L" bidirectional
 			(at 39.37 39.37 0)
-			(uuid "54e5d3dd-1387-41ac-b779-a2004a348851")
+			(uuid "729b38a7-baf6-4da6-ba84-9ea5b9d4ad78")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "Notaus" output
+			(at 39.37 58.42 0)
+			(uuid "80b07051-1f63-4c3f-862a-06d547d83a05")
 			(effects
 				(font
 					(size 1.27 1.27)
