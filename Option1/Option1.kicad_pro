@@ -495,8 +495,7 @@
       ],
       "GND": [
         "GND"
-      ],
-      "Status_LED +": "12V"
+      ]
     },
     "netclass_patterns": []
   },

@@ -507,7 +507,7 @@
 	)
 	(wire
 		(pts
-			(xy 102.87 67.31) (xy 121.92 67.31)
+			(xy 102.87 63.5) (xy 121.92 63.5)
 		)
 		(stroke
 			(width 0)
@@ -527,7 +527,17 @@
 	)
 	(wire
 		(pts
-			(xy 114.3 74.93) (xy 113.03 74.93)
+			(xy 100.33 69.85) (xy 102.87 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4baaf90e-912f-478d-95c0-298382ca6a7b")
+	)
+	(wire
+		(pts
+			(xy 114.3 69.85) (xy 113.03 69.85)
 		)
 		(stroke
 			(width 0)
@@ -547,13 +557,13 @@
 	)
 	(wire
 		(pts
-			(xy 100.33 74.93) (xy 102.87 74.93)
+			(xy 121.92 63.5) (xy 121.92 67.31)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "a775b2d6-0439-4045-921f-88e1afee0387")
+		(uuid "b197ebc4-3fd6-4fea-96f0-6b4e0cb77fbc")
 	)
 	(wire
 		(pts
@@ -603,7 +613,7 @@
 	)
 	(hierarchical_label "TX_1 (Notaus)"
 		(shape input)
-		(at 100.33 74.93 180)
+		(at 100.33 69.85 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -616,7 +626,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape input)
-		(at 102.87 67.31 180)
+		(at 102.87 63.5 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -629,7 +639,7 @@
 	)
 	(symbol
 		(lib_id "easyeda2kicad:0603WAF1001T5E")
-		(at 107.95 74.93 180)
+		(at 107.95 69.85 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -637,7 +647,7 @@
 		(dnp no)
 		(uuid "4dc8c4e4-9ea3-43a6-8aee-95c4732a0cbb")
 		(property "Reference" "R901"
-			(at 107.95 76.962 0)
+			(at 107.95 71.882 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -645,7 +655,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 107.95 72.898 0)
+			(at 107.95 67.818 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -653,7 +663,7 @@
 			)
 		)
 		(property "Footprint" "easyeda2kicad:R0603"
-			(at 107.95 67.31 0)
+			(at 107.95 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -662,7 +672,7 @@
 			)
 		)
 		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_1KR-1001-1_C21190.html"
-			(at 107.95 64.77 0)
+			(at 107.95 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -671,7 +681,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 107.95 74.93 0)
+			(at 107.95 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -680,7 +690,7 @@
 			)
 		)
 		(property "LCSC Part" "C21190"
-			(at 107.95 62.23 0)
+			(at 107.95 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -706,15 +716,15 @@
 	(symbol
 		(lib_id "EasyEda2KiCad:JY2302")
 		(at 119.38 72.39 0)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "9770001c-d28d-4eb4-a82c-4dd5d90150ba")
 		(property "Reference" "Q901"
-			(at 127 71.1199 0)
+			(at 127 73.6601 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -723,7 +733,7 @@
 			)
 		)
 		(property "Value" "JY2302"
-			(at 127 73.6599 0)
+			(at 127 71.1201 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -732,7 +742,7 @@
 			)
 		)
 		(property "Footprint" "easyeda2kicad:SOT-23-3_L2.9-W1.3-P0.95-LS2.4-BR"
-			(at 119.38 85.09 0)
+			(at 119.38 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -759,7 +769,7 @@
 			)
 		)
 		(property "LCSC Part" "C3038095"
-			(at 119.38 87.63 0)
+			(at 119.38 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
