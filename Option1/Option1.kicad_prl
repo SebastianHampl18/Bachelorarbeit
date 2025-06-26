@@ -43,7 +43,7 @@
       "zones",
       "shapes"
     ],
-    "visible_layers": "ffffffff_ffffffff_ffffffff_ffffffff",
+    "visible_layers": "00000000_00000000_0fffffff_ffffffff",
     "zone_display_mode": 0
   },
   "git": {
@@ -82,16 +82,16 @@
       9
     ],
     "col_widths": [
-      48,
-      43,
-      27,
-      21,
-      27,
-      30,
-      27,
-      23,
-      27,
-      27
+      32,
+      29,
+      18,
+      14,
+      18,
+      20,
+      18,
+      15,
+      18,
+      31
     ],
     "custom_group_rules": [],
     "expanded_rows": [],
