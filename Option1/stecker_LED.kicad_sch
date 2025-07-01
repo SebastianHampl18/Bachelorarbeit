@@ -14,31 +14,36 @@
 		(comment 3 "Sebastian Hampl")
 	)
 	(lib_symbols
-		(symbol "Connector:Conn_01x02_Socket"
-			(pin_names
-				(offset 1.016)
-				(hide yes)
-			)
+		(symbol "EasyEda2KiCad:1989780"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "J"
-				(at 0 2.54 0)
+			(property "Reference" "U"
+				(at 0 11.43 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Value" "Conn_01x02_Socket"
-				(at 0 -5.08 0)
+			(property "Value" "1989780"
+				(at 0 -11.43 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Footprint" ""
+			(property "Footprint" "easyeda2kicad:CONN-TH_6P-P2.50_1989780"
+				(at 0 -13.97 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
 				(at 0 0 0)
 				(effects
 					(font
@@ -47,7 +52,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "~"
+			(property "Description" ""
 				(at 0 0 0)
 				(effects
 					(font
@@ -56,8 +61,8 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Generic connector, single row, 01x02, script generated"
-				(at 0 0 0)
+			(property "LCSC Part" "C5443580"
+				(at 0 -16.51 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -65,85 +70,33 @@
 					(hide yes)
 				)
 			)
-			(property "ki_locked" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "connector"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "Connector*:*_1x??_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "Conn_01x02_Socket_1_1"
-				(polyline
-					(pts
-						(xy -1.27 0) (xy -0.508 0)
-					)
+			(symbol "1989780_0_1"
+				(rectangle
+					(start -2.54 8.89)
+					(end 2.54 -8.89)
 					(stroke
-						(width 0.1524)
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(circle
+					(center -1.27 7.62)
+					(radius 0.38)
+					(stroke
+						(width 0)
 						(type default)
 					)
 					(fill
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -1.27 -2.54) (xy -0.508 -2.54)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 -0.508)
-					(mid -0.5058 0)
-					(end 0 0.508)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 -3.048)
-					(mid -0.5058 -2.54)
-					(end 0 -2.032)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at -5.08 0 0)
-					(length 3.81)
-					(name "Pin_1"
+				(pin unspecified line
+					(at -5.08 6.35 0)
+					(length 2.54)
+					(name "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -158,10 +111,10 @@
 						)
 					)
 				)
-				(pin passive line
-					(at -5.08 -2.54 0)
-					(length 3.81)
-					(name "Pin_2"
+				(pin unspecified line
+					(at -5.08 3.81 0)
+					(length 2.54)
+					(name "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -169,6 +122,78 @@
 						)
 					)
 					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at -5.08 1.27 0)
+					(length 2.54)
+					(name "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at -5.08 -1.27 0)
+					(length 2.54)
+					(name "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at -5.08 -3.81 0)
+					(length 2.54)
+					(name "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at -5.08 -6.35 0)
+					(length 2.54)
+					(name "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -215,6 +240,26 @@
 	)
 	(wire
 		(pts
+			(xy 33.02 63.5) (xy 39.37 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2488656c-d829-4e28-a7ea-3701816a230a")
+	)
+	(wire
+		(pts
+			(xy 33.02 58.42) (xy 39.37 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2828cf1d-f034-4729-8eec-62255b848298")
+	)
+	(wire
+		(pts
 			(xy 33.02 53.34) (xy 39.37 53.34)
 		)
 		(stroke
@@ -222,6 +267,39 @@
 			(type default)
 		)
 		(uuid "32146a04-c244-4781-ae4c-77e010b79d7d")
+	)
+	(wire
+		(pts
+			(xy 33.02 66.04) (xy 39.37 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ad22a345-b136-44ed-ba1e-51c1278fe8d3")
+	)
+	(wire
+		(pts
+			(xy 33.02 60.96) (xy 39.37 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ed16c57a-f8ac-41af-bc54-c3d08b82261c")
+	)
+	(hierarchical_label "CAN_L"
+		(shape input)
+		(at 33.02 63.5 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+			)
+			(justify right)
+		)
+		(uuid "857cf8ac-42c0-436f-b0e4-60e6d66a5fd5")
 	)
 	(hierarchical_label "Status_LED +"
 		(shape input)
@@ -236,6 +314,32 @@
 		)
 		(uuid "a8c232db-b51d-40c9-9e67-a8c9fbb0a580")
 	)
+	(hierarchical_label "CAN_H"
+		(shape input)
+		(at 33.02 66.04 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+			)
+			(justify right)
+		)
+		(uuid "b43fe886-3d53-4430-bd81-ec1e762ae077")
+	)
+	(hierarchical_label "GND"
+		(shape input)
+		(at 33.02 60.96 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+			)
+			(justify right)
+		)
+		(uuid "b9dedf79-160d-459b-96d1-7acaf1d56af3")
+	)
 	(hierarchical_label "Status_LED -"
 		(shape output)
 		(at 33.02 53.34 180)
@@ -249,17 +353,31 @@
 		)
 		(uuid "bea1998d-f538-47e0-8972-aa5cb86bff0f")
 	)
+	(hierarchical_label "12V"
+		(shape input)
+		(at 33.02 58.42 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+			)
+			(justify right)
+		)
+		(uuid "db97c0ea-8240-4a44-9865-e6d26782460f")
+	)
 	(symbol
-		(lib_id "Connector:Conn_01x02_Socket")
-		(at 44.45 53.34 0)
+		(lib_id "EasyEda2KiCad:1989780")
+		(at 44.45 59.69 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "c99c75b4-c0b6-4830-9d78-ee83dad194ee")
-		(property "Reference" "J701"
-			(at 45.974 62.992 90)
+		(fields_autoplaced yes)
+		(uuid "f201bba8-d4c1-46e6-97a0-9d1d005b5dae")
+		(property "Reference" "J_RFID_LED1"
+			(at 48.26 58.4199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -267,8 +385,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x02_Socket"
-			(at 48.514 62.992 90)
+		(property "Value" "1989780"
+			(at 48.26 60.9599 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -276,8 +394,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
-			(at 44.45 53.34 0)
+		(property "Footprint" "easyeda2kicad:CONN-TH_6P-P2.50_1989780"
+			(at 44.45 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -285,8 +403,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
-			(at 44.45 53.34 0)
+		(property "Datasheet" ""
+			(at 44.45 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -294,25 +412,46 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
-			(at 44.45 53.34 0)
+		(property "Description" ""
+			(at 44.45 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(hide yes)
 			)
+		)
+		(property "LCSC Part" "C5443580"
+			(at 44.45 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "6"
+			(uuid "16dc3cec-0afe-4c43-8e08-41493e5aaa93")
 		)
 		(pin "2"
-			(uuid "400329a7-6267-4706-b3c5-46ebaef09863")
+			(uuid "5118b590-ad16-4641-bfba-f21faa1ffd32")
+		)
+		(pin "4"
+			(uuid "dc3f097b-0891-4ba5-8610-f54497159853")
+		)
+		(pin "3"
+			(uuid "cb5a9548-1487-4e9e-8e2d-6e9509001781")
+		)
+		(pin "5"
+			(uuid "9c69383d-335d-41d4-870c-3fbb8aa7b9c9")
 		)
 		(pin "1"
-			(uuid "735d1de7-0710-4c00-b80d-1d071625d3ae")
+			(uuid "52c8560c-ab62-4134-851d-b245aeb157c2")
 		)
 		(instances
-			(project ""
+			(project "Option1"
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/85d62a2c-6dc6-478e-aff1-38efc7ff1a87"
-					(reference "J701")
+					(reference "J_RFID_LED1")
 					(unit 1)
 				)
 			)

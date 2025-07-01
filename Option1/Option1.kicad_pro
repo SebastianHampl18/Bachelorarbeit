@@ -641,7 +641,7 @@
     ],
     [
       "85d62a2c-6dc6-478e-aff1-38efc7ff1a87",
-      "Stecker LED"
+      "Stecker LED - RFID"
     ],
     [
       "a426bcde-d9ce-4e9f-9f44-1267601fc8f5",
@@ -662,10 +662,6 @@
     [
       "3c8ea371-444a-4744-b7e3-225c455221a8",
       "VCU_LED Auswertung"
-    ],
-    [
-      "e4c31c6d-bf5d-417c-a107-0b85123c9597",
-      "Stecker RFID"
     ],
     [
       "38430192-9545-4dc5-9188-f56f0a78c828",

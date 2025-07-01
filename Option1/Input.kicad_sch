@@ -14,196 +14,6 @@
 		(comment 3 "Sebastian Hampl")
 	)
 	(lib_symbols
-		(symbol "EasyEda2KiCad:1989780"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "U"
-				(at 0 11.43 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "1989780"
-				(at 0 -11.43 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "easyeda2kicad:CONN-TH_6P-P2.50_1989780"
-				(at 0 -13.97 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "LCSC Part" "C5443580"
-				(at 0 -16.51 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "1989780_0_1"
-				(rectangle
-					(start -2.54 8.89)
-					(end 2.54 -8.89)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(circle
-					(center -1.27 7.62)
-					(radius 0.38)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin unspecified line
-					(at -5.08 6.35 0)
-					(length 2.54)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at -5.08 3.81 0)
-					(length 2.54)
-					(name "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at -5.08 1.27 0)
-					(length 2.54)
-					(name "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at -5.08 -1.27 0)
-					(length 2.54)
-					(name "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at -5.08 -3.81 0)
-					(length 2.54)
-					(name "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at -5.08 -6.35 0)
-					(length 2.54)
-					(name "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "easyeda2kicad:KF2EDGKRG-3.5-2*7P"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -539,86 +349,6 @@
 			(embedded_fonts no)
 		)
 	)
-	(junction
-		(at 40.64 52.07)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "09adeb6b-8883-4050-bc34-a1a90d4df7ea")
-	)
-	(junction
-		(at 30.48 62.23)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "24e2dfa3-b600-49d3-acb9-4a2fdf55e5b4")
-	)
-	(junction
-		(at 43.18 49.53)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "3bf953f2-ffda-4079-9752-32195aa59a7f")
-	)
-	(junction
-		(at 38.1 54.61)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "4c6ec3ec-d07e-4a36-b4d3-804e4ffc4f15")
-	)
-	(junction
-		(at 38.1 101.6)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "644fee25-249e-4b7e-b10e-6d3e7476b695")
-	)
-	(junction
-		(at 35.56 104.14)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "9a55ed56-a02d-4837-8049-925747827e03")
-	)
-	(junction
-		(at 33.02 59.69)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "b63da48b-c99c-4951-8691-5e7a091ffa37")
-	)
-	(junction
-		(at 43.18 93.98)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "ca9671f3-3c5e-4dcf-829a-7b0eab5c0357")
-	)
-	(junction
-		(at 35.56 57.15)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "dcb6b891-6621-4999-9564-4fb254326ddb")
-	)
-	(junction
-		(at 45.72 91.44)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f40e5f19-c2b4-458b-b64e-9adac1072944")
-	)
-	(wire
-		(pts
-			(xy 26.67 57.15) (xy 35.56 57.15)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "02272119-bb2a-4c1f-94ca-67faa6b24551")
-	)
-	(wire
-		(pts
-			(xy 26.67 52.07) (xy 40.64 52.07)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "06d2f26d-6305-4d3a-bfaf-78134cd87f44")
-	)
 	(wire
 		(pts
 			(xy 43.18 49.53) (xy 43.18 68.58)
@@ -641,16 +371,6 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 59.69) (xy 33.02 59.69)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1f03f365-87cc-497a-912d-69b3490b3910")
-	)
-	(wire
-		(pts
 			(xy 35.56 104.14) (xy 54.61 104.14)
 		)
 		(stroke
@@ -661,16 +381,6 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 104.14) (xy 35.56 104.14)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2b5f37ed-b3cc-494a-851f-8500e34dc941")
-	)
-	(wire
-		(pts
 			(xy 45.72 83.82) (xy 45.72 91.44)
 		)
 		(stroke
@@ -678,26 +388,6 @@
 			(type default)
 		)
 		(uuid "2bbc19ac-a262-4459-9887-5b23554aa277")
-	)
-	(wire
-		(pts
-			(xy 26.67 93.98) (xy 43.18 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2d7c1723-fe46-4c8e-988d-fb74689930a5")
-	)
-	(wire
-		(pts
-			(xy 26.67 54.61) (xy 38.1 54.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3d05d435-5bb6-4c0b-9104-f7a1b3f1b094")
 	)
 	(wire
 		(pts
@@ -728,26 +418,6 @@
 			(type default)
 		)
 		(uuid "5331c2b4-2f26-4959-b205-fce955126353")
-	)
-	(wire
-		(pts
-			(xy 26.67 62.23) (xy 30.48 62.23)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "53a878ae-4e68-42dd-a082-88b04418c432")
-	)
-	(wire
-		(pts
-			(xy 26.67 101.6) (xy 38.1 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "645470fd-3a44-41d1-b0c1-4001dadade28")
 	)
 	(wire
 		(pts
@@ -821,16 +491,6 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 91.44) (xy 45.72 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cf92dddc-6d2a-4458-8a9f-eb8c713e2768")
-	)
-	(wire
-		(pts
 			(xy 35.56 83.82) (xy 35.56 104.14)
 		)
 		(stroke
@@ -838,16 +498,6 @@
 			(type default)
 		)
 		(uuid "d77e072f-3572-4d8c-b0be-a1882576dc49")
-	)
-	(wire
-		(pts
-			(xy 26.67 49.53) (xy 43.18 49.53)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d83fde3c-1bce-4348-9363-5da266327922")
 	)
 	(wire
 		(pts
@@ -1050,95 +700,6 @@
 		(uuid "e21f24b5-bef5-434a-8454-f36b3910bc2e")
 	)
 	(symbol
-		(lib_id "EasyEda2KiCad:1989780")
-		(at 21.59 55.88 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "0bc9fc37-b98f-4091-9329-fec244b00546")
-		(property "Reference" "U1_I/O_Old1"
-			(at 21.59 41.91 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1989780"
-			(at 21.59 44.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "easyeda2kicad:CONN-TH_6P-P2.50_1989780"
-			(at 21.59 41.91 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 21.59 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 21.59 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC Part" "C5443580"
-			(at 21.59 39.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "6"
-			(uuid "64153ec1-c304-43c4-b43a-fe5c9ac0c674")
-		)
-		(pin "2"
-			(uuid "27d82f95-2f70-4d3c-aaba-99d95cf1492a")
-		)
-		(pin "4"
-			(uuid "2b9cbba3-2330-4146-b414-3980f0044dde")
-		)
-		(pin "3"
-			(uuid "c8bf6297-888f-45d9-ae0c-1a09fc14b7dd")
-		)
-		(pin "5"
-			(uuid "aaac6925-bed8-4ba9-9303-8a4f17a186b2")
-		)
-		(pin "1"
-			(uuid "15043d3d-b697-41fa-aa41-daae595012b7")
-		)
-		(instances
-			(project ""
-				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/f9f0c67f-dd50-4740-b345-6512cc3de02a"
-					(reference "U1_I/O_Old1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "easyeda2kicad:KF2EDGKRG-3.5-2*7P")
 		(at 38.1 76.2 90)
 		(unit 1)
@@ -1248,95 +809,6 @@
 			(project ""
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/f9f0c67f-dd50-4740-b345-6512cc3de02a"
 					(reference "J503")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "EasyEda2KiCad:1989780")
-		(at 21.59 97.79 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "f201bba8-d4c1-46e6-97a0-9d1d005b5dae")
-		(property "Reference" "U2_CAN1"
-			(at 21.59 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1989780"
-			(at 21.59 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "easyeda2kicad:CONN-TH_6P-P2.50_1989780"
-			(at 21.59 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 21.59 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 21.59 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC Part" "C5443580"
-			(at 21.59 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "6"
-			(uuid "16dc3cec-0afe-4c43-8e08-41493e5aaa93")
-		)
-		(pin "2"
-			(uuid "5118b590-ad16-4641-bfba-f21faa1ffd32")
-		)
-		(pin "4"
-			(uuid "dc3f097b-0891-4ba5-8610-f54497159853")
-		)
-		(pin "3"
-			(uuid "cb5a9548-1487-4e9e-8e2d-6e9509001781")
-		)
-		(pin "5"
-			(uuid "9c69383d-335d-41d4-870c-3fbb8aa7b9c9")
-		)
-		(pin "1"
-			(uuid "52c8560c-ab62-4134-851d-b245aeb157c2")
-		)
-		(instances
-			(project "Option1"
-				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/f9f0c67f-dd50-4740-b345-6512cc3de02a"
-					(reference "U2_CAN1")
 					(unit 1)
 				)
 			)

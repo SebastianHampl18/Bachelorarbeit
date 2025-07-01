@@ -93,6 +93,12 @@
 		(uuid "54925997-b637-4f67-a432-5d5be2bd64d3")
 	)
 	(junction
+		(at 115.57 21.59)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5cd8c74d-10aa-4dd0-819d-09af49b14f6b")
+	)
+	(junction
 		(at 261.62 59.69)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -169,6 +175,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d166cb85-e15a-456e-9b2f-25218b0546b8")
+	)
+	(junction
+		(at 102.87 29.21)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d1a8f68a-93a5-45fd-95f6-fd8d2ea2e795")
 	)
 	(junction
 		(at 128.27 58.42)
@@ -302,7 +314,7 @@
 	)
 	(wire
 		(pts
-			(xy 71.12 26.67) (xy 62.23 26.67)
+			(xy 62.23 31.75) (xy 160.02 31.75)
 		)
 		(stroke
 			(width 0)
@@ -310,6 +322,17 @@
 			(color 194 194 194 1)
 		)
 		(uuid "04254149-f49f-49a5-95f9-9190b383fcf4")
+	)
+	(wire
+		(pts
+			(xy 102.87 29.21) (xy 160.02 29.21)
+		)
+		(stroke
+			(width 0.5)
+			(type default)
+			(color 255 0 4 1)
+		)
+		(uuid "04bd8eec-45f5-488d-8bef-5cffd2ff8503")
 	)
 	(wire
 		(pts
@@ -411,7 +434,7 @@
 	)
 	(wire
 		(pts
-			(xy 62.23 26.67) (xy 62.23 44.45)
+			(xy 62.23 31.75) (xy 62.23 44.45)
 		)
 		(stroke
 			(width 0)
@@ -506,7 +529,7 @@
 	)
 	(wire
 		(pts
-			(xy 125.73 21.59) (xy 57.15 21.59)
+			(xy 125.73 21.59) (xy 115.57 21.59)
 		)
 		(stroke
 			(width 0.5)
@@ -719,7 +742,7 @@
 	)
 	(wire
 		(pts
-			(xy 125.73 26.67) (xy 102.87 26.67)
+			(xy 125.73 24.13) (xy 102.87 24.13)
 		)
 		(stroke
 			(width 0.5)
@@ -784,7 +807,7 @@
 	)
 	(wire
 		(pts
-			(xy 102.87 26.67) (xy 102.87 53.34)
+			(xy 102.87 24.13) (xy 102.87 29.21)
 		)
 		(stroke
 			(width 0.5)
@@ -795,7 +818,7 @@
 	)
 	(wire
 		(pts
-			(xy 64.77 31.75) (xy 64.77 46.99)
+			(xy 64.77 34.29) (xy 64.77 46.99)
 		)
 		(stroke
 			(width 0)
@@ -1004,7 +1027,7 @@
 	)
 	(wire
 		(pts
-			(xy 147.32 20.32) (xy 160.02 20.32)
+			(xy 147.32 21.59) (xy 160.02 21.59)
 		)
 		(stroke
 			(width 0)
@@ -1045,7 +1068,7 @@
 	)
 	(wire
 		(pts
-			(xy 147.32 27.94) (xy 232.41 27.94)
+			(xy 147.32 19.05) (xy 232.41 19.05)
 		)
 		(stroke
 			(width 0)
@@ -1065,7 +1088,7 @@
 	)
 	(wire
 		(pts
-			(xy 232.41 27.94) (xy 232.41 52.07)
+			(xy 232.41 19.05) (xy 232.41 52.07)
 		)
 		(stroke
 			(width 0)
@@ -1122,6 +1145,17 @@
 			(type default)
 		)
 		(uuid "8f30d0fe-b8c9-4e2b-95a6-0811c6ea8f63")
+	)
+	(wire
+		(pts
+			(xy 115.57 13.97) (xy 156.21 13.97)
+		)
+		(stroke
+			(width 0.5)
+			(type default)
+			(color 0 0 0 1)
+		)
+		(uuid "8fd53e68-5bf0-4fc3-a129-c78cafd8b628")
 	)
 	(wire
 		(pts
@@ -1242,7 +1276,7 @@
 	)
 	(wire
 		(pts
-			(xy 71.12 31.75) (xy 64.77 31.75)
+			(xy 64.77 34.29) (xy 160.02 34.29)
 		)
 		(stroke
 			(width 0)
@@ -1292,6 +1326,17 @@
 			(type default)
 		)
 		(uuid "a5d7dae3-5cdf-441c-a2f1-d65193de7010")
+	)
+	(wire
+		(pts
+			(xy 156.21 13.97) (xy 156.21 26.67)
+		)
+		(stroke
+			(width 0.5)
+			(type default)
+			(color 0 0 0 1)
+		)
+		(uuid "a69b8a98-5ae9-4bcc-b64e-873f99cc0f06")
 	)
 	(wire
 		(pts
@@ -1471,6 +1516,17 @@
 	)
 	(wire
 		(pts
+			(xy 115.57 21.59) (xy 115.57 13.97)
+		)
+		(stroke
+			(width 0.5)
+			(type default)
+			(color 0 0 0 1)
+		)
+		(uuid "b71ab641-65b4-4d52-86a2-5b99cdf35ded")
+	)
+	(wire
+		(pts
 			(xy 102.87 129.54) (xy 102.87 104.14)
 		)
 		(stroke
@@ -1500,6 +1556,17 @@
 			(color 0 0 0 1)
 		)
 		(uuid "b974f9b4-9d68-4541-ad0e-9960c456862e")
+	)
+	(wire
+		(pts
+			(xy 115.57 21.59) (xy 57.15 21.59)
+		)
+		(stroke
+			(width 0.5)
+			(type default)
+			(color 0 0 0 1)
+		)
+		(uuid "b9953479-48ff-46a9-bb0b-cee826e8ae76")
 	)
 	(wire
 		(pts
@@ -1794,6 +1861,17 @@
 	)
 	(wire
 		(pts
+			(xy 102.87 29.21) (xy 102.87 53.34)
+		)
+		(stroke
+			(width 0.5)
+			(type default)
+			(color 255 0 4 1)
+		)
+		(uuid "e55364cd-253c-46c0-924a-e05dafab3721")
+	)
+	(wire
+		(pts
 			(xy 259.08 54.61) (xy 264.16 54.61)
 		)
 		(stroke
@@ -1905,6 +1983,17 @@
 			(type default)
 		)
 		(uuid "f9370bd1-c89b-4c2c-8e8b-f38b0d7baaa3")
+	)
+	(wire
+		(pts
+			(xy 156.21 26.67) (xy 160.02 26.67)
+		)
+		(stroke
+			(width 0.5)
+			(type default)
+			(color 0 0 0 1)
+		)
+		(uuid "f9df08de-f18f-4f3f-a340-a2bd309f5136")
 	)
 	(wire
 		(pts
@@ -2968,8 +3057,8 @@
 		)
 	)
 	(sheet
-		(at 160.02 17.78)
-		(size 15.24 7.62)
+		(at 160.02 20.32)
+		(size 15.24 15.24)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -2983,8 +3072,8 @@
 			(color 102 255 255 1.0000)
 		)
 		(uuid "85d62a2c-6dc6-478e-aff1-38efc7ff1a87")
-		(property "Sheetname" "Stecker LED"
-			(at 160.02 17.0684 0)
+		(property "Sheetname" "Stecker LED - RFID"
+			(at 160.02 19.6084 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2993,7 +3082,7 @@
 			)
 		)
 		(property "Sheetfile" "stecker_LED.kicad_sch"
-			(at 160.02 25.9846 0)
+			(at 160.02 36.1446 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3012,8 +3101,48 @@
 			)
 		)
 		(pin "Status_LED +" input
-			(at 160.02 20.32 180)
+			(at 160.02 21.59 180)
 			(uuid "ee340fcd-4e53-4c0d-9be8-718fdc1c0cfe")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "12V" input
+			(at 160.02 29.21 180)
+			(uuid "f047d189-c39a-4fb3-8d31-e20d18acdc32")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GND" input
+			(at 160.02 26.67 180)
+			(uuid "29272b7c-c605-4935-b32a-3a3fc1d73f3e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "CAN_L" input
+			(at 160.02 31.75 180)
+			(uuid "63c5caed-5db4-41a0-87ea-e3a16f2a97c1")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "CAN_H" input
+			(at 160.02 34.29 180)
+			(uuid "6769f2b9-f2aa-4569-9c93-38728d746925")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3433,7 +3562,7 @@
 	)
 	(sheet
 		(at 125.73 17.78)
-		(size 21.59 12.7)
+		(size 21.59 8.89)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -3457,7 +3586,7 @@
 			)
 		)
 		(property "Sheetfile" "Treiber_LED.kicad_sch"
-			(at 125.73 31.0646 0)
+			(at 125.73 27.2546 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3466,7 +3595,7 @@
 			)
 		)
 		(pin "12V" input
-			(at 125.73 26.67 180)
+			(at 125.73 24.13 180)
 			(uuid "223cb8fb-6353-45e5-b033-1df1dc4dff28")
 			(effects
 				(font
@@ -3476,7 +3605,7 @@
 			)
 		)
 		(pin "LED On" input
-			(at 147.32 27.94 0)
+			(at 147.32 19.05 0)
 			(uuid "2740a5b1-03c1-4022-b56c-e29757be9d9b")
 			(effects
 				(font
@@ -3496,7 +3625,7 @@
 			)
 		)
 		(pin "Status-LED +" output
-			(at 147.32 20.32 0)
+			(at 147.32 21.59 0)
 			(uuid "adb77938-034d-45be-978e-57d05cc5050e")
 			(effects
 				(font
@@ -3631,68 +3760,6 @@
 			(project "Option1"
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329"
 					(page "18")
-				)
-			)
-		)
-	)
-	(sheet
-		(at 71.12 24.13)
-		(size 19.05 10.16)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(fill
-			(color 102 255 255 1.0000)
-		)
-		(uuid "e4c31c6d-bf5d-417c-a107-0b85123c9597")
-		(property "Sheetname" "Stecker RFID"
-			(at 71.12 23.4184 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "stecker_RFID.kicad_sch"
-			(at 71.12 34.8746 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		)
-		(pin "CAN_L" input
-			(at 71.12 26.67 180)
-			(uuid "828f4b84-02e1-43ad-ad78-21bddbe5c0b0")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "CAN_H" input
-			(at 71.12 31.75 180)
-			(uuid "63df9b03-d65e-4d98-b51a-1af1b1a2869a")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(instances
-			(project "Option1"
-				(path "/b9e5f262-9648-4b79-bdd1-af888b822329"
-					(page "13")
 				)
 			)
 		)
