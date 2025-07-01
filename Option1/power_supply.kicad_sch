@@ -663,6 +663,113 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "easyeda2kicad:0603WAF0000T5E"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "0603WAF0000T5E"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "easyeda2kicad:R0603"
+				(at 0 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_0R-0R0-1_C21189.html"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part" "C21189"
+				(at 0 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "0603WAF0000T5E_0_1"
+				(rectangle
+					(start -2.54 1.02)
+					(end 2.54 -1.02)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin input line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "easyeda2kicad:0603WAF2203T5E"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -3271,6 +3378,16 @@
 	)
 	(wire
 		(pts
+			(xy 236.22 116.84) (xy 227.33 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "14db1dde-0fc4-4607-9c09-5937c70e7445")
+	)
+	(wire
+		(pts
 			(xy 132.08 53.34) (xy 129.54 53.34)
 		)
 		(stroke
@@ -3931,6 +4048,16 @@
 	)
 	(wire
 		(pts
+			(xy 227.33 116.84) (xy 227.33 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "89acb105-d79d-4592-92c8-f70ed04b3be7")
+	)
+	(wire
+		(pts
 			(xy 227.33 59.69) (xy 240.03 59.69)
 		)
 		(stroke
@@ -4381,6 +4508,16 @@
 	)
 	(wire
 		(pts
+			(xy 246.38 116.84) (xy 250.19 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dd42b74b-7fc5-4665-8720-8dfc00eaaf99")
+	)
+	(wire
+		(pts
 			(xy 148.59 19.05) (xy 160.02 19.05)
 		)
 		(stroke
@@ -4759,7 +4896,7 @@
 		)
 		(uuid "d621d81f-f7fa-4a79-87cf-f3c744657d7e")
 	)
-	(label "3.3V"
+	(label "3.3V_D"
 		(at 205.74 110.49 0)
 		(effects
 			(font
@@ -4946,6 +5083,28 @@
 		(uuid "a6034b16-cd9a-4154-a9cd-414e6a48c7bd")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 138.9357 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "3.3V"
+		(shape input)
+		(at 250.19 116.84 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "b991f4b7-72f8-4364-9097-3e15082cc485")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 257.2876 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5929,6 +6088,82 @@
 			(project "Option1"
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/ff0aab3a-6ec2-4a6b-b0bf-5e79396b738a"
 					(reference "C203")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "easyeda2kicad:0603WAF0000T5E")
+		(at 241.3 116.84 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp yes)
+		(uuid "441e4aaf-c2d9-4e69-b307-0c87b1b64444")
+		(property "Reference" "R216"
+			(at 241.3 119.634 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0Ω"
+			(at 241.3 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "easyeda2kicad:R0603"
+			(at 241.3 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_0R-0R0-1_C21189.html"
+			(at 241.3 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 241.3 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C21189"
+			(at 241.3 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c1da5ea4-af83-48f8-a24f-70457a334626")
+		)
+		(pin "2"
+			(uuid "7b635547-3c66-44b6-b1db-02bb3cd6b719")
+		)
+		(instances
+			(project ""
+				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/ff0aab3a-6ec2-4a6b-b0bf-5e79396b738a"
+					(reference "R216")
 					(unit 1)
 				)
 			)
