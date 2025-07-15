@@ -1270,257 +1270,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "easyeda2kicad:0603WAF3302T5E"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "R"
-				(at 0 5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "0603WAF3302T5E"
-				(at 0 -5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "easyeda2kicad:R0603"
-				(at 0 -7.62 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_33KR-3302-1_C4216.html"
-				(at 0 -10.16 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "LCSC Part" "C4216"
-				(at 0 -12.7 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "0603WAF3302T5E_0_1"
-				(rectangle
-					(start -2.54 1.02)
-					(end 2.54 -1.02)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(pin input line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 5.08 0 180)
-					(length 2.54)
-					(name "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "easyeda2kicad:0805B472K500NT"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "C"
-				(at 0 5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "0805B472K500NT"
-				(at 0 -5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "easyeda2kicad:C0805"
-				(at 0 -7.62 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_4-7nF-472-10-50V_C1744.html"
-				(at 0 -10.16 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "LCSC Part" "C1744"
-				(at 0 -12.7 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "0805B472K500NT_0_1"
-				(polyline
-					(pts
-						(xy -1.27 0) (xy -0.51 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.51 2.03) (xy -0.51 -2.03)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.51 2.03) (xy 0.51 -2.03)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.51 0) (xy 1.27 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin input line
-					(at -3.81 0 0)
-					(length 2.54)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 3.81 0 180)
-					(length 2.54)
-					(name "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "easyeda2kicad:CL10B104KA8NNNC"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -1725,12 +1474,6 @@
 		(uuid "73ca773e-4f6e-44c8-a209-06b2555790db")
 	)
 	(junction
-		(at 91.44 93.98)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "750c650b-e0a7-42b7-aae3-16be2d0ad73c")
-	)
-	(junction
 		(at 156.21 121.92)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1767,18 +1510,6 @@
 		(uuid "d119a80e-9041-43ce-b30f-4dd56103af66")
 	)
 	(junction
-		(at 95.25 111.76)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "d74f1939-c3c9-48c5-80d2-2958f551899d")
-	)
-	(junction
-		(at 114.3 121.92)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "e7626d09-02ba-43c4-896e-6b19f1c5452c")
-	)
-	(junction
 		(at 167.64 121.92)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1795,12 +1526,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f8db7b9a-f7cf-43fe-86bd-827f0b554d20")
-	)
-	(junction
-		(at 99.06 99.06)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "fefb2417-6fcf-4fe2-9d2a-6c54b5a75490")
 	)
 	(wire
 		(pts
@@ -1824,16 +1549,6 @@
 	)
 	(wire
 		(pts
-			(xy 99.06 100.33) (xy 99.06 99.06)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "140da93d-f9c7-4d21-bf5b-65835da93627")
-	)
-	(wire
-		(pts
 			(xy 191.77 99.06) (xy 191.77 78.74)
 		)
 		(stroke
@@ -1851,16 +1566,6 @@
 			(type default)
 		)
 		(uuid "15ca5e2a-ffb6-41fd-bca5-c8d293d9d9d5")
-	)
-	(wire
-		(pts
-			(xy 99.06 111.76) (xy 99.06 110.49)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "172d9107-fbec-4910-b383-4f1dbc029231")
 	)
 	(wire
 		(pts
@@ -1894,16 +1599,6 @@
 	)
 	(wire
 		(pts
-			(xy 99.06 111.76) (xy 95.25 111.76)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "265b54a7-af9f-4634-afb4-1143d33e1f6b")
-	)
-	(wire
-		(pts
 			(xy 187.96 78.74) (xy 191.77 78.74)
 		)
 		(stroke
@@ -1911,16 +1606,6 @@
 			(type default)
 		)
 		(uuid "27723976-644e-4a50-9381-7ae551f6c575")
-	)
-	(wire
-		(pts
-			(xy 91.44 93.98) (xy 91.44 100.33)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2ded15b4-9ec5-43e5-b4aa-77d5c1824b28")
 	)
 	(wire
 		(pts
@@ -2004,16 +1689,6 @@
 	)
 	(wire
 		(pts
-			(xy 82.55 99.06) (xy 99.06 99.06)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "48c03b96-a21a-4685-802e-469fa6ab080e")
-	)
-	(wire
-		(pts
 			(xy 134.62 101.6) (xy 127 101.6)
 		)
 		(stroke
@@ -2041,16 +1716,6 @@
 			(type default)
 		)
 		(uuid "4cf0b414-1cea-4fa1-a96f-2bb90cf72dd6")
-	)
-	(wire
-		(pts
-			(xy 95.25 113.03) (xy 95.25 111.76)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4de6d63b-4172-4250-b940-dfe107122449")
 	)
 	(wire
 		(pts
@@ -2204,26 +1869,6 @@
 	)
 	(wire
 		(pts
-			(xy 82.55 93.98) (xy 91.44 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7a1ecb88-4d25-41b4-ba8d-f4c903b5ac59")
-	)
-	(wire
-		(pts
-			(xy 91.44 110.49) (xy 91.44 111.76)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7aaf9763-c3b2-4347-a757-349af8f51294")
-	)
-	(wire
-		(pts
 			(xy 213.36 109.22) (xy 205.74 109.22)
 		)
 		(stroke
@@ -2304,16 +1949,6 @@
 	)
 	(wire
 		(pts
-			(xy 91.44 111.76) (xy 95.25 111.76)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a687a103-b4a9-4013-94bd-7059d8e14037")
-	)
-	(wire
-		(pts
 			(xy 80.01 88.9) (xy 77.47 88.9)
 		)
 		(stroke
@@ -2321,16 +1956,6 @@
 			(type default)
 		)
 		(uuid "a7e4213a-bd26-4e6a-89a7-e9ffd946c761")
-	)
-	(wire
-		(pts
-			(xy 95.25 121.92) (xy 114.3 121.92)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a893f65b-1563-4a60-9840-f12b52b50aad")
 	)
 	(wire
 		(pts
@@ -2414,7 +2039,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 99.06) (xy 99.06 99.06)
+			(xy 82.55 99.06) (xy 101.6 99.06)
 		)
 		(stroke
 			(width 0)
@@ -2464,16 +2089,6 @@
 	)
 	(wire
 		(pts
-			(xy 95.25 121.92) (xy 95.25 120.65)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f163d1a5-e1d7-4b74-805b-df0b9eac7f7d")
-	)
-	(wire
-		(pts
 			(xy 205.74 105.41) (xy 177.8 105.41)
 		)
 		(stroke
@@ -2494,7 +2109,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 93.98) (xy 91.44 93.98)
+			(xy 82.55 93.98) (xy 101.6 93.98)
 		)
 		(stroke
 			(width 0)
@@ -3043,85 +2658,6 @@
 		)
 	)
 	(symbol
-		(lib_id "easyeda2kicad:0603WAF3302T5E")
-		(at 99.06 105.41 270)
-		(mirror x)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "7790afb5-dc0a-4e7b-8daa-a8ba38b6797a")
-		(property "Reference" "R301"
-			(at 97.79 104.14 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "33k"
-			(at 96.52 106.6799 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "easyeda2kicad:R0603"
-			(at 91.44 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_33KR-3302-1_C4216.html"
-			(at 88.9 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 99.06 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC Part" "C4216"
-			(at 86.36 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "3e1f6013-8af1-404f-8f31-904b60b6b04b")
-		)
-		(pin "1"
-			(uuid "7167ed4e-54b1-471d-a6eb-0c1e3def9766")
-		)
-		(instances
-			(project "Option1"
-				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/149ab29c-8f38-45ea-932f-f5c39c8a8ac3"
-					(reference "R301")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "easyeda2kicad:CL10B104KA8NNNC")
 		(at 167.64 107.95 90)
 		(mirror x)
@@ -3639,165 +3175,6 @@
 			(project ""
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/149ab29c-8f38-45ea-932f-f5c39c8a8ac3"
 					(reference "C305")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "easyeda2kicad:0805B472K500NT")
-		(at 95.25 116.84 270)
-		(mirror x)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "c8620f83-64fe-4e8b-afdc-e28eecbbd0a5")
-		(property "Reference" "C303"
-			(at 91.44 115.5699 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "4.7nF"
-			(at 91.44 117.602 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "easyeda2kicad:C0805"
-			(at 87.63 116.84 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_4-7nF-472-10-50V_C1744.html"
-			(at 85.09 116.84 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 95.25 116.84 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC Part" "C1744"
-			(at 82.55 116.84 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "12ce8ad3-6f87-4150-933f-dd585eb5a1ec")
-		)
-		(pin "2"
-			(uuid "4b1a00f8-63fd-455d-9d8c-59bae7fe2e54")
-		)
-		(instances
-			(project "Option1"
-				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/149ab29c-8f38-45ea-932f-f5c39c8a8ac3"
-					(reference "C303")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "easyeda2kicad:0603WAF3302T5E")
-		(at 91.44 105.41 270)
-		(mirror x)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "d9669878-9191-47b7-886b-99f30fd74ae5")
-		(property "Reference" "R302"
-			(at 88.9 104.1399 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "33k"
-			(at 88.9 106.6799 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "easyeda2kicad:R0603"
-			(at 83.82 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_33KR-3302-1_C4216.html"
-			(at 81.28 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 91.44 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC Part" "C4216"
-			(at 78.74 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "788863b7-c68e-47e5-b0e5-6f4f4b445ecf")
-		)
-		(pin "2"
-			(uuid "196137ff-8db1-423b-8e75-9164756be554")
-		)
-		(instances
-			(project "Option1"
-				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/149ab29c-8f38-45ea-932f-f5c39c8a8ac3"
-					(reference "R302")
 					(unit 1)
 				)
 			)
