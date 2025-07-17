@@ -1168,6 +1168,16 @@
 	)
 	(text "lowactive"
 		(exclude_from_sim no)
+		(at 139.192 38.608 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "0bb44a0e-fca8-4a2e-a725-958db4ecf533")
+	)
+	(text "lowactive"
+		(exclude_from_sim no)
 		(at 145.288 47.244 0)
 		(effects
 			(font
@@ -1333,6 +1343,12 @@
 		(uuid "4918ffaf-f577-4e51-9448-9606de956a55")
 	)
 	(junction
+		(at 91.44 31.75)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "961a6688-ab51-42f5-8445-32ee794ef65b")
+	)
+	(junction
 		(at 125.73 31.75)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1400,7 +1416,7 @@
 	)
 	(wire
 		(pts
-			(xy 80.01 31.75) (xy 97.79 31.75)
+			(xy 80.01 31.75) (xy 91.44 31.75)
 		)
 		(stroke
 			(width 0)
@@ -1477,6 +1493,16 @@
 			(type default)
 		)
 		(uuid "3caf7f57-1536-433b-bd20-60a2d3130cfe")
+	)
+	(wire
+		(pts
+			(xy 132.08 40.64) (xy 91.44 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3df8ad91-4448-4fb9-b50e-a3b3ab886657")
 	)
 	(wire
 		(pts
@@ -1557,6 +1583,16 @@
 			(type default)
 		)
 		(uuid "58da4ec6-0851-44fe-8587-0b4bb737aa59")
+	)
+	(wire
+		(pts
+			(xy 91.44 31.75) (xy 97.79 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "59d6f600-815a-43de-86cd-17ea63689f9a")
 	)
 	(wire
 		(pts
@@ -1987,6 +2023,16 @@
 			(type default)
 		)
 		(uuid "fb4671dc-f4bb-419a-8ccd-fe2aefaa92cd")
+	)
+	(wire
+		(pts
+			(xy 91.44 40.64) (xy 91.44 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ffbd470e-6855-45e6-95b2-587ce777b579")
 	)
 	(label "TX_Analog"
 		(at 109.22 124.46 0)
@@ -2915,6 +2961,19 @@
 				(hide yes)
 			)
 		)
+	)
+	(hierarchical_label "Activate_Lernmodus"
+		(shape input)
+		(at 132.08 40.64 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "2cac3010-ea86-4080-8709-df2b58cde45b")
 	)
 	(hierarchical_label "RX_2 (Remote Drive)"
 		(shape output)

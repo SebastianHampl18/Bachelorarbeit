@@ -519,7 +519,7 @@
 	)
 	(wire
 		(pts
-			(xy 241.3 102.87) (xy 241.3 152.4)
+			(xy 243.84 102.87) (xy 243.84 152.4)
 		)
 		(stroke
 			(width 0)
@@ -847,6 +847,16 @@
 			(type default)
 		)
 		(uuid "51fa6949-6c96-493d-bc4a-f556122969aa")
+	)
+	(wire
+		(pts
+			(xy 161.29 125.73) (xy 241.3 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5239055f-9e06-42c0-abbd-e1a8574413dd")
 	)
 	(wire
 		(pts
@@ -1319,7 +1329,7 @@
 	)
 	(wire
 		(pts
-			(xy 166.37 152.4) (xy 241.3 152.4)
+			(xy 166.37 152.4) (xy 243.84 152.4)
 		)
 		(stroke
 			(width 0)
@@ -1389,6 +1399,16 @@
 			(type default)
 		)
 		(uuid "a877cbd0-76f7-4c11-80a5-d09820f89bbb")
+	)
+	(wire
+		(pts
+			(xy 161.29 127) (xy 161.29 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a98b5ee5-8abb-43d8-80be-0035c019df33")
 	)
 	(wire
 		(pts
@@ -1491,6 +1511,16 @@
 			(type default)
 		)
 		(uuid "b277f5f4-73b6-44a6-aa85-6bc82a468ea8")
+	)
+	(wire
+		(pts
+			(xy 241.3 125.73) (xy 241.3 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b4d7c144-cf29-4638-b98e-1d5659e3d1bd")
 	)
 	(wire
 		(pts
@@ -2476,6 +2506,16 @@
 				(justify right)
 			)
 		)
+		(pin "Activate_Lernmodus" input
+			(at 161.29 127 90)
+			(uuid "13c3e59b-2de1-4c8e-83a5-d3e3dc67b876")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
 		(instances
 			(project "Option1"
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329"
@@ -3282,7 +3322,7 @@
 				(justify left)
 			)
 		)
-		(pin "Lernmodus" output
+		(pin "LED_Lernmodus" input
 			(at 246.38 102.87 270)
 			(uuid "6d8f46b6-dabf-47d5-99e6-a6f66d47b7ea")
 			(effects
@@ -3293,7 +3333,7 @@
 			)
 		)
 		(pin "Fehler Funkmodul" input
-			(at 241.3 102.87 270)
+			(at 243.84 102.87 270)
 			(uuid "ed12ec76-db7e-4c30-a432-3fa11c4f0219")
 			(effects
 				(font
@@ -3545,6 +3585,16 @@
 		(pin "ESP_Boot2" input
 			(at 205.74 82.55 180)
 			(uuid "ef1cc791-165b-4115-94ed-4f37f3890030")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "Activate_Lernmodus" output
+			(at 241.3 102.87 270)
+			(uuid "0932b1fe-bbfe-475a-97dc-fc70f36fa3c6")
 			(effects
 				(font
 					(size 1.27 1.27)
