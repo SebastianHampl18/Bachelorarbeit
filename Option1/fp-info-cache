@@ -1,4 +1,4 @@
-25651736747410379
+25658929976153824
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -93743,6 +93743,20 @@ rotary encoder illuminated switch vertical
 0
 9
 8
+SPI Flash
+NE555DR
+D (R-PDSO-G8)
+Integrated Circuit
+0
+8
+8
+SPI Flash
+SOIC127P600X175-8N
+8S1, 8-lead (150 mil Narrow Body)
+Integrated Circuit
+0
+8
+8
 Sensor
 ASAIR_AM2302_P2.54mm_Lead2.75mm_TabDown
 Temperature and humidity module, http://akizukidenshi.com/download/ds/aosong/AM2302.pdf
@@ -102766,6 +102780,20 @@ PWRM-TH_K78XX-500R3
 0
 3
 3
+easyeda2kicad
+PinHeader_1x04_P2.54mm_Vertical
+Through hole straight pin header, 1x04, 2.54mm pitch, single row
+Through hole pin header THT 1x04 2.54mm single row
+0
+4
+4
+easyeda2kicad
+PinHeader_1x05_P2.54mm_Vertical
+Through hole straight pin header, 1x05, 2.54mm pitch, single row
+Through hole pin header THT 1x05 2.54mm single row
+0
+5
+5
 easyeda2kicad
 R0603
 
