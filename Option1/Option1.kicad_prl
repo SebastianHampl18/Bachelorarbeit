@@ -28,25 +28,8 @@
       "vias": true,
       "zones": true
     },
-    "visible_items": [
-      "vias",
-      "footprint_text",
-      "ratsnest",
-      "grid",
-      "footprints_front",
-      "footprints_back",
-      "footprint_values",
-      "footprint_references",
-      "tracks",
-      "drc_errors",
-      "bitmaps",
-      "pads",
-      "zones",
-      "drc_warnings",
-      "drc_exclusions",
-      "shapes"
-    ],
-    "visible_layers": "00000000_00000000_0ffffff7_fff555f5",
+    "visible_items": [],
+    "visible_layers": "ffffff7_fff555f5",
     "zone_display_mode": 1
   },
   "git": {
@@ -57,7 +40,7 @@
   },
   "meta": {
     "filename": "Option1.kicad_prl",
-    "version": 5
+    "version": 3
   },
   "net_inspector_panel": {
     "col_hidden": [
