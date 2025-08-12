@@ -2,7 +2,7 @@
 #define OPTION1_HPP
 
 int SPI_select(int);
-void SPI_deselect();
+int SPI_deselect();
 int send_RemoteDrive_Request();
 int send_SOC_Request();
 int digitalWrite_GPIOB(int, int);
@@ -11,6 +11,17 @@ int CAN1_silent();
 int CAN1_not_silent();
 int CAN2_silent();
 int CAN2_not_silent();
+int digitalWrite_GPIOB(int port, int val);
+int Status_LED_ON();
+int Status_LED_OFF();
+int learn_RFControl(int mode);
+int recieve_Learn_RF_Module();
+int recieve_Error_RF_Module();
+int recieve_LED_Signal();
+int recieve_RemoteDrive_Request();
+int recieve_SOC_Request();
+int recieve_Identification_Request();
+
 
 /* GPIO define
 
@@ -74,5 +85,54 @@ GPIO35  -> Interrupt Port-Expander    -> Input                [Interrupt from GP
 #define Flash 1
 #define CAN2 2
 #define RFID 3
+
+// SPI Reset
+#define DISPLAY_LCD 1
+#define DISPLAY_TOUCH 2
+
+// GPIO Expander Register Adresses
+#define GPIO_EXP_ADRESS 0b0100000
+#define GPIO_EXP_IODIRA 0x00
+#define GPIO_EXP_IPOLA 0x01
+#define GPIO_EXP_GPINTENA 0x02
+#define GPIO_EXP_DEFVALA 0x03
+#define GPIO_EXP_INTCONA 0x04
+#define GPIO_EXP_IOCONA 0x05
+#define GPIO_EXP_GPPUA 0x06
+#define GPIO_EXP_INTFA 0x07
+#define GPIO_EXP_INTCAPA 0x08
+#define GPIO_EXP_GPIOA 0x09
+#define GPIO_EXP_OLATA 0x0A
+#define GPIO_EXP_IODIRB 0x10
+#define GPIO_EXP_IPOLB 0x11
+#define GPIO_EXP_GPINTENB 0x12
+#define GPIO_EXP_DEFVALB 0x13
+#define GPIO_EXP_INTCONB 0x14
+#define GPIO_EXP_IOCONB 0x15
+#define GPIO_EXP_GPPUB 0x16
+#define GPIO_EXP_INTFB 0x17
+#define GPIO_EXP_INTCAPB 0x18
+#define GPIO_EXP_GPIOB 0x19
+#define GPIO_EXP_OLATB 0x1A
+
+// Logical Values
+#define OUTPUT 0
+#define INPUT 1
+
+#define INVERT 1
+#define NONINVERT 0
+
+#define IOC_EN 1
+#define IOC_DIS 0
+
+#define COMP_TO_DEFVAL 1
+#define COMP_TO_PREVIOUS 0
+
+// general
+#define ERROR -1
+#define SUCCESS 1
+
+#define HIGH 1
+#define LOW 0
 
 #endif
