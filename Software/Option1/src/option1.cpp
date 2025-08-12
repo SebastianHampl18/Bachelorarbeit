@@ -103,7 +103,17 @@ int send_RemoteDrive_Request(){
  * @return 1 at Success, -1 at fail
  */
     // Code here
-    // TODO: Set Pin GPIOB 4 on Port Extension to HIGH
+    // Set Pin GPIOB 4 on Port Extension to HIGH
+  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 4, HIGH);
+
+  if(rv == ERROR){
+    perror("Write failed");
+    return ERROR;
+  }
+
+  //TODO: Wait and reset
+
+  return SUCCESS;
 }
 
 int send_SOC_Request(){
@@ -113,7 +123,17 @@ int send_SOC_Request(){
  * @return 1 at Success, -1 at fail
  */
     // Code here
-    // TODO: Set Pin GPIOB 4 on Port Extension to HIGH
+    // Set Pin GPIOB 5 on Port Extension to HIGH
+  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 5, HIGH);
+
+  if(rv == ERROR){
+    perror("Write failed");
+    return ERROR;
+  }
+
+  // TODO: Wait and reset
+
+  return SUCCESS;
 }
 
 int CAN1_silent(){
@@ -122,7 +142,15 @@ int CAN1_silent(){
  * 
  * @return 1 at Success, -1 at fail
  */
-    // TODO: Write To PIN 6 on GPIO Expansion
+    // Write To PIN 6 on GPIO Expansion
+  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 6, LOW);  // TODO: Check on lo or high active
+
+  if(rv == ERROR){
+    perror("Write failed");
+    return ERROR;
+  }
+
+  return SUCCESS;
 }
 
 int CAN1_not_silent(){
@@ -131,7 +159,15 @@ int CAN1_not_silent(){
  * 
  * @return 1 at Success, -1 at fail
  */
-    // TODO: Write to Pin 6 on GPIO Expansion
+  // Write to Pin 6 on GPIO Expansion
+  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 6, HIGH);  // TODO: Check on low or high active
+
+  if(rv == ERROR){
+    perror("Write failed");
+    return ERROR;
+  }
+
+  return SUCCESS;
 }
 
 int CAN2_silent(){
@@ -140,7 +176,15 @@ int CAN2_silent(){
  * 
  * @return 1 at Success, -1 at fail
  */
-    // TODO: Write to PIN 7 on GPIO Expansion
+  // Write to PIN 7 on GPIO Expansion
+  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 6, LOW);  // TODO: Check on lo or high active
+
+  if(rv == ERROR){
+    perror("Write failed");
+    return ERROR;
+  }
+
+  return SUCCESS;
 }
 
 int CAN2_not_silent(){
@@ -149,19 +193,15 @@ int CAN2_not_silent(){
  * 
  * @return 1 at Success, -1 at fail
  */
-    // TODO: Write to PIN 7 on GPIO Expansion
-}
+  // Write to PIN 7 on GPIO Expansion
+  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 7, HIGH);  // TODO: Check on lo or high active
 
-int digitalWrite_GPIOB(int port, int val){
-/**
- * @brief Writes the Pins at the GPIO Expansion via I²C
- * 
- * @param port Port to be adressed
- * @param val Value to be set
- * 
- * @return 1 at Success, -1 at fail
- */
-    // TODO: Digital Write for Pins on Port Extension via I²C
+  if(rv == ERROR){
+    perror("Write failed");
+    return ERROR;
+  }
+
+  return SUCCESS;
 }
 
 int Status_LED_ON(){
@@ -170,7 +210,15 @@ int Status_LED_ON(){
  * 
  * @return 1 at Success, -1 at fail
  */
-  // TODO: Write to PIN 1 on GPIO Expansion
+  // Write to PIN 0 on GPIO Expansion
+  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 0, HIGH);
+
+  if(rv == ERROR){
+    perror("Write failed");
+    return ERROR;
+  }
+
+  return SUCCESS;
 }
 
 int Status_LED_OFF(){
@@ -179,7 +227,15 @@ int Status_LED_OFF(){
  * 
  * @return 1 at Success, -1 at fail
  */
-  // TODO: Write to PIN 1 on GPIO Expansion
+  // Write to PIN 0 on GPIO Expansion
+  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 0, LOW);
+
+  if(rv == ERROR){
+    perror("Write failed");
+    return ERROR;
+  }
+
+  return SUCCESS;
 }
 
 int learn_RFControl(int mode){
