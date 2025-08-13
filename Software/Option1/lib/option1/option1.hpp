@@ -21,6 +21,10 @@ int recieve_LED_Signal();
 int recieve_RemoteDrive_Request();
 int recieve_SOC_Request();
 int recieve_Identification_Request();
+int GPIO_Exp_WriteRegister(int reg, int value);
+int GPIO_Exp_ReadRegister(int reg);
+int GPIO_Exp_WriteBit(int reg, int bit, int value);
+int GPIO_Exp_ReadBit(int reg, int bit);
 
 
 /* GPIO define
@@ -134,5 +138,8 @@ GPIO35  -> Interrupt Port-Expander    -> Input                [Interrupt from GP
 
 #define HIGH 1
 #define LOW 0
+
+#define TRUE 1
+#define FALSE 0
 
 #endif

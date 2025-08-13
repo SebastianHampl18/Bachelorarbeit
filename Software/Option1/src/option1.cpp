@@ -133,6 +133,8 @@ int send_SOC_Request(){
 
   // TODO: Wait and reset
 
+  //Send CAN Message
+
   return SUCCESS;
 }
 
@@ -247,10 +249,28 @@ int learn_RFControl(int mode){
  * @return 1 at Success, -1 at fail
  */
   // TODO: Write to PIN 2 on GPIO Expansion
+  if(mode == 1){
+    // Pairing Mode 1 -> Pairs RF Control, returns acknowledge
+    // GND, 1x short (<1s)
+  }
+  if(mode == 2){
+    // Pairing Mode 2 -> Pairs RF Control Button, returns acknowledge
+    // GND, 2x short (<1s)
+  }
+  if(mode == 3){
+    // Pairing Mode 3 -> Pairs RF Control, returns no acknowledge
+    // GND, 3x short (<1s)
+  }
+  if(mode == 4){
+    // Pairing Mode 4 -> Pairs RF Control Button, returns no acknowledge
+    // GND, 4x short (<1s)
+  }
 }
 
 int recieve_Learn_RF_Module(){
 /**
+ * Interrupt Handler
+ * 
  * @brief RF Module returnes Data after activating learn mode. Data is diffrent, when learning was succesful or not
  * 
  * @return data at Success, -1 at fail
@@ -260,6 +280,8 @@ int recieve_Learn_RF_Module(){
 
 int recieve_Error_RF_Module(){
 /**
+ * Interrupt Handler
+ * 
  * @brief RF Module returnes Error Code after activating learn mode. Error is flashing LED Code witch is read via Micro Controller
  * 
  * @return Error Code at Success, -1 at fail
@@ -269,38 +291,85 @@ int recieve_Error_RF_Module(){
 
 int recieve_LED_Signal(){
 /**
- * @brief RF Module returnes Data after activating learn mode. Data is diffrent, when learning was succesful or not
+ * Interrupt Handler
+ * 
+ * @brief Reads the Signal for activating Status LED send by VCU
  * 
  * @return data at Success, -1 at fail
  */
-  // TODO: Process Data from VCU for Status LED
+  // Read Data from GPIO Expansion send by VCU
+  int rv = GPIO_Exp_ReadBit(GPIO_EXP_GPIOA, 1);
+
+  if(rv == ERROR){
+    perror("Could not read from GPIO Port");
+    return ERROR;
+  }
+
+  int LED_Flag = TRUE;
+  return LED_Flag;
 }
 
 int recieve_RemoteDrive_Request(){
 /**
+ * Interrupt Handler
+ * 
  * @brief Process Data witch were recieved as User Input for Remote Drive. Data must be send to VCU -> send_remoteDrive_Request
  * 
  * @return data at Success, -1 at fail
  */
-  // TODO: Process Data from RF Module and Send to VCU
+  // Read Data from GPIO Expansion send by RF Module
+  int rv = GPIO_Exp_ReadBit(GPIO_EXP_GPIOA, 3);
+
+  if(rv == ERROR){
+    perror("Could not read from GPIO Port");
+    return ERROR;
+  }
+
+  int RD_Flag = TRUE;
+  return RD_Flag;
 }
 
 int recieve_SOC_Request(){
-  /**
- * @brief Process Data witch were recieved as User Input for SOC Request. Data must be send to VCU -> send_SOC_Request
+/**
+ * Interrupt Handler
+ * 
+ * @brief Process Data witch were recieved as User Input for SOC Request.
  * 
  * @return data at Success, -1 at fail
  */
-  // TODO: Process Data from RF Module and Send to VCU
+  // Read Data from GPIO Expansion send by RF Module
+  int rv = GPIO_Exp_ReadBit(GPIO_EXP_GPIOA, 5);
+
+  if(rv == ERROR){
+    perror("Could not read from GPIO Port");
+    return ERROR;
+  }
+
+  int SOC_Flag = TRUE;
+  return SOC_Flag;
 }
 
 int recieve_Identification_Request(){
 /**
+ * Interrupt Handler
+ * 
  * @brief Process Data witch were recieved as User Input for Identification. Status LED must flash
  * 
  * @return data at Success, -1 at fail
  */
-  // TODO: Process Data from RF Module and toggle Status LED
+  // Read Data from GPIO Expansion send by RF Module
+  int rv = GPIO_Exp_ReadBit(GPIO_EXP_GPIOA, 7);
+
+  // Check for Read Error
+  if(rv == ERROR){
+    perror("Could not read from GPIO Port");
+    return ERROR;
+  }
+
+  // Set Flag
+  // Keep Interrupt Handler as short as possible
+  int LED_Flag = TRUE;
+  return LED_Flag;
 }
 
 /***************************
