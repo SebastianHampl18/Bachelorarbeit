@@ -3,6 +3,30 @@
 #include <string.h>
 #include <Wire.h>
 
+int SPI_select(int Slave);
+int SPI_deselect();
+int send_RemoteDrive_Request();
+int send_SOC_Request();
+int SPI_reset(int);
+int CAN1_silent();
+int CAN1_not_silent();
+int CAN2_silent();
+int CAN2_not_silent();
+int digitalWrite_GPIOB(int port, int val);
+int Status_LED_ON();
+int Status_LED_OFF();
+int learn_RFControl(int mode);
+int recieve_Learn_RF_Module();
+int recieve_Error_RF_Module();
+int recieve_LED_Signal();
+int recieve_RemoteDrive_Request();
+int recieve_SOC_Request();
+int recieve_Identification_Request();
+int GPIO_Exp_WriteRegister(int reg, int value);
+int GPIO_Exp_ReadRegister(int reg);
+int GPIO_Exp_WriteBit(int reg, int bit, int value);
+int GPIO_Exp_ReadBit(int reg, int bit);
+
 int SPI_select(int Slave){
 /**
  * @brief Slaves selects the Component SPI wants to communicate with. Depending on Slave this function activates ChipSelect for corresponding Components
@@ -92,8 +116,8 @@ int SPI_reset(int Slave){
 
     //TODO: Wait and Set back to LOW
   }
-  
-
+  perror("Unknown Slave Address");
+  return ERROR;
 }
 
 int send_RemoteDrive_Request(){
@@ -226,7 +250,7 @@ int Status_LED_ON(){
 int Status_LED_OFF(){
 /**
  * @brief Switches the Status-LED to off
- * 
+ *  
  * @return 1 at Success, -1 at fail
  */
   // Write to PIN 0 on GPIO Expansion
@@ -267,7 +291,7 @@ int learn_RFControl(int mode){
   }
 }
 
-int recieve_Learn_RF_Module(){
+int recieve_Learn_RF_Module(int flag){
 /**
  * Interrupt Handler
  * 
@@ -467,7 +491,7 @@ int GPIO_Exp_ReadRegister(int reg){
   }
 
   // Write Address and Read bit to Buffer
-  Wire.requestFrom(GPIO_EXP_ADRESS, (uint8_t)1);
+  Wire.requestFrom(GPIO_EXP_ADRESS, uint8_t(1));
 
   // Read Register from Communication
   if (Wire.available()) {
