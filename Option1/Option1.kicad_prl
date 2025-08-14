@@ -1,6 +1,6 @@
 {
   "board": {
-    "active_layer": 25,
+    "active_layer": 5,
     "active_layer_preset": "",
     "auto_track_width": true,
     "hidden_netclasses": [],
@@ -28,8 +28,20 @@
       "vias": true,
       "zones": true
     },
-    "visible_items": [],
-    "visible_layers": "ffffff7_fff555f5",
+    "visible_items": [
+      "vias",
+      "footprint_text",
+      "ratsnest",
+      "footprints_front",
+      "footprints_back",
+      "footprint_values",
+      "footprint_references",
+      "tracks",
+      "pads",
+      "zones",
+      "shapes"
+    ],
+    "visible_layers": "00000000_00000000_0ffffff7_fff555f5",
     "zone_display_mode": 1
   },
   "git": {
@@ -40,7 +52,7 @@
   },
   "meta": {
     "filename": "Option1.kicad_prl",
-    "version": 3
+    "version": 5
   },
   "net_inspector_panel": {
     "col_hidden": [

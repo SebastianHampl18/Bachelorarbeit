@@ -1,4 +1,4 @@
-25655275870490150
+25657033418481422
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -102766,6 +102766,13 @@ PWRM-TH_K78XX-500R3
 0
 3
 3
+easyeda2kicad
+Phonix_Connector_07x2pin_toWire
+
+
+0
+0
+0
 easyeda2kicad
 PinHeader_1x04_P2.54mm_Vertical
 Through hole straight pin header, 1x04, 2.54mm pitch, single row

@@ -1,0 +1,120 @@
+(footprint "Phonix_Connector_07x2pin_toWire"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at 12.7 -14.175 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "aa5c338c-0b90-4175-b23f-4cbbd9e23de7")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Value" "Phoenix_Connetor_07x2pin_toWire"
+		(at 12.675 -12.15 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "ebf79639-853e-414e-8747-a4f6c455b1ab")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "eeb0b7fd-adb2-4c3a-bce1-b441a648bf4f")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "d1c8ba6e-7d1b-43a8-9a6f-eba620c2398c")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_line
+		(start 0 -13.225)
+		(end 0 0)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "e362aeee-0bf7-4aac-a9e8-46ff67509eda")
+	)
+	(fp_line
+		(start 0 -13.225)
+		(end 2.5 -13.225)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "bee1d1d1-4215-46c1-88f3-615814c3c428")
+	)
+	(fp_line
+		(start 0 0)
+		(end 25.4 0)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "10895b4a-a9d3-490c-81aa-66746fc507fc")
+	)
+	(fp_line
+		(start 25.4 -13.225)
+		(end 22.9 -13.225)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "bc118016-8099-43d5-986a-7991c68bfee3")
+	)
+	(fp_line
+		(start 25.4 -13.225)
+		(end 25.4 0)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "8ecb4577-7e30-4b2e-8302-1f9471380805")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 12.225 -10.375 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "72d76774-dc00-4051-867c-13b4514a85c2")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(embedded_fonts no)
+)
