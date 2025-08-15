@@ -1,11 +1,11 @@
 #ifndef OPTION1_HPP
 #define OPTION1_HPP
 
-int SPI_select(int);
+int SPI_select(int Slave);
 int SPI_deselect();
 int send_RemoteDrive_Request(int send_CAN);
-int send_SOC_Request();
-int SPI_reset(int);
+int send_SOC_Request(int send_CAN);
+int SPI_reset(int Slave);
 int CAN1_silent();
 int CAN1_not_silent();
 int CAN2_silent();
@@ -139,6 +139,9 @@ GPIO35  -> Interrupt Port-Expander    -> Input                [Interrupt from GP
 
 #define TRUE 1
 #define FALSE 0
+
+#define ON 1
+#define OFF 0
 
 
 

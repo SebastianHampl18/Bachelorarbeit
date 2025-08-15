@@ -6,8 +6,8 @@
 int SPI_select(int Slave);
 int SPI_deselect();
 int send_RemoteDrive_Request(int send_CAN);
-int send_SOC_Request();
-int SPI_reset(int);
+int send_SOC_Request(int send_CAN);
+int SPI_reset(int Slave);
 int CAN1_silent();
 int CAN1_not_silent();
 int CAN2_silent();
@@ -148,24 +148,34 @@ int send_RemoteDrive_Request(int send_CAN){
   return SUCCESS;
 }
 
-int send_SOC_Request(){
+int send_SOC_Request(int send_CAN){
 /**
  * @brief Depending on the System, this function sends a CAN Message to the VCU or powers the MOSFET to send the Signal to VCU via wired Connection
  * 
  * @return 1 at Success, -1 at fail
  */
-    // Code here
-    // Set Pin GPIOB 5 on Port Extension to HIGH
+  // Send analog Signal
+  // Set Pin GPIOB 5 on Port Extension to HIGH to power the MOSFET
   int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 5, HIGH);
-
   if(rv == ERROR){
     perror("Write failed");
     return ERROR;
   }
 
-  // TODO: Wait and reset
+  // Wait and reset
+  delay(300);
 
-  //Send CAN Message
+  // Set Pin GPIOB 5 on Port Extension to LOW to reset the MOSFET
+  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 5, LOW);
+  if(rv == ERROR){
+    perror("Write failed");
+    return ERROR;
+  }
+
+  // Send CAN Message
+  if(send_CAN){
+    //TODO: Send CAN-Message with RemoteDive Command to VCU
+  }
 
   return SUCCESS;
 }
