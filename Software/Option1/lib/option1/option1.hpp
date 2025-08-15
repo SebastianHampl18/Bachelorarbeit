@@ -3,15 +3,13 @@
 
 int SPI_select(int);
 int SPI_deselect();
-int send_RemoteDrive_Request();
+int send_RemoteDrive_Request(int send_CAN);
 int send_SOC_Request();
-int digitalWrite_GPIOB(int, int);
 int SPI_reset(int);
 int CAN1_silent();
 int CAN1_not_silent();
 int CAN2_silent();
 int CAN2_not_silent();
-int digitalWrite_GPIOB(int port, int val);
 int Status_LED_ON();
 int Status_LED_OFF();
 int learn_RFControl(int mode);
@@ -141,5 +139,7 @@ GPIO35  -> Interrupt Port-Expander    -> Input                [Interrupt from GP
 
 #define TRUE 1
 #define FALSE 0
+
+
 
 #endif

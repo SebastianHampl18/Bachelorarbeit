@@ -1456,6 +1456,12 @@
 		(uuid "74c82861-6ac7-4d20-9294-edc26dccc65a")
 	)
 	(junction
+		(at 91.44 40.64)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7d8589cc-a479-48b4-93f7-e09f17452b65")
+	)
+	(junction
 		(at 85.09 91.44)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1704,6 +1710,16 @@
 			(type default)
 		)
 		(uuid "4eb043ef-6b19-4082-b90c-243d3382845e")
+	)
+	(wire
+		(pts
+			(xy 73.66 40.64) (xy 78.74 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5071f03f-685b-4b91-bbcd-4edc08b1bbe7")
 	)
 	(polyline
 		(pts
@@ -2104,6 +2120,16 @@
 			(type default)
 		)
 		(uuid "a0c647d6-38d6-44ff-8ea4-50a942fe03e0")
+	)
+	(wire
+		(pts
+			(xy 88.9 40.64) (xy 91.44 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a178d2bf-6dd0-43e1-9af2-3b90f45a7274")
 	)
 	(wire
 		(pts
@@ -3315,6 +3341,28 @@
 			)
 		)
 	)
+	(global_label "3.3V"
+		(shape input)
+		(at 73.66 40.64 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f5660fd7-0649-4d35-b46c-6af688074a0d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 66.5624 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "Sparmodus_enable"
 		(shape input)
 		(at 39.37 25.4 0)
@@ -4051,10 +4099,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "33be0fd9-7a34-4b1b-aedd-f41e7de682c8")
 		(property "Reference" "R401"
-			(at 93.98 40.64 0)
+			(at 93.98 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4062,7 +4109,7 @@
 			)
 		)
 		(property "Value" "220Ω"
-			(at 93.98 43.18 0)
+			(at 93.98 52.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4805,6 +4852,82 @@
 			(project "Option1"
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/23e58ba0-291f-4c3f-a823-9b20e599b3f1"
 					(reference "R404")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "easyeda2kicad:0603WAF1002T5E")
+		(at 83.82 40.64 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b0c706b0-2cbd-4f9b-b846-58a75e26ed77")
+		(property "Reference" "R412"
+			(at 83.82 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 83.82 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "easyeda2kicad:R0603"
+			(at 83.82 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_10KR-1002-1_C25804.html"
+			(at 83.82 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 83.82 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C25804"
+			(at 83.82 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4737e9ea-9a61-45a9-9b7a-35584f2ff571")
+		)
+		(pin "2"
+			(uuid "e1313700-9d41-418f-9d0a-af3cf3f6bf18")
+		)
+		(instances
+			(project ""
+				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/23e58ba0-291f-4c3f-a823-9b20e599b3f1"
+					(reference "R412")
 					(unit 1)
 				)
 			)

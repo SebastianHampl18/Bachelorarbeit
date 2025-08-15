@@ -33,6 +33,13 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+
+  // Polling for Interrupt Flags set by GPIO Expansion
+  if(ISR_RX_2_Flag == TRUE){
+    // The Microcontroller has recieved a Signal, which indicates, that a remote drive Request was sent by the RF Controll
+    // The Signal must now be transmitted to the VCU
+    send_RemoteDrive_Request();
+  }
 }
 
 // put function definitions here:
@@ -103,13 +110,11 @@ int init_GPIO_Exp_Ports(){
 
   // set Interrupt Settings 
   rv = 0;
-  // Enable Interrupts for Pins 7, 5, 3, 2, 1
-  rv += GPIO_Exp_WriteRegister(GPIO_EXP_GPINTENA, 0xAE);
+  // Enable Interrupts for Pins 7, 5, 3, 1
+  rv += GPIO_Exp_WriteRegister(GPIO_EXP_GPINTENA, 0xAA);
 
   // Define Comparison Values for Pins to throw Interrupts
-  // Interrupt is set, if opposite value occurs
-  rv += GPIO_Exp_WriteBit(GPIO_EXP_DEFVALA, 0, HIGH); // lowactive signal
-  rv += GPIO_Exp_WriteBit(GPIO_EXP_DEFVALA, 2, HIGH); // lowactive Signal
+  // Interrupt is set, if opposite value occurd
 
   rv += GPIO_Exp_WriteBit(GPIO_EXP_DEFVALA, 1, LOW);
   rv += GPIO_Exp_WriteBit(GPIO_EXP_DEFVALA, 3, LOW);
@@ -117,7 +122,7 @@ int init_GPIO_Exp_Ports(){
   rv += GPIO_Exp_WriteBit(GPIO_EXP_DEFVALA, 7, LOW);
 
   // Set Interrupt Control Regsiter to comparison against DEFVAl Register
-  rv += GPIO_Exp_WriteRegister(GPIO_EXP_INTCONA, 0xAE);
+  rv += GPIO_Exp_WriteRegister(GPIO_EXP_INTCONA, 0xAA);
 
   // Set Interrupt polarity to High_active
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IOCONA, 1, HIGH);
@@ -155,8 +160,7 @@ void ISR_GPIO_Expansion(){
     }
     if((flags >> 2) & 0x01){
       // Interrupt ocured for Bit 2
-      // Error recieved from RF Module
-      ISR_RF_Error_Flag = TRUE;
+      // Not used for interrupt
     }
     if((flags >> 3) & 0x01){
       // Interrupt ocured for Bit 3
