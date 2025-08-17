@@ -174,10 +174,12 @@ int init_GPIO_Exp_Ports(){
   // Set Interrupt polarity to High_active
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IOCONA, 1, HIGH);
 
-  if(rv != 7){
-    perror("Error in init Interrupts for GPIO Expansion"); 
-    return ERROR;
-  }
+  if(rv != 7){perror("Error in init Interrupts for GPIO Expansion"); return ERROR;}
+
+  // Initial Value
+  rv = 0;
+  rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+  if(rv != 1){perror("Error in init Interrupts for GPIO Expansion"); return ERROR;}
 
   return SUCCESS;
 }

@@ -15,12 +15,6 @@ int CAN2_not_silent();
 int Status_LED_ON();
 int Status_LED_OFF();
 int learn_RFControl(int mode);
-int recieve_Learn_RF_Module();
-int recieve_Error_RF_Module();
-int recieve_LED_Signal();
-int recieve_RemoteDrive_Request();
-int recieve_SOC_Request();
-int recieve_Identification_Request();
 int GPIO_Exp_WriteRegister(int reg, int value);
 int GPIO_Exp_ReadRegister(int reg);
 int GPIO_Exp_WriteBit(int reg, int bit, int value);
@@ -290,128 +284,87 @@ int learn_RFControl(int mode){
  * 
  * @return 1 at Success, -1 at fail
  */
-  // TODO: Write to PIN 2 on GPIO Expansion
+  // Write to PIN 1 on GPIO B Expansion
+  int rv = 0;
   if(mode == 1){
     // Pairing Mode 1 -> Pairs RF Control, returns acknowledge
     // GND, 1x short (<1s)
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    delay(100);
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+    if(rv==2){perror("Writing failed"); return ERROR;}
   }
   if(mode == 2){
     // Pairing Mode 2 -> Pairs RF Control Button, returns acknowledge
     // GND, 2x short (<1s)
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    delay(100);
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+    delay(100);
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    delay(100);
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+    if(rv==4){perror("Writing failed"); return ERROR;}
   }
   if(mode == 3){
     // Pairing Mode 3 -> Pairs RF Control, returns no acknowledge
     // GND, 3x short (<1s)
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    delay(100);
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+    delay(100);
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    delay(100);
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+    delay(100);
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    delay(100);
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+    if(rv==6){perror("Writing failed"); return ERROR;}
   }
   if(mode == 4){
     // Pairing Mode 4 -> Pairs RF Control Button, returns no acknowledge
     // GND, 4x short (<1s)
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    delay(100);
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+    delay(100);
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    delay(100);
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+    delay(100);
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    delay(100);
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+    delay(100);
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    delay(100);
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+    if(rv==8){perror("Writing failed"); return ERROR;}
   }
-}
-
-int recieve_Learn_RF_Module(int flag){
-/**
- * Interrupt Handler
- * 
- * @brief RF Module returnes Data after activating learn mode. Data is diffrent, when learning was succesful or not
- * 
- * @return data at Success, -1 at fail
- */
-  // TODO: Process Data from RF Module recieved by GPIO Expansion
-}
-
-int recieve_Error_RF_Module(){
-/**
- * Interrupt Handler
- * 
- * @brief RF Module returnes Error Code after activating learn mode. Error is flashing LED Code witch is read via Micro Controller
- * 
- * @return Error Code at Success, -1 at fail
- */
-  // TODO: Process Errors from RF Module recieved by GPIO Expansion
-}
-
-int recieve_LED_Signal(){
-/**
- * Interrupt Handler
- * 
- * @brief Reads the Signal for activating Status LED send by VCU
- * 
- * @return data at Success, -1 at fail
- */
-  // Read Data from GPIO Expansion send by VCU
-  int rv = GPIO_Exp_ReadBit(GPIO_EXP_GPIOA, 1);
-
-  if(rv == ERROR){
-    perror("Could not read from GPIO Port");
-    return ERROR;
+  if(mode == 5){
+    // Disconnect Mode 1 -> Removes 1 single RF Controller from list
+    // GND, 1x lang (>3s)
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    delay(3500);
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+    if(rv==2){perror("Writing failed"); return ERROR;}
   }
-
-  int LED_Flag = TRUE;
-  return LED_Flag;
-}
-
-int recieve_RemoteDrive_Request(){
-/**
- * Interrupt Handler
- * 
- * @brief Process Data witch were recieved as User Input for Remote Drive. Data must be send to VCU -> send_remoteDrive_Request
- * 
- * @return data at Success, -1 at fail
- */
-  // Read Data from GPIO Expansion send by RF Module
-  int rv = GPIO_Exp_ReadBit(GPIO_EXP_GPIOA, 3);
-
-  if(rv == ERROR){
-    perror("Could not read from GPIO Port");
-    return ERROR;
+  if(mode == 6){
+    // Disconnect Mode 2 -> Removes all paired RF Controller from List
+    // GND, 2x lang (>3s)
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    delay(3500);
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+    delay(500);
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    delay(3500);
+    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+    if(rv==4){perror("Writing failed"); return ERROR;}
   }
+  // Check Learn LED Return
 
-  int RD_Flag = TRUE;
-  return RD_Flag;
-}
-
-int recieve_SOC_Request(){
-/**
- * Interrupt Handler
- * 
- * @brief Process Data witch were recieved as User Input for SOC Request.
- * 
- * @return data at Success, -1 at fail
- */
-  // Read Data from GPIO Expansion send by RF Module
-  int rv = GPIO_Exp_ReadBit(GPIO_EXP_GPIOA, 5);
-
-  if(rv == ERROR){
-    perror("Could not read from GPIO Port");
-    return ERROR;
-  }
-
-  int SOC_Flag = TRUE;
-  return SOC_Flag;
-}
-
-int recieve_Identification_Request(){
-/**
- * Interrupt Handler
- * 
- * @brief Process Data witch were recieved as User Input for Identification. Status LED must flash
- * 
- * @return data at Success, -1 at fail
- */
-  // Read Data from GPIO Expansion send by RF Module
-  int rv = GPIO_Exp_ReadBit(GPIO_EXP_GPIOA, 7);
-
-  // Check for Read Error
-  if(rv == ERROR){
-    perror("Could not read from GPIO Port");
-    return ERROR;
-  }
-
-  // Set Flag
-  // Keep Interrupt Handler as short as possible
-  int LED_Flag = TRUE;
-  return LED_Flag;
+  return SUCCESS;
 }
 
 /***************************
