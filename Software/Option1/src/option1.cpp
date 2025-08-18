@@ -287,98 +287,164 @@ int learn_RFControl(int mode){
   static int time_wait_Learn_RF = 0;
   if(time_wait_Learn_RF == 0){
     time_wait_Learn_RF = millis();
-
-    // TODO: noo delay
   }
   
   // Write to PIN 1 on GPIO B Expansion
   int rv = 0;
+
   if(mode == 1){
     // Pairing Mode 1 -> Pairs RF Control, returns acknowledge
     // GND, 1x short (<1s)
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    delay(100);
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-    if(rv==2){perror("Writing failed"); return ERROR;}
-    return mode;
+    unsigned long now = millis();
+    if(time_wait_Learn_RF + 100 <= now){
+      // Reset Signal
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+      time_wait_Learn_RF = 0;
+      if(rv!=2){perror("Writing failed"); return ERROR;}
+      return mode;
+    }
+    else{
+      // Set Signal to active
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    }
   }
   if(mode == 2){
     // Pairing Mode 2 -> Pairs RF Control Button, returns acknowledge
     // GND, 2x short (<1s)
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    delay(100);
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-    delay(100);
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    delay(100);
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-    if(rv==4){perror("Writing failed"); return ERROR;}
-    return mode;
+    unsigned long now = millis();
+    if(time_wait_Learn_RF + 300 <= now){
+      // Reset Signal
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+      time_wait_Learn_RF = 0;
+      if(rv!=4){perror("Writing failed"); return ERROR;}
+      return mode;
+    }
+    else if(time_wait_Learn_RF + 200 <= now){
+      // Reset Signal
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    }
+    else if(time_wait_Learn_RF + 100 <= now){
+      // Reset Signal
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+    }
+    else{
+      // Set Signal to active
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    }
   }
   if(mode == 3){
     // Pairing Mode 3 -> Pairs RF Control, returns no acknowledge
     // GND, 3x short (<1s)
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    delay(100);
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-    delay(100);
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    delay(100);
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-    delay(100);
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    delay(100);
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-    if(rv==6){perror("Writing failed"); return ERROR;}
-    return mode;
+    unsigned long now = millis();
+    if(time_wait_Learn_RF + 500 <= now){
+      // Reset Signal
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+      time_wait_Learn_RF = 0;
+      if(rv!=6){perror("Writing failed"); return ERROR;}
+      return mode;
+    }
+    else if(time_wait_Learn_RF + 400 <= now){
+      // Reset Signal
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    }
+    else if(time_wait_Learn_RF + 300 <= now){
+      // Reset Signal
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+    }
+    else if(time_wait_Learn_RF + 200 <= now){
+      // Reset Signal
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    }
+    else if(time_wait_Learn_RF + 100 <= now){
+      // Reset Signal
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+    }
+    else{
+      // Set Signal to active
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    }
   }
   if(mode == 4){
     // Pairing Mode 4 -> Pairs RF Control Button, returns no acknowledge
     // GND, 4x short (<1s)
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    delay(100);
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-    delay(100);
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    delay(100);
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-    delay(100);
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    delay(100);
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-    delay(100);
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    delay(100);
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-    if(rv==8){perror("Writing failed"); return ERROR;}
-    return mode;
+    unsigned long now = millis();
+    if(time_wait_Learn_RF + 700 <= now){
+      // Reset Signal
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+      time_wait_Learn_RF = 0;
+      if(rv!=8){perror("Writing failed"); return ERROR;}
+      return mode;
+    }
+    else if(time_wait_Learn_RF + 600 <= now){
+      // Reset Signal
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    }
+    else if(time_wait_Learn_RF + 500 <= now){
+      // Reset Signal
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+    }
+    else if(time_wait_Learn_RF + 400 <= now){
+      // Reset Signal
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    }
+    else if(time_wait_Learn_RF + 300 <= now){
+      // Reset Signal
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+    }
+    else if(time_wait_Learn_RF + 200 <= now){
+      // Reset Signal
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    }
+    else if(time_wait_Learn_RF + 100 <= now){
+      // Reset Signal
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+    }
+    else{
+      // Set Signal to active
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    }
   }
   if(mode == 5){
     // Disconnect Mode 1 -> Removes 1 single RF Controller from list
     // GND, 1x lang (>3s)
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    delay(3500);
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-    if(rv==2){perror("Writing failed"); return ERROR;}
-    return mode;
+    unsigned long now = millis();
+    if(time_wait_Learn_RF + 3100 <= now){
+      // Reset Signal
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+      time_wait_Learn_RF = 0;
+      if(rv!=2){perror("Writing failed"); return ERROR;}
+      return mode;
+    }
+    else{
+      // Set Signal to active
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    }
   }
   if(mode == 6){
     // Disconnect Mode 2 -> Removes all paired RF Controller from List
     // GND, 2x lang (>3s)
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    delay(3500);
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-    delay(500);
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    delay(3500);
-    rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-    if(rv==4){perror("Writing failed"); return ERROR;}
-    return mode;
+    unsigned long now = millis();
+    if(time_wait_Learn_RF + 7100 <= now){
+      // Reset Signal
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+      time_wait_Learn_RF = 0;
+      if(rv!=4){perror("Writing failed"); return ERROR;}
+      return mode;
+    }
+    else if(time_wait_Learn_RF + 4000 <= now){
+      // Reset Signal
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    }
+    else if(time_wait_Learn_RF + 3100 <= now){
+      // Reset Signal
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+    }
+    else{
+      // Set Signal to active
+      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+    }
   }
-
-  // unknown Mode, never met one condition
-  perror("Unknown Learning Mode");
-  return ERROR;
+  return 0;
 }
 
 /***************************

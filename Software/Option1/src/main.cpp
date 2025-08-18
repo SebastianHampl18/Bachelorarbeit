@@ -98,7 +98,11 @@ void loop() {
       int rv = learn_RFControl(ISR_Learn_RF_Mode);
 
       if(rv==ERROR){perror("activating Pairing Mode failed");}
-      Learn_RF_Active_Flag = TRUE;
+
+      // repeat until Signal was transmitted to RF Controller successfully
+      if(rv == ISR_Learn_RF_Mode){
+        Learn_RF_Active_Flag = TRUE;
+      }
 
       timerWrite(TIM_RF_Learn_Active, 0);                 // Reset Timer Counter
       timerAlarmEnable(TIM_RF_Learn_Active);              // Activate Timer
