@@ -282,8 +282,15 @@ int learn_RFControl(int mode){
  * 
  * @param mode Difrent modes for learning and removing remotecontrols paired with the RF Module
  * 
- * @return 1 at Success, -1 at fail
+ * @return mode at Success, -1 at fail
  */
+  static int time_wait_Learn_RF = 0;
+  if(time_wait_Learn_RF == 0){
+    time_wait_Learn_RF = millis();
+
+    // TODO: noo delay
+  }
+  
   // Write to PIN 1 on GPIO B Expansion
   int rv = 0;
   if(mode == 1){
@@ -293,6 +300,7 @@ int learn_RFControl(int mode){
     delay(100);
     rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
     if(rv==2){perror("Writing failed"); return ERROR;}
+    return mode;
   }
   if(mode == 2){
     // Pairing Mode 2 -> Pairs RF Control Button, returns acknowledge
@@ -305,6 +313,7 @@ int learn_RFControl(int mode){
     delay(100);
     rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
     if(rv==4){perror("Writing failed"); return ERROR;}
+    return mode;
   }
   if(mode == 3){
     // Pairing Mode 3 -> Pairs RF Control, returns no acknowledge
@@ -321,6 +330,7 @@ int learn_RFControl(int mode){
     delay(100);
     rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
     if(rv==6){perror("Writing failed"); return ERROR;}
+    return mode;
   }
   if(mode == 4){
     // Pairing Mode 4 -> Pairs RF Control Button, returns no acknowledge
@@ -341,6 +351,7 @@ int learn_RFControl(int mode){
     delay(100);
     rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
     if(rv==8){perror("Writing failed"); return ERROR;}
+    return mode;
   }
   if(mode == 5){
     // Disconnect Mode 1 -> Removes 1 single RF Controller from list
@@ -349,6 +360,7 @@ int learn_RFControl(int mode){
     delay(3500);
     rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
     if(rv==2){perror("Writing failed"); return ERROR;}
+    return mode;
   }
   if(mode == 6){
     // Disconnect Mode 2 -> Removes all paired RF Controller from List
@@ -361,10 +373,12 @@ int learn_RFControl(int mode){
     delay(3500);
     rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
     if(rv==4){perror("Writing failed"); return ERROR;}
+    return mode;
   }
-  // Check Learn LED Return
 
-  return SUCCESS;
+  // unknown Mode, never met one condition
+  perror("Unknown Learning Mode");
+  return ERROR;
 }
 
 /***************************

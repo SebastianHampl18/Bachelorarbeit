@@ -1,4 +1,4 @@
-25657033418481422
+25646559593950910
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -93743,6 +93743,20 @@ rotary encoder illuminated switch vertical
 0
 9
 8
+SPI Flash
+NE555DR
+D (R-PDSO-G8)
+Integrated Circuit
+0
+8
+8
+SPI Flash
+SOIC127P600X175-8N
+8S1, 8-lead (150 mil Narrow Body)
+Integrated Circuit
+0
+8
+8
 Sensor
 ASAIR_AM2302_P2.54mm_Lead2.75mm_TabDown
 Temperature and humidity module, http://akizukidenshi.com/download/ds/aosong/AM2302.pdf
@@ -102662,26 +102676,12 @@ C1210
 2
 2
 easyeda2kicad
-CONN-SMD_GH-13AB
-
-
-0
-15
-15
-easyeda2kicad
 CONN-TH_6P-P2.50_1989780
 
 
 0
 6
 6
-easyeda2kicad
-CONN-TH_14P-P3.50_KEFA_KF2EDGKRG-3.5-2X7P
-
-
-0
-14
-14
 easyeda2kicad
 CRYSTAL-SMD_4P-L5.0-W3.2-BL-7I12288F20UCG
 
@@ -102739,13 +102739,6 @@ MSOP-10_L3.0-W3.0-P0.50-LS5.0-BL
 10
 10
 easyeda2kicad
-PICOSTAR-3_L1.0-W0.6-P0.40-S0.65-BL-1
-
-
-0
-3
-3
-easyeda2kicad
 POWERVDFN-8_L6.2-W5.2-P1.27-LS6.0-BL
 
 
@@ -102767,27 +102760,6 @@ PWRM-TH_K78XX-500R3
 3
 3
 easyeda2kicad
-Phonix_Connector_07x2pin_toWire
-
-
-0
-0
-0
-easyeda2kicad
-PinHeader_1x04_P2.54mm_Vertical
-Through hole straight pin header, 1x04, 2.54mm pitch, single row
-Through hole pin header THT 1x04 2.54mm single row
-0
-4
-4
-easyeda2kicad
-PinHeader_1x05_P2.54mm_Vertical
-Through hole straight pin header, 1x05, 2.54mm pitch, single row
-Through hole pin header THT 1x05 2.54mm single row
-0
-5
-5
-easyeda2kicad
 R0603
 
 
@@ -102795,14 +102767,7 @@ R0603
 2
 2
 easyeda2kicad
-SMA_L4.2-W2.6-LS5.3-RD
-
-
-0
-2
-2
-easyeda2kicad
-SMB_L4.6-W3.6-LS5.3-R-RD
+SMB_L4.6-W3.6-LS5.3-RD
 
 
 0
@@ -102837,26 +102802,19 @@ SOT-23-3_L2.9-W1.3-P1.90-LS2.4-BR
 3
 3
 easyeda2kicad
+SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR
+
+
+0
+3
+3
+easyeda2kicad
 SOT-23-5_L3.0-W1.7-P0.95-LS2.8-BR
 
 
 0
 5
 5
-easyeda2kicad
-SOT343_L2.0-W1.3-P1.30-LS2.1-BL
-
-
-0
-4
-4
-easyeda2kicad
-SSOP-28_L10.2-W5.3-P0.65-LS7.8-BL
-
-
-0
-28
-28
 easyeda2kicad
 SW-SMD_4P-L5.2-W5.2-P3.70-LS6.5
 

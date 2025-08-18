@@ -9,15 +9,24 @@
 CAN_device_t CAN1;
 HardwareSerial MicroUSB(1);
 SPIClass SPI(VSPI);
+hw_timer_t * TIM_RF_Learn_Active = NULL;
 
-static int ISR_Pairing_LED_CTR = FALSE;
-static int ISR_LED_Signal_Flag = FALSE;
-static int ISR_RF_Error_CTR = FALSE;
-static int ISR_RX_2_Flag = FALSE;
-static int ISR_RX_3_Flag = FALSE;
-static int ISR_RX_4_Flag = FALSE;
-static int LED_cur_state = OFF;
-static int ID_cur_state = OFF;
+volatile int ISR_Learn_LED_CTR = FALSE;
+volatile int ISR_LED_Signal_Flag = FALSE;
+volatile int ISR_RF_Error_CTR = FALSE;
+volatile int ISR_RX_2_Flag = FALSE;
+volatile int ISR_RX_3_Flag = FALSE;
+volatile int ISR_RX_4_Flag = FALSE;
+volatile int LED_cur_state = OFF;
+volatile int ID_cur_state = OFF;
+volatile int ISR_Learn_RF_Flag = FALSE;
+volatile int ISR_Learn_RF_Mode = 0;
+volatile int Learn_RF_Active_Flag = FALSE;
+volatile int Learn_RF_ACK_Flag = FALSE;
+volatile int Learn_RF_ACK_Waiting = FALSE;
+volatile unsigned long time_wait_ACK = 0;
+volatile int RF_Error_Active = FALSE;
+volatile unsigned long time_wait_Error = 0;
 
 // put function declarations here:
 void init_ports();
@@ -31,6 +40,7 @@ void setup() {
   init_ports();
   init_GPIO_Exp_Ports();
   init_Interrupts();
+  init_Timer();
 }
 
 void loop() {
@@ -75,8 +85,29 @@ void loop() {
     LED_cur_state = OFF;
     Status_LED_OFF();
   }
+  if(ISR_RF_Error_CTR > 0){
+    check_RF_Error();
+  }
 
   // End of polling for Interrupts by GPIO expansion *****************************************************************************
+
+  // Polling for Interrupts set by Touch Display Controller **********************************************************************
+  if(ISR_Learn_RF_Flag == TRUE){
+    // 
+    if(ISR_Learn_RF_Mode > 0 && Learn_RF_Active_Flag == FALSE){
+      int rv = learn_RFControl(ISR_Learn_RF_Mode);
+
+      if(rv==ERROR){perror("activating Pairing Mode failed");}
+      Learn_RF_Active_Flag = TRUE;
+
+      timerWrite(TIM_RF_Learn_Active, 0);                 // Reset Timer Counter
+      timerAlarmEnable(TIM_RF_Learn_Active);              // Activate Timer
+    }
+    // Check ACK and reset Learning_Flag if ACK is received
+    // Learning Mode may remain active
+    int rv = check_RF_Acknowledge(ISR_Learn_RF_Mode);
+  }
+
 
 }
 
@@ -190,6 +221,19 @@ void init_Interrupts(){
   attachInterrupt(digitalPinToInterrupt(SPI_INT_TP_PIN), ISR_TouchController, RISING);
 }
 
+void init_Timer(){
+  // initardwaretimer
+  // Timer 0, Prescaler 80000 -> 1 tick = 1 ms (bei 80 MHz APB), countUp
+  TIM_RF_Learn_Active = timerBegin(0, 80000, true); 
+
+  // init Interrupt for Timer overflow
+  timerAttachInterrupt(TIM_RF_Learn_Active, &TIM_RF_Learn_Active_overflow, true); // react on rising Edge
+
+  // set Timer-Alarm: 3.000 ms = 3 Sekunden
+  timerAlarmWrite(TIM_RF_Learn_Active, 3000, false); // false = one-shot, true = auto-reload
+  timerAlarmDisable(TIM_RF_Learn_Active);            // Timer will be activated by ISR
+}
+
 // Interrupts
 void ISR_GPIO_Expansion(){
   // Interrupt Service Routine for GPIO Expansion Interrupts
@@ -205,7 +249,8 @@ void ISR_GPIO_Expansion(){
     if((flags >> 0) & 0x01){
       // Interrupt ocured for Bit 0
       // RF Controller Pairing Mode Acknowledge
-      ISR_Pairing_LED_CTR += 1; 
+      ISR_Learn_LED_CTR += 1; 
+      timerWrite(TIM_RF_Learn_Active, 0);
     }
     if((flags >> 1) & 0x01){
       // Interrupt ocured for Bit 1
@@ -262,4 +307,92 @@ void ISR_TouchController(){
   // Set Flags for Interrupts
 }
 
+// Check on RF Controll for Errors or ACK and process recieved Data
+int check_RF_Error(){
+  // Error Data
+  // Function reads Signals with are send by RF Module to toggle a Error LED on the PCB
+  // Error Data is defined by Frequency of the Signal
+  // Every Peak trigger the ISR, in with a counter is running
+  // Error will be shown on Display
 
+  /* Error Data Overview
+  Lern- oder Löschmodus: 
+  Eintrag konnte aus Liste der eingelernten Sender nicht entfernt werden: Blinkt 2x
+  Liste der eingelernten Sender ist voll: Blinkt 3x
+  Sender wurde bereits eingelernt: Blinkt 2x
+  */
+
+  if(RF_Error_Active == FALSE){
+    RF_Error_Active = TRUE;
+    time_wait_Error = millis() + 500;
+  }
+  unsigned long now = millis();
+  if(now >= time_wait_Error){
+    // Read Error Code
+    if(Learn_RF_Active_Flag == TRUE){
+      if(ISR_RF_Error_CTR == 2 && ISR_Learn_RF_Mode >= 5){
+        // Entry could not be Errased from list
+        // TODO: Write to Display
+      }
+      if(ISR_RF_Error_CTR == 2 && ISR_Learn_RF_Mode >= 4){
+        // Entry already found in list
+        // TODO: Write to Display
+      }
+      if(ISR_RF_Error_CTR == 3){
+        // Entry could not be added - maximum reached
+        // TODO: Write to Display
+      }
+    }
+
+    RF_Error_Active = FALSE;
+    ISR_RF_Error_CTR = 0;
+  }
+
+}
+
+int check_RF_Acknowledge(int mode){
+  /** 
+   *  @brief  Acknowledge Data
+   *          Function reads Signals with are send by RF Module to toggle a Acknowledge LED on the PCB
+   *          Acknowledge Data is defined by Frequency of the Signal
+   *          Every Peak trigger the ISR, in with a counter is running
+   * 
+   *  @return 1 if valid ACK was captured, nothing, if no valid ACK was captured
+   */
+
+  /* 
+  Acknowledge Data Overview
+  Selection learn mode I: Light interrupts 1x every 2s
+  Selection learn mode II: Light interrupts 2x every 2s
+  Selection learn mode III: Light interrupts 3x every 2s
+  Selection learn mode IV: Light interrupts 4x every 2s
+  Selection erase mode I: Flashes permanently
+  */
+
+  if(Learn_RF_ACK_Waiting == FALSE){
+    // Start waiting for ACK, only operate once on first call
+    ISR_Learn_LED_CTR = 0;
+    time_wait_ACK = millis() + 2000;  // set timestamp for waiting time
+    Learn_RF_ACK_Waiting = TRUE;
+  }
+  unsigned long now = millis();
+  if(now >= time_wait_ACK){
+    // Timer is over, count captured Signals
+    if(mode == ISR_Learn_LED_CTR || ISR_Learn_LED_CTR >= 5){
+      // Captured valid ACK
+      time_wait_ACK = FALSE;
+      ISR_Learn_RF_Flag = FALSE;
+      return SUCCESS;
+    }
+    else{
+      // wait for valid ACK
+      time_wait_ACK = FALSE;
+    }
+  }
+
+}
+
+void IRAM_ATTR TIM_RF_Learn_Active_overflow() {
+  Learn_RF_Active_Flag = FALSE;   // Reset Learning Mode Active on Timer overflow
+  timerAlarmDisable(TIM_RF_Learn_Active);       // stop Timer after first overflow
+}
