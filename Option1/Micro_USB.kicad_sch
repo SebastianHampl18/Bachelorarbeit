@@ -3004,7 +3004,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7c7132ae-afbc-40fd-98bc-33f3a08d21f7")
-		(property "Reference" "USB1"
+		(property "Reference" "J1401"
 			(at 34.29 40.64 0)
 			(effects
 				(font
@@ -3077,7 +3077,7 @@
 		(instances
 			(project ""
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
-					(reference "USB1")
+					(reference "J1401")
 					(unit 1)
 				)
 			)

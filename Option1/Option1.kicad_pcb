@@ -2801,9 +2801,10 @@
 		(layer "F.Cu")
 		(uuid "19678cac-fe66-45b5-b697-39e8588be68e")
 		(at 102.145 70.2 -90)
-		(property "Reference" "3V3D"
-			(at -2.625 -0.75 180)
+		(property "Reference" "LED3V3D1"
+			(at -2.625 -0.75 0)
 			(layer "F.SilkS")
+			(hide yes)
 			(uuid "b0494ee8-a2ec-4b99-ab33-7e2bad1a3d8e")
 			(effects
 				(font
@@ -4380,7 +4381,7 @@
 			)
 		)
 		(property "Value" "Conn_01x05_Pin"
-			(at 0 12.54 270)
+			(at 0 12.54 90)
 			(layer "F.Fab")
 			(uuid "71ac31ae-2d8f-4d39-bd4e-5e6a448e820b")
 			(effects
@@ -4391,7 +4392,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "ccce599d-aa56-4015-ad58-749cc81286ce")
@@ -4403,7 +4404,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x05, script generated"
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "4f234b78-50bf-46f6-b0a3-86893bda9da3")
@@ -4418,7 +4419,7 @@
 		(path "/23e58ba0-291f-4c3f-a823-9b20e599b3f1/d34ed2a1-c210-486d-b2e4-f788a5b7a57c")
 		(sheetname "/Funk Reciever/")
 		(sheetfile "radio_reciever.kicad_sch")
-		(attr through_hole)
+		(attr through_hole exclude_from_pos_files exclude_from_bom dnp)
 		(fp_line
 			(start -1.2 11.4)
 			(end 1.2 11.4)
@@ -9806,7 +9807,7 @@
 		(path "/23e58ba0-291f-4c3f-a823-9b20e599b3f1/1ff1fa43-c30b-4422-b6f5-7cfe2a954a1d")
 		(sheetname "/Funk Reciever/")
 		(sheetfile "radio_reciever.kicad_sch")
-		(attr through_hole)
+		(attr through_hole exclude_from_pos_files exclude_from_bom dnp)
 		(fp_line
 			(start -1.2 11.4)
 			(end 1.2 11.4)
@@ -13458,7 +13459,7 @@
 			(net 1 "GND")
 			(pinfunction "GND")
 			(pintype "unspecified")
-			(uuid "17b1535f-940e-41fe-a818-1006b37326d8")
+			(uuid "f0349ebf-6845-45a6-b010-afa60e372dec")
 		)
 		(pad "39" smd rect
 			(at -2.9 0.11)
@@ -13467,7 +13468,7 @@
 			(net 1 "GND")
 			(pinfunction "GND")
 			(pintype "unspecified")
-			(uuid "17b1535f-940e-41fe-a818-1006b37326d8")
+			(uuid "2699c2c1-5ae3-4658-bb59-8fccd458e07b")
 		)
 		(pad "39" smd rect
 			(at -1.5 -2.72)
@@ -13476,7 +13477,7 @@
 			(net 1 "GND")
 			(pinfunction "GND")
 			(pintype "unspecified")
-			(uuid "17b1535f-940e-41fe-a818-1006b37326d8")
+			(uuid "29742293-20d9-449e-9ab4-11fb1929ea0b")
 		)
 		(pad "39" smd rect
 			(at -1.5 -1.32)
@@ -13485,7 +13486,7 @@
 			(net 1 "GND")
 			(pinfunction "GND")
 			(pintype "unspecified")
-			(uuid "17b1535f-940e-41fe-a818-1006b37326d8")
+			(uuid "23f38ef0-72c5-4337-b277-b7c0219cc312")
 		)
 		(pad "39" smd rect
 			(at -1.5 0.11)
@@ -13494,7 +13495,7 @@
 			(net 1 "GND")
 			(pinfunction "GND")
 			(pintype "unspecified")
-			(uuid "17b1535f-940e-41fe-a818-1006b37326d8")
+			(uuid "22ae9ae9-a7fb-463c-bdd0-fa5047015594")
 		)
 		(pad "39" smd rect
 			(at -0.1 -2.72)
@@ -13503,7 +13504,7 @@
 			(net 1 "GND")
 			(pinfunction "GND")
 			(pintype "unspecified")
-			(uuid "17b1535f-940e-41fe-a818-1006b37326d8")
+			(uuid "7c99f8b4-7008-41f2-ba58-77af3da737a6")
 		)
 		(pad "39" smd rect
 			(at -0.1 -1.32)
@@ -13512,7 +13513,7 @@
 			(net 1 "GND")
 			(pinfunction "GND")
 			(pintype "unspecified")
-			(uuid "17b1535f-940e-41fe-a818-1006b37326d8")
+			(uuid "e649ad7d-ab26-47df-bc3b-06cdfbb5aa6d")
 		)
 		(pad "39" smd rect
 			(at -0.1 0.11)
@@ -13521,7 +13522,7 @@
 			(net 1 "GND")
 			(pinfunction "GND")
 			(pintype "unspecified")
-			(uuid "17b1535f-940e-41fe-a818-1006b37326d8")
+			(uuid "357fa628-0d38-45c8-95bc-f5e439bb108f")
 		)
 		(embedded_fonts no)
 		(model "${EASYEDA2KICAD}/easyeda2kicad.3dshapes/WIFI-SMD_ESP32-WROOM-32E-A.wrl"
@@ -21230,7 +21231,7 @@
 		(path "/d6314c0c-60fd-43d5-8ae3-bda346c748ab/c5aa4ecd-78f7-4669-8cc9-3f1ff97cb7b3")
 		(sheetname "/RFID Antenne/")
 		(sheetfile "RFID.kicad_sch")
-		(attr through_hole)
+		(attr through_hole exclude_from_pos_files exclude_from_bom dnp)
 		(fp_line
 			(start -1.38 19.16)
 			(end 1.38 19.16)
@@ -27010,9 +27011,10 @@
 		(layer "F.Cu")
 		(uuid "e66fc84f-1df7-424e-9f29-cdb08672a363")
 		(at 181.5875 86.8 90)
-		(property "Reference" "USB"
+		(property "Reference" "J1401"
 			(at -5.32 2.5125 0)
 			(layer "F.SilkS")
+			(hide yes)
 			(uuid "743088a2-9dc7-4663-a5cb-3dafa66f7ace")
 			(effects
 				(font
@@ -27301,7 +27303,7 @@
 			(net 1 "GND")
 			(pinfunction "S")
 			(pintype "unspecified")
-			(uuid "8c917d55-adaf-4037-a2fb-976215fc31b5")
+			(uuid "0cdb1d61-e4bd-4470-8b27-c078a6b3db26")
 		)
 		(pad "6" thru_hole oval
 			(at 2.5 -1.35 90)
@@ -27312,7 +27314,7 @@
 			(net 1 "GND")
 			(pinfunction "S")
 			(pintype "unspecified")
-			(uuid "8c917d55-adaf-4037-a2fb-976215fc31b5")
+			(uuid "23d54c82-27c4-4417-92be-0a3a0704d8cd")
 		)
 		(pad "6" thru_hole oval
 			(at 3.5 1.35 90)
@@ -27323,7 +27325,7 @@
 			(net 1 "GND")
 			(pinfunction "S")
 			(pintype "unspecified")
-			(uuid "8c917d55-adaf-4037-a2fb-976215fc31b5")
+			(uuid "1139a134-649b-4f74-b8ae-907c87539e6d")
 		)
 		(embedded_fonts no)
 		(model "${EASYEDA2KICAD}/easyeda2kicad.3dshapes/MICRO-USB-SMD_10118194-0001LF.wrl"
@@ -27394,7 +27396,7 @@
 		(path "/23e58ba0-291f-4c3f-a823-9b20e599b3f1/10e908e4-0120-4264-a727-066680fb1c5e")
 		(sheetname "/Funk Reciever/")
 		(sheetfile "radio_reciever.kicad_sch")
-		(attr through_hole)
+		(attr through_hole exclude_from_pos_files exclude_from_bom dnp)
 		(fp_line
 			(start -1.2 -1.2)
 			(end 0 -1.2)
@@ -30106,6 +30108,17 @@
 				(thickness 0.15)
 			)
 			(justify left bottom)
+		)
+	)
+	(gr_text "3V3D"
+		(at 103.14 67.69 0)
+		(layer "F.SilkS")
+		(uuid "b01bcc42-7c83-430f-b924-dcd76bdfcee8")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
 		)
 	)
 	(gr_text "12V to 5V"
