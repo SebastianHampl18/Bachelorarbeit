@@ -89,28 +89,78 @@ int SPI_reset(int Slave){
  * 
  * @param Slave Component to be reset
  * 
- * @return 1 at Success, 0 if there is no Reset for given Slave, -1 at fail
+ * @return 1 at Success and finished reset procedure, 0 if there is no Reset is pending, -1 at fail
  */
-  // Reset for given Slave
-  if(Slave == DISPLAY_LCD){
-    digitalWrite(27, HIGH);//TODO: Check for High or LOW active
 
-    //TODO: Wait and Set back to LOW
-    return SUCCESS;
-  }
-  if(Slave == DISPLAY_TOUCH){
-    digitalWrite(32, HIGH); //TODO: Check for High or LOW active
+  static long wait_time_SPI_reset = 0;
+  static bool reset_active = false;
 
-    //TODO: Wait and Set back to LOW
-    return SUCCESS;
+  if(wait_time_SPI_reset == 0){
+    wait_time_SPI_reset = millis() + 300;
   }
-  if(Slave == RFID){
-    GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 3, HIGH); //TODO: Check for High or LOW active
+  long now = millis();
 
-    //TODO: Wait and Set back to LOW
+  // Check for active reset
+  if(reset_active == false){
+
+    // run once, if timer is now over
+    // set SPI Reset Pins Active
+    if(now < wait_time_SPI_reset and reset_active == false){
+      reset_active == true;
+
+      if(Slave == DISPLAY_LCD){
+        digitalWrite(27, HIGH);//TODO: Check for High or LOW active
+        return 0;
+      }
+      else if(Slave == DISPLAY_TOUCH){
+        digitalWrite(32, HIGH); //TODO: Check for High or LOW active
+        return 0;
+      }
+      else if(Slave == RFID){
+        int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 3, HIGH); //TODO: Check for High or LOW active
+        if(rv == ERROR){
+          perror("Writing failed");
+          return ERROR;
+        }
+        return 0;
+      }
+      else{  
+        perror("Unknown Slave Address");
+        return ERROR;
+      }
+    }
+
+    // Timer has expired, stop reset
+    if(now >= wait_time_SPI_reset and reset_active == true){
+      reset_active = false;
+
+      if(Slave == DISPLAY_LCD){
+        digitalWrite(27, LOW);//TODO: Check for High or LOW active
+        wait_time_SPI_reset = 0;
+        return SUCCESS;
+      }
+      else if(Slave == DISPLAY_TOUCH){
+        digitalWrite(32, LOW); //TODO: Check for High or LOW active
+        wait_time_SPI_reset = 0;
+        return SUCCESS;
+      }
+      else if(Slave == RFID){
+        int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 3, LOW); //TODO: Check for High or LOW active
+        if(rv == ERROR){
+          perror("Writing failed");
+          return ERROR;
+        }
+        wait_time_SPI_reset = 0;
+        return SUCCESS;
+      }
+      else{  
+        perror("Unknown Slave Address");
+        return ERROR;
+      }
+    }
+
   }
-  perror("Unknown Slave Address");
-  return ERROR;
+  
 }
 
 int send_RemoteDrive_Request(int send_CAN){

@@ -11,21 +11,20 @@ HardwareSerial MicroUSB(1);
 SPIClass SPI(VSPI);
 hw_timer_t * TIM_RF_Learn_Active = NULL;
 
-volatile int ISR_Learn_LED_CTR = FALSE;
-volatile int ISR_LED_Signal_Flag = FALSE;
-volatile int ISR_RF_Error_CTR = FALSE;
-volatile int ISR_RX_2_Flag = FALSE;
-volatile int ISR_RX_3_Flag = FALSE;
-volatile int ISR_RX_4_Flag = FALSE;
-volatile int LED_cur_state = OFF;
-volatile int ID_cur_state = OFF;
-volatile int ISR_Learn_RF_Flag = FALSE;
+volatile int ISR_Learn_LED_CTR = 0;
+volatile bool ISR_LED_Signal_Flag = false;
+volatile int ISR_RF_Error_CTR = 0;
+volatile bool ISR_RX_2_Flag = false;
+volatile bool ISR_RX_3_Flag = false;
+volatile bool ISR_RX_4_Flag = false;
+volatile bool LED_cur_state = OFF;
+volatile bool ID_cur_state = OFF;
+volatile bool ISR_Learn_RF_Flag = false;
 volatile int ISR_Learn_RF_Mode = 0;
-volatile int Learn_RF_Active_Flag = FALSE;
-volatile int Learn_RF_ACK_Flag = FALSE;
-volatile int Learn_RF_ACK_Waiting = FALSE;
-volatile unsigned long time_wait_ACK = 0;
-volatile int RF_Error_Active = FALSE;
+volatile bool Learn_RF_Active_Flag = false;
+volatile bool Learn_RF_ACK_Flag = false;
+volatile bool Learn_RF_ACK_Waiting = false;
+volatile bool RF_Error_Active = false;
 volatile unsigned long time_wait_Error = 0;
 
 // put function declarations here:
@@ -47,38 +46,38 @@ void loop() {
   // put your main code here, to run repeatedly:
 
   // Polling for Interrupt Flags set by GPIO Expansion ***************************************************************************
-  if(ISR_RX_2_Flag == TRUE){
+  if(ISR_RX_2_Flag == true){
     // The Microcontroller has recieved a Signal, which indicates, that a remote drive Request was sent by the RF Control
     // The Signal must now be transmitted to the VCU
-    send_RemoteDrive_Request(FALSE);
+    send_RemoteDrive_Request(false);
   }
-  if(ISR_RX_3_Flag == TRUE){
+  if(ISR_RX_3_Flag == true){
     // The Microcontroller has recieved a Signal, which indicates, that a SOC Request was sent by the RF Control
     // The Signal must now be transmitted to the VCU
-    send_SOC_Request(FALSE);
+    send_SOC_Request(false);
   }
-  if(ISR_RX_4_Flag == TRUE && ID_cur_state == OFF){
+  if(ISR_RX_4_Flag == true && ID_cur_state == OFF){
     // The Microcontroller has recieved a Signal, which indicates, that a Identification Request was sent by the RF Control
     // The Status LED must now be switched on as long as the button is pressed
     ID_cur_state = ON;
     LED_cur_state = ON;
     Status_LED_ON();
   }
-  if(ISR_RX_4_Flag == FALSE && ID_cur_state == ON){
+  if(ISR_RX_4_Flag == false && ID_cur_state == ON){
     // / The Microcontroller has recieved a Signal, which indicates, that a Identification Request has ended
     // The Status LED must now be switched off as the button is no longer pressed
     ID_cur_state = OFF;
     LED_cur_state = OFF;
     Status_LED_OFF();
   }
-  if(ISR_LED_Signal_Flag == TRUE && LED_cur_state == OFF && ID_cur_state == OFF){
+  if(ISR_LED_Signal_Flag == true && LED_cur_state == OFF && ID_cur_state == OFF){
   // The Microcontroller has recieved a Signal from VCU, it has to activate Status LED
   // The Status LED must now be switched on as long as the signal is active
   // This Signal low priority compared to Identification via RF Control
     LED_cur_state = ON;
     Status_LED_ON();
   }
-  if(ISR_LED_Signal_Flag == FALSE && LED_cur_state == ON && ID_cur_state == OFF){
+  if(ISR_LED_Signal_Flag == false && LED_cur_state == ON && ID_cur_state == OFF){
   // The Microcontroller has recieved a Signal from VCU, Status LED activation has ended
   // The Status LED must now be switched off as the signal is no longer acive
   // This Signal low priority compared to Identification via RF Control
@@ -92,16 +91,16 @@ void loop() {
   // End of polling for Interrupts by GPIO expansion *****************************************************************************
 
   // Polling for Interrupts set by Touch Display Controller **********************************************************************
-  if(ISR_Learn_RF_Flag == TRUE){
+  if(ISR_Learn_RF_Flag == true){
     // 
-    if(ISR_Learn_RF_Mode > 0 && Learn_RF_Active_Flag == FALSE){
+    if(ISR_Learn_RF_Mode > 0 && Learn_RF_Active_Flag == false){
       int rv = learn_RFControl(ISR_Learn_RF_Mode);
 
       if(rv==ERROR){perror("activating Pairing Mode failed");}
 
       // repeat until Signal was transmitted to RF Controller successfully
       if(rv == ISR_Learn_RF_Mode){
-        Learn_RF_Active_Flag = TRUE;
+        Learn_RF_Active_Flag = true;
       }
 
       timerWrite(TIM_RF_Learn_Active, 0);                 // Reset Timer Counter
@@ -259,7 +258,7 @@ void ISR_GPIO_Expansion(){
     if((flags >> 1) & 0x01){
       // Interrupt ocured for Bit 1
       // LED Signal recieved from VCU
-      ISR_LED_Signal_Flag = TRUE;
+      ISR_LED_Signal_Flag = true;
     }
     if((flags >> 2) & 0x01){
       // Interrupt ocured for Bit 2
@@ -269,7 +268,7 @@ void ISR_GPIO_Expansion(){
     if((flags >> 3) & 0x01){
       // Interrupt ocured for Bit 3
       // Remote Drive Command received from RF Module 
-      ISR_RX_2_Flag = TRUE;
+      ISR_RX_2_Flag = true;
     }
     if((flags >> 4) & 0x01){
       // Interrupt ocured for Bit 4
@@ -278,7 +277,7 @@ void ISR_GPIO_Expansion(){
     if((flags >> 5) & 0x01){
       // Interrupt ocured for Bit 5
       // SOC Command received from RF Module 
-      ISR_RX_3_Flag = TRUE;
+      ISR_RX_3_Flag = true;
     }
     if((flags >> 6) & 0x01){
       // Interrupt ocured for Bit 6
@@ -290,11 +289,11 @@ void ISR_GPIO_Expansion(){
       if((rv >> 7) & 0x01){
         // Value during interrupt is HIGH -> Button is pressed
         // Status LED Switch on
-        ISR_RX_4_Flag = TRUE;
+        ISR_RX_4_Flag = true;
       }
       else{
         // Status LED Switch off
-        ISR_RX_4_Flag = FALSE;
+        ISR_RX_4_Flag = false;
       }
     }
 
@@ -326,14 +325,14 @@ int check_RF_Error(){
   Sender wurde bereits eingelernt: Blinkt 2x
   */
 
-  if(RF_Error_Active == FALSE){
-    RF_Error_Active = TRUE;
+  if(RF_Error_Active == false){
+    RF_Error_Active = true;
     time_wait_Error = millis() + 500;
   }
   unsigned long now = millis();
   if(now >= time_wait_Error){
     // Read Error Code
-    if(Learn_RF_Active_Flag == TRUE){
+    if(Learn_RF_Active_Flag == true){
       if(ISR_RF_Error_CTR == 2 && ISR_Learn_RF_Mode >= 5){
         // Entry could not be Errased from list
         // TODO: Write to Display
@@ -348,7 +347,7 @@ int check_RF_Error(){
       }
     }
 
-    RF_Error_Active = FALSE;
+    RF_Error_Active = false;
     ISR_RF_Error_CTR = 0;
   }
 
@@ -373,30 +372,33 @@ int check_RF_Acknowledge(int mode){
   Selection erase mode I: Flashes permanently
   */
 
-  if(Learn_RF_ACK_Waiting == FALSE){
+  static unsigned long time_wait_ACK = 0;
+
+  if(Learn_RF_ACK_Waiting == false){
     // Start waiting for ACK, only operate once on first call
     ISR_Learn_LED_CTR = 0;
     time_wait_ACK = millis() + 2000;  // set timestamp for waiting time
-    Learn_RF_ACK_Waiting = TRUE;
+    Learn_RF_ACK_Waiting = true;
   }
   unsigned long now = millis();
   if(now >= time_wait_ACK){
     // Timer is over, count captured Signals
     if(mode == ISR_Learn_LED_CTR || ISR_Learn_LED_CTR >= 5){
       // Captured valid ACK
-      time_wait_ACK = FALSE;
-      ISR_Learn_RF_Flag = FALSE;
+      time_wait_ACK = false;
+      ISR_Learn_RF_Flag = false;
+      Learn_RF_ACK_Waiting = false;
       return SUCCESS;
     }
     else{
       // wait for valid ACK
-      time_wait_ACK = FALSE;
+      time_wait_ACK = false;
     }
   }
 
 }
 
 void IRAM_ATTR TIM_RF_Learn_Active_overflow() {
-  Learn_RF_Active_Flag = FALSE;   // Reset Learning Mode Active on Timer overflow
+  Learn_RF_Active_Flag = false;   // Reset Learning Mode Active on Timer overflow
   timerAlarmDisable(TIM_RF_Learn_Active);       // stop Timer after first overflow
 }
