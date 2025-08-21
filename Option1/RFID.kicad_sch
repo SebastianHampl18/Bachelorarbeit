@@ -618,9 +618,9 @@
 		(at 44.45 31.75 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "c5aa4ecd-78f7-4669-8cc9-3f1ff97cb7b3")
 		(property "Reference" "J1801"

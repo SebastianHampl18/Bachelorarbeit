@@ -3,6 +3,7 @@
 #include <HardwareSerial.h>
 #include <Wire.h>
 #include <SPI.h>
+#include <Preferences.h>
 #include <ESP32CAN.h>
 #include <CAN_config.h>
 
@@ -10,6 +11,7 @@ CAN_device_t CAN1;
 HardwareSerial MicroUSB(1);
 SPIClass SPI(VSPI);
 hw_timer_t * TIM_RF_Learn_Active = NULL;
+Preferences ESP_storage;
 
 volatile int ISR_Learn_LED_CTR = 0;
 volatile bool ISR_LED_Signal_Flag = false;
@@ -40,6 +42,8 @@ void setup() {
   init_GPIO_Exp_Ports();
   init_Interrupts();
   init_Timer();
+  init_storage();
+  
 }
 
 void loop() {
@@ -235,6 +239,42 @@ void init_Timer(){
   // set Timer-Alarm: 3.000 ms = 3 Sekunden
   timerAlarmWrite(TIM_RF_Learn_Active, 3000, false); // false = one-shot, true = auto-reload
   timerAlarmDisable(TIM_RF_Learn_Active);            // Timer will be activated by ISR
+}
+
+void init_storage(){
+  // save settings
+  ESP_storage.begin("settings", false);
+
+  if(ESP_storage.getBool("RF_enable", -1) == -1){
+    // Variable is not stored at the moment
+    // Init Variable
+    ESP_storage.putBool("RF_enable", false);
+  }
+  if(ESP_storage.getBool("Display_enable", -1) == -1){
+    // Variable is not stored at the moment
+    // Init Variable
+    ESP_storage.putBool("Display_enable", false);
+  }
+  if(ESP_storage.getBool("WiFi_enable", -1) == -1){
+    // Variable is not stored at the moment
+    // Init Variable
+    ESP_storage.putBool("WiFi_enable", false);
+  }
+  if(ESP_storage.getBool("RFID_enable", -1) == -1){
+    // Variable is not stored at the moment
+    // Init Variable
+    ESP_storage.putBool("RFID_enable", false);
+  }
+  if(ESP_storage.getBool("StatusLED_enable", -1) == -1){
+    // Variable is not stored at the moment
+    // Init Variable
+    ESP_storage.putBool("StatusLED_enable", false);
+  }
+  if(ESP_storage.getBool("RF_Signals_CAN_enable", -1) == -1){
+    // Variable is not stored at the moment
+    // Init Variable
+    ESP_storage.putBool("RF_Signals_CAN_enable", false);
+  }
 }
 
 // Interrupts
