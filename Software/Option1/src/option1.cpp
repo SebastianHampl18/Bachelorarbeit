@@ -160,6 +160,7 @@ int SPI_reset(int Slave){
     }
 
   }
+  return 0;
   
 }
 
@@ -179,7 +180,7 @@ int send_RemoteDrive_Request(int send_CAN){
   delay(300); // Wait 300ms for the Signal to be be Recieved by VCU
 
   // Set Pin GPIOB 4 on Port Extension to LOW to reset the MOSFET
-  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 4, LOW);
+  rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 4, LOW);
   if(rv == ERROR){
     perror("Write failed");
     return ERROR;
@@ -210,7 +211,7 @@ int send_SOC_Request(int send_CAN){
   delay(300);
 
   // Set Pin GPIOB 5 on Port Extension to LOW to reset the MOSFET
-  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 5, LOW);
+  rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 5, LOW);
   if(rv == ERROR){
     perror("Write failed");
     return ERROR;

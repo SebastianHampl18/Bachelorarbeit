@@ -112,8 +112,8 @@ GPIO35  -> Interrupt Port-Expander    -> Input                [Interrupt from GP
 #define GPIO_EXP_OLATB 0x1A
 
 // Logical Values
-#define OUTPUT 0
-#define INPUT 1
+#define PIN_OUTPUT 0
+#define PIN_INPUT 1
 
 #define INVERT 1
 #define NONINVERT 0
@@ -127,9 +127,6 @@ GPIO35  -> Interrupt Port-Expander    -> Input                [Interrupt from GP
 // general
 #define ERROR -1
 #define SUCCESS 1
-
-#define HIGH 1
-#define LOW 0
 
 #define TRUE 1
 #define FALSE 0

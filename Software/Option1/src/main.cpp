@@ -9,7 +9,7 @@
 
 CAN_device_t CAN1;
 HardwareSerial MicroUSB(1);
-SPIClass SPI(VSPI);
+SPIClass my_SPI(VSPI);
 hw_timer_t * TIM_RF_Learn_Active = NULL;
 Preferences ESP_storage;
 
@@ -36,6 +36,11 @@ void init_Interrupts();
 void ISR_GPIO_Expansion();
 void ISR_CAN2();
 void ISR_TouchController();
+void init_Timer();
+void init_storage();
+int check_RF_Error();
+int check_RF_Acknowledge(int mode);
+void IRAM_ATTR TIM_RF_Learn_Active_overflow();
 
 void setup() {
   init_ports();
@@ -49,31 +54,38 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
+
   // Polling for Interrupt Flags set by GPIO Expansion ***************************************************************************
-  if(ISR_RX_2_Flag == true){
-    // The Microcontroller has recieved a Signal, which indicates, that a remote drive Request was sent by the RF Control
-    // The Signal must now be transmitted to the VCU
-    send_RemoteDrive_Request(false);
+  if(ESP_storage.getInt("RF_enable", FALSE) == TRUE){
+    if(ISR_RX_2_Flag == true){
+      // The Microcontroller has recieved a Signal, which indicates, that a remote drive Request was sent by the RF Control
+      // The Signal must now be transmitted to the VCU
+      send_RemoteDrive_Request(false);
+    }
+    if(ISR_RX_3_Flag == true){
+      // The Microcontroller has recieved a Signal, which indicates, that a SOC Request was sent by the RF Control
+      // The Signal must now be transmitted to the VCU
+      send_SOC_Request(false);
+    }
+    if(ISR_RX_4_Flag == true && ID_cur_state == OFF){
+      // The Microcontroller has recieved a Signal, which indicates, that a Identification Request was sent by the RF Control
+      // The Status LED must now be switched on as long as the button is pressed
+      ID_cur_state = ON;
+      LED_cur_state = ON;
+      Status_LED_ON();
+    }
+    if(ISR_RX_4_Flag == false && ID_cur_state == ON){
+      // / The Microcontroller has recieved a Signal, which indicates, that a Identification Request has ended
+      // The Status LED must now be switched off as the button is no longer pressed
+      ID_cur_state = OFF;
+      LED_cur_state = OFF;
+      Status_LED_OFF();
+    }
+    if(ISR_RF_Error_CTR > 0){
+      check_RF_Error();
+    }
   }
-  if(ISR_RX_3_Flag == true){
-    // The Microcontroller has recieved a Signal, which indicates, that a SOC Request was sent by the RF Control
-    // The Signal must now be transmitted to the VCU
-    send_SOC_Request(false);
-  }
-  if(ISR_RX_4_Flag == true && ID_cur_state == OFF){
-    // The Microcontroller has recieved a Signal, which indicates, that a Identification Request was sent by the RF Control
-    // The Status LED must now be switched on as long as the button is pressed
-    ID_cur_state = ON;
-    LED_cur_state = ON;
-    Status_LED_ON();
-  }
-  if(ISR_RX_4_Flag == false && ID_cur_state == ON){
-    // / The Microcontroller has recieved a Signal, which indicates, that a Identification Request has ended
-    // The Status LED must now be switched off as the button is no longer pressed
-    ID_cur_state = OFF;
-    LED_cur_state = OFF;
-    Status_LED_OFF();
-  }
+
   if(ISR_LED_Signal_Flag == true && LED_cur_state == OFF && ID_cur_state == OFF){
   // The Microcontroller has recieved a Signal from VCU, it has to activate Status LED
   // The Status LED must now be switched on as long as the signal is active
@@ -88,9 +100,7 @@ void loop() {
     LED_cur_state = OFF;
     Status_LED_OFF();
   }
-  if(ISR_RF_Error_CTR > 0){
-    check_RF_Error();
-  }
+  
 
   // End of polling for Interrupts by GPIO expansion *****************************************************************************
 
@@ -123,16 +133,16 @@ void loop() {
 // Init Ports
 void init_ports(){
   // Output
-  pinMode(SPI_CS_CAN2_PIN, OUTPUT);
-  pinMode(SPI_CS_DISPLAY_PIN, OUTPUT);
-  pinMode(SPI_CS_FLASH_PIN, OUTPUT);
-  pinMode(SPI_RST_LCD_PIN, OUTPUT);
-  pinMode(SPI_RST_TP_PIN, OUTPUT);
+  pinMode(SPI_CS_CAN2_PIN, PIN_OUTPUT);
+  pinMode(SPI_CS_DISPLAY_PIN, PIN_OUTPUT);
+  pinMode(SPI_CS_FLASH_PIN, PIN_OUTPUT);
+  pinMode(SPI_RST_LCD_PIN, PIN_OUTPUT);
+  pinMode(SPI_RST_TP_PIN, PIN_OUTPUT);
 
   // Input
-  pinMode(SPI_INT_CAN2_PIN, INPUT);
-  pinMode(SPI_INT_TP_PIN, INPUT);
-  pinMode(INT_PE_PIN, INPUT);
+  pinMode(SPI_INT_CAN2_PIN, PIN_INPUT);
+  pinMode(SPI_INT_TP_PIN, PIN_INPUT);
+  pinMode(INT_PE_PIN, PIN_INPUT);
 
   // UART
   MicroUSB.begin(115200, SERIAL_8N1, UART_RX_PIN, UART_TX_PIN);
@@ -141,7 +151,7 @@ void init_ports(){
   Wire.begin(I2C_SDA_PIN, I2C_SCL_PIN);
 
   // SPI
-  SPI.begin(SPI_CLK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN);
+  my_SPI.begin(SPI_CLK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN);
 
   // PWM For Display Backlight
   ledcSetup(DISPLAY_PWM_CH, DISPLAY_PWM_FREQ, DISPLAY_PWM_RES); // Configure Channel
@@ -165,23 +175,23 @@ int init_GPIO_Exp_Ports(){
   
   rv = 0;
   // set Pin Direction
-  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 0, INPUT); // LED Learn Mode
-  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 1, INPUT); // LED Signal from VCU
-  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 2, INPUT); // RC Errors
-  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 3, INPUT); // RC_Recieve_CH2
-  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 5, INPUT); // RC Receive CH3
-  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 7, INPUT); // RC Receive CH4
+  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 0, PIN_INPUT); // LED Learn Mode
+  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 1, PIN_INPUT); // LED Signal from VCU
+  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 2, PIN_INPUT); // RC Errors
+  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 3, PIN_INPUT); // RC_Recieve_CH2
+  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 5, PIN_INPUT); // RC Receive CH3
+  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 7, PIN_INPUT); // RC Receive CH4
   if(rv != 6){perror("Error in init Ports Bank A"); return ERROR;}
 
   rv = 0;
-  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 0, OUTPUT); // LED Pin
-  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 1, OUTPUT); // Activate RC Learn Mode
-  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 2, OUTPUT); // RFID SPI Chip Select
-  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 3, OUTPUT); // RFID SPI Reset 
-  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 4, OUTPUT); // RC Transmit CH2
-  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 5, OUTPUT); // RC Transmit CH3
-  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 6, OUTPUT); // CAN1 Silent Mode
-  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 7, OUTPUT); // CAN2 Silent Mode
+  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 0, PIN_OUTPUT); // LED Pin
+  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 1, PIN_OUTPUT); // Activate RC Learn Mode
+  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 2, PIN_OUTPUT); // RFID SPI Chip Select
+  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 3, PIN_OUTPUT); // RFID SPI Reset 
+  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 4, PIN_OUTPUT); // RC Transmit CH2
+  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 5, PIN_OUTPUT); // RC Transmit CH3
+  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 6, PIN_OUTPUT); // CAN1 Silent Mode
+  rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 7, PIN_OUTPUT); // CAN2 Silent Mode
   if(rv != 8){perror("Error in init Ports Bank B"); return ERROR;}
 
   // set PullUps where needed
@@ -230,14 +240,14 @@ void init_Interrupts(){
 
 void init_Timer(){
   // initardwaretimer
-  // Timer 0, Prescaler 80000 -> 1 tick = 1 ms (bei 80 MHz APB), countUp
-  TIM_RF_Learn_Active = timerBegin(0, 80000, true); 
+  // Timer 0, Prescaler 8000 -> 1 tick = 0.1 ms (bei 80 MHz APB), countUp
+  TIM_RF_Learn_Active = timerBegin(0, 8000, true); 
 
   // init Interrupt for Timer overflow
-  timerAttachInterrupt(TIM_RF_Learn_Active, &TIM_RF_Learn_Active_overflow, true); // react on rising Edge
+  timerAttachInterrupt(TIM_RF_Learn_Active, TIM_RF_Learn_Active_overflow, true); // react on rising Edge
 
   // set Timer-Alarm: 3.000 ms = 3 Sekunden
-  timerAlarmWrite(TIM_RF_Learn_Active, 3000, false); // false = one-shot, true = auto-reload
+  timerAlarmWrite(TIM_RF_Learn_Active, 30000, false); // false = one-shot, true = auto-reload
   timerAlarmDisable(TIM_RF_Learn_Active);            // Timer will be activated by ISR
 }
 
@@ -245,35 +255,35 @@ void init_storage(){
   // save settings
   ESP_storage.begin("settings", false);
 
-  if(ESP_storage.getBool("RF_enable", -1) == -1){
+  if(ESP_storage.getInt("RF_enable", -1) == -1){
     // Variable is not stored at the moment
     // Init Variable
-    ESP_storage.putBool("RF_enable", false);
+    ESP_storage.putInt("RF_enable", FALSE);
   }
-  if(ESP_storage.getBool("Display_enable", -1) == -1){
+  if(ESP_storage.getInt("Display_enable", -1) == -1){
     // Variable is not stored at the moment
     // Init Variable
-    ESP_storage.putBool("Display_enable", false);
+    ESP_storage.putInt("Display_enable", FALSE);
   }
-  if(ESP_storage.getBool("WiFi_enable", -1) == -1){
+  if(ESP_storage.getInt("WiFi_enable", -1) == -1){
     // Variable is not stored at the moment
     // Init Variable
-    ESP_storage.putBool("WiFi_enable", false);
+    ESP_storage.putInt("WiFi_enable", FALSE);
   }
-  if(ESP_storage.getBool("RFID_enable", -1) == -1){
+  if(ESP_storage.getInt("RFID_enable", -1) == -1){
     // Variable is not stored at the moment
     // Init Variable
-    ESP_storage.putBool("RFID_enable", false);
+    ESP_storage.putInt("RFID_enable", FALSE);
   }
-  if(ESP_storage.getBool("StatusLED_enable", -1) == -1){
+  if(ESP_storage.getInt("StatusLED_enable", -1) == -1){
     // Variable is not stored at the moment
     // Init Variable
-    ESP_storage.putBool("StatusLED_enable", false);
+    ESP_storage.putInt("StatusLED_enable", FALSE);
   }
-  if(ESP_storage.getBool("RF_Signals_CAN_enable", -1) == -1){
+  if(ESP_storage.getInt("RF_Signals_CAN_enable", -1) == -1){
     // Variable is not stored at the moment
     // Init Variable
-    ESP_storage.putBool("RF_Signals_CAN_enable", false);
+    ESP_storage.putInt("RF_Signals_CAN_enable", FALSE);
   }
 }
 
@@ -389,6 +399,11 @@ int check_RF_Error(){
 
     RF_Error_Active = false;
     ISR_RF_Error_CTR = 0;
+    return SUCCESS;
+  }
+  else{
+    // waiting for Error
+    return 0;
   }
 
 }
@@ -400,7 +415,7 @@ int check_RF_Acknowledge(int mode){
    *          Acknowledge Data is defined by Frequency of the Signal
    *          Every Peak trigger the ISR, in with a counter is running
    * 
-   *  @return 1 if valid ACK was captured, nothing, if no valid ACK was captured
+   *  @return 1 if valid ACK was captured, 0, if no valid ACK was captured
    */
 
   /* 
@@ -433,9 +448,13 @@ int check_RF_Acknowledge(int mode){
     else{
       // wait for valid ACK
       time_wait_ACK = false;
+      return 0;
     }
   }
-
+  else{
+    // Waiting for Error
+    return 0;
+  }
 }
 
 void IRAM_ATTR TIM_RF_Learn_Active_overflow() {
