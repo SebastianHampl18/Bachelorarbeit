@@ -6,6 +6,7 @@
 #include <Preferences.h>
 #include <ESP32CAN.h>
 #include <CAN_config.h>
+#include <driver/can.h>
 
 CAN_device_t CAN1;
 HardwareSerial MicroUSB(1);
@@ -38,6 +39,9 @@ void ISR_CAN2();
 void ISR_TouchController();
 void init_Timer();
 void init_storage();
+void init_can();
+void init_wifi();
+int process_CAN1();
 int check_RF_Error();
 int check_RF_Acknowledge(int mode);
 void IRAM_ATTR TIM_RF_Learn_Active_overflow();
@@ -48,6 +52,7 @@ void setup() {
   init_Interrupts();
   init_Timer();
   init_storage();
+  init_can();
   
 }
 
@@ -125,7 +130,8 @@ void loop() {
     int rv = check_RF_Acknowledge(ISR_Learn_RF_Mode);
   }
 
-
+  // End of polling for Interrupts set by Touch Controller Display
+  process_CAN1();
 }
 
 // put function definitions here *************************************************************************************************
@@ -159,10 +165,10 @@ void init_ports(){
   ledcWrite(DISPLAY_PWM_CH, 2^DISPLAY_PWM_RES*DISPLAY_PWM_DC);  // 50% Duty Cycle
 
   // CAN
-  CAN1.rx_pin_id = gpio_num_t(CAN1_RX_PIN);
-  CAN1.tx_pin_id = gpio_num_t(CAN1_TX_PIN);
-  CAN1.speed = CAN_SPEED_500KBPS;
-  CAN1.rx_queue = xQueueCreate(10, sizeof(CAN_frame_t));
+  // CAN1.rx_pin_id = gpio_num_t(CAN1_RX_PIN);
+  // CAN1.tx_pin_id = gpio_num_t(CAN1_TX_PIN);
+  // CAN1.speed = CAN_SPEED_500KBPS;
+  // CAN1.rx_queue = xQueueCreate(10, sizeof(CAN_frame_t));
 }
 
 int init_GPIO_Exp_Ports(){
@@ -284,6 +290,71 @@ void init_storage(){
     // Variable is not stored at the moment
     // Init Variable
     ESP_storage.putInt("RF_Signals_CAN_enable", FALSE);
+  }
+}
+
+void init_can(){
+  // CAN-Config
+  can_general_config_t g_config = CAN_GENERAL_CONFIG_DEFAULT(gpio_num_t(CAN1_TX_PIN), gpio_num_t(CAN1_RX_PIN), CAN_MODE_NORMAL);
+  g_config.rx_queue_len = 30;
+  can_timing_config_t t_config = CAN_TIMING_CONFIG_500KBITS();   // Baudrate: 500 kBit/s
+  can_filter_config_t f_config = CAN_FILTER_CONFIG_ACCEPT_ALL(); // Alle Nachrichten annehmen
+
+  // Treiber installieren
+  if (can_driver_install(&g_config, &t_config, &f_config) == ESP_OK) {
+    Serial.println("CAN Treiber installiert");
+  } else {
+    Serial.println("Fehler bei CAN Treiber Installation");
+
+    // TODO: Bessere Lösung als Endlosschleife
+    while (1);
+  }
+
+  // CAN starten
+  if (can_start() == ESP_OK) {
+    Serial.println("CAN gestartet");
+  } else {
+    Serial.println("Fehler beim Start von CAN");
+
+    // TODO: Bessere Lösung als Endlosschleife
+    while (1);
+  }
+}
+
+void init_wifi(){
+  // Start Wifi as Accesspoint
+  // Use NVS stored credentials
+  // Set static IP address
+
+  // set URLs
+
+  // Start Webserver
+}
+
+int process_CAN1(){
+  // read recieved messge
+  can_message_t rx_msg;
+  /*if (can_receive(&rx_msg, pdMS_TO_TICKS(100)) == ESP_OK) {
+    Serial.print("Empfangen -> ID: 0x");
+    Serial.print(rx_msg.identifier, HEX);
+    Serial.print(" DLC: ");
+    Serial.print(rx_msg.data_length_code);
+    Serial.print(" Daten: ");
+    for (int i = 0; i < rx_msg.data_length_code; i++) {
+      Serial.printf("%02X ", rx_msg.data[i]);
+    }
+    Serial.println();
+  }*/
+  if (can_receive(&rx_msg, pdMS_TO_TICKS(100)) == ESP_OK){
+  // Read Message ID -> Drop unused messages _> Process important messages/data
+    switch(rx_msg.identifier, HEX){
+      case 0x00:  // TODO: Use real ID defined as constant
+        // TODO: do something
+        break;
+      case 0x01: // TODO: Use real ID defined as constant
+        // TODO: do something
+        break;
+    }
   }
 }
 
