@@ -7,12 +7,23 @@
 #include <ESP32CAN.h>
 #include <CAN_config.h>
 #include <driver/can.h>
+#include <WiFi.h>
+#include <WebServer.h>
 
 CAN_device_t CAN1;
 HardwareSerial MicroUSB(1);
 SPIClass my_SPI(VSPI);
 hw_timer_t * TIM_RF_Learn_Active = NULL;
 Preferences ESP_storage;
+
+// Set IP-Address for WIFI
+IPAddress local_IP(192,168,4,1);     // ESP32 Access Point IP
+IPAddress gateway(192,168,4,1);      // Gateway 
+IPAddress subnet(255,255,255,0);     // Subnetmask
+
+// Webserver
+WebServer kart_server(80);
+
 
 volatile int ISR_Learn_LED_CTR = 0;
 volatile bool ISR_LED_Signal_Flag = false;
@@ -45,20 +56,31 @@ int process_CAN1();
 int check_RF_Error();
 int check_RF_Acknowledge(int mode);
 void IRAM_ATTR TIM_RF_Learn_Active_overflow();
+void handleRoot();
+void handleLivedaten();
+void handleEinstellungen();
+void handleNotFound();
 
 void setup() {
-  init_ports();
-  init_GPIO_Exp_Ports();
-  init_Interrupts();
-  init_Timer();
+  Serial.begin(115200);
+  Serial.println("Setup Start");
+  //init_ports();
+  //init_GPIO_Exp_Ports();
+  //init_Interrupts();
+  //init_Timer();
   init_storage();
-  init_can();
+  //init_can();
+  init_wifi();
   
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-
+  static int loop_ctr = 0;
+  if(loop_ctr == 0){
+    Serial.println("Loop Start");
+    loop_ctr++;
+  }
 
   // Polling for Interrupt Flags set by GPIO Expansion ***************************************************************************
   if(ESP_storage.getInt("RF_enable", FALSE) == TRUE){
@@ -132,12 +154,17 @@ void loop() {
 
   // End of polling for Interrupts set by Touch Controller Display
   process_CAN1();
+
+  // Handle HTTP Server
+  kart_server.handleClient();
 }
 
 // put function definitions here *************************************************************************************************
 
 // Init Ports
 void init_ports(){
+
+  Serial.println("Init Ports");
   // Output
   pinMode(SPI_CS_CAN2_PIN, PIN_OUTPUT);
   pinMode(SPI_CS_DISPLAY_PIN, PIN_OUTPUT);
@@ -172,6 +199,10 @@ void init_ports(){
 }
 
 int init_GPIO_Exp_Ports(){
+
+  Serial.println("Init GPIO Expansion");
+  // Initialize GPIO Expansion
+
   // SET Bank for addressing
   int rv = GPIO_Exp_WriteBit(0x05, 7, HIGH);
   if(rv == ERROR){
@@ -239,12 +270,19 @@ int init_GPIO_Exp_Ports(){
 }
 
 void init_Interrupts(){
+
+  Serial.println("Init Interrupts");
+  // Init Interrupts
+
   attachInterrupt(digitalPinToInterrupt(INT_PE_PIN), ISR_GPIO_Expansion, RISING);
   attachInterrupt(digitalPinToInterrupt(SPI_INT_CAN2_PIN), ISR_CAN2, RISING);
   attachInterrupt(digitalPinToInterrupt(SPI_INT_TP_PIN), ISR_TouchController, RISING);
 }
 
 void init_Timer(){
+
+  Serial.println("Init Timer");
+
   // initardwaretimer
   // Timer 0, Prescaler 8000 -> 1 tick = 0.1 ms (bei 80 MHz APB), countUp
   TIM_RF_Learn_Active = timerBegin(0, 8000, true); 
@@ -258,6 +296,9 @@ void init_Timer(){
 }
 
 void init_storage(){
+
+  Serial.println("Init Storage");
+
   // save settings
   ESP_storage.begin("settings", false);
 
@@ -291,9 +332,22 @@ void init_storage(){
     // Init Variable
     ESP_storage.putInt("RF_Signals_CAN_enable", FALSE);
   }
+  if(ESP_storage.getString("WIFI_Name", "unknown") == "unknown"){
+    // Variable is not stored at the moment
+    // Init Variable
+    ESP_storage.putString("WIFI_Name", "SMS REVO SL");
+  }
+  if(ESP_storage.getString("WIFI_Password", "unknown") == "unknown"){
+    // Variable is not stored at the moment
+    // Init Variable
+    ESP_storage.putString("WIFI_Password", "SMS REVO SL");
+  }
 }
 
 void init_can(){
+
+  Serial.println("Init CAN");
+
   // CAN-Config
   can_general_config_t g_config = CAN_GENERAL_CONFIG_DEFAULT(gpio_num_t(CAN1_TX_PIN), gpio_num_t(CAN1_RX_PIN), CAN_MODE_NORMAL);
   g_config.rx_queue_len = 30;
@@ -307,7 +361,10 @@ void init_can(){
     Serial.println("Fehler bei CAN Treiber Installation");
 
     // TODO: Bessere Lösung als Endlosschleife
-    while (1);
+    while (1){
+      Serial.println("CAN Fehler!");
+      delay(500);
+    }
   }
 
   // CAN starten
@@ -317,18 +374,38 @@ void init_can(){
     Serial.println("Fehler beim Start von CAN");
 
     // TODO: Bessere Lösung als Endlosschleife
-    while (1);
+    while (1){
+      Serial.println("CAN Fehler!");
+      delay(500);
+    }
   }
 }
 
 void init_wifi(){
+
+  Serial.println("Init WIFI");
+
   // Start Wifi as Accesspoint
-  // Use NVS stored credentials
-  // Set static IP address
+  // set static IP-Address
+  if(!WiFi.softAPConfig(local_IP, gateway, subnet)) {
+    Serial.println("Fehler beim Setzen der AP-Konfiguration");
+  }
+
+  // Access Point starten
+  if(WiFi.softAP(ESP_storage.getString("WIFI_Name"), ESP_storage.getString("WIFI_Password"))) {
+    // TODO: Do Something
+  } else {
+    Serial.println("Fehler beim Start des Access Points");
+  }
 
   // set URLs
+  kart_server.on("/", handleRoot);
+  kart_server.on("/livedaten", handleLivedaten);
+  kart_server.on("/einstellungen", handleEinstellungen);
+  kart_server.onNotFound(handleNotFound);
 
   // Start Webserver
+  kart_server.begin();
 }
 
 int process_CAN1(){
@@ -350,12 +427,16 @@ int process_CAN1(){
     switch(rx_msg.identifier, HEX){
       case 0x00:  // TODO: Use real ID defined as constant
         // TODO: do something
+        return 1; // TODO: Define Return Statement
         break;
       case 0x01: // TODO: Use real ID defined as constant
         // TODO: do something
+        return 1; // TODO: Define Return Statement
         break;
     }
+    return ERROR; // TODO: Define Return Statement
   }
+  return 0;
 }
 
 // Interrupts
@@ -531,4 +612,97 @@ int check_RF_Acknowledge(int mode){
 void IRAM_ATTR TIM_RF_Learn_Active_overflow() {
   Learn_RF_Active_Flag = false;   // Reset Learning Mode Active on Timer overflow
   timerAlarmDisable(TIM_RF_Learn_Active);       // stop Timer after first overflow
+}
+
+// Webserver Handles
+void handleRoot() {
+  // Return Main Page
+  // HTML-Seite im Flash-Speicher ablegen
+  const char MAIN_page[] PROGMEM = R"rawliteral(
+  <!DOCTYPE html>
+  <html lang="de">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS REVO SL</title>
+    <style>
+      body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }
+      .card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); }
+      h1 { color:red; margin-bottom:20px; }
+      a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }
+      a.green { background:green; }
+      a.gray { background:gray; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>SMS REVO SL</h1>
+      <a class="btn green" href="/livedaten">Livedaten</a>
+      <a class="btn gray"  href="/einstellungen">Einstellungen</a>
+    </div>
+  </body>
+  </html>
+  )rawliteral";
+}
+
+void handleNotFound() {
+  kart_server.send(404, "text/plain", "404: Not Found");
+}
+
+void handleLivedaten() {
+  const char LIVEDATEN_page[] PROGMEM = R"rawliteral(
+  <!DOCTYPE html>
+  <html lang="de">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livedaten - SMS REVO SL</title>
+    <style>
+      body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }
+      .card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); }
+      h1 { color:red; margin-bottom:20px; }
+      a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }
+      a.green { background:green; }
+      a.gray { background:gray; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Livedaten</h1>
+      <p>Hier kommen die aktuellen Daten rein...</p>
+      <a class="btn gray" href="/">Zurück</a>
+    </div>
+  </body>
+  </html>
+  )rawliteral";
+  kart_server.send(200, "text/html", LIVEDATEN_page);
+}
+
+void handleEinstellungen() {
+  const char EINSTELLUNGEN_page[] PROGMEM = R"rawliteral(
+  <!DOCTYPE html>
+  <html lang="de">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Einstellungen - SMS REVO SL</title>
+    <style>
+      body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }
+      .card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); }
+      h1 { color:red; margin-bottom:20px; }
+      a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }
+      a.green { background:green; }
+      a.gray { background:gray; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Einstellungen</h1>
+      <p>Hier können Parameter angepasst werden...</p>
+      <a class="btn gray" href="/">Zurück</a>
+    </div>
+  </body>
+  </html>
+  )rawliteral";
+  kart_server.send(200, "text/html", "<h2>Einstellungen</h2><p>Hier kannst du Variablen ändern.</p>");
 }
