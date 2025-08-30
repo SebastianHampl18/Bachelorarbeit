@@ -9,6 +9,8 @@
 #include <driver/can.h>
 #include <WiFi.h>
 #include <WebServer.h>
+#include <LittleFS.h>
+#include <FS.h>
 
 CAN_device_t CAN1;
 HardwareSerial MicroUSB(1);
@@ -64,8 +66,8 @@ void handleNotFound();
 void setup() {
   Serial.begin(115200);
   Serial.println("Setup Start");
-  //init_ports();
-  //init_GPIO_Exp_Ports();
+  init_ports();
+  init_GPIO_Exp_Ports();
   //init_Interrupts();
   //init_Timer();
   init_storage();
@@ -173,7 +175,7 @@ void init_ports(){
   pinMode(SPI_RST_TP_PIN, PIN_OUTPUT);
 
   // Input
-  pinMode(SPI_INT_CAN2_PIN, PIN_INPUT);
+  //pinMode(SPI_INT_CAN2_PIN, PIN_INPUT);
   pinMode(SPI_INT_TP_PIN, PIN_INPUT);
   pinMode(INT_PE_PIN, PIN_INPUT);
 
@@ -186,11 +188,11 @@ void init_ports(){
   // SPI
   my_SPI.begin(SPI_CLK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN);
 
-  // PWM For Display Backlight
+  //PWM For Display Backlight
   ledcSetup(DISPLAY_PWM_CH, DISPLAY_PWM_FREQ, DISPLAY_PWM_RES); // Configure Channel
   ledcAttachPin(LCD_BL_PIN, DISPLAY_PWM_CH);                    // Define Pin for PWM
-  ledcWrite(DISPLAY_PWM_CH, 2^DISPLAY_PWM_RES*DISPLAY_PWM_DC);  // 50% Duty Cycle
-
+  ledcWrite(DISPLAY_PWM_CH, (1 << DISPLAY_PWM_RES) * DISPLAY_PWM_DC);  // 50% Duty Cycle
+  
   // CAN
   // CAN1.rx_pin_id = gpio_num_t(CAN1_RX_PIN);
   // CAN1.tx_pin_id = gpio_num_t(CAN1_TX_PIN);
@@ -207,7 +209,11 @@ int init_GPIO_Exp_Ports(){
   int rv = GPIO_Exp_WriteBit(0x05, 7, HIGH);
   if(rv == ERROR){
     perror("Setting Bank for address failed");
+    Serial.println("Setting Bank for address failed");
     return ERROR;
+  }
+  else{
+    Serial.println("Setting Bank for address successful");
   }
   
   rv = 0;
@@ -218,7 +224,7 @@ int init_GPIO_Exp_Ports(){
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 3, PIN_INPUT); // RC_Recieve_CH2
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 5, PIN_INPUT); // RC Receive CH3
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 7, PIN_INPUT); // RC Receive CH4
-  if(rv != 6){perror("Error in init Ports Bank A"); return ERROR;}
+  if(rv != 6){perror("Error in init Ports Bank A"); return ERROR;}else{Serial.println("Init Ports Bank A successful");}
 
   rv = 0;
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 0, PIN_OUTPUT); // LED Pin
@@ -229,13 +235,13 @@ int init_GPIO_Exp_Ports(){
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 5, PIN_OUTPUT); // RC Transmit CH3
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 6, PIN_OUTPUT); // CAN1 Silent Mode
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 7, PIN_OUTPUT); // CAN2 Silent Mode
-  if(rv != 8){perror("Error in init Ports Bank B"); return ERROR;}
+  if(rv != 8){perror("Error in init Ports Bank B"); return ERROR;}else{Serial.println("Init Ports Bank B successful");}
 
   // set PullUps where needed
   rv = 0;
   rv += GPIO_Exp_WriteRegister(GPIO_EXP_GPPUB, 0x00); // No PullUps needed
   rv += GPIO_Exp_WriteRegister(GPIO_EXP_GPPUB, 0x00); // no PullUps needed
-  if(rv != 2){perror("Error in set PullUp Resistors"); return ERROR;}
+  if(rv != 2){perror("Error in set PullUp Resistors"); return ERROR;}else{Serial.println("Set PullUp Resistors successful");}
 
   // set Interrupt Settings 
   rv = 0;
@@ -259,12 +265,12 @@ int init_GPIO_Exp_Ports(){
   // Set Interrupt polarity to High_active
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IOCONA, 1, HIGH);
 
-  if(rv != 7){perror("Error in init Interrupts for GPIO Expansion"); return ERROR;}
+  if(rv != 7){perror("Error in init Interrupts for GPIO Expansion"); return ERROR;}else{Serial.println("Init Interrupts for GPIO Expansion successful");}
 
   // Initial Value
   rv = 0;
   rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-  if(rv != 1){perror("Error in init Interrupts for GPIO Expansion"); return ERROR;}
+  if(rv != 1){perror("Error in init Interrupts for GPIO Expansion"); return ERROR;}else{Serial.println("Init Interrupts for GPIO Expansion successful");}
 
   return SUCCESS;
 }
@@ -322,15 +328,15 @@ void init_storage(){
     // Init Variable
     ESP_storage.putInt("RFID_enable", FALSE);
   }
-  if(ESP_storage.getInt("StatusLED_enable", -1) == -1){
+  if(ESP_storage.getInt("LED_enable", -1) == -1){
     // Variable is not stored at the moment
     // Init Variable
-    ESP_storage.putInt("StatusLED_enable", FALSE);
+    ESP_storage.putInt("LED_enable", FALSE);
   }
-  if(ESP_storage.getInt("RF_Signals_CAN_enable", -1) == -1){
+  if(ESP_storage.getInt("RF_CAN_en", -1) == -1){
     // Variable is not stored at the moment
     // Init Variable
-    ESP_storage.putInt("RF_Signals_CAN_enable", FALSE);
+    ESP_storage.putInt("RF_CAN_en", FALSE);
   }
   if(ESP_storage.getString("WIFI_Name", "unknown") == "unknown"){
     // Variable is not stored at the moment
@@ -342,6 +348,16 @@ void init_storage(){
     // Init Variable
     ESP_storage.putString("WIFI_Password", "SMS REVO SL");
   }
+  String wifi_pass = ESP_storage.getString("WIFI_Password");
+  if (wifi_pass.length() < 8) {
+    Serial.println("Passwort ist zu kurz!");
+    Serial.println("Setze Standard Passwort.");
+    // Passwort ist to short, set Standard Password
+
+    ESP_storage.putString("WIFI_Password", "SMS REVO SL");
+  }
+  
+  
 }
 
 void init_can(){
@@ -394,6 +410,9 @@ void init_wifi(){
   // Access Point starten
   if(WiFi.softAP(ESP_storage.getString("WIFI_Name"), ESP_storage.getString("WIFI_Password"))) {
     // TODO: Do Something
+    Serial.println("Access Point gestartet");
+    Serial.print("IP-Adresse des Access Points: ");
+    Serial.println(WiFi.softAPIP());
   } else {
     Serial.println("Fehler beim Start des Access Points");
   }
@@ -643,6 +662,8 @@ void handleRoot() {
   </body>
   </html>
   )rawliteral";
+
+  kart_server.send(200, "text/html", MAIN_page);
 }
 
 void handleNotFound() {
@@ -679,30 +700,47 @@ void handleLivedaten() {
 }
 
 void handleEinstellungen() {
-  const char EINSTELLUNGEN_page[] PROGMEM = R"rawliteral(
-  <!DOCTYPE html>
-  <html lang="de">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Einstellungen - SMS REVO SL</title>
-    <style>
-      body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }
-      .card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); }
-      h1 { color:red; margin-bottom:20px; }
-      a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }
-      a.green { background:green; }
-      a.gray { background:gray; }
-    </style>
-  </head>
-  <body>
-    <div class="card">
-      <h1>Einstellungen</h1>
-      <p>Hier können Parameter angepasst werden...</p>
-      <a class="btn gray" href="/">Zurück</a>
-    </div>
-  </body>
-  </html>
-  )rawliteral";
-  kart_server.send(200, "text/html", "<h2>Einstellungen</h2><p>Hier kannst du Variablen ändern.</p>");
+
+  if (kart_server.method() == HTTP_POST) {
+    // Werte aus dem Formular speichern
+    if (kart_server.hasArg("wifi_name")) {
+      ESP_storage.putString("WIFI_Name", kart_server.arg("wifi_name"));
+    }
+    if (kart_server.hasArg("wifi_password")) {
+      ESP_storage.putString("WIFI_Password", kart_server.arg("wifi_password"));
+    }
+    kart_server.sendHeader("Location", "/einstellungen");
+    kart_server.send(303, "text/plain", "Werte gespeichert, weiterleiten...");
+    return;
+  }
+
+  String EINSTELLUNGEN_page = 
+    "<!DOCTYPE html><html lang=\"de\"><head>"
+    "<meta charset=\"UTF-8\">"
+    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+    "<title>Einstellungen - SMS REVO SL</title>"
+    "<style>"
+    "body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }"
+    ".card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); }"
+    "h1 { color:red; margin-bottom:20px; }"
+    "a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }"
+    "a.green { background:green; }"
+    "a.gray { background:gray; }"
+    "form { margin-top:20px; }"
+    "input[type=text], input[type=password] { padding:8px; margin:8px 0; border-radius:6px; border:1px solid #ccc; width:80%; }"
+    "input[type=submit] { padding:10px 20px; border-radius:8px; border:none; background:green; color:white; font-weight:bold; cursor:pointer; }"
+    "input[type=submit]:hover { background:darkgreen; }"
+    "</style></head><body><div class=\"card\">"
+    "<h1>Einstellungen</h1>"
+    "<form method=\"POST\" action=\"/einstellungen\">"
+    "<label for=\"wifi_name\">WIFI Name:</label><br>"
+    "<input type=\"text\" id=\"wifi_name\" name=\"wifi_name\" value=\"" + ESP_storage.getString("WIFI_Name") + "\"><br>"
+    "<label for=\"wifi_password\">WIFI Passwort:</label><br>"
+    "<input type=\"password\" id=\"wifi_password\" name=\"wifi_password\" minlength=\"8\" required value=\"" + ESP_storage.getString("WIFI_Password") + "\"><br>"
+    "<input type=\"submit\" value=\"Speichern\">"
+    "</form>"
+    "<p>Änderungen werden beim nächsten Neustart wirksam!</p>"
+    "<a class=\"btn gray\" href=\"/\">Zurück</a>"
+    "</div></body></html>";
+  kart_server.send(200, "text/html", EINSTELLUNGEN_page);
 }

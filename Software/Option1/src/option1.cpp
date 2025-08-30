@@ -619,6 +619,8 @@ int GPIO_Exp_WriteBit(int reg, int bit, int value){
   * @return 1: Writing Successful
   */
 
+  Serial.print("Writing Bit to GPIO Expansion");
+
   // Check for value in Range
   if(value > 1 || value < 0){
     perror("Value must be binary");
