@@ -3,8 +3,6 @@
 
 int SPI_select(int Slave);
 int SPI_deselect();
-int send_RemoteDrive_Request(int send_CAN);
-int send_SOC_Request(int send_CAN);
 int SPI_reset(int Slave);
 int CAN1_silent();
 int CAN1_not_silent();

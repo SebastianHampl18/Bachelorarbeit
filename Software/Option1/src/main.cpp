@@ -6,13 +6,14 @@
 #include <Preferences.h>
 #include <ESP32CAN.h>
 #include <CAN_config.h>
-#include <driver/can.h>
 #include <WiFi.h>
 #include <WebServer.h>
 #include <LittleFS.h>
 #include <FS.h>
 
-CAN_device_t CAN1;
+
+CAN_device_t CAN_cfg;
+//CAN_config_t CAN_cfg;
 HardwareSerial MicroUSB(1);
 SPIClass my_SPI(VSPI);
 hw_timer_t * TIM_RF_Learn_Active = NULL;
@@ -42,6 +43,11 @@ volatile bool Learn_RF_ACK_Flag = false;
 volatile bool Learn_RF_ACK_Waiting = false;
 volatile bool RF_Error_Active = false;
 volatile unsigned long time_wait_Error = 0;
+volatile bool CAN1_active = false;
+volatile float CAN_speed = 0.0;
+volatile float CAN_soc = 0.0;
+volatile float CAN_battery_voltage = 0.0;
+volatile float CAN_battery_temp = 0.0;
 
 // put function declarations here:
 void init_ports();
@@ -60,16 +66,19 @@ int check_RF_Acknowledge(int mode);
 void IRAM_ATTR TIM_RF_Learn_Active_overflow();
 void handleRoot();
 void handleLivedaten();
+void handleValues();
 void handleEinstellungen();
 void handleNotFound();
+int send_RemoteDrive_Request();
+int send_SOC_Request();
 
 void setup() {
   Serial.begin(115200);
   Serial.println("Setup Start");
   init_ports();
-  init_GPIO_Exp_Ports();
-  //init_Interrupts();
-  //init_Timer();
+  //init_GPIO_Exp_Ports();
+  init_Interrupts();
+  init_Timer();
   init_storage();
   //init_can();
   init_wifi();
@@ -89,12 +98,12 @@ void loop() {
     if(ISR_RX_2_Flag == true){
       // The Microcontroller has recieved a Signal, which indicates, that a remote drive Request was sent by the RF Control
       // The Signal must now be transmitted to the VCU
-      send_RemoteDrive_Request(false);
+      send_RemoteDrive_Request();
     }
     if(ISR_RX_3_Flag == true){
       // The Microcontroller has recieved a Signal, which indicates, that a SOC Request was sent by the RF Control
       // The Signal must now be transmitted to the VCU
-      send_SOC_Request(false);
+      send_SOC_Request();
     }
     if(ISR_RX_4_Flag == true && ID_cur_state == OFF){
       // The Microcontroller has recieved a Signal, which indicates, that a Identification Request was sent by the RF Control
@@ -114,51 +123,68 @@ void loop() {
       check_RF_Error();
     }
   }
-
-  if(ISR_LED_Signal_Flag == true && LED_cur_state == OFF && ID_cur_state == OFF){
-  // The Microcontroller has recieved a Signal from VCU, it has to activate Status LED
-  // The Status LED must now be switched on as long as the signal is active
-  // This Signal low priority compared to Identification via RF Control
-    LED_cur_state = ON;
-    Status_LED_ON();
-  }
-  if(ISR_LED_Signal_Flag == false && LED_cur_state == ON && ID_cur_state == OFF){
-  // The Microcontroller has recieved a Signal from VCU, Status LED activation has ended
-  // The Status LED must now be switched off as the signal is no longer acive
-  // This Signal low priority compared to Identification via RF Control
-    LED_cur_state = OFF;
-    Status_LED_OFF();
+  
+  if(ESP_storage.getInt("LED_enable", FALSE) == TRUE){
+    if(ISR_LED_Signal_Flag == true && LED_cur_state == OFF && ID_cur_state == OFF){
+    // The Microcontroller has recieved a Signal from VCU, it has to activate Status LED
+    // The Status LED must now be switched on as long as the signal is active
+    // This Signal low priority compared to Identification via RF Control
+      LED_cur_state = ON;
+      Status_LED_ON();
+    }
+    if(ISR_LED_Signal_Flag == false && LED_cur_state == ON && ID_cur_state == OFF){
+    // The Microcontroller has recieved a Signal from VCU, Status LED activation has ended
+    // The Status LED must now be switched off as the signal is no longer acive
+    // This Signal low priority compared to Identification via RF Control
+      LED_cur_state = OFF;
+      Status_LED_OFF();
+    }
   }
   
 
   // End of polling for Interrupts by GPIO expansion *****************************************************************************
 
   // Polling for Interrupts set by Touch Display Controller **********************************************************************
-  if(ISR_Learn_RF_Flag == true){
-    // 
-    if(ISR_Learn_RF_Mode > 0 && Learn_RF_Active_Flag == false){
-      int rv = learn_RFControl(ISR_Learn_RF_Mode);
+  if(ESP_storage.getInt("RF_enable", FALSE) == TRUE && ESP_storage.getInt("Display_enable", FALSE) == TRUE){
+    // RF Control is enabled and CAN Transmission of RF Control Signals is enabled
+    // Check if Learn Mode for RF Control was activated by Touch Display
+    if(ISR_Learn_RF_Flag == true){
+      // 
+      if(ISR_Learn_RF_Mode > 0 && Learn_RF_Active_Flag == false){
+        int rv = learn_RFControl(ISR_Learn_RF_Mode);
 
-      if(rv==ERROR){perror("activating Pairing Mode failed");}
+        if(rv==ERROR){perror("activating Pairing Mode failed");}
 
-      // repeat until Signal was transmitted to RF Controller successfully
-      if(rv == ISR_Learn_RF_Mode){
-        Learn_RF_Active_Flag = true;
+        // repeat until Signal was transmitted to RF Controller successfully
+        if(rv == ISR_Learn_RF_Mode){
+          Learn_RF_Active_Flag = true;
+        }
+
+        timerWrite(TIM_RF_Learn_Active, 0);                 // Reset Timer Counter
+        timerAlarmEnable(TIM_RF_Learn_Active);              // Activate Timer
       }
-
-      timerWrite(TIM_RF_Learn_Active, 0);                 // Reset Timer Counter
-      timerAlarmEnable(TIM_RF_Learn_Active);              // Activate Timer
+      // Check ACK and reset Learning_Flag if ACK is received
+      // Learning Mode may remain active
+      int rv = check_RF_Acknowledge(ISR_Learn_RF_Mode);
     }
-    // Check ACK and reset Learning_Flag if ACK is received
-    // Learning Mode may remain active
-    int rv = check_RF_Acknowledge(ISR_Learn_RF_Mode);
   }
 
-  // End of polling for Interrupts set by Touch Controller Display
-  process_CAN1();
+  // End of polling for Interrupts set by Touch Controller Display *********************************************************
+  
+  
+  // Processing incoming CAN1 Messages *****************************************************************************************
+  if(CAN1_active == true){
+    process_CAN1();
+  }
+  // End of processing incoming CAN1 Messages ***********************************************************************
 
-  // Handle HTTP Server
-  kart_server.handleClient();
+
+  // Polling for HTTP Requests *************************************************************************************************
+  if(ESP_storage.getInt("WiFi_enable", FALSE) == TRUE){
+
+    // Handle HTTP Server
+    kart_server.handleClient();
+  }
 }
 
 // put function definitions here *************************************************************************************************
@@ -192,12 +218,6 @@ void init_ports(){
   ledcSetup(DISPLAY_PWM_CH, DISPLAY_PWM_FREQ, DISPLAY_PWM_RES); // Configure Channel
   ledcAttachPin(LCD_BL_PIN, DISPLAY_PWM_CH);                    // Define Pin for PWM
   ledcWrite(DISPLAY_PWM_CH, (1 << DISPLAY_PWM_RES) * DISPLAY_PWM_DC);  // 50% Duty Cycle
-  
-  // CAN
-  // CAN1.rx_pin_id = gpio_num_t(CAN1_RX_PIN);
-  // CAN1.tx_pin_id = gpio_num_t(CAN1_TX_PIN);
-  // CAN1.speed = CAN_SPEED_500KBPS;
-  // CAN1.rx_queue = xQueueCreate(10, sizeof(CAN_frame_t));
 }
 
 int init_GPIO_Exp_Ports(){
@@ -311,32 +331,32 @@ void init_storage(){
   if(ESP_storage.getInt("RF_enable", -1) == -1){
     // Variable is not stored at the moment
     // Init Variable
-    ESP_storage.putInt("RF_enable", FALSE);
+    ESP_storage.putInt("RF_enable", true);
   }
   if(ESP_storage.getInt("Display_enable", -1) == -1){
     // Variable is not stored at the moment
     // Init Variable
-    ESP_storage.putInt("Display_enable", FALSE);
+    ESP_storage.putInt("Display_enable", true);
   }
   if(ESP_storage.getInt("WiFi_enable", -1) == -1){
     // Variable is not stored at the moment
     // Init Variable
-    ESP_storage.putInt("WiFi_enable", FALSE);
+    ESP_storage.putInt("WiFi_enable", true);
   }
   if(ESP_storage.getInt("RFID_enable", -1) == -1){
     // Variable is not stored at the moment
     // Init Variable
-    ESP_storage.putInt("RFID_enable", FALSE);
+    ESP_storage.putInt("RFID_enable", true);
   }
   if(ESP_storage.getInt("LED_enable", -1) == -1){
     // Variable is not stored at the moment
     // Init Variable
-    ESP_storage.putInt("LED_enable", FALSE);
+    ESP_storage.putInt("LED_enable", true);
   }
   if(ESP_storage.getInt("RF_CAN_en", -1) == -1){
     // Variable is not stored at the moment
     // Init Variable
-    ESP_storage.putInt("RF_CAN_en", FALSE);
+    ESP_storage.putInt("RF_CAN_en", false);
   }
   if(ESP_storage.getString("WIFI_Name", "unknown") == "unknown"){
     // Variable is not stored at the moment
@@ -356,6 +376,7 @@ void init_storage(){
 
     ESP_storage.putString("WIFI_Password", "SMS REVO SL");
   }
+  ESP_storage.putInt("WiFi_enable", TRUE);
   
   
 }
@@ -364,36 +385,17 @@ void init_can(){
 
   Serial.println("Init CAN");
 
-  // CAN-Config
-  can_general_config_t g_config = CAN_GENERAL_CONFIG_DEFAULT(gpio_num_t(CAN1_TX_PIN), gpio_num_t(CAN1_RX_PIN), CAN_MODE_NORMAL);
-  g_config.rx_queue_len = 30;
-  can_timing_config_t t_config = CAN_TIMING_CONFIG_500KBITS();   // Baudrate: 500 kBit/s
-  can_filter_config_t f_config = CAN_FILTER_CONFIG_ACCEPT_ALL(); // Alle Nachrichten annehmen
-
-  // Treiber installieren
-  if (can_driver_install(&g_config, &t_config, &f_config) == ESP_OK) {
-    Serial.println("CAN Treiber installiert");
-  } else {
-    Serial.println("Fehler bei CAN Treiber Installation");
-
-    // TODO: Bessere Lösung als Endlosschleife
-    while (1){
-      Serial.println("CAN Fehler!");
-      delay(500);
-    }
+  CAN_cfg.rx_pin_id = gpio_num_t(CAN1_RX_PIN);
+  CAN_cfg.tx_pin_id = gpio_num_t(CAN1_TX_PIN);
+  CAN_cfg.speed = CAN_SPEED_500KBPS;
+  CAN_cfg.rx_queue = xQueueCreate(40, sizeof(CAN_frame_t));
+  if(ESP32Can.CANInit() == ESP_OK){
+    CAN1_active = true;
+    Serial.println("CAN1 started");
   }
-
-  // CAN starten
-  if (can_start() == ESP_OK) {
-    Serial.println("CAN gestartet");
-  } else {
-    Serial.println("Fehler beim Start von CAN");
-
-    // TODO: Bessere Lösung als Endlosschleife
-    while (1){
-      Serial.println("CAN Fehler!");
-      delay(500);
-    }
+  else{
+    CAN1_active = false;
+    Serial.println("Error starting CAN1");
   }
 }
 
@@ -421,6 +423,7 @@ void init_wifi(){
   kart_server.on("/", handleRoot);
   kart_server.on("/livedaten", handleLivedaten);
   kart_server.on("/einstellungen", handleEinstellungen);
+  kart_server.on("/values", handleValues);
   kart_server.onNotFound(handleNotFound);
 
   // Start Webserver
@@ -428,33 +431,42 @@ void init_wifi(){
 }
 
 int process_CAN1(){
-  // read recieved messge
-  can_message_t rx_msg;
-  /*if (can_receive(&rx_msg, pdMS_TO_TICKS(100)) == ESP_OK) {
-    Serial.print("Empfangen -> ID: 0x");
-    Serial.print(rx_msg.identifier, HEX);
-    Serial.print(" DLC: ");
-    Serial.print(rx_msg.data_length_code);
-    Serial.print(" Daten: ");
-    for (int i = 0; i < rx_msg.data_length_code; i++) {
-      Serial.printf("%02X ", rx_msg.data[i]);
+  // Process incoming CAN1 Messages
+  CAN_frame_t rx_frame;
+
+  // TODO: Check for IDs and process Data based on 
+
+  // Versuchen, eine Nachricht aus der Queue zu holen
+  if (xQueueReceive(CAN_cfg.rx_queue, &rx_frame, 0) == pdTRUE) {
+    
+    // Frame-Infos
+    Serial.print("Empfangen: ID=0x");
+    Serial.print(rx_frame.MsgID, HEX);
+    Serial.print(" DLC=");
+    Serial.print(rx_frame.FIR.B.DLC);
+    Serial.print(" Daten=");
+
+    // Datenbytes ausgeben
+    for (int i = 0; i < rx_frame.FIR.B.DLC; i++) {
+      Serial.print(rx_frame.data.u8[i], HEX);
+      Serial.print(" ");
     }
     Serial.println();
-  }*/
-  if (can_receive(&rx_msg, pdMS_TO_TICKS(100)) == ESP_OK){
-  // Read Message ID -> Drop unused messages _> Process important messages/data
-    switch(rx_msg.identifier, HEX){
-      case 0x00:  // TODO: Use real ID defined as constant
-        // TODO: do something
-        return 1; // TODO: Define Return Statement
-        break;
-      case 0x01: // TODO: Use real ID defined as constant
-        // TODO: do something
-        return 1; // TODO: Define Return Statement
-        break;
+
+    int identifier = rx_frame.MsgID;
+
+    switch (identifier)
+    {
+    case 0x100:
+      /* code */
+      return SUCCESS;
+      break;
+    default:
+      return 0;
+      break;
     }
-    return ERROR; // TODO: Define Return Statement
   }
+
   return 0;
 }
 
@@ -671,32 +683,59 @@ void handleNotFound() {
 }
 
 void handleLivedaten() {
-  const char LIVEDATEN_page[] PROGMEM = R"rawliteral(
-  <!DOCTYPE html>
-  <html lang="de">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livedaten - SMS REVO SL</title>
-    <style>
-      body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }
-      .card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); }
-      h1 { color:red; margin-bottom:20px; }
-      a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }
-      a.green { background:green; }
-      a.gray { background:gray; }
-    </style>
-  </head>
-  <body>
-    <div class="card">
-      <h1>Livedaten</h1>
-      <p>Hier kommen die aktuellen Daten rein...</p>
-      <a class="btn gray" href="/">Zurück</a>
-    </div>
-  </body>
-  </html>
-  )rawliteral";
-  kart_server.send(200, "text/html", LIVEDATEN_page);
+   String page = "";
+  page += "<!DOCTYPE html><html lang='de'><head>";
+  page += "<meta charset='UTF-8'>";
+  page += "<meta name='viewport' content='width=device-width, initial-scale=1.0'>";
+  page += "<title>Livedaten - SMS REVO SL</title>";
+  page += "<style>";
+  page += "body{margin:0;display:flex;justify-content:center;align-items:center;height:100vh;background:#f2f2f2;font-family:Arial,sans-serif;}";
+  page += ".card{background:#fff;padding:20px 30px;border-radius:12px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.15);max-width:400px;width:100%;}";
+  page += "h1{color:red;margin-bottom:20px;}";
+  page += ".databox{background:#f9f9f9;border:1px solid #ddd;border-radius:8px;padding:15px;margin:10px 0;text-align:left;font-size:1.4em;}";
+  page += ".label{font-weight:bold;display:block;margin-bottom:6px;}";
+  page += ".value{color:#333;}";
+  page += "a.btn{display:inline-block;margin:12px;padding:12px 18px;border-radius:8px;text-decoration:none;color:white;font-weight:bold;}";
+  page += "a.gray{background:gray;}";
+  page += "</style>";
+  page += "<script>";
+  page += "async function updateValues(){";
+  page += "  let response = await fetch('/values');";
+  page += "  let data = await response.json();";
+  page += "  document.getElementById('speed').innerText = data.speed + ' km/h';";
+  page += "  document.getElementById('soc').innerText = data.soc + ' %';";
+  page += "  document.getElementById('temp').innerText = data.temp + ' °C';";
+  page += "}";
+  page += "setInterval(updateValues,1000);";
+  page += "</script>";
+  page += "</head><body>";
+  page += "<div class='card'>";
+  page += "<h1>Livedaten</h1>";
+  page += "<div class='databox'><span class='label'>Geschwindigkeit</span><span class='value' id='speed'>--</span></div>";
+  page += "<div class='databox'><span class='label'>State of Charge</span><span class='value' id='soc'>--</span></div>";
+  page += "<div class='databox'><span class='label'>Akkutemperatur</span><span class='value' id='temp'>--</span></div>";
+  page += "<a class='btn gray' href='/'>Zurück</a>";
+  page += "</div>";
+  page += "</body></html>";
+
+  kart_server.send(200, "text/html", page);
+}
+
+void handleValues() {
+  float speed, soc, bat_temp;
+  noInterrupts();
+  speed = CAN_speed;
+  soc = CAN_soc;
+  bat_temp = CAN_battery_temp;
+  interrupts();
+
+  String json = "{";
+  json += "\"speed\":" + String(speed, 1) + ",";
+  json += "\"soc\":" + String(soc, 1) + ",";
+  json += "\"temp\":" + String(bat_temp, 1);
+  json += "}";
+
+  kart_server.send(200, "application/json", json);
 }
 
 void handleEinstellungen() {
@@ -743,4 +782,108 @@ void handleEinstellungen() {
     "<a class=\"btn gray\" href=\"/\">Zurück</a>"
     "</div></body></html>";
   kart_server.send(200, "text/html", EINSTELLUNGEN_page);
+}
+
+int send_RemoteDrive_Request(){
+/**
+ * @brief Depending on the System, this function sends a CAN Message to the VCU or powers the MOSFET to send the Signal for Remote Drive to VCU via wired Connection. 
+ * 
+ * @return 1 at Success, -1 at fail
+ */
+  // Send analog Signal
+  // Set Pin GPIOB 4 on Port Extension to HIGH to power the MOSFET
+  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 4, HIGH);
+  if(rv == ERROR){
+    perror("Write failed");
+    return ERROR;
+  }
+  delay(300); // Wait 300ms for the Signal to be be Recieved by VCU
+
+  // Set Pin GPIOB 4 on Port Extension to LOW to reset the MOSFET
+  rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 4, LOW);
+  if(rv == ERROR){
+    perror("Write failed");
+    return ERROR;
+  }
+
+  if(ESP_storage.getInt("RF_CAN_en", FALSE) == TRUE){
+    //TODO: Send CAN-Message with RemoteDive Command to VCU
+  }
+
+  return SUCCESS;
+}
+
+int send_SOC_Request(){
+/**
+ * @brief Depending on the System, this function sends a CAN Message to the VCU or powers the MOSFET to send the Signal to VCU via wired Connection
+ * 
+ * @return 1 at Success, -1 at fail
+ */
+  // Send analog Signal
+  // Set Pin GPIOB 5 on Port Extension to HIGH to power the MOSFET
+  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 5, HIGH);
+  if(rv == ERROR){
+    perror("Write failed");
+    return ERROR;
+  }
+
+  // Wait and reset
+  delay(300);
+
+  // Set Pin GPIOB 5 on Port Extension to LOW to reset the MOSFET
+  rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 5, LOW);
+  if(rv == ERROR){
+    perror("Write failed");
+    return ERROR;
+  }
+
+  // Send CAN Message
+  if(ESP_storage.getInt("RF_CAN_en", FALSE) == TRUE){
+    //TODO: Send CAN-Message with RemoteDive Command to VCU
+  }
+
+  return SUCCESS;
+}
+
+int send_CAN1_Message(int id, uint8_t* data, int len){
+/**
+ * @brief Send CAN1 Message with given ID and Data
+ * 
+ * @param id CAN ID
+ * @param data Pointer to Data Array
+ * @param len Length of Data Array (max 8)
+ * @return 1 at Success, -1 at fail, 0 if CAN1 not active
+ */
+  if(len > 8){
+    perror("Data Length too long");
+    Serial.println("Data Length too long");
+    return ERROR;
+  }
+
+  CAN_frame_t tx_frame;
+  tx_frame.FIR.B.FF = CAN_frame_std;
+  tx_frame.MsgID = id;
+  tx_frame.FIR.B.DLC = len;
+
+  for(int i=0; i<len; i++){
+    tx_frame.data.u8[i] = data[i];
+  }
+
+  // Send Message
+  if(CAN1_active == true){
+    if(ESP32Can.CANWriteFrame(&tx_frame) == ESP_OK){
+      return SUCCESS;
+    }
+    else{
+      perror("Error sending CAN1 Message");
+      Serial.println("Error sending CAN1 Message");
+      return ERROR;
+    }
+  }
+  else{
+    perror("CAN1 not active");
+    Serial.println("CAN1 not active");
+    return 0;
+  }
+
 }

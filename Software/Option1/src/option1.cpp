@@ -5,8 +5,6 @@
 
 int SPI_select(int Slave);
 int SPI_deselect();
-int send_RemoteDrive_Request(int send_CAN);
-int send_SOC_Request(int send_CAN);
 int SPI_reset(int Slave);
 int CAN1_silent();
 int CAN1_not_silent();
@@ -120,6 +118,7 @@ int SPI_reset(int Slave){
         int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 3, HIGH); //TODO: Check for High or LOW active
         if(rv == ERROR){
           perror("Writing failed");
+          Serial.println("Writing failed");
           return ERROR;
         }
         return 0;
@@ -162,67 +161,6 @@ int SPI_reset(int Slave){
   }
   return 0;
   
-}
-
-int send_RemoteDrive_Request(int send_CAN){
-/**
- * @brief Depending on the System, this function sends a CAN Message to the VCU or powers the MOSFET to send the Signal for Remote Drive to VCU via wired Connection. 
- * 
- * @return 1 at Success, -1 at fail
- */
-  // Send analog Signal
-  // Set Pin GPIOB 4 on Port Extension to HIGH to power the MOSFET
-  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 4, HIGH);
-  if(rv == ERROR){
-    perror("Write failed");
-    return ERROR;
-  }
-  delay(300); // Wait 300ms for the Signal to be be Recieved by VCU
-
-  // Set Pin GPIOB 4 on Port Extension to LOW to reset the MOSFET
-  rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 4, LOW);
-  if(rv == ERROR){
-    perror("Write failed");
-    return ERROR;
-  }
-
-  if(send_CAN){
-    //TODO: Send CAN-Message with RemoteDive Command to VCU
-  }
-
-  return SUCCESS;
-}
-
-int send_SOC_Request(int send_CAN){
-/**
- * @brief Depending on the System, this function sends a CAN Message to the VCU or powers the MOSFET to send the Signal to VCU via wired Connection
- * 
- * @return 1 at Success, -1 at fail
- */
-  // Send analog Signal
-  // Set Pin GPIOB 5 on Port Extension to HIGH to power the MOSFET
-  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 5, HIGH);
-  if(rv == ERROR){
-    perror("Write failed");
-    return ERROR;
-  }
-
-  // Wait and reset
-  delay(300);
-
-  // Set Pin GPIOB 5 on Port Extension to LOW to reset the MOSFET
-  rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 5, LOW);
-  if(rv == ERROR){
-    perror("Write failed");
-    return ERROR;
-  }
-
-  // Send CAN Message
-  if(send_CAN){
-    //TODO: Send CAN-Message with RemoteDive Command to VCU
-  }
-
-  return SUCCESS;
 }
 
 int CAN1_silent(){
@@ -522,11 +460,13 @@ int GPIO_Exp_WriteRegister(int reg, int value){
   if(value > 255 || value < 0){
     // Value out of Range
     perror("Value out of Range");
+    Serial.println("Value out of Range");
     return ERROR;
   }
 
   if(reg<0x00 || (reg < 0x10 && reg > 0x0A) || reg > 0x1A){
     perror("Register Address out of Range");
+    Serial.println("Register Address out of Range");
     return ERROR;
   }
 
@@ -537,6 +477,7 @@ int GPIO_Exp_WriteRegister(int reg, int value){
   int rv = Wire.write(reg); 
   if(rv <= 0){
     perror("Write register Adress failed");
+    Serial.println("Write register Adress failed");
     return ERROR;
   }  
 
@@ -544,6 +485,7 @@ int GPIO_Exp_WriteRegister(int reg, int value){
   rv = Wire.write(value);      // Write Data
   if(rv <= 0){
     perror("Write data failed");
+    Serial.println("Write data failed");
     return ERROR;
   }  
 
@@ -551,6 +493,7 @@ int GPIO_Exp_WriteRegister(int reg, int value){
   rv = Wire.endTransmission();
   if(rv != 0){
     perror("Sending Bufferr to Communication failed");
+    Serial.println("Sending Bufferr to Communication failed");
     return ERROR;
   }
   return SUCCESS;
@@ -569,35 +512,61 @@ int GPIO_Exp_ReadRegister(int reg){
    * @return data: Data was read successfully
    */
 
+  Serial.println("\n\nReading Register from GPIO Expansion");
+
   // Check for Address out of Range
   if(reg<0x00 || (reg < 0x10 && reg > 0x0A) || reg > 0x1A){
     perror("Register Address out of Range");
+    Serial.println("Register Address out of Range");
     return ERROR;
+  }
+  else{
+    Serial.println("Register Address is in Range");
   }
 
   // Write Address and Write Bit to Buffer
+  Serial.println("Begin Transmission - Address: " + String(GPIO_EXP_ADRESS, HEX));
   Wire.beginTransmission(GPIO_EXP_ADRESS);
 
   // Write register address to Buffer
+  Serial.println("Writing Register Address to Buffer");
   int rv = Wire.write(reg);              // Registeradresse senden
+  Serial.print("Read rom Register done - Return Value: ");
+  Serial.println(rv);
   if(rv <= 0){
     perror("Write Failed");
+    Serial.println("Write Failed");
     return ERROR;
+  }
+  else{
+    Serial.println("Register Address written to Buffer");
   }
 
   // Send Buffer to Communication
+  Serial.println("Sending Buffer to Communication");
   rv = Wire.endTransmission(false);  // Stop-Bedingung vermeiden (Repeated Start)
   if(rv != 0){
     perror("sending Data failed");
+    Serial.println("sending Data failed");
     return ERROR;
+  }
+  else{
+    Serial.println("Data sent via I2C");
   }
 
   // Write Address and Read bit to Buffer
-  Wire.requestFrom(GPIO_EXP_ADRESS, uint8_t(1));
+  Serial.println("Requesting Data from Communication");
+  Wire.requestFrom(GPIO_EXP_ADRESS, 1);
 
   // Read Register from Communication
   if (Wire.available()) {
+    Serial.println("Data available");
+    Serial.println("Reading Data");
     return Wire.read(); // Byte zurückgeben
+  }
+  else{
+    perror("Data could not be read");
+    Serial.println("Data could not be read");
   }
   return ERROR; // Fehlerwert
 }
@@ -619,58 +588,89 @@ int GPIO_Exp_WriteBit(int reg, int bit, int value){
   * @return 1: Writing Successful
   */
 
-  Serial.print("Writing Bit to GPIO Expansion");
+  Serial.println("Writing Bit to GPIO Expansion");
 
   // Check for value in Range
   if(value > 1 || value < 0){
     perror("Value must be binary");
+    Serial.println("Value must be binary");
     return ERROR;
   }
-
+  else{
+    Serial.println("Value is in Range");
+  }
+  
   // Check for Address out of Range
   if(reg<0x00 || (reg < 0x10 && reg > 0x0A) || reg > 0x1A){
     perror("Register Address out of Range");
+    Serial.println("Register Address out of Range");
     return ERROR;
+  }
+  else{
+    Serial.println("Register Address is in Range");
   }
 
   // Set Address and Write Bit
+  Serial.println("Begin Transmission");
   Wire.beginTransmission(GPIO_EXP_ADRESS);
 
   // Write Register Adress to Buffer
   int rv = Wire.write(reg);  
   if(rv <= 0){
     perror("Writing Failed");
+    Serial.println("Writing Failed");
     return ERROR;
   } 
+  else{
+    Serial.println("Register Address written to Buffer");
+  }
 
   // Read Data from Register
   int reg_value = GPIO_Exp_ReadRegister(reg);
   if(reg_value == ERROR){
     perror("Register could not be read");
+    Serial.println("Register could not be read");
     return ERROR;
+  }
+  else{
+    Serial.print("Register Read, Value: ");
+    Serial.println(reg_value);
   }
 
   // Changes Bit in Register Data and write data to Buffer
   if(value == HIGH){
-    rv = Wire.write(reg_value | (value << bit)); 
+    rv = Wire.write(reg_value | (1 << bit)); 
     if(rv <= 0){
       perror("Writing Failed");
+      Serial.println("Writing Failed");
       return ERROR;
+    }
+    else{
+      Serial.println("Value HIGH written to Buffer");
     }
   }
   else if(value == LOW){
-    rv = Wire.write(reg_value & (value << bit));
+    rv = Wire.write(reg_value & ~(1 << bit));
     if(rv <= 0){
       perror("Writing Failed");
+      Serial.println("Writing Failed");
       return ERROR;
+    }
+    else{
+      Serial.println("Value LOW written to Buffer");
     }
   }
   
   // Send Buffer to Communication
+  Serial.println("Sending Buffer to Communication");
   rv = Wire.endTransmission();
   if(rv != 0){
     perror("Error sending data via I2C");
+    Serial.println("Error sending data via I2C");
     return ERROR;
+  }
+  else{
+    Serial.println("Data sent via I2C");
   }
   return SUCCESS;  
 }
@@ -692,12 +692,14 @@ int GPIO_Exp_ReadBit(int reg, int bit){
    // Check for Bit Value out of Range
   if(bit > 7){
     perror("Value out of Range");
+    Serial.println("Value out of Range");
     return ERROR;
   }
 
   // Check for Address out of Range
   if(reg<0x00 || (reg < 0x10 && reg > 0x0A) || reg > 0x1A){
     perror("Register Address out of Range");
+    Serial.println("Register Address out of Range");
     return ERROR;
   }
 
@@ -705,6 +707,7 @@ int GPIO_Exp_ReadBit(int reg, int bit){
   int value = GPIO_Exp_ReadRegister(reg);
   if(value == ERROR){
     perror("Read Register Failed");
+    Serial.println("Read Register Failed");
     return ERROR;
   }
 
