@@ -92,6 +92,17 @@ void loop() {
     Serial.println("Loop Start");
     loop_ctr++;
   }
+  loop_ctr++;
+
+  // Dummy Werte statt CAN
+  if(loop_ctr % 900 == 0){
+    CAN_speed += 5.3;
+    CAN_battery_temp += 0.1;
+    CAN_soc -= 0.2;
+    if(CAN_speed > 120.0){CAN_speed = 0.0;}
+    if(CAN_battery_temp > 45.0){CAN_battery_temp = 20.0;}
+    if(CAN_soc < 0.0){CAN_soc = 100.0;}
+  }
 
   // Polling for Interrupt Flags set by GPIO Expansion ***************************************************************************
   if(ESP_storage.getInt("RF_enable", FALSE) == TRUE){
