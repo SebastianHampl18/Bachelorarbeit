@@ -48,6 +48,7 @@ volatile float CAN_speed = 0.0;
 volatile float CAN_soc = 0.0;
 volatile float CAN_battery_voltage = 0.0;
 volatile float CAN_battery_temp = 0.0;
+String RF_Connect_Return = "...";
 
 // put function declarations here:
 void init_ports();
@@ -71,6 +72,7 @@ void handleEinstellungen();
 void handleNotFound();
 int send_RemoteDrive_Request();
 int send_SOC_Request();
+void handleRFConReturn();
 
 void setup() {
   Serial.begin(115200);
@@ -369,6 +371,11 @@ void init_storage(){
     // Init Variable
     ESP_storage.putInt("RF_CAN_en", false);
   }
+  if(ESP_storage.getInt("Display_off", -1) == -1){
+    // Variable is not stored at the moment
+    // Init Variable
+    ESP_storage.putInt("Display_off", true);
+  }
   if(ESP_storage.getString("WIFI_Name", "unknown") == "unknown"){
     // Variable is not stored at the moment
     // Init Variable
@@ -435,6 +442,7 @@ void init_wifi(){
   kart_server.on("/livedaten", handleLivedaten);
   kart_server.on("/einstellungen", handleEinstellungen);
   kart_server.on("/values", handleValues);
+  kart_server.on("/RF_Connect_Return", handleRFConReturn);
   kart_server.onNotFound(handleNotFound);
 
   // Start Webserver
@@ -750,7 +758,150 @@ void handleValues() {
 }
 
 void handleEinstellungen() {
+  if (kart_server.method() == HTTP_POST) {
+    // Werte aus Formular speichern
+    if (kart_server.hasArg("wifi_name")) {
+      ESP_storage.putString("WIFI_Name", kart_server.arg("wifi_name"));
+    }
+    if (kart_server.hasArg("wifi_password")) {
+      ESP_storage.putString("WIFI_Password", kart_server.arg("wifi_password"));
+    }
 
+    if (kart_server.hasArg("display_off")) {
+      ESP_storage.putBool("Display_off", true);
+    } else {
+      ESP_storage.putBool("Display_off", false);
+    }
+
+    // Spezialaktionen über Buttons
+    if (kart_server.hasArg("action")) {
+      String act = kart_server.arg("action");
+      if (act == "remote_bind") {
+        // Start learning mode for RF Controller
+        Serial.println("bind Remote Control");
+        int rv = learn_RFControl(1); // Start learning mode for RF Controller
+        if(rv==ERROR){
+          Serial.println("Pairing Controller failed");
+          //TODO: Write to Website 
+        }
+        else{
+          Serial.println("Pairing Controller successful");
+          //TODO: Write to Website 
+        }
+      }
+      else if (act == "remote_unbind") {
+        // Delete last binded RF Controller
+        Serial.println("Funkfernbedienung löschen");
+        int rv = learn_RFControl(5); // Delete last binded RF Controller
+        if(rv==ERROR){
+          Serial.println("deleting last RF Controller failed");
+          //TODO: Write to Website 
+        }
+        else{
+          Serial.println("deleting last RF Controller successful");
+          //TODO: Write to Website 
+        }
+      }      
+      else if (act == "remote_unbind_all") {
+        // Delete all binded RF Controllers
+        Serial.println("Alle Funkfernbedienungen löschen");
+        int rv = learn_RFControl(6); // Delete every binded RF Controller
+        if(rv==ERROR){
+          Serial.println("deleting all RF Controllers failed");
+          //TODO: Write to Website 
+        }
+        else{
+          Serial.println("deleting all RF Controllers successful");
+          // TODO: Write to Website
+        }
+      }
+    }
+    
+    kart_server.sendHeader("Location", "/einstellungen");
+    kart_server.send(303, "text/plain", "Werte gespeichert, weiterleiten...");
+    return;
+    
+  }
+
+  // Aktuellen Status von Display_off holen
+  bool displayOff = ESP_storage.getBool("Display_off", false);
+
+  String EINSTELLUNGEN_page =
+    "<!DOCTYPE html><html lang=\"de\"><head>"
+    "<meta charset=\"UTF-8\">"
+    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+    "<title>Einstellungen - SMS REVO SL</title>"
+    "<style>"
+    "body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }"
+    ".card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); max-width:400px; width:100%; }"
+    "h1 { color:red; margin-bottom:20px; }"
+    "a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }"
+    "a.green { background:green; }"
+    "a.gray { background:gray; }"
+    "form { margin-top:20px; }"
+    "input[type=text], input[type=password] { padding:8px; margin:8px 0; border-radius:6px; border:1px solid #ccc; width:80%; }"
+    "input[type=submit], button { padding:10px 20px; border-radius:8px; border:none; background:green; color:white; font-weight:bold; cursor:pointer; margin:6px; }"
+    "input[type=submit]:hover, button:hover { background:darkgreen; }"
+    ".switch { position:relative; display:inline-block; width:50px; height:24px; }"
+    ".switch input { opacity:0; width:0; height:0; }"
+    ".slider { position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0; background-color:#ccc; transition:.4s; border-radius:24px; }"
+    ".slider:before { position:absolute; content:\"\"; height:18px; width:18px; left:3px; bottom:3px; background:white; transition:.4s; border-radius:50%; }"
+    "input:checked + .slider { background-color:green; }"
+    "input:checked + .slider:before { transform:translateX(26px); }"
+    "#RF_Connect_Return { margin-top:15px; font-weight:bold; }"
+    "</style></head><body><div class=\"card\">"
+    "<h1>Einstellungen</h1>"
+    "<form method=\"POST\" action=\"/einstellungen\">"
+    "<label for=\"wifi_name\">WIFI Name:</label><br>"
+    "<input type=\"text\" id=\"wifi_name\" name=\"wifi_name\" value=\"" + ESP_storage.getString("WIFI_Name") + "\"><br>"
+    "<label for=\"wifi_password\">WIFI Passwort:</label><br>"
+    "<input type=\"password\" id=\"wifi_password\" name=\"wifi_password\" minlength=\"8\" required value=\"" + ESP_storage.getString("WIFI_Password") + "\"><br>"
+
+    "<label for=\"display_off\">Display Off:</label><br>"
+    "<label class=\"switch\">"
+    "<input type=\"checkbox\" name=\"display_off\" " + String(displayOff ? "checked" : "") + ">"
+    "<span class=\"slider\"></span>"
+    "</label><br><br>"
+
+    "<input type=\"submit\" value=\"Speichern\">"
+    "<p>Netzwerk Änderungen werden beim nächsten Neustart wirksam!</p>"
+    "</form>"
+
+    "<hr>"
+    "<form method=\"POST\" action=\"/einstellungen\">"
+    "<button type=\"submit\" name=\"action\" value=\"remote_bind\">Funkfernbedienung verbinden</button><br>"
+    "<button type=\"submit\" name=\"action\" value=\"remote_unbind\">Funkfernbedienung löschen</button><br>"
+    "<button type=\"submit\" name=\"action\" value=\"remote_unbind_all\">Alle Funkfernbedienungen löschen</button><br>"
+
+    "<hr>"
+    "<div id=\"RF_Connect_Return\">warte auf Verbindungsanfrage...</div>"
+
+    "</form>"
+
+    
+    "<a class=\"btn gray\" href=\"/\">Zurück</a>"
+
+    "<script>"
+    "function updateRFConReturn(){"
+    " fetch('/RF_Connect_Return')"
+    "   .then(response => response.text())"
+    "   .then(data => { document.getElementById('RF_Connect_Return').innerText = 'RF Connection Return: ' + data; });"
+    "}"
+    "setInterval(updateRFConReturn, 2000);"
+    "updateRFConReturn();"
+    "</script>"
+    "</div></body></html>";
+
+  kart_server.send(200, "text/html", EINSTELLUNGEN_page);
+}
+
+void handleRFConReturn() {
+  kart_server.send(200, "text/plain", RF_Connect_Return);
+}
+
+/*
+void handleEinstellungen() {
+  
   if (kart_server.method() == HTTP_POST) {
     // Werte aus dem Formular speichern
     if (kart_server.hasArg("wifi_name")) {
@@ -794,6 +945,8 @@ void handleEinstellungen() {
     "</div></body></html>";
   kart_server.send(200, "text/html", EINSTELLUNGEN_page);
 }
+*/
+
 
 int send_RemoteDrive_Request(){
 /**
