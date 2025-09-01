@@ -27,6 +27,27 @@ IPAddress subnet(255,255,255,0);     // Subnetmask
 // Webserver
 WebServer kart_server(80);
 
+/****************            Global Variables            ****************************/
+CAN_Message Battery_Temperature;
+CAN_Message Battery_Voltage;
+CAN_Message Power_Data;
+CAN_Message Option1_Commands;
+CAN_Message VCU_Commands;
+
+CAN_Signal Avg_Cell_Voltage;
+CAN_Signal Max_Cell_Voltage;
+CAN_Signal Min_Cell_Voltage;
+CAN_Signal Overall_Voltage;
+CAN_Signal Avg_Temp;
+CAN_Signal Max_Temp;
+CAN_Signal Min_Temp;
+CAN_Signal Speed;
+CAN_Signal RemoteDrive_Request;
+CAN_Signal SOC_Request;
+CAN_Signal LED_Signal;
+CAN_Signal LED_Flashing;
+CAN_Signal M_Engine;
+CAN_Signal n_Engine;
 
 volatile int ISR_Learn_LED_CTR = 0;
 volatile bool ISR_LED_Signal_Flag = false;
@@ -73,6 +94,11 @@ void handleNotFound();
 int send_RemoteDrive_Request();
 int send_SOC_Request();
 void handleRFConReturn();
+void define_CAN_Messages();
+int process_CAN_PowerData(CAN_frame_t* frame);
+int process_CAN_BatteryTemperature(CAN_frame_t* frame);
+int process_CAN_BatteryVoltage(CAN_frame_t* frame);
+int process_CAN_Option1Commands(CAN_frame_t* frame);
 
 void setup() {
   Serial.begin(115200);
@@ -166,7 +192,7 @@ void loop() {
       if(ISR_Learn_RF_Mode > 0 && Learn_RF_Active_Flag == false){
         int rv = learn_RFControl(ISR_Learn_RF_Mode);
 
-        if(rv==ERROR){perror("activating Pairing Mode failed");}
+        if(rv==ERROR){Serial.println("activating Pairing Mode failed");}
 
         // repeat until Signal was transmitted to RF Controller successfully
         if(rv == ISR_Learn_RF_Mode){
@@ -241,7 +267,6 @@ int init_GPIO_Exp_Ports(){
   // SET Bank for addressing
   int rv = GPIO_Exp_WriteBit(0x05, 7, HIGH);
   if(rv == ERROR){
-    perror("Setting Bank for address failed");
     Serial.println("Setting Bank for address failed");
     return ERROR;
   }
@@ -257,7 +282,7 @@ int init_GPIO_Exp_Ports(){
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 3, PIN_INPUT); // RC_Recieve_CH2
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 5, PIN_INPUT); // RC Receive CH3
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 7, PIN_INPUT); // RC Receive CH4
-  if(rv != 6){perror("Error in init Ports Bank A"); return ERROR;}else{Serial.println("Init Ports Bank A successful");}
+  if(rv != 6){Serial.println("Error in init Ports Bank A"); return ERROR;}else{Serial.println("Init Ports Bank A successful");}
 
   rv = 0;
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 0, PIN_OUTPUT); // LED Pin
@@ -268,13 +293,13 @@ int init_GPIO_Exp_Ports(){
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 5, PIN_OUTPUT); // RC Transmit CH3
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 6, PIN_OUTPUT); // CAN1 Silent Mode
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 7, PIN_OUTPUT); // CAN2 Silent Mode
-  if(rv != 8){perror("Error in init Ports Bank B"); return ERROR;}else{Serial.println("Init Ports Bank B successful");}
+  if(rv != 8){Serial.println("Error in init Ports Bank B"); return ERROR;}else{Serial.println("Init Ports Bank B successful");}
 
   // set PullUps where needed
   rv = 0;
   rv += GPIO_Exp_WriteRegister(GPIO_EXP_GPPUB, 0x00); // No PullUps needed
   rv += GPIO_Exp_WriteRegister(GPIO_EXP_GPPUB, 0x00); // no PullUps needed
-  if(rv != 2){perror("Error in set PullUp Resistors"); return ERROR;}else{Serial.println("Set PullUp Resistors successful");}
+  if(rv != 2){Serial.println("Error in set PullUp Resistors"); return ERROR;}else{Serial.println("Set PullUp Resistors successful");}
 
   // set Interrupt Settings 
   rv = 0;
@@ -298,12 +323,12 @@ int init_GPIO_Exp_Ports(){
   // Set Interrupt polarity to High_active
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IOCONA, 1, HIGH);
 
-  if(rv != 7){perror("Error in init Interrupts for GPIO Expansion"); return ERROR;}else{Serial.println("Init Interrupts for GPIO Expansion successful");}
+  if(rv != 7){Serial.println("Error in init Interrupts for GPIO Expansion"); return ERROR;}else{Serial.println("Init Interrupts for GPIO Expansion successful");}
 
   // Initial Value
   rv = 0;
   rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-  if(rv != 1){perror("Error in init Interrupts for GPIO Expansion"); return ERROR;}else{Serial.println("Init Interrupts for GPIO Expansion successful");}
+  if(rv != 1){Serial.println("Error in init Interrupts for GPIO Expansion"); return ERROR;}else{Serial.println("Init Interrupts for GPIO Expansion successful");}
 
   return SUCCESS;
 }
@@ -415,6 +440,8 @@ void init_can(){
     CAN1_active = false;
     Serial.println("Error starting CAN1");
   }
+
+  define_CAN_Messages();
 }
 
 void init_wifi(){
@@ -474,15 +501,26 @@ int process_CAN1(){
 
     int identifier = rx_frame.MsgID;
 
-    switch (identifier)
-    {
-    case 0x100:
-      /* code */
-      return SUCCESS;
-      break;
-    default:
+    if(Power_Data.id == identifier){
+      // Power Data Message
+      process_CAN_PowerData(&rx_frame);
+    }
+    else if(Battery_Temperature.id == identifier){
+      // Battery Temperature Message
+      process_CAN_BatteryTemperature(&rx_frame);
+    }
+    else if(Battery_Voltage.id == identifier){
+      // Battery Voltage Message
+      process_CAN_BatteryVoltage(&rx_frame);
+    }
+    else if(Option1_Commands.id == identifier){
+      // VCU Commands Message
+      process_CAN_Option1Commands(&rx_frame);
+    }
+    else{
+      // Unknown Message
+      Serial.println("Unknown CAN Message");
       return 0;
-      break;
     }
   }
 
@@ -899,55 +937,6 @@ void handleRFConReturn() {
   kart_server.send(200, "text/plain", RF_Connect_Return);
 }
 
-/*
-void handleEinstellungen() {
-  
-  if (kart_server.method() == HTTP_POST) {
-    // Werte aus dem Formular speichern
-    if (kart_server.hasArg("wifi_name")) {
-      ESP_storage.putString("WIFI_Name", kart_server.arg("wifi_name"));
-    }
-    if (kart_server.hasArg("wifi_password")) {
-      ESP_storage.putString("WIFI_Password", kart_server.arg("wifi_password"));
-    }
-    kart_server.sendHeader("Location", "/einstellungen");
-    kart_server.send(303, "text/plain", "Werte gespeichert, weiterleiten...");
-    return;
-  }
-
-  String EINSTELLUNGEN_page = 
-    "<!DOCTYPE html><html lang=\"de\"><head>"
-    "<meta charset=\"UTF-8\">"
-    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
-    "<title>Einstellungen - SMS REVO SL</title>"
-    "<style>"
-    "body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }"
-    ".card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); }"
-    "h1 { color:red; margin-bottom:20px; }"
-    "a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }"
-    "a.green { background:green; }"
-    "a.gray { background:gray; }"
-    "form { margin-top:20px; }"
-    "input[type=text], input[type=password] { padding:8px; margin:8px 0; border-radius:6px; border:1px solid #ccc; width:80%; }"
-    "input[type=submit] { padding:10px 20px; border-radius:8px; border:none; background:green; color:white; font-weight:bold; cursor:pointer; }"
-    "input[type=submit]:hover { background:darkgreen; }"
-    "</style></head><body><div class=\"card\">"
-    "<h1>Einstellungen</h1>"
-    "<form method=\"POST\" action=\"/einstellungen\">"
-    "<label for=\"wifi_name\">WIFI Name:</label><br>"
-    "<input type=\"text\" id=\"wifi_name\" name=\"wifi_name\" value=\"" + ESP_storage.getString("WIFI_Name") + "\"><br>"
-    "<label for=\"wifi_password\">WIFI Passwort:</label><br>"
-    "<input type=\"password\" id=\"wifi_password\" name=\"wifi_password\" minlength=\"8\" required value=\"" + ESP_storage.getString("WIFI_Password") + "\"><br>"
-    "<input type=\"submit\" value=\"Speichern\">"
-    "</form>"
-    "<p>Änderungen werden beim nächsten Neustart wirksam!</p>"
-    "<a class=\"btn gray\" href=\"/\">Zurück</a>"
-    "</div></body></html>";
-  kart_server.send(200, "text/html", EINSTELLUNGEN_page);
-}
-*/
-
-
 int send_RemoteDrive_Request(){
 /**
  * @brief Depending on the System, this function sends a CAN Message to the VCU or powers the MOSFET to send the Signal for Remote Drive to VCU via wired Connection. 
@@ -958,7 +947,7 @@ int send_RemoteDrive_Request(){
   // Set Pin GPIOB 4 on Port Extension to HIGH to power the MOSFET
   int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 4, HIGH);
   if(rv == ERROR){
-    perror("Write failed");
+    Serial.println("Write failed");
     return ERROR;
   }
   delay(300); // Wait 300ms for the Signal to be be Recieved by VCU
@@ -966,12 +955,22 @@ int send_RemoteDrive_Request(){
   // Set Pin GPIOB 4 on Port Extension to LOW to reset the MOSFET
   rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 4, LOW);
   if(rv == ERROR){
-    perror("Write failed");
+    Serial.println("Write failed");
     return ERROR;
   }
 
   if(ESP_storage.getInt("RF_CAN_en", FALSE) == TRUE){
-    //TODO: Send CAN-Message with RemoteDive Command to VCU
+    //Send CAN-Message with RemoteDive Command to VCU
+    uint8_t data[0] = {};
+    data[0] = 1 << RemoteDrive_Request.start_bit; // Set SOC Bit to HIGH
+    int rv = send_CAN1_Message(VCU_Commands.id, data, 1); // Send CAN Message
+
+    if(rv == ERROR){
+      Serial.println("Send CAN Message failed");
+      return ERROR;
+    }
+
+    
   }
 
   return SUCCESS;
@@ -987,7 +986,7 @@ int send_SOC_Request(){
   // Set Pin GPIOB 5 on Port Extension to HIGH to power the MOSFET
   int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 5, HIGH);
   if(rv == ERROR){
-    perror("Write failed");
+    Serial.println("Write failed");
     return ERROR;
   }
 
@@ -997,13 +996,21 @@ int send_SOC_Request(){
   // Set Pin GPIOB 5 on Port Extension to LOW to reset the MOSFET
   rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 5, LOW);
   if(rv == ERROR){
-    perror("Write failed");
+    Serial.println("Write failed");
     return ERROR;
   }
 
   // Send CAN Message
   if(ESP_storage.getInt("RF_CAN_en", FALSE) == TRUE){
-    //TODO: Send CAN-Message with RemoteDive Command to VCU
+    //Send CAN-Message with SOC Request Command to VCU
+    uint8_t data[0] = {};
+    data[0] = 1 << SOC_Request.start_bit; // Set SOC Bit to HIGH
+    int rv = send_CAN1_Message(VCU_Commands.id, data, 1); // Send CAN Message
+
+    if(rv == ERROR){
+      Serial.println("Send CAN Message failed");
+      return ERROR;
+    }
   }
 
   return SUCCESS;
@@ -1019,7 +1026,6 @@ int send_CAN1_Message(int id, uint8_t* data, int len){
  * @return 1 at Success, -1 at fail, 0 if CAN1 not active
  */
   if(len > 8){
-    perror("Data Length too long");
     Serial.println("Data Length too long");
     return ERROR;
   }
@@ -1039,15 +1045,182 @@ int send_CAN1_Message(int id, uint8_t* data, int len){
       return SUCCESS;
     }
     else{
-      perror("Error sending CAN1 Message");
       Serial.println("Error sending CAN1 Message");
       return ERROR;
     }
   }
   else{
-    perror("CAN1 not active");
     Serial.println("CAN1 not active");
     return 0;
   }
 
+}
+
+void define_CAN_Messages(){
+  // Define CAN Messages and Signals for Cummunication
+
+  Avg_Cell_Voltage.length = 9;
+  Avg_Cell_Voltage.factor = 0.01;
+  Avg_Cell_Voltage.offset = 0;
+  Avg_Cell_Voltage.polarity = UNSIGNED;
+  Avg_Cell_Voltage.start_bit = 0;
+
+  Max_Cell_Voltage.length = 9;
+  Max_Cell_Voltage.factor = 0.01;
+  Max_Cell_Voltage.offset = 0;
+  Max_Cell_Voltage.polarity = UNSIGNED;
+  Max_Cell_Voltage.start_bit = 16;
+
+  Min_Cell_Voltage.length = 9;
+  Min_Cell_Voltage.factor = 0.01;
+  Min_Cell_Voltage.offset = 0;
+  Min_Cell_Voltage.polarity = UNSIGNED;
+  Min_Cell_Voltage.start_bit = 32;
+
+  Overall_Voltage.length = 8;
+  Overall_Voltage.factor = 0.1;
+  Overall_Voltage.offset = 40;
+  Overall_Voltage.polarity = UNSIGNED;
+  Overall_Voltage.start_bit = 48;
+
+  Battery_Voltage.id = 0x20;
+  Battery_Voltage.n_signals = 4;
+  Battery_Voltage.signals[0] = &Avg_Cell_Voltage;
+  Battery_Voltage.signals[1] = &Max_Cell_Voltage;
+  Battery_Voltage.signals[2] = &Min_Cell_Voltage;
+  Battery_Voltage.signals[3] = &Overall_Voltage;
+
+  Avg_Temp.length = 9;
+  Avg_Temp.factor = 0.1;
+  Avg_Temp.offset = 0;
+  Avg_Temp.polarity = UNSIGNED;
+  Avg_Temp.start_bit = 0;
+
+  Max_Temp.length = 9;
+  Max_Temp.factor = 0.1;
+  Max_Temp.offset = 0;
+  Max_Temp.polarity = UNSIGNED;
+  Max_Temp.start_bit = 16;
+
+  Min_Temp.length = 9;
+  Min_Temp.factor = 0.1;
+  Min_Temp.offset = 0;
+  Min_Temp.polarity = UNSIGNED;
+  Min_Temp.start_bit = 32;
+
+  Battery_Temperature.id = 0x21;
+  Battery_Temperature.n_signals = 3;
+  Battery_Temperature.signals[0] = &Avg_Temp;
+  Battery_Temperature.signals[1] = &Max_Temp;
+  Battery_Temperature.signals[2] = &Min_Temp;
+
+  M_Engine.length = 8;
+  M_Engine.factor = 0.1;
+  M_Engine.offset = 0;
+  M_Engine.polarity = UNSIGNED;
+  M_Engine.start_bit = 0;
+
+  n_Engine.length = 10;
+  n_Engine.factor = 1;
+  n_Engine.offset = 0;
+  n_Engine.polarity = UNSIGNED;
+  n_Engine.start_bit = 8;
+
+  Speed.length = 11;
+  Speed.factor = 0.1;
+  Speed.offset = 0;
+  Speed.polarity = UNSIGNED;
+  Speed.start_bit = 24;
+
+  Power_Data.id = 0x010;
+  Power_Data.n_signals = 3;
+  Power_Data.signals[0] = &M_Engine;
+  Power_Data.signals[1] = &n_Engine;
+  Power_Data.signals[2] = &Speed;
+
+  LED_Flashing.length = 1;
+  LED_Flashing.factor = 1;
+  LED_Flashing.offset = 0;
+  LED_Flashing.polarity = UNSIGNED;
+  LED_Flashing.start_bit = 0;
+
+  LED_Signal.length = 3;
+  LED_Signal.factor = 1;
+  LED_Signal.offset = 0;
+  LED_Signal.polarity = UNSIGNED;
+  LED_Signal.start_bit = 1;
+
+  Option1_Commands.id = 0x031;
+  Option1_Commands.n_signals = 2;
+  Option1_Commands.signals[0] = &LED_Flashing;
+  Option1_Commands.signals[1] = &LED_Signal;
+
+  RemoteDrive_Request.length = 1;
+  RemoteDrive_Request.factor = 1;
+  RemoteDrive_Request.offset = 0;
+  RemoteDrive_Request.polarity = UNSIGNED;
+  RemoteDrive_Request.start_bit = 0;
+
+  SOC_Request.length = 1;
+  SOC_Request.factor = 1;
+  SOC_Request.offset = 0;
+  SOC_Request.polarity = UNSIGNED;
+  SOC_Request.start_bit = 1;
+
+  VCU_Commands.id = 0x030;
+  VCU_Commands.n_signals = 2;
+  VCU_Commands.signals[0] = &RemoteDrive_Request;
+  VCU_Commands.signals[1] = &SOC_Request;
+}
+
+int process_CAN_PowerData(CAN_frame_t* frame){
+  
+  float value = decodeSignal(Speed, frame);
+
+  // Save Value to global Variable to be shown on Display and Webserver
+  CAN_speed = value;
+}
+
+int process_CAN_Option1Commands(CAN_frame_t* frame){
+  float value = decodeSignal(LED_Flashing, frame);
+  // TODO: Enable or disable LED Flash Timer
+
+  value = decodeSignal(LED_Signal, frame);
+  // TODO: Activate LED Signal as often as defined in the CAN Message
+}
+
+int process_CAN_BatteryTemperature(CAN_frame_t* frame){
+  float value = decodeSignal(Avg_Temp, frame);
+
+  // TODO: Save Value to global Variable to be shown on Display and Webserver
+}
+
+int process_CAN_BatteryVoltage(CAN_frame_t* frame){
+  // Process incoming Battery Voltage CAN Message
+
+  float value = decodeSignal(Overall_Voltage, frame);
+  // TODO: Save Value to global Variable to be shown on Display and Webserver
+  
+}
+
+int decodeSignal(CAN_Signal signal, CAN_frame_t* frame){
+  int data = 0;
+
+  // Combine all data arrays to one value
+  for(int i = 0; i < frame->FIR.B.DLC; i++){
+    data |= frame->data.u8[i] << (i * 8);
+  }
+
+  // Read Speed from Data
+  // generate mask
+  int mask = 0;
+  for(int i=0; i<signal.length; i++){
+    mask = (mask << 1) | 0x01;
+  }
+
+  // Process all signals
+  int result = data >> signal.start_bit & mask;
+
+  // Apply factor and offset
+  float value = result * signal.factor + signal.offset;
 }

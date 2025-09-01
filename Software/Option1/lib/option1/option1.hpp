@@ -16,6 +16,20 @@ int GPIO_Exp_ReadRegister(int reg);
 int GPIO_Exp_WriteBit(int reg, int bit, int value);
 int GPIO_Exp_ReadBit(int reg, int bit);
 
+struct CAN_Signal{
+  uint32_t length;
+  uint8_t polarity;
+  uint16_t factor;
+  uint16_t offset;
+  uint32_t start_bit;
+};
+
+struct CAN_Message{
+  uint32_t id;
+  uint8_t n_signals;
+  CAN_Signal* signals[8];
+};
+
 
 /* GPIO define
 
@@ -132,6 +146,7 @@ GPIO35  -> Interrupt Port-Expander    -> Input                [Interrupt from GP
 #define ON 1
 #define OFF 0
 
-
+#define SIGNED 1
+#define UNSIGNED 0
 
 #endif

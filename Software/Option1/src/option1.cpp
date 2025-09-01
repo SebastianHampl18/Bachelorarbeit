@@ -18,6 +18,9 @@ int GPIO_Exp_ReadRegister(int reg);
 int GPIO_Exp_WriteBit(int reg, int bit, int value);
 int GPIO_Exp_ReadBit(int reg, int bit);
 
+
+
+
 int SPI_select(int Slave){
 /**
  * @brief Slaves selects the Component SPI wants to communicate with. Depending on Slave this function activates ChipSelect for corresponding Components
@@ -46,7 +49,7 @@ int SPI_select(int Slave){
     int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 2, LOW);
 
     if(rv == ERROR){
-      perror("ChipSelect RFID failed");
+      Serial.println("ChipSelect RFID failed");
       return ERROR;
     }
 
@@ -73,7 +76,7 @@ int SPI_deselect(){
   int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 2, HIGH);
 
   if(rv == ERROR){
-    perror("ChipSelect RFID could not be Reset");
+    Serial.println("ChipSelect RFID could not be Reset");
     return ERROR;
   }
 
@@ -117,14 +120,13 @@ int SPI_reset(int Slave){
       else if(Slave == RFID){
         int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 3, HIGH); //TODO: Check for High or LOW active
         if(rv == ERROR){
-          perror("Writing failed");
           Serial.println("Writing failed");
           return ERROR;
         }
         return 0;
       }
       else{  
-        perror("Unknown Slave Address");
+        Serial.println("Unknown Slave Address");
         return ERROR;
       }
     }
@@ -146,14 +148,14 @@ int SPI_reset(int Slave){
       else if(Slave == RFID){
         int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 3, LOW); //TODO: Check for High or LOW active
         if(rv == ERROR){
-          perror("Writing failed");
+          Serial.println("Writing failed");
           return ERROR;
         }
         wait_time_SPI_reset = 0;
         return SUCCESS;
       }
       else{  
-        perror("Unknown Slave Address");
+        Serial.println("Unknown Slave Address");
         return ERROR;
       }
     }
@@ -173,7 +175,7 @@ int CAN1_silent(){
   int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 6, LOW);  // TODO: Check on lo or high active
 
   if(rv == ERROR){
-    perror("Write failed");
+    Serial.println("Write failed");
     return ERROR;
   }
 
@@ -190,7 +192,7 @@ int CAN1_not_silent(){
   int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 6, HIGH);  // TODO: Check on low or high active
 
   if(rv == ERROR){
-    perror("Write failed");
+    Serial.println("Write failed");
     return ERROR;
   }
 
@@ -207,7 +209,7 @@ int CAN2_silent(){
   int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 6, LOW);  // TODO: Check on lo or high active
 
   if(rv == ERROR){
-    perror("Write failed");
+    Serial.println("Write failed");
     return ERROR;
   }
 
@@ -224,7 +226,7 @@ int CAN2_not_silent(){
   int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 7, HIGH);  // TODO: Check on lo or high active
 
   if(rv == ERROR){
-    perror("Write failed");
+    Serial.println("Write failed");
     return ERROR;
   }
 
@@ -241,7 +243,7 @@ int Status_LED_ON(){
   int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 0, HIGH);
 
   if(rv == ERROR){
-    perror("Write failed");
+    Serial.println("Write failed");
     return ERROR;
   }
 
@@ -258,7 +260,7 @@ int Status_LED_OFF(){
   int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 0, LOW);
 
   if(rv == ERROR){
-    perror("Write failed");
+    Serial.println("Write failed");
     return ERROR;
   }
 
@@ -289,7 +291,7 @@ int learn_RFControl(int mode){
       // Reset Signal
       rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
       time_wait_Learn_RF = 0;
-      if(rv!=2){perror("Writing failed"); return ERROR;}
+      if(rv!=2){Serial.println("Writing failed"); return ERROR;}
       return mode;
     }
     else{
@@ -305,7 +307,7 @@ int learn_RFControl(int mode){
       // Reset Signal
       rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
       time_wait_Learn_RF = 0;
-      if(rv!=4){perror("Writing failed"); return ERROR;}
+      if(rv!=4){Serial.println("Writing failed"); return ERROR;}
       return mode;
     }
     else if(time_wait_Learn_RF + 200 <= now){
@@ -329,7 +331,7 @@ int learn_RFControl(int mode){
       // Reset Signal
       rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
       time_wait_Learn_RF = 0;
-      if(rv!=6){perror("Writing failed"); return ERROR;}
+      if(rv!=6){Serial.println("Writing failed"); return ERROR;}
       return mode;
     }
     else if(time_wait_Learn_RF + 400 <= now){
@@ -361,7 +363,7 @@ int learn_RFControl(int mode){
       // Reset Signal
       rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
       time_wait_Learn_RF = 0;
-      if(rv!=8){perror("Writing failed"); return ERROR;}
+      if(rv!=8){Serial.println("Writing failed"); return ERROR;}
       return mode;
     }
     else if(time_wait_Learn_RF + 600 <= now){
@@ -401,7 +403,7 @@ int learn_RFControl(int mode){
       // Reset Signal
       rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
       time_wait_Learn_RF = 0;
-      if(rv!=2){perror("Writing failed"); return ERROR;}
+      if(rv!=2){Serial.println("Writing failed"); return ERROR;}
       return mode;
     }
     else{
@@ -417,7 +419,7 @@ int learn_RFControl(int mode){
       // Reset Signal
       rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
       time_wait_Learn_RF = 0;
-      if(rv!=4){perror("Writing failed"); return ERROR;}
+      if(rv!=4){Serial.println("Writing failed"); return ERROR;}
       return mode;
     }
     else if(time_wait_Learn_RF + 4000 <= now){
@@ -459,13 +461,11 @@ int GPIO_Exp_WriteRegister(int reg, int value){
   // Check for Value out of Range
   if(value > 255 || value < 0){
     // Value out of Range
-    perror("Value out of Range");
     Serial.println("Value out of Range");
     return ERROR;
   }
 
   if(reg<0x00 || (reg < 0x10 && reg > 0x0A) || reg > 0x1A){
-    perror("Register Address out of Range");
     Serial.println("Register Address out of Range");
     return ERROR;
   }
@@ -476,7 +476,6 @@ int GPIO_Exp_WriteRegister(int reg, int value){
   // Write register Address to Buffer
   int rv = Wire.write(reg); 
   if(rv <= 0){
-    perror("Write register Adress failed");
     Serial.println("Write register Adress failed");
     return ERROR;
   }  
@@ -484,7 +483,6 @@ int GPIO_Exp_WriteRegister(int reg, int value){
   // Write Data to Buffer
   rv = Wire.write(value);      // Write Data
   if(rv <= 0){
-    perror("Write data failed");
     Serial.println("Write data failed");
     return ERROR;
   }  
@@ -492,7 +490,6 @@ int GPIO_Exp_WriteRegister(int reg, int value){
   // Send Buffer to Communication
   rv = Wire.endTransmission();
   if(rv != 0){
-    perror("Sending Bufferr to Communication failed");
     Serial.println("Sending Bufferr to Communication failed");
     return ERROR;
   }
@@ -516,7 +513,6 @@ int GPIO_Exp_ReadRegister(int reg){
 
   // Check for Address out of Range
   if(reg<0x00 || (reg < 0x10 && reg > 0x0A) || reg > 0x1A){
-    perror("Register Address out of Range");
     Serial.println("Register Address out of Range");
     return ERROR;
   }
@@ -534,7 +530,6 @@ int GPIO_Exp_ReadRegister(int reg){
   Serial.print("Read rom Register done - Return Value: ");
   Serial.println(rv);
   if(rv <= 0){
-    perror("Write Failed");
     Serial.println("Write Failed");
     return ERROR;
   }
@@ -546,7 +541,6 @@ int GPIO_Exp_ReadRegister(int reg){
   Serial.println("Sending Buffer to Communication");
   rv = Wire.endTransmission(false);  // Stop-Bedingung vermeiden (Repeated Start)
   if(rv != 0){
-    perror("sending Data failed");
     Serial.println("sending Data failed");
     return ERROR;
   }
@@ -565,7 +559,6 @@ int GPIO_Exp_ReadRegister(int reg){
     return Wire.read(); // Byte zurückgeben
   }
   else{
-    perror("Data could not be read");
     Serial.println("Data could not be read");
   }
   return ERROR; // Fehlerwert
@@ -592,7 +585,6 @@ int GPIO_Exp_WriteBit(int reg, int bit, int value){
 
   // Check for value in Range
   if(value > 1 || value < 0){
-    perror("Value must be binary");
     Serial.println("Value must be binary");
     return ERROR;
   }
@@ -602,7 +594,6 @@ int GPIO_Exp_WriteBit(int reg, int bit, int value){
   
   // Check for Address out of Range
   if(reg<0x00 || (reg < 0x10 && reg > 0x0A) || reg > 0x1A){
-    perror("Register Address out of Range");
     Serial.println("Register Address out of Range");
     return ERROR;
   }
@@ -617,7 +608,6 @@ int GPIO_Exp_WriteBit(int reg, int bit, int value){
   // Write Register Adress to Buffer
   int rv = Wire.write(reg);  
   if(rv <= 0){
-    perror("Writing Failed");
     Serial.println("Writing Failed");
     return ERROR;
   } 
@@ -628,7 +618,6 @@ int GPIO_Exp_WriteBit(int reg, int bit, int value){
   // Read Data from Register
   int reg_value = GPIO_Exp_ReadRegister(reg);
   if(reg_value == ERROR){
-    perror("Register could not be read");
     Serial.println("Register could not be read");
     return ERROR;
   }
@@ -641,7 +630,6 @@ int GPIO_Exp_WriteBit(int reg, int bit, int value){
   if(value == HIGH){
     rv = Wire.write(reg_value | (1 << bit)); 
     if(rv <= 0){
-      perror("Writing Failed");
       Serial.println("Writing Failed");
       return ERROR;
     }
@@ -652,7 +640,6 @@ int GPIO_Exp_WriteBit(int reg, int bit, int value){
   else if(value == LOW){
     rv = Wire.write(reg_value & ~(1 << bit));
     if(rv <= 0){
-      perror("Writing Failed");
       Serial.println("Writing Failed");
       return ERROR;
     }
@@ -665,7 +652,6 @@ int GPIO_Exp_WriteBit(int reg, int bit, int value){
   Serial.println("Sending Buffer to Communication");
   rv = Wire.endTransmission();
   if(rv != 0){
-    perror("Error sending data via I2C");
     Serial.println("Error sending data via I2C");
     return ERROR;
   }
@@ -691,14 +677,12 @@ int GPIO_Exp_ReadBit(int reg, int bit){
 
    // Check for Bit Value out of Range
   if(bit > 7){
-    perror("Value out of Range");
     Serial.println("Value out of Range");
     return ERROR;
   }
 
   // Check for Address out of Range
   if(reg<0x00 || (reg < 0x10 && reg > 0x0A) || reg > 0x1A){
-    perror("Register Address out of Range");
     Serial.println("Register Address out of Range");
     return ERROR;
   }
@@ -706,7 +690,6 @@ int GPIO_Exp_ReadBit(int reg, int bit){
   // Read Register from GPIO Port Expansion
   int value = GPIO_Exp_ReadRegister(reg);
   if(value == ERROR){
-    perror("Read Register Failed");
     Serial.println("Read Register Failed");
     return ERROR;
   }
