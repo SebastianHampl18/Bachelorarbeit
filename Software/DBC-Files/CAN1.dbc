@@ -44,7 +44,7 @@ BO_ 48 VCU_Commands: 1 Option1
  SG_ SOC_Request : 1|1@1+ (1,0) [0|1] ""  VCU
  SG_ RemoteDrive_Request : 0|1@1+ (1,0) [0|1] "" Vector__XXX
 
-BO_ 16 Vehicle_Speed: 5 VCU
+BO_ 16 Power_Data: 5 VCU
  SG_ Speed : 24|11@1+ (0.1,0) [0|204.7] "km/h"  Option1
  SG_ n_engine : 8|10@1+ (1,0) [0|1023] "1/min"  Option1
  SG_ M_Engine : 0|8@1+ (0.1,0) [0|25.5] "Nm"  Option1
@@ -52,7 +52,7 @@ BO_ 16 Vehicle_Speed: 5 VCU
 BO_ 33 Battery_Temperature: 6 Battery
  SG_ Min_Temp : 32|9@1+ (0.1,0) [0|51.1] "°C"  VCU,Option1
  SG_ Max_Temp : 16|9@1+ (0.1,0) [0|51.1] "°C"  Option1,VCU
- SG_ Avg_Temp : 0|9@1+ (0.01,0) [0|5.11] "°C"  VCU,Option1
+ SG_ Avg_Temp : 0|9@1+ (0.1,0) [0|51.1] "°C"  VCU,Option1
 
 BO_ 32 Battery_Voltage: 7 Battery
  SG_ Voltage : 48|8@1+ (0.1,40) [40|65.5] "V"  Option1,VCU
