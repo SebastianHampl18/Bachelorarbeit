@@ -123,6 +123,39 @@ GPIO35  -> Interrupt Port-Expander    -> Input                [Interrupt from GP
 #define GPIO_EXP_GPIOB 0x19
 #define GPIO_EXP_OLATB 0x1A
 
+// CAN2 Controller Registers
+#define CAN2_BFPCTRL 0x0C
+#define CAN2_TXRTSCTRL 0x0D
+#define CAN2_CANSTAT 0x0E
+#define CAN2_CANCTRL 0x0F
+#define CAN2_TEC 0x1C
+#define CAN2_REC 0x1D
+#define CAN2_CNF3 0x28
+#define CAN2_CNF2 0x29
+#define CAN2_CNF1 0x2A
+#define CAN2_CANINTE 0x2B
+#define CAN2_CANINTF 0x2C
+#define CAN2_EFLG 0x2D
+#define CAN2_TXB0CTRL 0x30
+#define CAN2_TXB1CTRL 0x40
+#define CAN2_TXB2CTRL 0x50
+#define CAN2_RXB0CTRL 0x60
+#define CAN2_RXB0SIDH 0x61
+#define CAN2_RXB0SIDL 0x62
+#define CAN2_RXB0DLC 0x65
+#define CAN2_RXB0D0 0x66  
+#define CAN2_RXB0D1 0x67
+#define CAN2_RXB0D2 0x68
+#define CAN2_RXB0D3 0x69
+#define CAN2_RXB0D4 0x6A
+#define CAN2_RXB0D5 0x6B
+#define CAN2_RXB0D6 0x6C
+#define CAN2_RXB0D7 0x6D
+#define CAN2_RXB1CTRL 0x70
+
+
+#define MASTER_ID 0x99999999
+
 // Logical Values
 #define PIN_OUTPUT 0
 #define PIN_INPUT 1

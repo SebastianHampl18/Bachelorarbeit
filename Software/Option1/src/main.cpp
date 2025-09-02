@@ -29,6 +29,7 @@ IPAddress subnet(255,255,255,0);     // Subnetmask
 WebServer kart_server(80);
 
 /****************            Global Variables            ****************************/
+// CAN 1
 CAN_Message Battery_Temperature;
 CAN_Message Battery_Voltage;
 CAN_Message Power_Data;
@@ -49,6 +50,12 @@ CAN_Signal LED_Signal;
 CAN_Signal LED_Flashing;
 CAN_Signal M_Engine;
 CAN_Signal n_Engine;
+
+// CAN 2
+CAN_Message RFID_Data;
+
+CAN_Signal Customer_ID;
+CAN_Signal Power_Mode;
 
 volatile int ISR_Learn_LED_CTR = 0;
 volatile bool ISR_LED_Signal_Flag = false;
@@ -73,6 +80,7 @@ volatile float CAN_battery_temp = 0.0;
 String RF_Connect_Return = "...";
 volatile bool LED_Flashing_Active = false;
 volatile uint8_t LED_Flashing_CTR = 0;
+volatile bool activate_Master_Mode = false;
 
 
 // put function declarations here:
@@ -84,7 +92,7 @@ void ISR_CAN2();
 void ISR_TouchController();
 void init_Timer();
 void init_storage();
-void init_can();
+void init_can1();
 void init_wifi();
 int process_CAN1();
 int check_RF_Error();
@@ -98,11 +106,13 @@ void handleNotFound();
 int send_RemoteDrive_Request();
 int send_SOC_Request();
 void handleRFConReturn();
-void define_CAN_Messages();
+void define_CAN1_Messages();
 int process_CAN_PowerData(CAN_frame_t* frame);
 int process_CAN_BatteryTemperature(CAN_frame_t* frame);
 int process_CAN_BatteryVoltage(CAN_frame_t* frame);
 int process_CAN_Option1Commands(CAN_frame_t* frame);
+void init_CAN2();
+void define_CAN2_Messages();
 
 void setup() {
   Serial.begin(115200);
@@ -112,8 +122,11 @@ void setup() {
   init_Interrupts();
   init_Timer();
   init_storage();
-  //init_can();
+  //init_can1();
+  init_CAN2();
   init_wifi();
+
+  activate_Master_Mode = false;
   
 }
 
@@ -443,7 +456,7 @@ void init_storage(){
   
 }
 
-void init_can(){
+void init_can1(){
 
   Serial.println("Init CAN");
 
@@ -460,7 +473,7 @@ void init_can(){
     Serial.println("Error starting CAN1");
   }
 
-  define_CAN_Messages();
+  define_CAN1_Messages();
 }
 
 void init_wifi(){
@@ -546,6 +559,57 @@ int process_CAN1(){
   return 0;
 }
 
+void init_CAN2(){
+
+  Serial.println("Init CAN2");
+  int do_config = false;
+
+  // Initialize CAN2 Module via SPI
+  // Set CAN2 Module to Config Mode
+  write_SPI_Register(CAN2_CANCTRL,0x80); // Set Config Mode
+  delay(50);
+
+  // Check for Controller in Config Mode
+  // Read CANSTAT Register [7:5] -> Mode
+  int mode = read_SPI_Register(CAN2_CANSTAT) >> 5;
+  if(mode == 0x04){
+    Serial.println("CAN2 in Config Mode");
+    do_config = true;
+  }
+  else{
+    // TODO: Error Handling - Try Multiple Times
+    Serial.println("Error: CAN2 not in Config Mode");
+  }
+
+  if(do_config == true){
+    // Set Bitrate to 500 kbps
+    // For 8MHz Clock
+    write_SPI_Register(CAN2_CNF1, 0x00); // SJW=1, BRP=0 -> 500 kbps
+    write_SPI_Register(CAN2_CNF2, 0x89); // BTLMODE=1, SAM=0, PHSEG1=2, PRSEG=2
+    write_SPI_Register(CAN2_CNF3, 0x02); // PHSEG2=3
+
+    // Enable Interrupts
+    write_SPI_Register(CAN2_CANINTE, 0xFF); // Enable all interrupts
+
+    // Set Normal Mode
+    write_SPI_Register(CAN2_CANCTRL, 0x00); // Set Normal Mode
+    delay(50);
+
+    // Check for Controller in Normal Mode
+    mode = read_SPI_Register(CAN2_CANSTAT) >> 5;
+    if(mode == 0x00){
+      Serial.println("CAN2 in Normal Mode");
+      CAN1_active = true;
+    }
+    else{
+      //TODO: Error Handling - Try Multiple Times
+      Serial.println("Error: CAN2 not in Normal Mode");
+    }
+  }
+
+  define_CAN2_Messages();
+}
+
 // Interrupts
 void ISR_GPIO_Expansion(){
   // Interrupt Service Routine for GPIO Expansion Interrupts
@@ -612,6 +676,56 @@ void ISR_GPIO_Expansion(){
 void ISR_CAN2(){
   // Interrupt Service Routine for CAN2 Messages
   // Set Flags for Interrupts
+  // Read CAN2 Message via SPI
+
+  // Check for Message in Buffer 0
+  // Check RX Buffer 0 Full Flag [bit:0]
+  if(read_SPI_Register(CAN2_CANINTF) & 0x01){
+    // Clear Interrupt Flag
+    write_SPI_Register(CAN2_CANINTF, 0x00);
+
+    // Message in Buffer 0
+    // Read Identifier from Controller
+    int identifier = (read_SPI_Register(CAN2_RXB0SIDH) << 3) | (read_SPI_Register(CAN2_RXB0SIDL) >> 5);
+    if(identifier == RFID_Data.id){
+      // RFID Message recieved
+      // Read Data Length Code
+      int dlc = read_SPI_Register(CAN2_RXB0DLC) & 0x0F;
+
+      // Read Data Bytes
+      uint64_t data = 0;
+      for(int i=0; i<dlc; i++){
+        data = (data << (i * 8)) | read_SPI_Register(CAN2_RXB0D0 + i);
+      }
+      // Process Data
+      // generate mask for data
+      uint64_t mask = ~(0xFFFFFFFFFFFFFFFF << Customer_ID.length);
+
+      // Extract Signals
+      uint64_t Customer_identifier = (data >> Customer_ID.start_bit) & mask;
+
+      // Handle data
+      if(Customer_identifier == MASTER_ID){
+        // Master ID detected
+        // Activate Master Mode
+        activate_Master_Mode = true;
+      }
+      else{
+        activate_Master_Mode = false;
+      }
+    }
+    else{
+      // Unknown Message
+      Serial.println("Unknown CAN2 Message");
+    }
+
+  }
+  else{
+    // No Message in Buffer 0
+    Serial.println("No Message in CAN2 Buffer 0");
+    // TODO: Check for Error Flags
+    // TODO: Clear Interrupt Flag
+  }
 }
 
 void ISR_TouchController(){
@@ -1075,7 +1189,7 @@ int send_CAN1_Message(int id, uint8_t* data, int len){
 
 }
 
-void define_CAN_Messages(){
+void define_CAN1_Messages(){
   // Define CAN Messages and Signals for Cummunication
 
   Avg_Cell_Voltage.length = 9;
@@ -1192,6 +1306,26 @@ void define_CAN_Messages(){
   VCU_Commands.signals[1] = &SOC_Request;
 }
 
+void define_CAN2_Messages(){
+  // Define CAN2 Messages and Signals for Cummunication
+  Customer_ID.length = 16;
+  Customer_ID.factor = 1;
+  Customer_ID.offset = 0;
+  Customer_ID.polarity = UNSIGNED;
+  Customer_ID.start_bit = 0;
+
+  Power_Mode.length = 8;
+  Power_Mode.factor = 1;
+  Power_Mode.offset = 0;
+  Power_Mode.polarity = UNSIGNED;
+  Power_Mode.start_bit = 16;
+
+  RFID_Data.id = 0x010;
+  RFID_Data.n_signals = 2;
+  RFID_Data.signals[0] = &Customer_ID;
+  RFID_Data.signals[1] = &Power_Mode;
+}
+
 int process_CAN_PowerData(CAN_frame_t* frame){
   
   float value = decodeSignal(Speed, frame);
@@ -1293,3 +1427,27 @@ void IRAM_ATTR TIM_LED_Flashing_overflow(){
   }
   
 }
+
+void write_SPI_Register(uint8_t reg, uint8_t value){
+  // Write single Register via SPI
+  SPI_select(CAN2);
+  my_SPI.transfer(0x03);      // Send Write Command
+  my_SPI.transfer(reg);       // Send Register Address
+  my_SPI.transfer(value);     // Send Value
+  SPI_deselect();
+  delay(10);
+}
+
+uint8_t read_SPI_Register(uint8_t reg){
+  // Read single Register via SPI
+  SPI_select(CAN2);
+  my_SPI.transfer(0x02);      // Send Read Command
+  my_SPI.transfer(reg);       // Send Register Address
+  uint8_t value = my_SPI.transfer(0x00); // Send Dummy Byte to receive Value
+  SPI_deselect();
+  delay(10);
+  return value;
+}
+
+
+
