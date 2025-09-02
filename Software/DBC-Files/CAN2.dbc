@@ -33,8 +33,12 @@ NS_ :
 
 BS_:
 
-BU_:
+BU_: Option1 VCU RFID_Reader
 
+
+BO_ 16 RFID_Data: 3 RFID_Reader
+ SG_ Power_Mode : 16|8@1+ (1,0) [0|255] ""  Option1,VCU
+ SG_ Customer_ID : 0|16@1+ (1,0) [0|65535] ""  Option1,VCU
 
 
 
