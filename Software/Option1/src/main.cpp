@@ -17,6 +17,7 @@ CAN_device_t CAN_cfg;
 HardwareSerial MicroUSB(1);
 SPIClass my_SPI(VSPI);
 hw_timer_t * TIM_RF_Learn_Active = NULL;
+hw_timer_t * TIM_LED_Flashing = NULL;
 Preferences ESP_storage;
 
 // Set IP-Address for WIFI
@@ -70,6 +71,9 @@ volatile float CAN_soc = 0.0;
 volatile float CAN_battery_voltage = 0.0;
 volatile float CAN_battery_temp = 0.0;
 String RF_Connect_Return = "...";
+volatile bool LED_Flashing_Active = false;
+volatile uint8_t LED_Flashing_CTR = 0;
+
 
 // put function declarations here:
 void init_ports();
@@ -348,6 +352,8 @@ void init_Timer(){
   Serial.println("Init Timer");
 
   // initardwaretimer
+
+  /***************  Timer 0 - RF Learn Active detection ********************************************/
   // Timer 0, Prescaler 8000 -> 1 tick = 0.1 ms (bei 80 MHz APB), countUp
   TIM_RF_Learn_Active = timerBegin(0, 8000, true); 
 
@@ -355,8 +361,21 @@ void init_Timer(){
   timerAttachInterrupt(TIM_RF_Learn_Active, TIM_RF_Learn_Active_overflow, true); // react on rising Edge
 
   // set Timer-Alarm: 3.000 ms = 3 Sekunden
-  timerAlarmWrite(TIM_RF_Learn_Active, 30000, false); // false = one-shot, true = auto-reload
+  timerAlarmWrite(TIM_RF_Learn_Active, 3000, false); // false = one-shot, true = auto-reload
   timerAlarmDisable(TIM_RF_Learn_Active);            // Timer will be activated by ISR
+  /*****************************************************************************************************/
+
+  /*************** Timer 1 - LED Flashing via CAN ******************************************************/
+  // Timer 1, Prescaler 8000 -> 1 tick = 0.1 ms (bei 80 MHz APB), countUp
+  TIM_LED_Flashing = timerBegin(1, 8000, true);
+
+  // init Interrupt for Timer overflow
+  timerAttachInterrupt(TIM_LED_Flashing, TIM_LED_Flashing_overflow, true); // react on rising Edge
+
+  // set Timer-Alarm: 500 ms = 0.5 Sekunden -> Period = 1 sec
+  timerAlarmWrite(TIM_RF_Learn_Active, 500, true); // true = auto-reload
+  timerAlarmDisable(TIM_RF_Learn_Active);            // Timer will be activated by CAN-receive
+  /*****************************************************************************************************/
 }
 
 void init_storage(){
@@ -1183,10 +1202,21 @@ int process_CAN_PowerData(CAN_frame_t* frame){
 
 int process_CAN_Option1Commands(CAN_frame_t* frame){
   float value = decodeSignal(LED_Flashing, frame);
-  // TODO: Enable or disable LED Flash Timer
+  // Enable or disable LED Flash Timer
+  if(value = TRUE){
+    LED_Flashing_Active = TRUE;
+  }
+  else{
+    LED_Flashing_Active = FALSE;
+  }
 
   value = decodeSignal(LED_Signal, frame);
-  // TODO: Activate LED Signal as often as defined in the CAN Message
+  // Activate LED Signal as often as defined in the CAN Message
+  if(value > 0){
+    LED_Flashing_CTR = value; // every cycle of the timer toggles the LED, so double the count
+    timerAlarmEnable(TIM_LED_Flashing); // start Timer
+  }
+
 }
 
 int process_CAN_BatteryTemperature(CAN_frame_t* frame){
@@ -1223,4 +1253,43 @@ int decodeSignal(CAN_Signal signal, CAN_frame_t* frame){
 
   // Apply factor and offset
   float value = result * signal.factor + signal.offset;
+}
+
+void IRAM_ATTR TIM_LED_Flashing_overflow(){
+  static bool led_state = OFF;
+  if(LED_Flashing_CTR > 0){
+    // Flash LED
+    if(led_state == OFF){
+      // Set LED on
+      Status_LED_ON();
+      led_state = ON;
+      LED_Flashing_CTR -= 1;
+    }
+    else{
+      // Set LED off
+      Status_LED_OFF();
+      led_state = OFF;
+    }
+  }
+  else{
+    // Stop Flashing
+    Status_LED_OFF();
+    timerAlarmDisable(TIM_LED_Flashing);       // stop Timer
+  }
+  
+  // Constant Flashing
+  if(LED_Flashing_Active == true){
+    // Flash LED permanently
+    if(led_state == OFF){
+      // Set LED on
+      Status_LED_ON();
+      led_state = ON;
+    }
+    else{
+      // Set LED off
+      Status_LED_OFF();
+      led_state = OFF;
+    }
+  }
+  
 }
