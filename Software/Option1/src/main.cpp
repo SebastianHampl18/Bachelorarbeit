@@ -80,7 +80,9 @@ volatile float CAN_battery_temp = 0.0;
 String RF_Connect_Return = "...";
 volatile bool LED_Flashing_Active = false;
 volatile uint8_t LED_Flashing_CTR = 0;
-volatile bool activate_Master_Mode = false;
+volatile bool Master_Mode_active = false;
+volatile float Avg_Temp_value = 0.0;
+volatile float Overall_Voltage_value = 0.00;
 
 
 // put function declarations here:
@@ -103,16 +105,23 @@ void handleLivedaten();
 void handleValues();
 void handleEinstellungen();
 void handleNotFound();
+void handleHersteller();
 int send_RemoteDrive_Request();
 int send_SOC_Request();
 void handleRFConReturn();
 void define_CAN1_Messages();
-int process_CAN_PowerData(CAN_frame_t* frame);
-int process_CAN_BatteryTemperature(CAN_frame_t* frame);
-int process_CAN_BatteryVoltage(CAN_frame_t* frame);
-int process_CAN_Option1Commands(CAN_frame_t* frame);
+void process_CAN_PowerData(CAN_frame_t* frame);
+void process_CAN_BatteryTemperature(CAN_frame_t* frame);
+void process_CAN_BatteryVoltage(CAN_frame_t* frame);
+void process_CAN_Option1Commands(CAN_frame_t* frame);
 void init_CAN2();
 void define_CAN2_Messages();
+int decodeSignal(CAN_Signal signal, CAN_frame_t* frame);
+void print_NVS();
+int send_CAN1_Message(int id, uint8_t* data, int len);
+void write_SPI_Register(uint8_t reg, uint8_t value);
+uint8_t read_SPI_Register(uint8_t reg);
+void IRAM_ATTR TIM_LED_Flashing_overflow();
 
 void setup() {
   Serial.begin(115200);
@@ -123,10 +132,10 @@ void setup() {
   init_Timer();
   init_storage();
   //init_can1();
-  init_CAN2();
+  //init_CAN2();
   init_wifi();
 
-  activate_Master_Mode = false;
+  Master_Mode_active = true;
   
 }
 
@@ -147,6 +156,9 @@ void loop() {
     if(CAN_speed > 120.0){CAN_speed = 0.0;}
     if(CAN_battery_temp > 45.0){CAN_battery_temp = 20.0;}
     if(CAN_soc < 0.0){CAN_soc = 100.0;}
+  }
+  if(loop_ctr % 5000 == 0){
+    print_NVS();
   }
 
   // Polling for Interrupt Flags set by GPIO Expansion ***************************************************************************
@@ -229,8 +241,11 @@ void loop() {
   
   
   // Processing incoming CAN1 Messages *****************************************************************************************
-  if(CAN1_active == true){
-    process_CAN1();
+  if(ESP_storage.getInt("Display_enable", FALSE) == TRUE || ESP_storage.getInt("Wifi_enable", FALSE) == TRUE){
+    // CAN1 is only processed if Display or Wifi Communication is enabled
+    if(CAN1_active == true){
+      process_CAN1();
+    }
   }
   // End of processing incoming CAN1 Messages ***********************************************************************
 
@@ -356,8 +371,8 @@ void init_Interrupts(){
   // Init Interrupts
 
   attachInterrupt(digitalPinToInterrupt(INT_PE_PIN), ISR_GPIO_Expansion, RISING);
-  attachInterrupt(digitalPinToInterrupt(SPI_INT_CAN2_PIN), ISR_CAN2, RISING);
-  attachInterrupt(digitalPinToInterrupt(SPI_INT_TP_PIN), ISR_TouchController, RISING);
+  //attachInterrupt(digitalPinToInterrupt(SPI_INT_CAN2_PIN), ISR_CAN2, RISING);
+  //attachInterrupt(digitalPinToInterrupt(SPI_INT_TP_PIN), ISR_TouchController, RISING);
 }
 
 void init_Timer(){
@@ -500,6 +515,7 @@ void init_wifi(){
   kart_server.on("/", handleRoot);
   kart_server.on("/livedaten", handleLivedaten);
   kart_server.on("/einstellungen", handleEinstellungen);
+  kart_server.on("/hersteller", handleHersteller);
   kart_server.on("/values", handleValues);
   kart_server.on("/RF_Connect_Return", handleRFConReturn);
   kart_server.onNotFound(handleNotFound);
@@ -708,10 +724,10 @@ void ISR_CAN2(){
       if(Customer_identifier == MASTER_ID){
         // Master ID detected
         // Activate Master Mode
-        activate_Master_Mode = true;
+        Master_Mode_active = true;
       }
       else{
-        activate_Master_Mode = false;
+        Master_Mode_active = false;
       }
     }
     else{
@@ -928,7 +944,9 @@ void handleValues() {
   kart_server.send(200, "application/json", json);
 }
 
+
 void handleEinstellungen() {
+  
   if (kart_server.method() == HTTP_POST) {
     // Werte aus Formular speichern
     if (kart_server.hasArg("wifi_name")) {
@@ -939,9 +957,9 @@ void handleEinstellungen() {
     }
 
     if (kart_server.hasArg("display_off")) {
-      ESP_storage.putBool("Display_off", true);
+      ESP_storage.putInt("Display_off", true);
     } else {
-      ESP_storage.putBool("Display_off", false);
+      ESP_storage.putInt("Display_off", false);
     }
 
     // Spezialaktionen über Buttons
@@ -953,11 +971,13 @@ void handleEinstellungen() {
         int rv = learn_RFControl(1); // Start learning mode for RF Controller
         if(rv==ERROR){
           Serial.println("Pairing Controller failed");
-          //TODO: Write to Website 
+          // Write to Website 
+          RF_Connect_Return = "Pairing Controller failed";
         }
         else{
           Serial.println("Pairing Controller successful");
-          //TODO: Write to Website 
+          // Write to Website 
+          RF_Connect_Return = "Pairing Controller successful";
         }
       }
       else if (act == "remote_unbind") {
@@ -966,11 +986,13 @@ void handleEinstellungen() {
         int rv = learn_RFControl(5); // Delete last binded RF Controller
         if(rv==ERROR){
           Serial.println("deleting last RF Controller failed");
-          //TODO: Write to Website 
+          // Write to Website 
+          RF_Connect_Return = "deleting last RF Controller failed";
         }
         else{
           Serial.println("deleting last RF Controller successful");
-          //TODO: Write to Website 
+          // Write to Website 
+          RF_Connect_Return = "deleting last RF Controller successful";
         }
       }      
       else if (act == "remote_unbind_all") {
@@ -979,11 +1001,13 @@ void handleEinstellungen() {
         int rv = learn_RFControl(6); // Delete every binded RF Controller
         if(rv==ERROR){
           Serial.println("deleting all RF Controllers failed");
-          //TODO: Write to Website 
+          // Write to Website 
+          RF_Connect_Return = "deleting all RF Controllers failed";
         }
         else{
           Serial.println("deleting all RF Controllers successful");
-          // TODO: Write to Website
+          // Write to Website
+          RF_Connect_Return = "deleting all RF Controllers successful";
         }
       }
     }
@@ -995,7 +1019,7 @@ void handleEinstellungen() {
   }
 
   // Aktuellen Status von Display_off holen
-  bool displayOff = ESP_storage.getBool("Display_off", false);
+  bool displayOff = ESP_storage.getInt("Display_off", false);
 
   String EINSTELLUNGEN_page =
     "<!DOCTYPE html><html lang=\"de\"><head>"
@@ -1065,6 +1089,111 @@ void handleEinstellungen() {
 
   kart_server.send(200, "text/html", EINSTELLUNGEN_page);
 }
+
+void handleHersteller() {
+  if (kart_server.method() == HTTP_POST) {
+    // Prüfen welcher Button gedrückt wurde
+    if (kart_server.hasArg("Display_off_true")) {
+      ESP_storage.putInt("Display_off", true); // true
+      Serial.println("Display_off -> true");
+    }
+    if (kart_server.hasArg("Display_off_false")) {
+      ESP_storage.putInt("Display_off", false); // false
+      Serial.println("Display_off -> false");
+    }
+
+    if (kart_server.hasArg("RF_enable_true")) {
+      ESP_storage.putInt("RF_enable", true); // true
+      Serial.println("RF_enable -> true");
+    }
+    if (kart_server.hasArg("RF_enable_false")) {
+      ESP_storage.putInt("RF_enable", false); // false
+      Serial.println("RF_enable -> false");
+    }
+
+    if (kart_server.hasArg("Display_enable_true")) {
+      ESP_storage.putInt("Display_enable", true); // true
+      Serial.println("Display_enable -> true");
+    }
+    if (kart_server.hasArg("Display_enable_false")) {
+      ESP_storage.putInt("Display_enable", false); // false
+      Serial.println("Display_enable -> false");
+    }
+
+    if (kart_server.hasArg("RFID_enable_true")) {
+      ESP_storage.putInt("RFID_enable", true); // true
+      Serial.println("RFID_enable -> true");
+    }
+    if (kart_server.hasArg("RFID_enable_false")) {
+      ESP_storage.putInt("RFID_enable", false); // false
+      Serial.println("RFID_enable -> false");
+    }
+
+    kart_server.sendHeader("Location", "/hersteller");
+    kart_server.send(303, "text/plain", "Wert gespeichert, weiterleiten...");
+    return;
+  }
+
+  // aktuellen Status holen
+  bool displayOff = ESP_storage.getInt("Display_off", false);
+  bool RF_enable = ESP_storage.getInt("RF_enable", false);
+  bool Display_enable = ESP_storage.getInt("Display_enable", false);
+  bool RFID_enable = ESP_storage.getInt("RFID_enable", false);
+
+  // HTML-Seite erstellen
+  String page =
+    "<!DOCTYPE html><html lang=\"de\"><head>"
+    "<meta charset=\"UTF-8\">"
+    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+    "<title>Hersteller Einstellungen</title>"
+    "<style>"
+    "body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }"
+    ".card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); max-width:400px; width:100%; }"
+    "h1 { color:red; margin-bottom:20px; }"
+    "button { padding:10px 20px; border-radius:8px; border:none; font-weight:bold; cursor:pointer; margin:6px; }"
+    "button.green { background:green; color:white; }"
+    "button.red { background:red; color:white; }"
+    "button.green:hover { background:darkgreen; }"
+    "button.red:hover { background:darkred; }"
+    "a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }"
+    "a.gray { background:gray; }"
+    "</style></head><body><div class=\"card\">"
+    "<h1>Hersteller Einstellungen</h1>"
+
+    "<p>Display_off: " + String(displayOff ? "AN" : "AUS") + "</p>"
+    "<form method=\"POST\" action=\"/hersteller\">"
+    "<button type=\"submit\" name=\"Display_off_true\" class=\"green\">Ein</button>"
+    "<button type=\"submit\" name=\"Display_off_false\" class=\"red\">Aus</button>"
+    "</form>"
+    "<p>\n</p>"
+
+    "<p>RF_enable: " + String(RF_enable ? "AN" : "AUS") + "</p>"
+    "<form method=\"POST\" action=\"/hersteller\">"
+    "<button type=\"submit\" name=\"RF_enable_true\" class=\"green\">Ein</button>"
+    "<button type=\"submit\" name=\"RF_enable_false\" class=\"red\">Aus</button>"
+    "</form>"
+    "<p>\n</p>"
+
+    "<p>Display_enable_off: " + String(Display_enable ? "AN" : "AUS") + "</p>"
+    "<form method=\"POST\" action=\"/hersteller\">"
+    "<button type=\"submit\" name=\"Display_enable_true\" class=\"green\">Ein</button>"
+    "<button type=\"submit\" name=\"Display_enable_false\" class=\"red\">Aus</button>"
+    "</form>"
+    "<p>\n</p>"
+    
+    "<p>RFID_enable_off: " + String(RFID_enable ? "AN" : "AUS") + "</p>"
+    "<form method=\"POST\" action=\"/hersteller\">"
+    "<button type=\"submit\" name=\"RFID_enable_true\" class=\"green\">Ein</button>"
+    "<button type=\"submit\" name=\"RFID_enable_false\" class=\"red\">Aus</button>"
+    "</form>"
+    "<p>\n</p>"
+
+    "<br><a href=\"/\" class=\"btn gray\">Zurück</a>"
+    "</div></body></html>";
+
+  kart_server.send(200, "text/html", page);
+}
+
 
 void handleRFConReturn() {
   kart_server.send(200, "text/plain", RF_Connect_Return);
@@ -1326,7 +1455,7 @@ void define_CAN2_Messages(){
   RFID_Data.signals[1] = &Power_Mode;
 }
 
-int process_CAN_PowerData(CAN_frame_t* frame){
+void process_CAN_PowerData(CAN_frame_t* frame){
   
   float value = decodeSignal(Speed, frame);
 
@@ -1334,7 +1463,7 @@ int process_CAN_PowerData(CAN_frame_t* frame){
   CAN_speed = value;
 }
 
-int process_CAN_Option1Commands(CAN_frame_t* frame){
+void process_CAN_Option1Commands(CAN_frame_t* frame){
   float value = decodeSignal(LED_Flashing, frame);
   // Enable or disable LED Flash Timer
   if(value = TRUE){
@@ -1353,17 +1482,19 @@ int process_CAN_Option1Commands(CAN_frame_t* frame){
 
 }
 
-int process_CAN_BatteryTemperature(CAN_frame_t* frame){
+void process_CAN_BatteryTemperature(CAN_frame_t* frame){
   float value = decodeSignal(Avg_Temp, frame);
 
-  // TODO: Save Value to global Variable to be shown on Display and Webserver
+  // Save Value to global Variable to be shown on Display and Webserver
+  Avg_Temp_value = value;
 }
 
-int process_CAN_BatteryVoltage(CAN_frame_t* frame){
+void process_CAN_BatteryVoltage(CAN_frame_t* frame){
   // Process incoming Battery Voltage CAN Message
 
   float value = decodeSignal(Overall_Voltage, frame);
-  // TODO: Save Value to global Variable to be shown on Display and Webserver
+  // Save Value to global Variable to be shown on Display and Webserver
+  Overall_Voltage_value = value;
   
 }
 
@@ -1387,6 +1518,8 @@ int decodeSignal(CAN_Signal signal, CAN_frame_t* frame){
 
   // Apply factor and offset
   float value = result * signal.factor + signal.offset;
+
+  return value;
 }
 
 void IRAM_ATTR TIM_LED_Flashing_overflow(){
@@ -1449,5 +1582,24 @@ uint8_t read_SPI_Register(uint8_t reg){
   return value;
 }
 
+void print_NVS(){
+  static int Display_off_old = true, RF_CAN_en_old = true, RF_enable_old= true, Display_enable_old= true, WiFi_enable_old= true, RFID_enable_old= true, LED_enable_old= true;
 
+  Serial.println("NVS Storage Content:");
+  
+  Serial.print("Display Off: \t");
+  Serial.println(ESP_storage.getInt("Display_off"));
+  Serial.print("RF Enable: \t");
+  Serial.println(ESP_storage.getInt("RF_enable"));
+  Serial.print("Display Enable: ");
+  Serial.println(ESP_storage.getInt("Display_enable"));
+  Serial.print("WiFi Enable: \t");
+  Serial.println(ESP_storage.getInt("WiFi_enable"));
+  Serial.print("RFID Enable: \t");
+  Serial.println(ESP_storage.getInt("RFID_enable"));
+  Serial.print("LED Enable: \t");
+  Serial.println(ESP_storage.getInt("LED_enable"));
+  Serial.print("RF via CAN: \t");
+  Serial.println(ESP_storage.getInt("RF_CAN_en"));
+}
 
