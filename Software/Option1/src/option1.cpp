@@ -107,7 +107,7 @@ int SPI_reset(int Slave){
     // run once, if timer is now over
     // set SPI Reset Pins Active
     if(now < wait_time_SPI_reset and reset_active == false){
-      reset_active == true;
+      reset_active = true;
 
       if(Slave == DISPLAY_LCD){
         digitalWrite(27, HIGH);//TODO: Check for High or LOW active
@@ -206,7 +206,7 @@ int CAN2_silent(){
  * @return 1 at Success, -1 at fail
  */
   // Write to PIN 7 on GPIO Expansion
-  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 6, LOW);  // TODO: Check on lo or high active
+  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 7, LOW);  // TODO: Check on lo or high active
 
   if(rv == ERROR){
     Serial.println("Write failed");

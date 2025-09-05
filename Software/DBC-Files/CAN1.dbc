@@ -44,7 +44,8 @@ BO_ 48 VCU_Commands: 1 Option1
  SG_ SOC_Request : 1|1@1+ (1,0) [0|1] ""  VCU
  SG_ RemoteDrive_Request : 0|1@1+ (1,0) [0|1] "" Vector__XXX
 
-BO_ 16 Power_Data: 5 VCU
+BO_ 16 Power_Data: 7 VCU
+ SG_ SOC : 40|10@1+ (0.1,0) [0|102.3] "%" Vector__XXX
  SG_ Speed : 24|11@1+ (0.1,0) [0|204.7] "km/h"  Option1
  SG_ n_engine : 8|10@1+ (1,0) [0|1023] "1/min"  Option1
  SG_ M_Engine : 0|8@1+ (0.1,0) [0|25.5] "Nm"  Option1

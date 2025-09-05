@@ -50,6 +50,7 @@ CAN_Signal LED_Signal;
 CAN_Signal LED_Flashing;
 CAN_Signal M_Engine;
 CAN_Signal n_Engine;
+CAN_Signal SOC;
 
 // CAN 2
 CAN_Message RFID_Data;
@@ -83,6 +84,8 @@ volatile uint8_t LED_Flashing_CTR = 0;
 volatile bool Master_Mode_active = false;
 volatile float Avg_Temp_value = 0.0;
 volatile float Overall_Voltage_value = 0.00;
+volatile bool CAN2_Message_Flag = false;
+volatile bool ISR_GPIO_Exp_Flag = false;
 
 
 // put function declarations here:
@@ -122,6 +125,9 @@ int send_CAN1_Message(int id, uint8_t* data, int len);
 void write_SPI_Register(uint8_t reg, uint8_t value);
 uint8_t read_SPI_Register(uint8_t reg);
 void IRAM_ATTR TIM_LED_Flashing_overflow();
+void process_CAN2_Message();
+void handleSettingsToggle();
+void process_ISR_GPIO_Expansion();
 
 void setup() {
   Serial.begin(115200);
@@ -159,6 +165,12 @@ void loop() {
   }
   if(loop_ctr % 5000 == 0){
     print_NVS();
+  }
+
+  // Handle Interrupt by GPIO Expansion
+  if(ISR_GPIO_Exp_Flag == true){
+    process_ISR_GPIO_Expansion();
+    ISR_GPIO_Exp_Flag = false;
   }
 
   // Polling for Interrupt Flags set by GPIO Expansion ***************************************************************************
@@ -249,13 +261,17 @@ void loop() {
   }
   // End of processing incoming CAN1 Messages ***********************************************************************
 
+  // Polling for incoming CAN2 Messages *****************************************************************************************
+  if(CAN2_Message_Flag == true){
+    // A CAN2 Message was received, process it
+    process_CAN2_Message();
+  }
+
+  // End of polling for incoming CAN2 Messages ***********************************************************************
 
   // Polling for HTTP Requests *************************************************************************************************
-  if(ESP_storage.getInt("WiFi_enable", FALSE) == TRUE){
-
-    // Handle HTTP Server
-    kart_server.handleClient();
-  }
+  kart_server.handleClient();
+  
 }
 
 // put function definitions here *************************************************************************************************
@@ -401,8 +417,8 @@ void init_Timer(){
   timerAttachInterrupt(TIM_LED_Flashing, TIM_LED_Flashing_overflow, true); // react on rising Edge
 
   // set Timer-Alarm: 500 ms = 0.5 Sekunden -> Period = 1 sec
-  timerAlarmWrite(TIM_RF_Learn_Active, 500, true); // true = auto-reload
-  timerAlarmDisable(TIM_RF_Learn_Active);            // Timer will be activated by CAN-receive
+  timerAlarmWrite(TIM_LED_Flashing, 500, true); // true = auto-reload
+  timerAlarmDisable(TIM_LED_Flashing);            // Timer will be activated by CAN-receive
   /*****************************************************************************************************/
 }
 
@@ -465,9 +481,7 @@ void init_storage(){
     // Passwort ist to short, set Standard Password
 
     ESP_storage.putString("WIFI_Password", "SMS REVO SL");
-  }
-  ESP_storage.putInt("WiFi_enable", TRUE);
-  
+  } 
   
 }
 
@@ -515,9 +529,10 @@ void init_wifi(){
   kart_server.on("/", handleRoot);
   kart_server.on("/livedaten", handleLivedaten);
   kart_server.on("/einstellungen", handleEinstellungen);
-  kart_server.on("/hersteller", handleHersteller);
   kart_server.on("/values", handleValues);
   kart_server.on("/RF_Connect_Return", handleRFConReturn);
+  kart_server.on("/hersteller", HTTP_GET, handleSettingsToggle);   // Für das Laden der Seite
+  kart_server.on("/hersteller", HTTP_POST, handleSettingsToggle);  // Für die AJAX-POSTs
   kart_server.onNotFound(handleNotFound);
 
   // Start Webserver
@@ -528,7 +543,7 @@ int process_CAN1(){
   // Process incoming CAN1 Messages
   CAN_frame_t rx_frame;
 
-  // TODO: Check for IDs and process Data based on 
+  // Check for IDs and process Data based on 
 
   // Versuchen, eine Nachricht aus der Queue zu holen
   if (xQueueReceive(CAN_cfg.rx_queue, &rx_frame, 0) == pdTRUE) {
@@ -629,6 +644,10 @@ void init_CAN2(){
 // Interrupts
 void ISR_GPIO_Expansion(){
   // Interrupt Service Routine for GPIO Expansion Interrupts
+  ISR_GPIO_Exp_Flag = true;
+}
+
+void process_ISR_GPIO_Expansion(){
   // Read Interrupt Pending Register
   // Set Flags for Interrupts
 
@@ -692,8 +711,10 @@ void ISR_GPIO_Expansion(){
 void ISR_CAN2(){
   // Interrupt Service Routine for CAN2 Messages
   // Set Flags for Interrupts
-  // Read CAN2 Message via SPI
+  CAN2_Message_Flag = true;
+}
 
+void process_CAN2_Message(){
   // Check for Message in Buffer 0
   // Check RX Buffer 0 Full Flag [bit:0]
   if(read_SPI_Register(CAN2_CANINTF) & 0x01){
@@ -735,12 +756,6 @@ void ISR_CAN2(){
       Serial.println("Unknown CAN2 Message");
     }
 
-  }
-  else{
-    // No Message in Buffer 0
-    Serial.println("No Message in CAN2 Buffer 0");
-    // TODO: Check for Error Flags
-    // TODO: Clear Interrupt Flag
   }
 }
 
@@ -855,31 +870,49 @@ void IRAM_ATTR TIM_RF_Learn_Active_overflow() {
 void handleRoot() {
   // Return Main Page
   // HTML-Seite im Flash-Speicher ablegen
-  const char MAIN_page[] PROGMEM = R"rawliteral(
-  <!DOCTYPE html>
-  <html lang="de">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMS REVO SL</title>
-    <style>
-      body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }
-      .card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); }
-      h1 { color:red; margin-bottom:20px; }
-      a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }
-      a.green { background:green; }
-      a.gray { background:gray; }
-    </style>
-  </head>
-  <body>
-    <div class="card">
-      <h1>SMS REVO SL</h1>
-      <a class="btn green" href="/livedaten">Livedaten</a>
-      <a class="btn gray"  href="/einstellungen">Einstellungen</a>
-    </div>
-  </body>
-  </html>
-  )rawliteral";
+  String MAIN_page = "";
+
+  if(ESP_storage.getInt("WiFi_enable", FALSE) == FALSE){
+    MAIN_page =
+      "<!DOCTYPE html><html lang=\"de\"><head>"
+      "<meta charset=\"UTF-8\">"
+      "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+      "<title>SMS REVO SL</title>"
+      "<style>"
+      "body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }"
+      ".card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); max-width:400px; width:100%; }"
+      "h1 { color:red; margin-bottom:20px; }"
+      "</style></head><body><div class=\"card\">"
+      "<h1>Hier gibt es nix zu sehen</h1>"
+      "</div></body></html>";
+  }
+  else{
+    MAIN_page =
+    "<!DOCTYPE html>"
+    "<html lang=\"de\">"
+    "<head>"
+      "<meta charset=\"UTF-8\">"
+      "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+      "<title>SMS REVO SL</title>"
+      "<style>"
+        "body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }"
+        ".card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); }"
+        "h1 { color:red; margin-bottom:20px; }"
+        "a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }"
+        "a.green { background:green; }"
+        "a.gray { background:gray; }"
+        "a.blue { background:blue; }"
+      "</style>"
+    "</head>"
+    "<body>"
+      "<div class=\"card\">"
+        "<h1>SMS REVO SL</h1>"
+        "<a class=\"btn green\" href=\"/livedaten\">Livedaten</a>"
+        "<a class=\"btn blue\"  href=\"/einstellungen\">Einstellungen</a>"
+      "</div>"
+    "</body>"
+    "</html>";
+  }
 
   kart_server.send(200, "text/html", MAIN_page);
 }
@@ -889,42 +922,65 @@ void handleNotFound() {
 }
 
 void handleLivedaten() {
-   String page = "";
-  page += "<!DOCTYPE html><html lang='de'><head>";
-  page += "<meta charset='UTF-8'>";
-  page += "<meta name='viewport' content='width=device-width, initial-scale=1.0'>";
-  page += "<title>Livedaten - SMS REVO SL</title>";
-  page += "<style>";
-  page += "body{margin:0;display:flex;justify-content:center;align-items:center;height:100vh;background:#f2f2f2;font-family:Arial,sans-serif;}";
-  page += ".card{background:#fff;padding:20px 30px;border-radius:12px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.15);max-width:400px;width:100%;}";
-  page += "h1{color:red;margin-bottom:20px;}";
-  page += ".databox{background:#f9f9f9;border:1px solid #ddd;border-radius:8px;padding:15px;margin:10px 0;text-align:left;font-size:1.4em;}";
-  page += ".label{font-weight:bold;display:block;margin-bottom:6px;}";
-  page += ".value{color:#333;}";
-  page += "a.btn{display:inline-block;margin:12px;padding:12px 18px;border-radius:8px;text-decoration:none;color:white;font-weight:bold;}";
-  page += "a.gray{background:gray;}";
-  page += "</style>";
-  page += "<script>";
-  page += "async function updateValues(){";
-  page += "  let response = await fetch('/values');";
-  page += "  let data = await response.json();";
-  page += "  document.getElementById('speed').innerText = data.speed + ' km/h';";
-  page += "  document.getElementById('soc').innerText = data.soc + ' %';";
-  page += "  document.getElementById('temp').innerText = data.temp + ' °C';";
-  page += "}";
-  page += "setInterval(updateValues,1000);";
-  page += "</script>";
-  page += "</head><body>";
-  page += "<div class='card'>";
-  page += "<h1>Livedaten</h1>";
-  page += "<div class='databox'><span class='label'>Geschwindigkeit</span><span class='value' id='speed'>--</span></div>";
-  page += "<div class='databox'><span class='label'>State of Charge</span><span class='value' id='soc'>--</span></div>";
-  page += "<div class='databox'><span class='label'>Akkutemperatur</span><span class='value' id='temp'>--</span></div>";
-  page += "<a class='btn gray' href='/'>Zurück</a>";
-  page += "</div>";
-  page += "</body></html>";
 
-  kart_server.send(200, "text/html", page);
+  String LIVEDATEN_page = "";
+
+  if(ESP_storage.getInt("WiFi_enable", FALSE) == FALSE){
+    LIVEDATEN_page =
+      "<!DOCTYPE html><html lang=\"de\"><head>"
+      "<meta charset=\"UTF-8\">"
+      "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+      "<title>SMS REVO SL - Livedaten</title>"
+      "<style>"
+      "body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }"
+      ".card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); max-width:400px; width:100%; }"
+      "h1 { color:red; margin-bottom:20px; }"
+      "a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }"
+      "a.gray { background:gray; }"
+      "</style></head><body><div class=\"card\">"
+      "<h1>Hier gibt es nix zu sehen</h1>"
+
+
+      "<br><a href=\"/\" class=\"btn gray\">Zurück</a>"
+      "</div></body></html>";
+  }
+  else{
+    LIVEDATEN_page = 
+    "<!DOCTYPE html><html lang='de'><head>"
+    "<meta charset='UTF-8'>"
+    "<meta name='viewport' content='width=device-width, initial-scale=1.0'>"
+    "<title>Livedaten - SMS REVO SL</title>"
+    "<style>"
+    "body{margin:0;display:flex;justify-content:center;align-items:center;height:100vh;background:#f2f2f2;font-family:Arial,sans-serif;}"
+    ".card{background:#fff;padding:20px 30px;border-radius:12px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.15);max-width:400px;width:100%;}"
+    "h1{color:red;margin-bottom:20px;}"
+    ".databox{background:#f9f9f9;border:1px solid #ddd;border-radius:8px;padding:15px;margin:10px 0;text-align:left;font-size:1.4em;}"
+    ".label{font-weight:bold;display:block;margin-bottom:6px;}"
+    ".value{color:#333;}"
+    "a.btn{display:inline-block;margin:12px;padding:12px 18px;border-radius:8px;text-decoration:none;color:white;font-weight:bold;}"
+    "a.gray{background:gray;}"
+    "</style>"
+    "<script>"
+    "async function updateValues(){"
+    "  let response = await fetch('/values');"
+    "  let data = await response.json();"
+    "  document.getElementById('speed').innerText = data.speed + ' km/h';"
+    "  document.getElementById('soc').innerText = data.soc + ' %';"
+    "  document.getElementById('temp').innerText = data.temp + ' °C';"
+    "}"
+    "setInterval(updateValues,1000);"
+    "</script>"
+    "</head><body>"
+    "<div class='card'>"
+    "<h1>Livedaten</h1>"
+    "<div class='databox'><span class='label'>Geschwindigkeit</span><span class='value' id='speed'>--</span></div>"
+    "<div class='databox'><span class='label'>State of Charge</span><span class='value' id='soc'>--</span></div>"
+    "<div class='databox'><span class='label'>Akkutemperatur</span><span class='value' id='temp'>--</span></div>"
+    "<a class='btn gray' href='/'>Zurück</a>"
+    "</div>"
+    "</body></html>";
+  }
+  kart_server.send(200, "text/html", LIVEDATEN_page);
 }
 
 void handleValues() {
@@ -946,252 +1002,169 @@ void handleValues() {
 
 
 void handleEinstellungen() {
-  
-  if (kart_server.method() == HTTP_POST) {
-    // Werte aus Formular speichern
-    if (kart_server.hasArg("wifi_name")) {
-      ESP_storage.putString("WIFI_Name", kart_server.arg("wifi_name"));
-    }
-    if (kart_server.hasArg("wifi_password")) {
-      ESP_storage.putString("WIFI_Password", kart_server.arg("wifi_password"));
-    }
 
-    if (kart_server.hasArg("display_off")) {
-      ESP_storage.putInt("Display_off", true);
-    } else {
-      ESP_storage.putInt("Display_off", false);
-    }
+  String EINSTELLUNGEN_page = "";
 
-    // Spezialaktionen über Buttons
-    if (kart_server.hasArg("action")) {
-      String act = kart_server.arg("action");
-      if (act == "remote_bind") {
-        // Start learning mode for RF Controller
-        Serial.println("bind Remote Control");
-        int rv = learn_RFControl(1); // Start learning mode for RF Controller
-        if(rv==ERROR){
-          Serial.println("Pairing Controller failed");
-          // Write to Website 
-          RF_Connect_Return = "Pairing Controller failed";
-        }
-        else{
-          Serial.println("Pairing Controller successful");
-          // Write to Website 
-          RF_Connect_Return = "Pairing Controller successful";
-        }
-      }
-      else if (act == "remote_unbind") {
-        // Delete last binded RF Controller
-        Serial.println("Funkfernbedienung löschen");
-        int rv = learn_RFControl(5); // Delete last binded RF Controller
-        if(rv==ERROR){
-          Serial.println("deleting last RF Controller failed");
-          // Write to Website 
-          RF_Connect_Return = "deleting last RF Controller failed";
-        }
-        else{
-          Serial.println("deleting last RF Controller successful");
-          // Write to Website 
-          RF_Connect_Return = "deleting last RF Controller successful";
-        }
-      }      
-      else if (act == "remote_unbind_all") {
-        // Delete all binded RF Controllers
-        Serial.println("Alle Funkfernbedienungen löschen");
-        int rv = learn_RFControl(6); // Delete every binded RF Controller
-        if(rv==ERROR){
-          Serial.println("deleting all RF Controllers failed");
-          // Write to Website 
-          RF_Connect_Return = "deleting all RF Controllers failed";
-        }
-        else{
-          Serial.println("deleting all RF Controllers successful");
-          // Write to Website
-          RF_Connect_Return = "deleting all RF Controllers successful";
-        }
-      }
-    }
-    
-    kart_server.sendHeader("Location", "/einstellungen");
-    kart_server.send(303, "text/plain", "Werte gespeichert, weiterleiten...");
-    return;
-    
+  if(ESP_storage.getInt("WiFi_enable", FALSE) == FALSE){
+    EINSTELLUNGEN_page =
+      "<!DOCTYPE html><html lang=\"de\"><head>"
+      "<meta charset=\"UTF-8\">"
+      "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+      "<title>SMS REVO SL - Einstellungen</title>"
+      "<style>"
+      "body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }"
+      ".card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); max-width:400px; width:100%; }"
+      "h1 { color:red; margin-bottom:20px; }"
+      "a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }"
+      "a.gray { background:gray; }"
+      "</style></head><body><div class=\"card\">"
+      "<h1>Hier gibt es nix zu sehen</h1>"
+
+
+      "<br><a href=\"/\" class=\"btn gray\">Zurück</a>"
+      "</div></body></html>";
   }
+  else{
+    if (kart_server.method() == HTTP_POST) {
+      // Werte aus Formular speichern
+      if (kart_server.hasArg("wifi_name")) {
+        ESP_storage.putString("WIFI_Name", kart_server.arg("wifi_name"));
+      }
+      if (kart_server.hasArg("wifi_password")) {
+        ESP_storage.putString("WIFI_Password", kart_server.arg("wifi_password"));
+      }
 
-  // Aktuellen Status von Display_off holen
-  bool displayOff = ESP_storage.getInt("Display_off", false);
+      if (kart_server.hasArg("display_off")) {
+        ESP_storage.putInt("Display_off", true);
+      } else {
+        ESP_storage.putInt("Display_off", false);
+      }
 
-  String EINSTELLUNGEN_page =
-    "<!DOCTYPE html><html lang=\"de\"><head>"
-    "<meta charset=\"UTF-8\">"
-    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
-    "<title>Einstellungen - SMS REVO SL</title>"
-    "<style>"
-    "body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }"
-    ".card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); max-width:400px; width:100%; }"
-    "h1 { color:red; margin-bottom:20px; }"
-    "a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }"
-    "a.green { background:green; }"
-    "a.gray { background:gray; }"
-    "form { margin-top:20px; }"
-    "input[type=text], input[type=password] { padding:8px; margin:8px 0; border-radius:6px; border:1px solid #ccc; width:80%; }"
-    "input[type=submit], button { padding:10px 20px; border-radius:8px; border:none; background:green; color:white; font-weight:bold; cursor:pointer; margin:6px; }"
-    "input[type=submit]:hover, button:hover { background:darkgreen; }"
-    ".switch { position:relative; display:inline-block; width:50px; height:24px; }"
-    ".switch input { opacity:0; width:0; height:0; }"
-    ".slider { position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0; background-color:#ccc; transition:.4s; border-radius:24px; }"
-    ".slider:before { position:absolute; content:\"\"; height:18px; width:18px; left:3px; bottom:3px; background:white; transition:.4s; border-radius:50%; }"
-    "input:checked + .slider { background-color:green; }"
-    "input:checked + .slider:before { transform:translateX(26px); }"
-    "#RF_Connect_Return { margin-top:15px; font-weight:bold; }"
-    "</style></head><body><div class=\"card\">"
-    "<h1>Einstellungen</h1>"
-    "<form method=\"POST\" action=\"/einstellungen\">"
-    "<label for=\"wifi_name\">WIFI Name:</label><br>"
-    "<input type=\"text\" id=\"wifi_name\" name=\"wifi_name\" value=\"" + ESP_storage.getString("WIFI_Name") + "\"><br>"
-    "<label for=\"wifi_password\">WIFI Passwort:</label><br>"
-    "<input type=\"password\" id=\"wifi_password\" name=\"wifi_password\" minlength=\"8\" required value=\"" + ESP_storage.getString("WIFI_Password") + "\"><br>"
+      // Spezialaktionen über Buttons
+      if (kart_server.hasArg("action")) {
+        String act = kart_server.arg("action");
+        if (act == "remote_bind") {
+          // Start learning mode for RF Controller
+          Serial.println("bind Remote Control");
+          int rv = learn_RFControl(1); // Start learning mode for RF Controller
+          if(rv==ERROR){
+            Serial.println("Pairing Controller failed");
+            // Write to Website 
+            RF_Connect_Return = "Pairing Controller failed";
+          }
+          else{
+            Serial.println("Pairing Controller successful");
+            // Write to Website 
+            RF_Connect_Return = "Pairing Controller successful";
+          }
+        }
+        else if (act == "remote_unbind") {
+          // Delete last binded RF Controller
+          Serial.println("Funkfernbedienung löschen");
+          int rv = learn_RFControl(5); // Delete last binded RF Controller
+          if(rv==ERROR){
+            Serial.println("deleting last RF Controller failed");
+            // Write to Website 
+            RF_Connect_Return = "deleting last RF Controller failed";
+          }
+          else{
+            Serial.println("deleting last RF Controller successful");
+            // Write to Website 
+            RF_Connect_Return = "deleting last RF Controller successful";
+          }
+        }      
+        else if (act == "remote_unbind_all") {
+          // Delete all binded RF Controllers
+          Serial.println("Alle Funkfernbedienungen löschen");
+          int rv = learn_RFControl(6); // Delete every binded RF Controller
+          if(rv==ERROR){
+            Serial.println("deleting all RF Controllers failed");
+            // Write to Website 
+            RF_Connect_Return = "deleting all RF Controllers failed";
+          }
+          else{
+            Serial.println("deleting all RF Controllers successful");
+            // Write to Website
+            RF_Connect_Return = "deleting all RF Controllers successful";
+          }
+        }
+      }
+      
+      kart_server.sendHeader("Location", "/einstellungen");
+      kart_server.send(303, "text/plain", "Werte gespeichert, weiterleiten...");
+      return;
+      
+    }
 
-    "<label for=\"display_off\">Display Off:</label><br>"
-    "<label class=\"switch\">"
-    "<input type=\"checkbox\" name=\"display_off\" " + String(displayOff ? "checked" : "") + ">"
-    "<span class=\"slider\"></span>"
-    "</label><br><br>"
+    // Aktuellen Status von Display_off holen
+    bool displayOff = ESP_storage.getInt("Display_off", false);
 
-    "<input type=\"submit\" value=\"Speichern\">"
-    "<p>Netzwerk Änderungen werden beim nächsten Neustart wirksam!</p>"
-    "</form>"
+    EINSTELLUNGEN_page =
+      "<!DOCTYPE html><html lang=\"de\"><head>"
+      "<meta charset=\"UTF-8\">"
+      "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+      "<title>Einstellungen - SMS REVO SL</title>"
+      "<style>"
+      "body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }"
+      ".card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); max-width:400px; width:100%; }"
+      "h1 { color:red; margin-bottom:20px; }"
+      "a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }"
+      "a.green { background:green; }"
+      "a.gray { background:gray; }"
+      "form { margin-top:20px; }"
+      "input[type=text], input[type=password] { padding:8px; margin:8px 0; border-radius:6px; border:1px solid #ccc; width:80%; }"
+      "input[type=submit], button { padding:10px 20px; border-radius:8px; border:none; background:green; color:white; font-weight:bold; cursor:pointer; margin:6px; }"
+      "input[type=submit]:hover, button:hover { background:darkgreen; }"
+      ".switch { position:relative; display:inline-block; width:50px; height:24px; }"
+      ".switch input { opacity:0; width:0; height:0; }"
+      ".slider { position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0; background-color:#ccc; transition:.4s; border-radius:24px; }"
+      ".slider:before { position:absolute; content:\"\"; height:18px; width:18px; left:3px; bottom:3px; background:white; transition:.4s; border-radius:50%; }"
+      "input:checked + .slider { background-color:green; }"
+      "input:checked + .slider:before { transform:translateX(26px); }"
+      "#RF_Connect_Return { margin-top:15px; font-weight:bold; }"
+      "</style></head><body><div class=\"card\">"
+      "<h1>Einstellungen</h1>"
+      "<form method=\"POST\" action=\"/einstellungen\">"
+      "<label for=\"wifi_name\">WIFI Name:</label><br>"
+      "<input type=\"text\" id=\"wifi_name\" name=\"wifi_name\" value=\"" + ESP_storage.getString("WIFI_Name") + "\"><br>"
+      "<label for=\"wifi_password\">WIFI Passwort:</label><br>"
+      "<input type=\"password\" id=\"wifi_password\" name=\"wifi_password\" minlength=\"8\" required value=\"" + ESP_storage.getString("WIFI_Password") + "\"><br>"
 
-    "<hr>"
-    "<form method=\"POST\" action=\"/einstellungen\">"
-    "<button type=\"submit\" name=\"action\" value=\"remote_bind\">Funkfernbedienung verbinden</button><br>"
-    "<button type=\"submit\" name=\"action\" value=\"remote_unbind\">Funkfernbedienung löschen</button><br>"
-    "<button type=\"submit\" name=\"action\" value=\"remote_unbind_all\">Alle Funkfernbedienungen löschen</button><br>"
+      "<label for=\"display_off\">Display Off:</label><br>"
+      "<label class=\"switch\">"
+      "<input type=\"checkbox\" name=\"display_off\" " + String(displayOff ? "checked" : "") + ">"
+      "<span class=\"slider\"></span>"
+      "</label><br><br>"
 
-    "<hr>"
-    "<div id=\"RF_Connect_Return\">warte auf Verbindungsanfrage...</div>"
+      "<input type=\"submit\" value=\"Speichern\">"
+      "<p>Netzwerk Änderungen werden beim nächsten Neustart wirksam!</p>"
+      "</form>"
 
-    "</form>"
+      "<hr>"
+      "<form method=\"POST\" action=\"/einstellungen\">"
+      "<button type=\"submit\" name=\"action\" value=\"remote_bind\">Funkfernbedienung verbinden</button><br>"
+      "<button type=\"submit\" name=\"action\" value=\"remote_unbind\">Funkfernbedienung löschen</button><br>"
+      "<button type=\"submit\" name=\"action\" value=\"remote_unbind_all\">Alle Funkfernbedienungen löschen</button><br>"
 
-    
-    "<a class=\"btn gray\" href=\"/\">Zurück</a>"
+      "<div id=\"RF_Connect_Return\">warte auf Verbindungsanfrage...</div>"
 
-    "<script>"
-    "function updateRFConReturn(){"
-    " fetch('/RF_Connect_Return')"
-    "   .then(response => response.text())"
-    "   .then(data => { document.getElementById('RF_Connect_Return').innerText = 'RF Connection Return: ' + data; });"
-    "}"
-    "setInterval(updateRFConReturn, 2000);"
-    "updateRFConReturn();"
-    "</script>"
-    "</div></body></html>";
+      "</form>"
 
+      "<hr>"
+      "<a class=\"btn gray\" href=\"/\">Zurück</a>"
+
+      "<script>"
+      "function updateRFConReturn(){"
+      " fetch('/RF_Connect_Return')"
+      "   .then(response => response.text())"
+      "   .then(data => { document.getElementById('RF_Connect_Return').innerText = 'Verbindungsstatus: ' + data; });"
+      "}"
+      "setInterval(updateRFConReturn, 2000);"
+      "updateRFConReturn();"
+      "</script>"
+      "</div></body></html>";
+  }
   kart_server.send(200, "text/html", EINSTELLUNGEN_page);
-}
-
-void handleHersteller() {
-  if (kart_server.method() == HTTP_POST) {
-    // Prüfen welcher Button gedrückt wurde
-    if (kart_server.hasArg("Display_off_true")) {
-      ESP_storage.putInt("Display_off", true); // true
-      Serial.println("Display_off -> true");
-    }
-    if (kart_server.hasArg("Display_off_false")) {
-      ESP_storage.putInt("Display_off", false); // false
-      Serial.println("Display_off -> false");
-    }
-
-    if (kart_server.hasArg("RF_enable_true")) {
-      ESP_storage.putInt("RF_enable", true); // true
-      Serial.println("RF_enable -> true");
-    }
-    if (kart_server.hasArg("RF_enable_false")) {
-      ESP_storage.putInt("RF_enable", false); // false
-      Serial.println("RF_enable -> false");
-    }
-
-    if (kart_server.hasArg("Display_enable_true")) {
-      ESP_storage.putInt("Display_enable", true); // true
-      Serial.println("Display_enable -> true");
-    }
-    if (kart_server.hasArg("Display_enable_false")) {
-      ESP_storage.putInt("Display_enable", false); // false
-      Serial.println("Display_enable -> false");
-    }
-
-    if (kart_server.hasArg("RFID_enable_true")) {
-      ESP_storage.putInt("RFID_enable", true); // true
-      Serial.println("RFID_enable -> true");
-    }
-    if (kart_server.hasArg("RFID_enable_false")) {
-      ESP_storage.putInt("RFID_enable", false); // false
-      Serial.println("RFID_enable -> false");
-    }
-
-    kart_server.sendHeader("Location", "/hersteller");
-    kart_server.send(303, "text/plain", "Wert gespeichert, weiterleiten...");
-    return;
-  }
-
-  // aktuellen Status holen
-  bool displayOff = ESP_storage.getInt("Display_off", false);
-  bool RF_enable = ESP_storage.getInt("RF_enable", false);
-  bool Display_enable = ESP_storage.getInt("Display_enable", false);
-  bool RFID_enable = ESP_storage.getInt("RFID_enable", false);
-
-  // HTML-Seite erstellen
-  String page =
-    "<!DOCTYPE html><html lang=\"de\"><head>"
-    "<meta charset=\"UTF-8\">"
-    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
-    "<title>Hersteller Einstellungen</title>"
-    "<style>"
-    "body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }"
-    ".card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); max-width:400px; width:100%; }"
-    "h1 { color:red; margin-bottom:20px; }"
-    "button { padding:10px 20px; border-radius:8px; border:none; font-weight:bold; cursor:pointer; margin:6px; }"
-    "button.green { background:green; color:white; }"
-    "button.red { background:red; color:white; }"
-    "button.green:hover { background:darkgreen; }"
-    "button.red:hover { background:darkred; }"
-    "a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }"
-    "a.gray { background:gray; }"
-    "</style></head><body><div class=\"card\">"
-    "<h1>Hersteller Einstellungen</h1>"
-
-    "<p>Display_off: " + String(displayOff ? "AN" : "AUS") + "</p>"
-    "<form method=\"POST\" action=\"/hersteller\">"
-    "<button type=\"submit\" name=\"Display_off_true\" class=\"green\">Ein</button>"
-    "<button type=\"submit\" name=\"Display_off_false\" class=\"red\">Aus</button>"
-    "</form>"
-    "<p>\n</p>"
-
-    "<p>RF_enable: " + String(RF_enable ? "AN" : "AUS") + "</p>"
-    "<form method=\"POST\" action=\"/hersteller\">"
-    "<button type=\"submit\" name=\"RF_enable_true\" class=\"green\">Ein</button>"
-    "<button type=\"submit\" name=\"RF_enable_false\" class=\"red\">Aus</button>"
-    "</form>"
-    "<p>\n</p>"
-
-    "<p>Display_enable_off: " + String(Display_enable ? "AN" : "AUS") + "</p>"
-    "<form method=\"POST\" action=\"/hersteller\">"
-    "<button type=\"submit\" name=\"Display_enable_true\" class=\"green\">Ein</button>"
-    "<button type=\"submit\" name=\"Display_enable_false\" class=\"red\">Aus</button>"
-    "</form>"
-    "<p>\n</p>"
-    
-    "<p>RFID_enable_off: " + String(RFID_enable ? "AN" : "AUS") + "</p>"
-    "<form method=\"POST\" action=\"/hersteller\">"
-    "<button type=\"submit\" name=\"RFID_enable_true\" class=\"green\">Ein</button>"
-    "<button type=\"submit\" name=\"RFID_enable_false\" class=\"red\">Aus</button>"
-    "</form>"
-    "<p>\n</p>"
-
-    "<br><a href=\"/\" class=\"btn gray\">Zurück</a>"
-    "</div></body></html>";
-
-  kart_server.send(200, "text/html", page);
 }
 
 
@@ -1394,11 +1367,18 @@ void define_CAN1_Messages(){
   Speed.polarity = UNSIGNED;
   Speed.start_bit = 24;
 
+  SOC.length = 10;
+  SOC.factor = 0.1;
+  SOC.offset = 0;
+  SOC.polarity = UNSIGNED;
+  SOC.start_bit = 40;
+
   Power_Data.id = 0x010;
-  Power_Data.n_signals = 3;
+  Power_Data.n_signals = 4;
   Power_Data.signals[0] = &M_Engine;
   Power_Data.signals[1] = &n_Engine;
   Power_Data.signals[2] = &Speed;
+  Power_Data.signals[3] = &SOC;
 
   LED_Flashing.length = 1;
   LED_Flashing.factor = 1;
@@ -1457,10 +1437,12 @@ void define_CAN2_Messages(){
 
 void process_CAN_PowerData(CAN_frame_t* frame){
   
+  // Speed
   float value = decodeSignal(Speed, frame);
+  CAN_speed = value;  // Save Value to global Variable to be shown on Display and Webserver
 
-  // Save Value to global Variable to be shown on Display and Webserver
-  CAN_speed = value;
+  value = decodeSignal(SOC, frame);
+  CAN_soc = value;    // Save Value to global Variable to be shown on Display and Webserver
 }
 
 void process_CAN_Option1Commands(CAN_frame_t* frame){
@@ -1486,7 +1468,7 @@ void process_CAN_BatteryTemperature(CAN_frame_t* frame){
   float value = decodeSignal(Avg_Temp, frame);
 
   // Save Value to global Variable to be shown on Display and Webserver
-  Avg_Temp_value = value;
+  CAN_battery_temp = value;
 }
 
 void process_CAN_BatteryVoltage(CAN_frame_t* frame){
@@ -1601,5 +1583,175 @@ void print_NVS(){
   Serial.println(ESP_storage.getInt("LED_enable"));
   Serial.print("RF via CAN: \t");
   Serial.println(ESP_storage.getInt("RF_CAN_en"));
+}
+
+void handleSettingsToggle() {
+
+  String SETTINGS_page = "";
+
+  if(Master_Mode_active == true){
+    // AJAX-POST-Handler: nur speichern, keine HTML-Seite
+    if (kart_server.method() == HTTP_POST) {
+      if (kart_server.hasArg("key") && kart_server.hasArg("state")) {
+        String key = kart_server.arg("key");
+        String state = kart_server.arg("state");
+        bool value = (state == "true");
+
+        if (key == "Display_enable") {
+          ESP_storage.putInt("Display_enable", value);
+          Serial.printf("Display_enable -> %s\n", value ? "true" : "false");
+        }
+        if (key == "RF_enable") {
+          ESP_storage.putInt("RF_enable", value);
+          Serial.printf("RF_enable -> %s\n", value ? "true" : "false");
+        }
+        if (key == "WiFi_enable") {
+          ESP_storage.putInt("WiFi_enable", value);
+          Serial.printf("WiFi_enable -> %s\n", value ? "true" : "false");
+        }
+        if (key == "RFID_enable") {
+          ESP_storage.putInt("RFID_enable", value);
+          Serial.printf("RFID_enable -> %s\n", value ? "true" : "false");
+        }
+        if (key == "LED_enable") {
+          ESP_storage.putInt("LED_enable", value);
+          Serial.printf("LED_enable -> %s\n", value ? "true" : "false");
+        }
+        if (key == "RF_CAN_en") {
+          ESP_storage.putInt("RF_CAN_en", value);
+          Serial.printf("RF_CAN_en -> %s\n", value ? "true" : "false");
+        }
+
+        kart_server.send(200, "text/plain", "OK");
+        return;
+      }
+    }
+
+    // Aktuelle Werte aus NVS
+    bool displayEnable = ESP_storage.getInt("Display_enable", true);
+    bool rfEnable = ESP_storage.getInt("RF_enable", true);
+    bool wifiEnable = ESP_storage.getInt("WiFi_enable", true);
+    bool rfidEnable = ESP_storage.getInt("RFID_enable", true);
+    bool ledEnable = ESP_storage.getInt("LED_enable", true);
+    bool rfCanEnable = ESP_storage.getInt("RF_CAN_en", true);
+
+    // HTML-Seite
+    SETTINGS_page =
+      "<!DOCTYPE html><html lang='de'><head>"
+      "<meta charset='UTF-8'>"
+      "<meta name='viewport' content='width=device-width, initial-scale=1.0'>"
+      "<title>Settings</title>"
+      "<style>"
+      "body{margin:0;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;"
+      "background:#f2f2f2;font-family:Arial,sans-serif;}"
+      ".card{margin-top:40px;background:#fff;padding:20px 30px;border-radius:12px;text-align:center;"
+      "box-shadow:0 4px 12px rgba(0,0,0,0.15);max-width:350px;width:100%;}"
+      "h1 { color:red; margin-bottom:20px; }"
+      "a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }"
+      "a.gray { background:gray; }"
+      ".switch{position:relative;display:inline-block;width:60px;height:34px;margin:10px;}"
+      ".switch input{opacity:0;width:0;height:0;}"
+      ".slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;"
+      "background-color:#ccc;transition:.4s;border-radius:34px;}"
+      ".slider:before{position:absolute;content:'';height:26px;width:26px;left:4px;"
+      "bottom:4px;background:white;transition:.4s;border-radius:50%;}"
+      "input:checked+.slider{background-color:green;}"
+      "input:checked+.slider:before{transform:translateX(26px);}"
+      ".label{font-weight:bold;display:block;margin-top:10px;}"
+      "</style></head><body>"
+      "<div class='card'>"
+      "<h1>Hersteller Einstellungen</h1>"
+
+      // Display_enable Switch
+      "<div class='label'>Display</div>"
+      "<label class='switch'>"
+      "<input type='checkbox' id='displayToggle' " + String(displayEnable ? "checked" : "") + ">"
+      "<span class='slider'></span>"
+      "</label>"
+
+      // RF_enable Switch
+      "<div class='label'>Funkempfänger</div>"
+      "<label class='switch'>"
+      "<input type='checkbox' id='rfToggle' " + String(rfEnable ? "checked" : "") + ">"
+      "<span class='slider'></span>"
+      "</label>"
+
+      // WiFi_enable Switch
+      "<div class='label'>WiFi</div>"
+      "<label class='switch'>"
+      "<input type='checkbox' id='wifiToggle' " + String(wifiEnable ? "checked" : "") + ">"
+      "<span class='slider'></span>"
+      "</label>"
+
+      // RFID_enable Switch
+      "<div class='label'>RFID</div>"
+      "<label class='switch'>"
+      "<input type='checkbox' id='rfidToggle' " + String(rfidEnable ? "checked" : "") + ">"
+      "<span class='slider'></span>"
+      "</label>"
+
+      // LED_enable Switch
+      "<div class='label'>LED</div>"
+      "<label class='switch'>"
+      "<input type='checkbox' id='ledToggle' " + String(ledEnable ? "checked" : "") + ">"
+      "<span class='slider'></span>"
+      "</label>"
+
+      // RF_CAN_enable Switch
+      "<div class='label'>Funksignale via CAN</div>"
+      "<label class='switch'>"
+      "<input type='checkbox' id='rfCanToggle' " + String(rfCanEnable ? "checked" : "") + ">"
+      "<span class='slider'></span>"
+      "</label>"
+
+      "<br><a href=\"/\" class=\"btn gray\">Zurück</a>"
+
+      "</div>"
+      "<script>"
+      "function sendToggle(key, state){"
+      "  fetch('/hersteller',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},"
+      "  body:'key='+key+'&state='+(state?'true':'false')});"
+      "}"
+      "document.getElementById('displayToggle').addEventListener('change',function(){"
+      "  sendToggle('Display_enable',this.checked);"
+      "});"
+      "document.getElementById('rfToggle').addEventListener('change',function(){"
+      "  sendToggle('RF_enable',this.checked);"
+      "});"
+      "document.getElementById('wifiToggle').addEventListener('change',function(){"
+      "  sendToggle('WiFi_enable',this.checked);"
+      "});"
+      "document.getElementById('rfidToggle').addEventListener('change',function(){"
+      "  sendToggle('RFID_enable',this.checked);"
+      "});"
+      "document.getElementById('ledToggle').addEventListener('change',function(){"
+      "  sendToggle('LED_enable',this.checked);"
+      "});"
+      "document.getElementById('rfCanToggle').addEventListener('change',function(){"
+      "  sendToggle('RF_CAN_en',this.checked);"
+      "});"
+      "</script>"
+      "</body></html>";
+  }
+  else{
+    SETTINGS_page =
+      "<!DOCTYPE html><html lang=\"de\"><head>"
+      "<meta charset=\"UTF-8\">"
+      "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+      "<title>SMS REVO SL - Hersteller</title>"
+      "<style>"
+      "body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }"
+      ".card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); max-width:400px; width:100%; }"
+      "h1 { color:red; margin-bottom:20px; }"
+      "a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }"
+      "a.gray { background:gray; }"
+      "</style></head><body><div class=\"card\">"
+      "<h1>Hier gibt es nix zu sehen</h1>"
+
+
+      "<br><a href=\"/\" class=\"btn gray\">Zurück</a>"
+      "</div></body></html>";
+  }
+  kart_server.send(200, "text/html", SETTINGS_page);
 }
 
