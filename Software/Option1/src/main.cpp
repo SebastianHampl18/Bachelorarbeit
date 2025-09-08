@@ -517,7 +517,7 @@ void init_wifi(){
 
   // Access Point starten
   if(WiFi.softAP(ESP_storage.getString("WIFI_Name"), ESP_storage.getString("WIFI_Password"))) {
-    // TODO: Do Something
+    // Debugging Infos
     Serial.println("Access Point gestartet");
     Serial.print("IP-Adresse des Access Points: ");
     Serial.println(WiFi.softAPIP());
@@ -592,8 +592,11 @@ int process_CAN1(){
 
 void init_CAN2(){
 
+  int ctr = 0;
+  int mode = 0;
+
   Serial.println("Init CAN2");
-  int do_config = false;
+  bool connected = false;
 
   // Initialize CAN2 Module via SPI
   // Set CAN2 Module to Config Mode
@@ -602,17 +605,20 @@ void init_CAN2(){
 
   // Check for Controller in Config Mode
   // Read CANSTAT Register [7:5] -> Mode
-  int mode = read_SPI_Register(CAN2_CANSTAT) >> 5;
-  if(mode == 0x04){
-    Serial.println("CAN2 in Config Mode");
-    do_config = true;
-  }
-  else{
-    // TODO: Error Handling - Try Multiple Times
-    Serial.println("Error: CAN2 not in Config Mode");
+  while(ctr<100 && connected == false){
+    mode = read_SPI_Register(CAN2_CANSTAT) >> 5;
+    if(mode == 0x04){
+      Serial.println("CAN2 in Config Mode");
+      connected = true;
+    }
+    else{
+      // Error Handling - Try Multiple Times
+      ctr++;
+      Serial.println("Error: CAN2 not in Config Mode");
+    }
   }
 
-  if(do_config == true){
+  if(connected == true){
     // Set Bitrate to 500 kbps
     // For 8MHz Clock
     write_SPI_Register(CAN2_CNF1, 0x00); // SJW=1, BRP=0 -> 500 kbps
@@ -627,14 +633,18 @@ void init_CAN2(){
     delay(50);
 
     // Check for Controller in Normal Mode
-    mode = read_SPI_Register(CAN2_CANSTAT) >> 5;
-    if(mode == 0x00){
-      Serial.println("CAN2 in Normal Mode");
-      CAN1_active = true;
-    }
-    else{
-      //TODO: Error Handling - Try Multiple Times
-      Serial.println("Error: CAN2 not in Normal Mode");
+    ctr = 0;
+    while(ctr<100 && CAN1_active == false){
+      mode = read_SPI_Register(CAN2_CANSTAT) >> 5;
+      if(mode == 0x00){
+        Serial.println("CAN2 in Normal Mode");
+        CAN1_active = true;
+      }
+      else{
+        //Error Handling - Try Multiple Times
+        ctr++;
+        Serial.println("Error: CAN2 not in Normal Mode");
+      }
     }
   }
 

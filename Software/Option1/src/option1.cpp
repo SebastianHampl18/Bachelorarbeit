@@ -110,15 +110,15 @@ int SPI_reset(int Slave){
       reset_active = true;
 
       if(Slave == DISPLAY_LCD){
-        digitalWrite(27, HIGH);//TODO: Check for High or LOW active
+        digitalWrite(SPI_RST_LCD_PIN, LOW);// LOW active
         return 0;
       }
       else if(Slave == DISPLAY_TOUCH){
-        digitalWrite(32, HIGH); //TODO: Check for High or LOW active
+        digitalWrite(SPI_RST_TP_PIN, LOW); // LOW active
         return 0;
       }
       else if(Slave == RFID){
-        int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 3, HIGH); //TODO: Check for High or LOW active
+        int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 3, LOW); // LOW active
         if(rv == ERROR){
           Serial.println("Writing failed");
           return ERROR;
@@ -136,17 +136,17 @@ int SPI_reset(int Slave){
       reset_active = false;
 
       if(Slave == DISPLAY_LCD){
-        digitalWrite(27, LOW);//TODO: Check for High or LOW active
+        digitalWrite(SPI_RST_LCD_PIN, HIGH);// LOW active
         wait_time_SPI_reset = 0;
         return SUCCESS;
       }
       else if(Slave == DISPLAY_TOUCH){
-        digitalWrite(32, LOW); //TODO: Check for High or LOW active
+        digitalWrite(SPI_RST_TP_PIN, HIGH); // LOW active
         wait_time_SPI_reset = 0;
         return SUCCESS;
       }
       else if(Slave == RFID){
-        int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 3, LOW); //TODO: Check for High or LOW active
+        int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 3, HIGH); // LOW active
         if(rv == ERROR){
           Serial.println("Writing failed");
           return ERROR;
@@ -172,7 +172,7 @@ int CAN1_silent(){
  * @return 1 at Success, -1 at fail
  */
     // Write To PIN 6 on GPIO Expansion
-  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 6, LOW);  // TODO: Check on lo or high active
+  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 6, HIGH);  // Silent on HIGh Pin
 
   if(rv == ERROR){
     Serial.println("Write failed");
@@ -189,7 +189,7 @@ int CAN1_not_silent(){
  * @return 1 at Success, -1 at fail
  */
   // Write to Pin 6 on GPIO Expansion
-  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 6, HIGH);  // TODO: Check on low or high active
+  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 6, LOW);  // Silent on HIGH Pin 
 
   if(rv == ERROR){
     Serial.println("Write failed");
@@ -206,7 +206,7 @@ int CAN2_silent(){
  * @return 1 at Success, -1 at fail
  */
   // Write to PIN 7 on GPIO Expansion
-  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 7, LOW);  // TODO: Check on lo or high active
+  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 7, HIGH);  // Silent on HIGh Pin
 
   if(rv == ERROR){
     Serial.println("Write failed");
@@ -223,7 +223,7 @@ int CAN2_not_silent(){
  * @return 1 at Success, -1 at fail
  */
   // Write to PIN 7 on GPIO Expansion
-  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 7, HIGH);  // TODO: Check on lo or high active
+  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 7, LOW);  // Silent on HIGh Pin
 
   if(rv == ERROR){
     Serial.println("Write failed");
