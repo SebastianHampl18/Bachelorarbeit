@@ -8,8 +8,13 @@
 #include <CAN_config.h>
 #include <WiFi.h>
 #include <WebServer.h>
-#include <LittleFS.h>
-#include <FS.h>
+#include <SPIFFS.h>
+
+#include "LCD_Driver.h"
+#include "Touch_Driver.h"
+#include "GUI_Paint.h"
+#include "image.h"
+
 
 
 CAN_device_t CAN_cfg;
@@ -58,6 +63,9 @@ CAN_Message RFID_Data;
 CAN_Signal Customer_ID;
 CAN_Signal Power_Mode;
 
+// Error Logging
+File logFile;
+
 volatile int ISR_Learn_LED_CTR = 0;
 volatile bool ISR_LED_Signal_Flag = false;
 volatile int ISR_RF_Error_CTR = 0;
@@ -86,6 +94,7 @@ volatile float Avg_Temp_value = 0.0;
 volatile float Overall_Voltage_value = 0.00;
 volatile bool CAN2_Message_Flag = false;
 volatile bool ISR_GPIO_Exp_Flag = false;
+volatile bool Touch_ISR_Flag = false;
 
 
 // put function declarations here:
@@ -128,11 +137,17 @@ void IRAM_ATTR TIM_LED_Flashing_overflow();
 void process_CAN2_Message();
 void handleSettingsToggle();
 void process_ISR_GPIO_Expansion();
+void handleDownloadLog();
+void init_files();
+void init_display();
+UBYTE DEV_I2C_Read_Byte(UBYTE DevAddr, UBYTE RegAddr);
 
 void setup() {
+  init_files();
   Serial.begin(115200);
   Serial.println("Setup Start");
   init_ports();
+  init_display();
   //init_GPIO_Exp_Ports();
   init_Interrupts();
   init_Timer();
@@ -140,6 +155,7 @@ void setup() {
   //init_can1();
   //init_CAN2();
   init_wifi();
+  
 
   Master_Mode_active = true;
   
@@ -154,6 +170,10 @@ void loop() {
   }
   loop_ctr++;
 
+  // Test!!!!! TODO: Remove
+  Wire.requestFrom(0x15, 1); // SCL aktiv
+  delay(100);
+
   // Dummy Werte statt CAN
   if(loop_ctr % 900 == 0){
     CAN_speed += 5.3;
@@ -164,7 +184,7 @@ void loop() {
     if(CAN_soc < 0.0){CAN_soc = 100.0;}
   }
   if(loop_ctr % 5000 == 0){
-    print_NVS();
+    //print_NVS();
   }
 
   // Handle Interrupt by GPIO Expansion
@@ -299,12 +319,18 @@ void init_ports(){
   Wire.begin(I2C_SDA_PIN, I2C_SCL_PIN);
 
   // SPI
+  my_SPI.setDataMode(SPI_MODE3);
+  my_SPI.setBitOrder(MSBFIRST);
+  my_SPI.setClockDivider(SPI_CLOCK_DIV2); // 80 MHz / 2 = 40 MHz
   my_SPI.begin(SPI_CLK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN);
 
   //PWM For Display Backlight
+  /*
   ledcSetup(DISPLAY_PWM_CH, DISPLAY_PWM_FREQ, DISPLAY_PWM_RES); // Configure Channel
   ledcAttachPin(LCD_BL_PIN, DISPLAY_PWM_CH);                    // Define Pin for PWM
   ledcWrite(DISPLAY_PWM_CH, (1 << DISPLAY_PWM_RES) * DISPLAY_PWM_DC);  // 50% Duty Cycle
+  */
+  analogWrite(LCD_BL_PIN, 140);
 }
 
 int init_GPIO_Exp_Ports(){
@@ -386,7 +412,7 @@ void init_Interrupts(){
   Serial.println("Init Interrupts");
   // Init Interrupts
 
-  attachInterrupt(digitalPinToInterrupt(INT_PE_PIN), ISR_GPIO_Expansion, RISING);
+  //attachInterrupt(digitalPinToInterrupt(INT_PE_PIN), ISR_GPIO_Expansion, RISING);
   //attachInterrupt(digitalPinToInterrupt(SPI_INT_CAN2_PIN), ISR_CAN2, RISING);
   //attachInterrupt(digitalPinToInterrupt(SPI_INT_TP_PIN), ISR_TouchController, RISING);
 }
@@ -516,7 +542,7 @@ void init_wifi(){
   }
 
   // Access Point starten
-  if(WiFi.softAP(ESP_storage.getString("WIFI_Name"), ESP_storage.getString("WIFI_Password"))) {
+  if(WiFi.softAP(ESP_storage.getString("WIFI_Name", "SMS REVO SL"), ESP_storage.getString("WIFI_Password"))) {
     // Debugging Infos
     Serial.println("Access Point gestartet");
     Serial.print("IP-Adresse des Access Points: ");
@@ -533,10 +559,72 @@ void init_wifi(){
   kart_server.on("/RF_Connect_Return", handleRFConReturn);
   kart_server.on("/hersteller", HTTP_GET, handleSettingsToggle);   // Für das Laden der Seite
   kart_server.on("/hersteller", HTTP_POST, handleSettingsToggle);  // Für die AJAX-POSTs
+  kart_server.on("/downloadLog", HTTP_GET, handleDownloadLog);
   kart_server.onNotFound(handleNotFound);
 
   // Start Webserver
   kart_server.begin();
+}
+
+void init_files(){
+  Serial.println("Init Filesystem");
+
+  if(!SPIFFS.begin(false)){
+    Serial.println("An Error has occurred while mounting SPIFFS");
+    if (SPIFFS.format()) {
+      // Format SPIFFS on first setup
+      Serial.println("Format successful!");
+      SPIFFS.begin(true);  
+  } else {
+    Serial.println("Format failed!");
+  }
+  }
+  else{
+    Serial.println("SPIFFS mounted successfully");
+  }
+
+  // Create or open a file
+  logFile = SPIFFS.open("/Error.log", FILE_WRITE);
+  if (!logFile) {
+    Serial.println("File Generation failed");
+    return;
+  }
+  else{
+    Serial.println("File opened successfully");
+  }
+
+  // Etwas Text hineinschreiben
+  logFile.println("=== Neue Logdatei gestartet ===");
+  logFile.println("Fehlercode: 42");
+  logFile.println("System neu gestartet.");
+  logFile.close();
+}
+
+void init_display(){
+
+  /*
+  Touch_1IN28_XY XY;
+    XY.mode = 0;
+    XY.x_point = 0;
+    XY.y_point = 0;
+    //Config_Init();
+    LCD_Init();
+    if(Touch_1IN28_init(XY.mode) == true)
+        Serial.println("OK!");
+    else
+        Serial.println("NO!");
+
+    LCD_SetBacklight(1000);
+    Paint_NewImage(LCD_WIDTH, LCD_HEIGHT, 0, BLUE);
+    Paint_Clear(WHITE);
+    attachInterrupt(1,ISR_TouchController,LOW);
+    pinMode(TP_INT_PIN, INPUT_PULLUP);
+    Paint_DrawString_EN(35, 90, "Gesture test", &Font20, BLACK, WHITE);
+    Paint_DrawString_EN(10, 120, "Complete as prompted", &Font16, BLACK, WHITE);
+    DEV_Delay_ms(500);
+    */
+
+    DEV_I2C_Read_Byte(0x15, 0x01);
 }
 
 int process_CAN1(){
@@ -718,7 +806,7 @@ void process_ISR_GPIO_Expansion(){
   }
 }
 
-void ISR_CAN2(){
+void IRAM_ATTR ISR_CAN2(){
   // Interrupt Service Routine for CAN2 Messages
   // Set Flags for Interrupts
   CAN2_Message_Flag = true;
@@ -769,9 +857,10 @@ void process_CAN2_Message(){
   }
 }
 
-void ISR_TouchController(){
+void IRAM_ATTR ISR_TouchController(){
   // Interrupt Service Routine activated by TouchController
   // Set Flags for Interrupts
+  Touch_ISR_Flag = true;
 }
 
 // Check on RF Controll for Errors or ACK and process recieved Data
@@ -1010,7 +1099,6 @@ void handleValues() {
   kart_server.send(200, "application/json", json);
 }
 
-
 void handleEinstellungen() {
 
   String EINSTELLUNGEN_page = "";
@@ -1121,6 +1209,7 @@ void handleEinstellungen() {
       "a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }"
       "a.green { background:green; }"
       "a.gray { background:gray; }"
+      "a.download { background:blue; }"
       "form { margin-top:20px; }"
       "input[type=text], input[type=password] { padding:8px; margin:8px 0; border-radius:6px; border:1px solid #ccc; width:80%; }"
       "input[type=submit], button { padding:10px 20px; border-radius:8px; border:none; background:green; color:white; font-weight:bold; cursor:pointer; margin:6px; }"
@@ -1161,6 +1250,7 @@ void handleEinstellungen() {
       "</form>"
 
       "<hr>"
+      "<a class=\"btn download\" href=\"/downloadLog\">📥 Logdatei herunterladen</a>"
       "<a class=\"btn gray\" href=\"/\">Zurück</a>"
 
       "<script>"
@@ -1176,7 +1266,6 @@ void handleEinstellungen() {
   }
   kart_server.send(200, "text/html", EINSTELLUNGEN_page);
 }
-
 
 void handleRFConReturn() {
   kart_server.send(200, "text/plain", RF_Connect_Return);
@@ -1765,3 +1854,70 @@ void handleSettingsToggle() {
   kart_server.send(200, "text/html", SETTINGS_page);
 }
 
+void handleDownloadLog() {
+  if (SPIFFS.exists("/Error.log")) {
+    File file = SPIFFS.open("/Error.log", "r");
+    if (file) {
+      // Header setzen, damit der Browser einen Download startet
+      kart_server.sendHeader("Content-Type", "text/plain");
+      kart_server.sendHeader("Content-Disposition", "attachment; filename=Error.log");
+      kart_server.sendHeader("Connection", "close");
+      kart_server.streamFile(file, "text/plain");
+      file.close();
+      return;
+    }
+  }
+  else{
+    String LOGDATEN_page =
+      "<!DOCTYPE html><html lang=\"de\"><head>"
+      "<meta charset=\"UTF-8\">"
+      "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+      "<title>SMS REVO SL - Hersteller</title>"
+      "<style>"
+      "body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }"
+      ".card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); max-width:400px; width:100%; }"
+      "h1 { color:red; margin-bottom:20px; }"
+      "a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }"
+      "a.gray { background:gray; }"
+      "</style></head><body><div class=\"card\">"
+      "<h1>Logdatei nicht gefunden</h1>"
+
+
+      "<br><a href=\"/\" class=\"btn gray\">Zurück</a>"
+      "</div></body></html>";
+  
+    kart_server.send(200, "text/html", LOGDATEN_page);
+  }
+
+}
+
+UBYTE DEV_I2C_Read_Byte(UBYTE DevAddr, UBYTE RegAddr) {
+  UBYTE value = 0xFF; // Default-Wert bei Fehler
+
+  Serial.print("DEV_I2C_Read_Byte Reg: 0x");
+  Serial.println(RegAddr, HEX);
+
+  // Schritt 1: Register schreiben
+  Wire.beginTransmission(DevAddr);
+  Wire.write(RegAddr);
+  int rv = Wire.endTransmission();
+  Serial.print("EndTransmission RV: ");
+  Serial.println(rv);
+  if (rv != 0) {
+    Serial.print("I2C Write Error! Code: ");
+    Serial.println(rv);
+    return value;
+  }
+
+  // Schritt 2: Byte vom Gerät anfordern
+  int n = Wire.requestFrom(DevAddr, (byte)1);
+  if (n == 1 && Wire.available()) {
+    value = Wire.read();
+    Serial.print("Value: ");
+    Serial.println(value, HEX);
+  } else {
+    Serial.println("I2C Read Error!");
+  }
+
+  return value;
+}
