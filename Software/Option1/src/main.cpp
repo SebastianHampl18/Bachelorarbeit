@@ -143,18 +143,18 @@ void init_display();
 UBYTE DEV_I2C_Read_Byte(UBYTE DevAddr, UBYTE RegAddr);
 
 void setup() {
-  init_files();
+  //init_files();
   Serial.begin(115200);
   Serial.println("Setup Start");
-  init_ports();
+  //init_ports();
   init_display();
   //init_GPIO_Exp_Ports();
-  init_Interrupts();
-  init_Timer();
-  init_storage();
+  //init_Interrupts();
+  //init_Timer();
+  //init_storage();
   //init_can1();
   //init_CAN2();
-  init_wifi();
+  //init_wifi();
   
 
   Master_Mode_active = true;
@@ -162,6 +162,8 @@ void setup() {
 }
 
 void loop() {
+
+  
   // put your main code here, to run repeatedly:
   static int loop_ctr = 0;
   if(loop_ctr == 0){
@@ -623,6 +625,9 @@ void init_display(){
     Paint_DrawString_EN(10, 120, "Complete as prompted", &Font16, BLACK, WHITE);
     DEV_Delay_ms(500);
     */
+    Wire.begin(27, 33, 100000);
+
+    delay(1000);
 
     DEV_I2C_Read_Byte(0x15, 0x01);
 }
