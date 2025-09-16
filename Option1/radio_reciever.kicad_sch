@@ -1376,29 +1376,6 @@
 		)
 		(uuid "47b1d998-cce8-49fe-98e5-8e191a767db0")
 	)
-	(text_box "Sparmodus verstehen"
-		(exclude_from_sim no)
-		(at 128.27 13.97 0)
-		(size 25.4 12.7)
-		(margins 1.905 1.905 1.905 1.905)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(effects
-			(font
-				(size 2.54 2.54)
-				(thickness 0.508)
-				(bold yes)
-				(color 251 0 0 1)
-			)
-			(justify left top)
-		)
-		(uuid "dceb8017-fcb0-418b-8f64-7332c893f291")
-	)
 	(text_box "Rückmeldung an den Sender bei Batteriebetrieb (ungenutzt)"
 		(exclude_from_sim no)
 		(at 139.7 167.64 0)
@@ -1508,10 +1485,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e91f71b7-8ab0-44de-8084-9fbcbd092881")
-	)
-	(no_connect
-		(at 109.22 21.59)
-		(uuid "30f0522c-00a2-4d21-90c8-df9be4e60280")
 	)
 	(no_connect
 		(at 106.68 128.27)
@@ -2143,7 +2116,7 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 21.59) (xy 109.22 21.59)
+			(xy 87.63 21.59) (xy 132.08 21.59)
 		)
 		(stroke
 			(width 0)
@@ -2611,6 +2584,28 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "GND"
+		(shape input)
+		(at 132.08 21.59 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "2702ec9c-c0e1-42a8-b279-3a938c3cd270")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 138.9357 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 				(hide yes)
 			)
 		)

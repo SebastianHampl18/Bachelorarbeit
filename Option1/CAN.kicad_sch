@@ -1474,16 +1474,16 @@
 		(uuid "73ca773e-4f6e-44c8-a209-06b2555790db")
 	)
 	(junction
-		(at 156.21 121.92)
+		(at 162.56 121.92)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "7b5b4e27-1ba2-4fbc-8e65-d8d09e3d9c5f")
+		(uuid "7c9d35a7-176b-4113-93b4-a7c6cea997a6")
 	)
 	(junction
-		(at 191.77 78.74)
+		(at 151.13 121.92)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "89c79e60-ab48-4b9e-bf1b-715e0f060a73")
+		(uuid "9b077f4e-49f9-432a-bbc6-01029e0dbdbe")
 	)
 	(junction
 		(at 80.01 101.6)
@@ -1498,6 +1498,18 @@
 		(uuid "9f19472c-5492-4382-b151-d92e81e3fd35")
 	)
 	(junction
+		(at 151.13 99.06)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "acb9a1a5-426a-48b3-855d-42566c3c1e9d")
+	)
+	(junction
+		(at 193.04 78.74)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c5288c1f-be0c-4b7e-9c42-ca87336bcd2d")
+	)
+	(junction
 		(at 177.8 116.84)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1510,22 +1522,10 @@
 		(uuid "d119a80e-9041-43ce-b30f-4dd56103af66")
 	)
 	(junction
-		(at 167.64 121.92)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "ec80a8e3-c0e8-4028-832a-12c885c8f7fb")
-	)
-	(junction
 		(at 170.18 116.84)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f619cf11-d8de-430d-9877-1ca32fc1c9eb")
-	)
-	(junction
-		(at 156.21 99.06)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f8db7b9a-f7cf-43fe-86bd-827f0b554d20")
 	)
 	(wire
 		(pts
@@ -1549,17 +1549,7 @@
 	)
 	(wire
 		(pts
-			(xy 191.77 99.06) (xy 191.77 78.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1510a002-495b-4a78-90d0-ffd78196f2d2")
-	)
-	(wire
-		(pts
-			(xy 156.21 111.76) (xy 156.21 121.92)
+			(xy 151.13 111.76) (xy 151.13 121.92)
 		)
 		(stroke
 			(width 0)
@@ -1599,7 +1589,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 78.74) (xy 191.77 78.74)
+			(xy 187.96 78.74) (xy 193.04 78.74)
 		)
 		(stroke
 			(width 0)
@@ -1626,6 +1616,16 @@
 			(type default)
 		)
 		(uuid "2f737873-3902-44c4-9acd-0501b7aef872")
+	)
+	(wire
+		(pts
+			(xy 151.13 121.92) (xy 114.3 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "30c99633-4280-47ed-85fd-25e8ce5804f9")
 	)
 	(wire
 		(pts
@@ -1699,16 +1699,6 @@
 	)
 	(wire
 		(pts
-			(xy 156.21 99.06) (xy 127 99.06)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4bcaee0a-f7c2-4676-8dcb-8eec3b344ab7")
-	)
-	(wire
-		(pts
 			(xy 127 91.44) (xy 213.36 91.44)
 		)
 		(stroke
@@ -1729,23 +1719,13 @@
 	)
 	(wire
 		(pts
-			(xy 156.21 121.92) (xy 114.3 121.92)
+			(xy 151.13 121.92) (xy 162.56 121.92)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "4ff578dc-4ae7-40a5-b170-e9b766d94394")
-	)
-	(wire
-		(pts
-			(xy 167.64 121.92) (xy 156.21 121.92)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "56e01b3c-a406-4353-8182-59d89b86e005")
 	)
 	(wire
 		(pts
@@ -1779,7 +1759,7 @@
 	)
 	(wire
 		(pts
-			(xy 156.21 99.06) (xy 156.21 104.14)
+			(xy 151.13 99.06) (xy 151.13 104.14)
 		)
 		(stroke
 			(width 0)
@@ -1799,16 +1779,6 @@
 	)
 	(wire
 		(pts
-			(xy 191.77 78.74) (xy 247.65 78.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6a22620c-1aa9-434f-a7ab-f851f601456b")
-	)
-	(wire
-		(pts
 			(xy 82.55 101.6) (xy 80.01 101.6)
 		)
 		(stroke
@@ -1816,16 +1786,6 @@
 			(type default)
 		)
 		(uuid "6c51bd8a-eed3-4f56-8ef6-b0429f20d048")
-	)
-	(wire
-		(pts
-			(xy 156.21 99.06) (xy 191.77 99.06)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6d9a169b-6f19-4231-adb3-29eb1ae7dbad")
 	)
 	(wire
 		(pts
@@ -1899,6 +1859,16 @@
 	)
 	(wire
 		(pts
+			(xy 193.04 99.06) (xy 193.04 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8b29c7b3-3f23-493e-b1c5-a14a14ede4ba")
+	)
+	(wire
+		(pts
 			(xy 199.39 116.84) (xy 199.39 121.92)
 		)
 		(stroke
@@ -1906,6 +1876,16 @@
 			(type default)
 		)
 		(uuid "92d5cda7-93d9-4a65-a3ad-fceaecdf9ba3")
+	)
+	(wire
+		(pts
+			(xy 162.56 121.92) (xy 170.18 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9570d4aa-8e9e-4bdc-bbcc-8efff4d91f21")
 	)
 	(wire
 		(pts
@@ -1949,6 +1929,16 @@
 	)
 	(wire
 		(pts
+			(xy 193.04 78.74) (xy 247.65 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a5de4c1b-8596-47f1-89c8-6cd96f3ecdb7")
+	)
+	(wire
+		(pts
 			(xy 80.01 88.9) (xy 77.47 88.9)
 		)
 		(stroke
@@ -1956,6 +1946,16 @@
 			(type default)
 		)
 		(uuid "a7e4213a-bd26-4e6a-89a7-e9ffd946c761")
+	)
+	(wire
+		(pts
+			(xy 151.13 99.06) (xy 193.04 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a9a1bb80-7f4b-484a-9877-53e4ac3eba23")
 	)
 	(wire
 		(pts
@@ -2009,7 +2009,7 @@
 	)
 	(wire
 		(pts
-			(xy 167.64 78.74) (xy 167.64 104.14)
+			(xy 162.56 78.74) (xy 162.56 104.14)
 		)
 		(stroke
 			(width 0)
@@ -2026,6 +2026,16 @@
 			(type default)
 		)
 		(uuid "bacc3d46-389c-48b6-b90c-c67add53d30c")
+	)
+	(wire
+		(pts
+			(xy 151.13 99.06) (xy 127 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c81267a4-8562-434a-9d70-4389cfd5d72e")
 	)
 	(wire
 		(pts
@@ -2069,16 +2079,6 @@
 	)
 	(wire
 		(pts
-			(xy 167.64 121.92) (xy 170.18 121.92)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "eb8390fb-98a7-415c-a1e5-9cbc415e9606")
-	)
-	(wire
-		(pts
 			(xy 243.84 96.52) (xy 247.65 96.52)
 		)
 		(stroke
@@ -2099,7 +2099,7 @@
 	)
 	(wire
 		(pts
-			(xy 167.64 111.76) (xy 167.64 121.92)
+			(xy 162.56 111.76) (xy 162.56 121.92)
 		)
 		(stroke
 			(width 0)
@@ -2119,7 +2119,7 @@
 	)
 	(wire
 		(pts
-			(xy 167.64 78.74) (xy 114.3 78.74)
+			(xy 162.56 78.74) (xy 114.3 78.74)
 		)
 		(stroke
 			(width 0)
@@ -2188,6 +2188,16 @@
 		(uuid "59d653c7-c7b0-41e4-a4aa-bc9afcb5a9e7")
 	)
 	(label "CAN_RX"
+		(at 205.74 93.98 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a2a4a8b4-3ddf-4aad-80ad-da175659b0b9")
+	)
+	(label "CAN_RX"
 		(at 127 93.98 0)
 		(effects
 			(font
@@ -2196,6 +2206,16 @@
 			(justify left bottom)
 		)
 		(uuid "ae07e8e6-92b8-447c-8f41-2d3a8db18ce8")
+	)
+	(label "CAN_TX"
+		(at 205.74 91.44 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ae7b35d1-03c7-450a-aa19-c59d9ef742dd")
 	)
 	(label "GND"
 		(at 129.54 121.92 0)
@@ -2659,7 +2679,7 @@
 	)
 	(symbol
 		(lib_id "easyeda2kicad:CL10B104KA8NNNC")
-		(at 167.64 107.95 90)
+		(at 162.56 107.95 90)
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
@@ -2668,7 +2688,7 @@
 		(dnp no)
 		(uuid "780458fb-9f30-4ebd-aa46-18c6554e95d9")
 		(property "Reference" "C301"
-			(at 165.1 106.68 90)
+			(at 160.02 106.68 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2677,7 +2697,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 165.1 109.22 90)
+			(at 160.02 109.22 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2686,7 +2706,7 @@
 			)
 		)
 		(property "Footprint" "easyeda2kicad:C0603"
-			(at 175.26 107.95 0)
+			(at 170.18 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2695,7 +2715,7 @@
 			)
 		)
 		(property "Datasheet" "https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_SAMSUNG_CL10B104KA8NNNC_100nF-104-10-25V_C1590.html"
-			(at 177.8 107.95 0)
+			(at 172.72 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2704,7 +2724,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 167.64 107.95 0)
+			(at 162.56 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2713,7 +2733,7 @@
 			)
 		)
 		(property "LCSC Part" "C1590"
-			(at 180.34 107.95 0)
+			(at 175.26 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2947,7 +2967,7 @@
 	)
 	(symbol
 		(lib_id "easyeda2kicad:CL10B104KA8NNNC")
-		(at 156.21 107.95 90)
+		(at 151.13 107.95 90)
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
@@ -2956,7 +2976,7 @@
 		(dnp no)
 		(uuid "ab67a6d7-04cb-47f1-813c-d4aef16dc6df")
 		(property "Reference" "C302"
-			(at 153.162 106.68 90)
+			(at 148.082 106.68 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2965,7 +2985,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 153.162 109.22 90)
+			(at 148.082 109.22 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2974,7 +2994,7 @@
 			)
 		)
 		(property "Footprint" "easyeda2kicad:C0603"
-			(at 163.83 107.95 0)
+			(at 158.75 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2983,7 +3003,7 @@
 			)
 		)
 		(property "Datasheet" "https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_SAMSUNG_CL10B104KA8NNNC_100nF-104-10-25V_C1590.html"
-			(at 166.37 107.95 0)
+			(at 161.29 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2992,7 +3012,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 156.21 107.95 0)
+			(at 151.13 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3001,7 +3021,7 @@
 			)
 		)
 		(property "LCSC Part" "C1590"
-			(at 168.91 107.95 0)
+			(at 163.83 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
