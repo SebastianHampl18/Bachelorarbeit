@@ -704,6 +704,17 @@
 		)
 		(uuid "fd9e0205-9bdf-451d-b39a-e79ab04fbc98")
 	)
+	(hierarchical_label "GND"
+		(shape input)
+		(at 66.04 26.67 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "05bb164f-9975-452e-89c2-d0dd3e23380f")
+	)
 	(hierarchical_label "3V3"
 		(shape input)
 		(at 110.49 31.75 0)
