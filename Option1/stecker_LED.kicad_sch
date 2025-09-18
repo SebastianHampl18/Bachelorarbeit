@@ -205,29 +205,6 @@
 			(embedded_fonts no)
 		)
 	)
-	(text_box "Pinheader als Platzhalter für Stecker"
-		(exclude_from_sim no)
-		(at 20.32 20.32 0)
-		(size 29.21 21.59)
-		(margins 1.905 1.905 1.905 1.905)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(effects
-			(font
-				(size 2.54 2.54)
-				(thickness 0.254)
-				(bold yes)
-				(color 245 0 0 1)
-			)
-			(justify left top)
-		)
-		(uuid "ee416773-85be-461e-b1b2-852f4ac1d197")
-	)
 	(wire
 		(pts
 			(xy 33.02 55.88) (xy 39.37 55.88)

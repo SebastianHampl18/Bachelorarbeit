@@ -1936,6 +1936,12 @@
 		(uuid "aa2c6cd1-6c66-4269-a250-abfe8dba061d")
 	)
 	(junction
+		(at 68.58 60.96)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ad0be85f-a926-4703-9f22-57951c299fe8")
+	)
+	(junction
 		(at 184.15 63.5)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2279,7 +2285,7 @@
 	)
 	(wire
 		(pts
-			(xy 45.72 55.88) (xy 53.34 55.88)
+			(xy 45.72 55.88) (xy 52.07 55.88)
 		)
 		(stroke
 			(width 0)
@@ -2296,6 +2302,16 @@
 			(type default)
 		)
 		(uuid "7cd8bc45-89c3-4992-9eea-fa74e58c887b")
+	)
+	(wire
+		(pts
+			(xy 68.58 60.96) (xy 71.12 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "93fee6ce-c312-48aa-a1cc-5a2c4ea0c4c7")
 	)
 	(wire
 		(pts
@@ -2366,6 +2382,16 @@
 			(type default)
 		)
 		(uuid "acc4831d-6822-4bc7-bbcc-b3647c241519")
+	)
+	(wire
+		(pts
+			(xy 68.58 55.88) (xy 68.58 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ace6b1db-db6a-4c41-b63d-bfd0357edf65")
 	)
 	(wire
 		(pts
@@ -2479,7 +2505,7 @@
 	)
 	(wire
 		(pts
-			(xy 19.05 60.96) (xy 62.23 60.96)
+			(xy 19.05 60.96) (xy 68.58 60.96)
 		)
 		(stroke
 			(width 0)
@@ -2499,7 +2525,7 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 55.88) (xy 63.5 55.88)
+			(xy 59.69 55.88) (xy 62.23 55.88)
 		)
 		(stroke
 			(width 0)
@@ -2667,6 +2693,28 @@
 		)
 		(uuid "b4db89c7-15bc-4be4-b922-00aa8d7df5b7")
 	)
+	(global_label "5V"
+		(shape input)
+		(at 62.23 55.88 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "2896dfa3-779f-4ab0-bc8e-2f5bbfad1054")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 67.5133 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(hierarchical_label "ESP_EN"
 		(shape output)
 		(at 201.93 63.5 0)
@@ -2688,17 +2736,6 @@
 			(justify left)
 		)
 		(uuid "4f4af92f-92a5-4ba2-9741-60a9613449d2")
-	)
-	(hierarchical_label "5V"
-		(shape input)
-		(at 63.5 55.88 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "5a7b7675-80c3-4271-a2fd-bf1e7219828d")
 	)
 	(hierarchical_label "3V3"
 		(shape input)
@@ -2735,7 +2772,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape input)
-		(at 62.23 60.96 0)
+		(at 71.12 60.96 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3803,7 +3840,7 @@
 	)
 	(symbol
 		(lib_id "Diode:1N5819WS")
-		(at 57.15 55.88 0)
+		(at 55.88 55.88 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3811,7 +3848,7 @@
 		(dnp no)
 		(uuid "d472315a-3092-4a67-ba8d-f4e07080a58c")
 		(property "Reference" "D1405"
-			(at 57.15 59.69 0)
+			(at 55.88 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3819,7 +3856,7 @@
 			)
 		)
 		(property "Value" "1N5819WS"
-			(at 56.8325 52.07 0)
+			(at 55.5625 52.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3828,7 +3865,7 @@
 			)
 		)
 		(property "Footprint" "Diode_SMD:D_SOD-323"
-			(at 57.15 60.325 0)
+			(at 55.88 60.325 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3837,7 +3874,7 @@
 			)
 		)
 		(property "Datasheet" "https://datasheet.lcsc.com/lcsc/2204281430_Guangdong-Hottech-1N5819WS_C191023.pdf"
-			(at 57.15 55.88 0)
+			(at 55.88 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3846,7 +3883,7 @@
 			)
 		)
 		(property "Description" "40V 600mV@1A 1A SOD-323 Schottky Barrier Diodes, SOD-323"
-			(at 57.15 55.88 0)
+			(at 55.88 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)

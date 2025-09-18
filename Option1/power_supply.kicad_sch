@@ -3782,14 +3782,14 @@
 		(uuid "ff0c8c49-6a98-4a43-b468-83731d43f33f")
 	)
 	(label "48V_FUSED"
-		(at 57.15 25.4 0)
+		(at 59.69 25.4 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "05a2ac7b-0b5c-4a5f-9da9-0ff50c8aa32d")
+		(uuid "02604f48-f049-4b27-82e0-53ce75ea3bd8")
 	)
 	(label "3.3V"
 		(at 205.74 59.69 0)
@@ -3811,15 +3811,15 @@
 		)
 		(uuid "3ee127b3-8e86-47d7-8b8a-2710743be3cc")
 	)
-	(label "5V"
-		(at 60.96 77.47 0)
+	(label "48V_FUSED"
+		(at 33.02 77.47 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "72a8e924-353c-4dde-8a86-d09054ede38c")
+		(uuid "6cbcd79d-00ab-4584-a5a5-55b0ec1e044d")
 	)
 	(label "5V"
 		(at 166.37 33.02 0)
@@ -3831,15 +3831,15 @@
 		)
 		(uuid "741b7b38-4197-4699-b6f0-7d9cc2374ae1")
 	)
-	(label "48V"
-		(at 35.56 77.47 0)
+	(label "5V"
+		(at 81.28 77.47 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "b669b8d0-9a79-4e1a-ad08-dfda3319b8b3")
+		(uuid "8dfe3f10-20f6-4ac4-adc4-6ebc66be3471")
 	)
 	(label "12V_OUT"
 		(at 81.28 25.4 0)
@@ -5316,7 +5316,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "85171ea9-2a16-4add-99e5-b13393846673")
-		(property "Reference" "C1"
+		(property "Reference" "C205"
 			(at 67.31 90.17 90)
 			(effects
 				(font
@@ -5379,7 +5379,7 @@
 		(instances
 			(project "Option1"
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/ff0aab3a-6ec2-4a6b-b0bf-5e79396b738a"
-					(reference "C1")
+					(reference "C205")
 					(unit 1)
 				)
 			)
