@@ -29,19 +29,16 @@
       "zones": true
     },
     "visible_items": [
-      "vias",
       "footprint_text",
       "ratsnest",
       "footprints_front",
       "footprints_back",
-      "footprint_values",
       "footprint_references",
-      "tracks",
       "pads",
       "zones",
       "shapes"
     ],
-    "visible_layers": "00000000_00000000_0ffffff7_fff55575",
+    "visible_layers": "00000000_00000000_0fffddf7_fff55575",
     "zone_display_mode": 1
   },
   "git": {
@@ -80,16 +77,16 @@
       9
     ],
     "col_widths": [
-      10,
-      10,
-      10,
-      10,
-      10,
-      10,
-      10,
-      10,
-      10,
-      150
+      35,
+      35,
+      35,
+      35,
+      35,
+      35,
+      35,
+      35,
+      35,
+      507
     ],
     "custom_group_rules": [],
     "expanded_rows": [],

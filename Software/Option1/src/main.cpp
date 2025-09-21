@@ -310,7 +310,7 @@ void init_ports(){
   pinMode(SPI_RST_TP_PIN, PIN_OUTPUT);
 
   // Input
-  //pinMode(SPI_INT_CAN2_PIN, PIN_INPUT);
+  pinMode(SPI_INT_CAN2_PIN, PIN_INPUT);
   pinMode(SPI_INT_TP_PIN, PIN_INPUT);
   pinMode(INT_PE_PIN, PIN_INPUT);
 
@@ -321,17 +321,9 @@ void init_ports(){
   Wire.begin(I2C_SDA_PIN, I2C_SCL_PIN);
 
   // SPI
-  my_SPI.setDataMode(SPI_MODE3);
-  my_SPI.setBitOrder(MSBFIRST);
-  my_SPI.setClockDivider(SPI_CLOCK_DIV2); // 80 MHz / 2 = 40 MHz
   my_SPI.begin(SPI_CLK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN);
 
   //PWM For Display Backlight
-  /*
-  ledcSetup(DISPLAY_PWM_CH, DISPLAY_PWM_FREQ, DISPLAY_PWM_RES); // Configure Channel
-  ledcAttachPin(LCD_BL_PIN, DISPLAY_PWM_CH);                    // Define Pin for PWM
-  ledcWrite(DISPLAY_PWM_CH, (1 << DISPLAY_PWM_RES) * DISPLAY_PWM_DC);  // 50% Duty Cycle
-  */
   analogWrite(LCD_BL_PIN, 140);
 }
 
@@ -358,7 +350,8 @@ int init_GPIO_Exp_Ports(){
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 3, PIN_INPUT); // RC_Recieve_CH2
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 5, PIN_INPUT); // RC Receive CH3
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 7, PIN_INPUT); // RC Receive CH4
-  if(rv != 6){Serial.println("Error in init Ports Bank A"); return ERROR;}else{Serial.println("Init Ports Bank A successful");}
+  if(rv != 6){Serial.println("Error in init Ports Bank A"); return ERROR;}
+  else{Serial.println("Init Ports Bank A successful");}
 
   rv = 0;
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 0, PIN_OUTPUT); // LED Pin
@@ -369,11 +362,12 @@ int init_GPIO_Exp_Ports(){
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 5, PIN_OUTPUT); // RC Transmit CH3
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 6, PIN_OUTPUT); // CAN1 Silent Mode
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 7, PIN_OUTPUT); // CAN2 Silent Mode
-  if(rv != 8){Serial.println("Error in init Ports Bank B"); return ERROR;}else{Serial.println("Init Ports Bank B successful");}
+  if(rv != 8){Serial.println("Error in init Ports Bank B"); return ERROR;}
+  else{Serial.println("Init Ports Bank B successful");}
 
   // set PullUps where needed
   rv = 0;
-  rv += GPIO_Exp_WriteRegister(GPIO_EXP_GPPUB, 0x00); // No PullUps needed
+  rv += GPIO_Exp_WriteRegister(GPIO_EXP_GPPUA, 0x00); // No PullUps needed
   rv += GPIO_Exp_WriteRegister(GPIO_EXP_GPPUB, 0x00); // no PullUps needed
   if(rv != 2){Serial.println("Error in set PullUp Resistors"); return ERROR;}else{Serial.println("Set PullUp Resistors successful");}
 
@@ -384,8 +378,8 @@ int init_GPIO_Exp_Ports(){
 
   // Define Comparison Values for Pins to throw Interrupts
   // Interrupt is set, if opposite value occurd
-  rv += GPIO_Exp_WriteBit(GPIO_EXP_DEFVALA, 1, HIGH); // low-active Signal
-  rv += GPIO_Exp_WriteBit(GPIO_EXP_DEFVALA, 3, HIGH); // low-active Signal
+  rv += GPIO_Exp_WriteBit(GPIO_EXP_DEFVALA, 0, HIGH); // low-active Signal
+  rv += GPIO_Exp_WriteBit(GPIO_EXP_DEFVALA, 2, HIGH); // low-active Signal
 
   rv += GPIO_Exp_WriteBit(GPIO_EXP_DEFVALA, 3, LOW);
   rv += GPIO_Exp_WriteBit(GPIO_EXP_DEFVALA, 5, LOW);
@@ -414,9 +408,9 @@ void init_Interrupts(){
   Serial.println("Init Interrupts");
   // Init Interrupts
 
-  //attachInterrupt(digitalPinToInterrupt(INT_PE_PIN), ISR_GPIO_Expansion, RISING);
-  //attachInterrupt(digitalPinToInterrupt(SPI_INT_CAN2_PIN), ISR_CAN2, RISING);
-  //attachInterrupt(digitalPinToInterrupt(SPI_INT_TP_PIN), ISR_TouchController, RISING);
+  attachInterrupt(digitalPinToInterrupt(INT_PE_PIN), ISR_GPIO_Expansion, RISING);
+  attachInterrupt(digitalPinToInterrupt(SPI_INT_CAN2_PIN), ISR_CAN2, RISING);
+  attachInterrupt(digitalPinToInterrupt(SPI_INT_TP_PIN), ISR_TouchController, RISING);
 }
 
 void init_Timer(){
@@ -753,6 +747,7 @@ void ISR_GPIO_Expansion(){
 void process_ISR_GPIO_Expansion(){
   // Read Interrupt Pending Register
   // Set Flags for Interrupts
+
 
   int flags = GPIO_Exp_ReadRegister(GPIO_EXP_INTFA);
   int rv = GPIO_Exp_ReadRegister(GPIO_EXP_INTCAPA);
@@ -1282,20 +1277,41 @@ int send_RemoteDrive_Request(){
  * 
  * @return 1 at Success, -1 at fail
  */
-  // Send analog Signal
-  // Set Pin GPIOB 4 on Port Extension to HIGH to power the MOSFET
-  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 4, HIGH);
-  if(rv == ERROR){
-    Serial.println("Write failed");
-    return ERROR;
-  }
-  delay(300); // Wait 300ms for the Signal to be be Recieved by VCU
 
-  // Set Pin GPIOB 4 on Port Extension to LOW to reset the MOSFET
-  rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 4, LOW);
-  if(rv == ERROR){
-    Serial.println("Write failed");
-    return ERROR;
+  static bool Signal_active = false;
+  static int timer_end = 0;
+  int rv = 0;
+
+  if(ESP_storage.getInt("RF_CAN_en", FALSE) == FALSE){
+    // Send analog Signal
+    // Set Pin GPIOB 4 on Port Extension to HIGH to power the MOSFET
+    if(Signal_active == false){
+      Signal_active = true;
+      timer_end = millis() + 300; // Set Timer for 300ms
+
+      int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 4, HIGH);
+      if(rv == ERROR){
+        Serial.println("Write failed");
+        ISR_RX_2_Flag = false; // Reset Flag
+        Signal_active = false;
+
+        return ERROR;
+      }
+    }
+    if(millis() < timer_end){
+      return 0; // Wait until 300ms are over
+    }
+
+    // Reset Flag
+    ISR_RX_2_Flag = false;
+    Signal_active = false;
+
+    // Set Pin GPIOB 4 on Port Extension to LOW to reset the MOSFET
+    rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 4, LOW);
+    if(rv == ERROR){
+      Serial.println("Write failed");
+      return ERROR;
+    }
   }
 
   if(ESP_storage.getInt("RF_CAN_en", FALSE) == TRUE){
@@ -1321,16 +1337,35 @@ int send_SOC_Request(){
  * 
  * @return 1 at Success, -1 at fail
  */
+
+  static bool Signal_active = false;
+  static int timer_end = 0;
+  int rv = 0;
+
   // Send analog Signal
   // Set Pin GPIOB 5 on Port Extension to HIGH to power the MOSFET
-  int rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 5, HIGH);
-  if(rv == ERROR){
-    Serial.println("Write failed");
-    return ERROR;
+  if(Signal_active == false){
+    Signal_active = true;
+    timer_end = millis() + 300; // Set Timer for 300ms
+
+    rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 5, HIGH);
+    if(rv == ERROR){
+      Serial.println("Write failed");
+      ISR_RX_2_Flag = false; // Reset Flag
+      Signal_active = false;
+
+      return ERROR;
+    }
   }
 
   // Wait and reset
-  delay(300);
+  if(millis() < timer_end){
+    return 0; // Wait until 300ms are over
+  }
+
+  // Reset Flag
+  ISR_RX_2_Flag = false;
+  Signal_active = false;
 
   // Set Pin GPIOB 5 on Port Extension to LOW to reset the MOSFET
   rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 5, LOW);
@@ -1657,9 +1692,9 @@ void write_SPI_Register(uint8_t reg, uint8_t value){
   delay(10);
 }
 
-uint8_t read_SPI_Register(uint8_t reg){
+uint8_t read_SPI_Register(int chip, uint8_t reg){
   // Read single Register via SPI
-  SPI_select(CAN2);
+  SPI_select(chip);
   my_SPI.transfer(0x02);      // Send Read Command
   my_SPI.transfer(reg);       // Send Register Address
   uint8_t value = my_SPI.transfer(0x00); // Send Dummy Byte to receive Value
