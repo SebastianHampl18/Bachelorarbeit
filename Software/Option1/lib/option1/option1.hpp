@@ -98,6 +98,10 @@ GPIO35  -> Interrupt Port-Expander    -> Input                [Interrupt from GP
 #define DISPLAY_LCD 1
 #define DISPLAY_TOUCH 2
 
+//Read/Write Settings
+#define READ 1
+#define WRITE 0
+
 // GPIO Expander Register Adresses
 #define GPIO_EXP_ADRESS 0b0100000
 #define GPIO_EXP_IODIRA 0x00

@@ -276,166 +276,78 @@ int learn_RFControl(int mode){
  * @return mode at Success, -1 at fail
  */
   static int time_wait_Learn_RF = 0;
-  if(time_wait_Learn_RF == 0){
-    time_wait_Learn_RF = millis();
-  }
-  
-  // Write to PIN 1 on GPIO B Expansion
-  int rv = 0;
+  static int ctr = 0;
+  static bool signal_active = false;
 
-  if(mode == 1){
-    // Pairing Mode 1 -> Pairs RF Control, returns acknowledge
-    // GND, 1x short (<1s)
-    unsigned long now = millis();
-    if(time_wait_Learn_RF + 100 <= now){
-      // Reset Signal
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-      time_wait_Learn_RF = 0;
-      if(rv!=2){Serial.println("Writing failed"); return ERROR;}
-      return mode;
+  int rv = 0;
+  
+  // Check for valid mode
+  if(mode >= 1 && mode <= 6){
+
+    // Wait for Timer
+    if(millis() < time_wait_Learn_RF && time_wait_Learn_RF > 0){
+      return 0;
     }
-    else{
-      // Set Signal to active
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+
+    // Activate Signal
+    if(signal_active = false){
+      // Write to PIN 1 on GPIO B Expansion
+      signal_active = true;
+
+      // Set Timer
+      if(mode <= 4){
+        time_wait_Learn_RF = millis() + 100;
+      }
+      else{
+        time_wait_Learn_RF = millis() + 3100;
+      }
+
+      // lowactive Signal activate
+      rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW); 
+      if(rv == ERROR){
+        signal_active = false;
+        time_wait_Learn_RF = 0;
+        ctr = 0;
+        return ERROR;
+      }
+      return 0;
     }
-  }
-  if(mode == 2){
-    // Pairing Mode 2 -> Pairs RF Control Button, returns acknowledge
-    // GND, 2x short (<1s)
-    unsigned long now = millis();
-    if(time_wait_Learn_RF + 300 <= now){
-      // Reset Signal
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-      time_wait_Learn_RF = 0;
-      if(rv!=4){Serial.println("Writing failed"); return ERROR;}
-      return mode;
-    }
-    else if(time_wait_Learn_RF + 200 <= now){
-      // Reset Signal
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    }
-    else if(time_wait_Learn_RF + 100 <= now){
-      // Reset Signal
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-    }
-    else{
-      // Set Signal to active
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    }
-  }
-  if(mode == 3){
-    // Pairing Mode 3 -> Pairs RF Control, returns no acknowledge
-    // GND, 3x short (<1s)
-    unsigned long now = millis();
-    if(time_wait_Learn_RF + 500 <= now){
-      // Reset Signal
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-      time_wait_Learn_RF = 0;
-      if(rv!=6){Serial.println("Writing failed"); return ERROR;}
-      return mode;
-    }
-    else if(time_wait_Learn_RF + 400 <= now){
-      // Reset Signal
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    }
-    else if(time_wait_Learn_RF + 300 <= now){
-      // Reset Signal
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-    }
-    else if(time_wait_Learn_RF + 200 <= now){
-      // Reset Signal
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    }
-    else if(time_wait_Learn_RF + 100 <= now){
-      // Reset Signal
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-    }
-    else{
-      // Set Signal to active
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
+
+    // Deactivate Signal
+    if(signal_active == true){
+      signal_active = false;
+      ctr++;
+
+      // lowactive Signal reset
+      rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
+      if(rv == ERROR){
+        time_wait_Learn_RF = 0;
+        ctr = 0;
+        return ERROR;
+      }
+
+      if(mode >= 5){
+        mode -= 4; 
+      }
+      if(ctr < mode){
+        // Signal not complete, continue
+        // Set Timer for Wait
+        if(mode <= 4){
+          time_wait_Learn_RF = millis() + 100;
+        }
+        else{
+          time_wait_Learn_RF = millis() + 3100;
+        }
+        return 0;
+      }
+      else{
+        // Signal complete, End Function
+        time_wait_Learn_RF = 0;
+        ctr = 0;
+        return SUCCESS;
+      }
     }
   }
-  if(mode == 4){
-    // Pairing Mode 4 -> Pairs RF Control Button, returns no acknowledge
-    // GND, 4x short (<1s)
-    unsigned long now = millis();
-    if(time_wait_Learn_RF + 700 <= now){
-      // Reset Signal
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-      time_wait_Learn_RF = 0;
-      if(rv!=8){Serial.println("Writing failed"); return ERROR;}
-      return mode;
-    }
-    else if(time_wait_Learn_RF + 600 <= now){
-      // Reset Signal
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    }
-    else if(time_wait_Learn_RF + 500 <= now){
-      // Reset Signal
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-    }
-    else if(time_wait_Learn_RF + 400 <= now){
-      // Reset Signal
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    }
-    else if(time_wait_Learn_RF + 300 <= now){
-      // Reset Signal
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-    }
-    else if(time_wait_Learn_RF + 200 <= now){
-      // Reset Signal
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    }
-    else if(time_wait_Learn_RF + 100 <= now){
-      // Reset Signal
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-    }
-    else{
-      // Set Signal to active
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    }
-  }
-  if(mode == 5){
-    // Disconnect Mode 1 -> Removes 1 single RF Controller from list
-    // GND, 1x lang (>3s)
-    unsigned long now = millis();
-    if(time_wait_Learn_RF + 3100 <= now){
-      // Reset Signal
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-      time_wait_Learn_RF = 0;
-      if(rv!=2){Serial.println("Writing failed"); return ERROR;}
-      return mode;
-    }
-    else{
-      // Set Signal to active
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    }
-  }
-  if(mode == 6){
-    // Disconnect Mode 2 -> Removes all paired RF Controller from List
-    // GND, 2x lang (>3s)
-    unsigned long now = millis();
-    if(time_wait_Learn_RF + 7100 <= now){
-      // Reset Signal
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-      time_wait_Learn_RF = 0;
-      if(rv!=4){Serial.println("Writing failed"); return ERROR;}
-      return mode;
-    }
-    else if(time_wait_Learn_RF + 4000 <= now){
-      // Reset Signal
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    }
-    else if(time_wait_Learn_RF + 3100 <= now){
-      // Reset Signal
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-    }
-    else{
-      // Set Signal to active
-      rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW);
-    }
-  }
-  return 0;
 }
 
 /***************************
@@ -471,7 +383,8 @@ int GPIO_Exp_WriteRegister(int reg, int value){
   }
 
   // Write Address and Write Bit to Buffer
-  Wire.beginTransmission(GPIO_EXP_ADRESS);
+  // I2C Adresse + Write Bit
+  Wire.beginTransmission(GPIO_EXP_ADRESS << 1); 
   
   // Write register Address to Buffer
   int rv = Wire.write(reg); 
@@ -522,7 +435,7 @@ int GPIO_Exp_ReadRegister(int reg){
 
   // Write Address and Write Bit to Buffer
   Serial.println("Begin Transmission - Address: " + String(GPIO_EXP_ADRESS, HEX));
-  Wire.beginTransmission(GPIO_EXP_ADRESS);
+  Wire.beginTransmission((GPIO_EXP_ADRESS << 1) || READ); // I2C Adresse + Read Bit
 
   // Write register address to Buffer
   Serial.println("Writing Register Address to Buffer");
@@ -601,20 +514,7 @@ int GPIO_Exp_WriteBit(int reg, int bit, int value){
     Serial.println("Register Address is in Range");
   }
 
-  // Set Address and Write Bit
-  Serial.println("Begin Transmission");
-  Wire.beginTransmission(GPIO_EXP_ADRESS);
-
-  // Write Register Adress to Buffer
-  int rv = Wire.write(reg);  
-  if(rv <= 0){
-    Serial.println("Writing Failed");
-    return ERROR;
-  } 
-  else{
-    Serial.println("Register Address written to Buffer");
-  }
-
+  int rv = 0;
   // Read Data from Register
   int reg_value = GPIO_Exp_ReadRegister(reg);
   if(reg_value == ERROR){
@@ -628,36 +528,21 @@ int GPIO_Exp_WriteBit(int reg, int bit, int value){
 
   // Changes Bit in Register Data and write data to Buffer
   if(value == HIGH){
-    rv = Wire.write(reg_value | (1 << bit)); 
-    if(rv <= 0){
-      Serial.println("Writing Failed");
-      return ERROR;
-    }
-    else{
-      Serial.println("Value HIGH written to Buffer");
-    }
+    rv = GPIO_Exp_WriteRegister(reg, reg_value | (1 << bit));
   }
   else if(value == LOW){
-    rv = Wire.write(reg_value & ~(1 << bit));
-    if(rv <= 0){
-      Serial.println("Writing Failed");
-      return ERROR;
-    }
-    else{
-      Serial.println("Value LOW written to Buffer");
-    }
+    rv = GPIO_Exp_WriteRegister(reg, reg_value & ~(1 << bit));
   }
-  
-  // Send Buffer to Communication
-  Serial.println("Sending Buffer to Communication");
-  rv = Wire.endTransmission();
-  if(rv != 0){
-    Serial.println("Error sending data via I2C");
+
+  // Error handling
+  if(rv == ERROR){
+    Serial.println("Writing Failed");
     return ERROR;
   }
   else{
-    Serial.println("Data sent via I2C");
+    Serial.println("Value written to Buffer");
   }
+  
   return SUCCESS;  
 }
 

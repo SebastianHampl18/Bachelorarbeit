@@ -82,6 +82,7 @@ volatile bool Learn_RF_ACK_Waiting = false;
 volatile bool RF_Error_Active = false;
 volatile unsigned long time_wait_Error = 0;
 volatile bool CAN1_active = false;
+volatile bool CAN2_active = false;
 volatile float CAN_speed = 0.0;
 volatile float CAN_soc = 0.0;
 volatile float CAN_battery_voltage = 0.0;
@@ -131,8 +132,8 @@ void define_CAN2_Messages();
 int decodeSignal(CAN_Signal signal, CAN_frame_t* frame);
 void print_NVS();
 int send_CAN1_Message(int id, uint8_t* data, int len);
-void write_SPI_Register(uint8_t reg, uint8_t value);
-uint8_t read_SPI_Register(uint8_t reg);
+void write_SPI_Register(int chip, uint8_t reg, uint8_t value);
+uint8_t read_SPI_Register(int chip, uint8_t reg);
 void IRAM_ATTR TIM_LED_Flashing_overflow();
 void process_CAN2_Message();
 void handleSettingsToggle();
@@ -146,15 +147,15 @@ void setup() {
   //init_files();
   Serial.begin(115200);
   Serial.println("Setup Start");
-  //init_ports();
-  init_display();
+  init_ports();
+  //init_display();
   //init_GPIO_Exp_Ports();
   //init_Interrupts();
   //init_Timer();
-  //init_storage();
+  init_storage();
   //init_can1();
   //init_CAN2();
-  //init_wifi();
+  init_wifi();
   
 
   Master_Mode_active = true;
@@ -171,10 +172,6 @@ void loop() {
     loop_ctr++;
   }
   loop_ctr++;
-
-  // Test!!!!! TODO: Remove
-  Wire.requestFrom(0x15, 1); // SCL aktiv
-  delay(100);
 
   // Dummy Werte statt CAN
   if(loop_ctr % 900 == 0){
@@ -246,32 +243,56 @@ void loop() {
 
   // End of polling for Interrupts by GPIO expansion *****************************************************************************
 
-  // Polling for Interrupts set by Touch Display Controller **********************************************************************
-  if(ESP_storage.getInt("RF_enable", FALSE) == TRUE && ESP_storage.getInt("Display_enable", FALSE) == TRUE){
-    // RF Control is enabled and CAN Transmission of RF Control Signals is enabled
-    // Check if Learn Mode for RF Control was activated by Touch Display
+  // Polling for Flags for Radio Reeiver **********************************************************************
+  if(ESP_storage.getInt("RF_enable", FALSE) == TRUE){
+    // RF Control is enabled
     if(ISR_Learn_RF_Flag == true){
-      // 
-      if(ISR_Learn_RF_Mode > 0 && Learn_RF_Active_Flag == false){
-        int rv = learn_RFControl(ISR_Learn_RF_Mode);
 
-        if(rv==ERROR){Serial.println("activating Pairing Mode failed");}
+      static bool signal_finished = false; 
 
-        // repeat until Signal was transmitted to RF Controller successfully
-        if(rv == ISR_Learn_RF_Mode){
-          Learn_RF_Active_Flag = true;
+      int rv = 0;
+      
+      if(ISR_Learn_RF_Mode > 0 && signal_finished == false){
+        rv = learn_RFControl(ISR_Learn_RF_Mode);
+
+        if(rv==ERROR){
+          Serial.println("activating Pairing Mode failed");
+          ISR_Learn_RF_Flag = false;
+        }
+      }
+
+      if(rv == SUCCESS){
+        static int ctr = 0;
+        signal_finished = true;
+        // Check ACK and reset Learning_Flag if ACK is received
+        // Learning Mode may remain active
+        if(ctr <= 5){
+          rv = check_RF_Acknowledge(ISR_Learn_RF_Mode);
+        }
+        else{
+          signal_finished = false;
+          ISR_Learn_RF_Flag = false;
         }
 
-        timerWrite(TIM_RF_Learn_Active, 0);                 // Reset Timer Counter
-        timerAlarmEnable(TIM_RF_Learn_Active);              // Activate Timer
+        if(rv == SUCCESS){
+          Serial.println("Activation of learning Mode successful and ACK received");
+          signal_finished = false;
+          ISR_Learn_RF_Flag = false;
+        }
+        else if(rv == 0){
+          // Waiting for Timer
+        }
+        else{
+          Serial.println("Activation of learning Mode not successful and no ACK received");
+          signal_finished = false;
+          ISR_Learn_RF_Flag = false;
+        }
       }
-      // Check ACK and reset Learning_Flag if ACK is received
-      // Learning Mode may remain active
-      int rv = check_RF_Acknowledge(ISR_Learn_RF_Mode);
+      
     }
   }
 
-  // End of polling for Interrupts set by Touch Controller Display *********************************************************
+  // End of Polling for Flags for Radio Reeiver *********************************************************
   
   
   // Processing incoming CAN1 Messages *****************************************************************************************
@@ -417,29 +438,15 @@ void init_Timer(){
 
   Serial.println("Init Timer");
 
-  // initardwaretimer
-
-  /***************  Timer 0 - RF Learn Active detection ********************************************/
-  // Timer 0, Prescaler 8000 -> 1 tick = 0.1 ms (bei 80 MHz APB), countUp
-  TIM_RF_Learn_Active = timerBegin(0, 8000, true); 
-
-  // init Interrupt for Timer overflow
-  timerAttachInterrupt(TIM_RF_Learn_Active, TIM_RF_Learn_Active_overflow, true); // react on rising Edge
-
-  // set Timer-Alarm: 3.000 ms = 3 Sekunden
-  timerAlarmWrite(TIM_RF_Learn_Active, 3000, false); // false = one-shot, true = auto-reload
-  timerAlarmDisable(TIM_RF_Learn_Active);            // Timer will be activated by ISR
-  /*****************************************************************************************************/
-
   /*************** Timer 1 - LED Flashing via CAN ******************************************************/
-  // Timer 1, Prescaler 8000 -> 1 tick = 0.1 ms (bei 80 MHz APB), countUp
+  // Timer 1, Prescaler 8000 -> 1 tick = 0.01 ms (bei 80 MHz APB), countUp
   TIM_LED_Flashing = timerBegin(1, 8000, true);
 
   // init Interrupt for Timer overflow
   timerAttachInterrupt(TIM_LED_Flashing, TIM_LED_Flashing_overflow, true); // react on rising Edge
 
   // set Timer-Alarm: 500 ms = 0.5 Sekunden -> Period = 1 sec
-  timerAlarmWrite(TIM_LED_Flashing, 500, true); // true = auto-reload
+  timerAlarmWrite(TIM_LED_Flashing, 5000, true); // true = auto-reload
   timerAlarmDisable(TIM_LED_Flashing);            // Timer will be activated by CAN-receive
   /*****************************************************************************************************/
 }
@@ -631,24 +638,9 @@ int process_CAN1(){
   CAN_frame_t rx_frame;
 
   // Check for IDs and process Data based on 
-
   // Versuchen, eine Nachricht aus der Queue zu holen
   if (xQueueReceive(CAN_cfg.rx_queue, &rx_frame, 0) == pdTRUE) {
     
-    // Frame-Infos
-    Serial.print("Empfangen: ID=0x");
-    Serial.print(rx_frame.MsgID, HEX);
-    Serial.print(" DLC=");
-    Serial.print(rx_frame.FIR.B.DLC);
-    Serial.print(" Daten=");
-
-    // Datenbytes ausgeben
-    for (int i = 0; i < rx_frame.FIR.B.DLC; i++) {
-      Serial.print(rx_frame.data.u8[i], HEX);
-      Serial.print(" ");
-    }
-    Serial.println();
-
     int identifier = rx_frame.MsgID;
 
     if(Power_Data.id == identifier){
@@ -687,52 +679,51 @@ void init_CAN2(){
 
   // Initialize CAN2 Module via SPI
   // Set CAN2 Module to Config Mode
-  write_SPI_Register(CAN2_CANCTRL,0x80); // Set Config Mode
-  delay(50);
+  write_SPI_Register(CAN2, CAN2_CANCTRL,0x80); // Set Config Mode
+  delay(200);
 
   // Check for Controller in Config Mode
   // Read CANSTAT Register [7:5] -> Mode
-  while(ctr<100 && connected == false){
-    mode = read_SPI_Register(CAN2_CANSTAT) >> 5;
-    if(mode == 0x04){
-      Serial.println("CAN2 in Config Mode");
-      connected = true;
-    }
-    else{
-      // Error Handling - Try Multiple Times
-      ctr++;
-      Serial.println("Error: CAN2 not in Config Mode");
-    }
+  mode = read_SPI_Register(CAN2, CAN2_CANSTAT) >> 5;
+  if(mode == 0x04){
+    Serial.println("CAN2 in Config Mode");
+    connected = true;
   }
+  else{
+    // Error Handling
+    Serial.println("Error: CAN2 not in Config Mode");
+    connected = false;
+    CAN2_active = false;
+  }
+  
 
   if(connected == true){
     // Set Bitrate to 500 kbps
     // For 8MHz Clock
-    write_SPI_Register(CAN2_CNF1, 0x00); // SJW=1, BRP=0 -> 500 kbps
-    write_SPI_Register(CAN2_CNF2, 0x89); // BTLMODE=1, SAM=0, PHSEG1=2, PRSEG=2
-    write_SPI_Register(CAN2_CNF3, 0x02); // PHSEG2=3
+    write_SPI_Register(CAN2, CAN2_CNF1, 0x00); // SJW=1, BRP=0 -> 500 kbps
+    write_SPI_Register(CAN2, CAN2_CNF2, 0xD0); // BTLMODE=1, SAM=1, PHSEG1=3, PRSEG=1
+    write_SPI_Register(CAN2, CAN2_CNF3, 0x02); // PHSEG2=3
 
     // Enable Interrupts
-    write_SPI_Register(CAN2_CANINTE, 0xFF); // Enable all interrupts
+    write_SPI_Register(CAN2, CAN2_CANINTE, 0xA2); // Enable all interrupts
 
     // Set Normal Mode
-    write_SPI_Register(CAN2_CANCTRL, 0x00); // Set Normal Mode
-    delay(50);
+    write_SPI_Register(CAN2, CAN2_CANCTRL, 0x00); // Set Normal Mode
+    delay(200);
 
-    // Check for Controller in Normal Mode
-    ctr = 0;
-    while(ctr<100 && CAN1_active == false){
-      mode = read_SPI_Register(CAN2_CANSTAT) >> 5;
-      if(mode == 0x00){
-        Serial.println("CAN2 in Normal Mode");
-        CAN1_active = true;
-      }
-      else{
-        //Error Handling - Try Multiple Times
-        ctr++;
-        Serial.println("Error: CAN2 not in Normal Mode");
-      }
+    mode = read_SPI_Register(CAN2, CAN2_CANSTAT) >> 5;
+    if(mode == 0x00){
+      Serial.println("CAN2 in Normal Mode");
+      CAN2_active = true;
     }
+    else{
+      Serial.println("Error: CAN2 not in Normal Mode");
+      CAN2_active = false;
+    }
+  
+  }
+  else{
+    CAN2_active = false;
   }
 
   define_CAN2_Messages();
@@ -759,7 +750,6 @@ void process_ISR_GPIO_Expansion(){
       // Interrupt ocured for Bit 0
       // RF Controller Pairing Mode Acknowledge
       ISR_Learn_LED_CTR += 1; 
-      timerWrite(TIM_RF_Learn_Active, 0);
     }
     if((flags >> 1) & 0x01){
       // Interrupt ocured for Bit 1
@@ -815,22 +805,22 @@ void IRAM_ATTR ISR_CAN2(){
 void process_CAN2_Message(){
   // Check for Message in Buffer 0
   // Check RX Buffer 0 Full Flag [bit:0]
-  if(read_SPI_Register(CAN2_CANINTF) & 0x01){
+  if(read_SPI_Register(CAN2, CAN2_CANINTF) & 0x01){
     // Clear Interrupt Flag
-    write_SPI_Register(CAN2_CANINTF, 0x00);
+    write_SPI_Register(CAN2, CAN2_CANINTF, 0x00);
 
     // Message in Buffer 0
     // Read Identifier from Controller
-    int identifier = (read_SPI_Register(CAN2_RXB0SIDH) << 3) | (read_SPI_Register(CAN2_RXB0SIDL) >> 5);
+    int identifier = (read_SPI_Register(CAN2, CAN2_RXB0SIDH) << 3) | (read_SPI_Register(CAN2, CAN2_RXB0SIDL) >> 5);
     if(identifier == RFID_Data.id){
       // RFID Message recieved
       // Read Data Length Code
-      int dlc = read_SPI_Register(CAN2_RXB0DLC) & 0x0F;
+      int dlc = read_SPI_Register(CAN2, CAN2_RXB0DLC) & 0x0F;
 
       // Read Data Bytes
       uint64_t data = 0;
       for(int i=0; i<dlc; i++){
-        data = (data << (i * 8)) | read_SPI_Register(CAN2_RXB0D0 + i);
+        data = data | (read_SPI_Register(CAN2, CAN2_RXB0D0 + i) << (i * 8));
       }
       // Process Data
       // generate mask for data
@@ -888,15 +878,18 @@ int check_RF_Error(){
     if(Learn_RF_Active_Flag == true){
       if(ISR_RF_Error_CTR == 2 && ISR_Learn_RF_Mode >= 5){
         // Entry could not be Errased from list
-        // TODO: Write to Display
+        // Write to Website
+        RF_Connect_Return = "Fehlgeschalgen - Konnte nicht gelöscht werden";
       }
-      if(ISR_RF_Error_CTR == 2 && ISR_Learn_RF_Mode >= 4){
+      if(ISR_RF_Error_CTR == 2 && ISR_Learn_RF_Mode <= 4){
         // Entry already found in list
-        // TODO: Write to Display
+        // Write to Website
+        RF_Connect_Return = "Fehlgeschalgen - bereits verbunden";
       }
-      if(ISR_RF_Error_CTR == 3){
+      if(ISR_RF_Error_CTR == 3 && ISR_Learn_RF_Mode <= 4){
         // Entry could not be added - maximum reached
-        // TODO: Write to Display
+        // Write to Website
+        RF_Connect_Return = "Fehlgeschalgen - maximum erreicht";
       }
     }
 
@@ -955,7 +948,7 @@ int check_RF_Acknowledge(int mode){
     }
   }
   else{
-    // Waiting for Error
+    // Waiting for ACK
     return 0;
   }
 }
@@ -1589,15 +1582,17 @@ void process_CAN_Option1Commands(CAN_frame_t* frame){
   // Enable or disable LED Flash Timer
   if(value = TRUE){
     LED_Flashing_Active = TRUE;
+    timerAlarmEnable(TIM_LED_Flashing); // start Timer
   }
   else{
     LED_Flashing_Active = FALSE;
+    timerAlarmEnable(TIM_LED_Flashing); // stop Timer
   }
 
   value = decodeSignal(LED_Signal, frame);
   // Activate LED Signal as often as defined in the CAN Message
   if(value > 0){
-    LED_Flashing_CTR = value; // every cycle of the timer toggles the LED, so double the count
+    LED_Flashing_CTR = value;
     timerAlarmEnable(TIM_LED_Flashing); // start Timer
   }
 
@@ -1614,7 +1609,8 @@ void process_CAN_BatteryVoltage(CAN_frame_t* frame){
   // Process incoming Battery Voltage CAN Message
 
   float value = decodeSignal(Overall_Voltage, frame);
-  // Save Value to global Variable to be shown on Display and Webserver
+  // Save Value to global Variable to be 
+  // shown on Display and Webserver
   Overall_Voltage_value = value;
   
 }
@@ -1645,46 +1641,50 @@ int decodeSignal(CAN_Signal signal, CAN_frame_t* frame){
 
 void IRAM_ATTR TIM_LED_Flashing_overflow(){
   static bool led_state = OFF;
-  if(LED_Flashing_CTR > 0){
-    // Flash LED
-    if(led_state == OFF){
-      // Set LED on
-      Status_LED_ON();
-      led_state = ON;
-      LED_Flashing_CTR -= 1;
-    }
-    else{
-      // Set LED off
-      Status_LED_OFF();
-      led_state = OFF;
-    }
-  }
-  else{
-    // Stop Flashing
-    Status_LED_OFF();
-    timerAlarmDisable(TIM_LED_Flashing);       // stop Timer
-  }
   
-  // Constant Flashing
-  if(LED_Flashing_Active == true){
-    // Flash LED permanently
-    if(led_state == OFF){
-      // Set LED on
-      Status_LED_ON();
-      led_state = ON;
+  if(ID_cur_state = OFF){
+    // Constant Flashing
+    if(LED_Flashing_Active == true){
+      // Flash LED permanently
+      if(led_state == OFF){
+        // Set LED on
+        ISR_LED_Signal_Flag = ON;
+        led_state = ON;
+      }
+      else{
+        // Set LED off
+        ISR_LED_Signal_Flag = OFF;
+        led_state = OFF;
+      }
     }
+
     else{
-      // Set LED off
-      Status_LED_OFF();
-      led_state = OFF;
+      if(LED_Flashing_CTR > 0){
+      // Flash LED
+        if(led_state == OFF){
+          // Set LED on
+          ISR_LED_Signal_Flag = ON;
+          led_state = ON;
+          LED_Flashing_CTR -= 1;
+        }
+        else{
+          // Set LED off
+          ISR_LED_Signal_Flag = OFF;
+          led_state = OFF;
+        }
+      }
+      else{
+        // Stop Flashing
+        ISR_LED_Signal_Flag = OFF;
+        timerAlarmDisable(TIM_LED_Flashing);       // stop Timer
+      }
     }
   }
-  
 }
 
-void write_SPI_Register(uint8_t reg, uint8_t value){
+void write_SPI_Register(int chip, uint8_t reg, uint8_t value){
   // Write single Register via SPI
-  SPI_select(CAN2);
+  SPI_select(chip);
   my_SPI.transfer(0x03);      // Send Write Command
   my_SPI.transfer(reg);       // Send Register Address
   my_SPI.transfer(value);     // Send Value
