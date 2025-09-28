@@ -349,20 +349,15 @@ void init_ports(){
 }
 
 int init_GPIO_Exp_Ports(){
-
-  Serial.println("Init GPIO Expansion");
-  // Initialize GPIO Expansion
-
+  
   // SET Bank for addressing
   int rv = GPIO_Exp_WriteBit(0x05, 7, HIGH);
   if(rv == ERROR){
     Serial.println("Setting Bank for address failed");
     return ERROR;
   }
-  else{
-    Serial.println("Setting Bank for address successful");
-  }
-  
+
+  {
   rv = 0;
   // set Pin Direction
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 0, PIN_INPUT); // LED Learn Mode
@@ -385,13 +380,15 @@ int init_GPIO_Exp_Ports(){
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 7, PIN_OUTPUT); // CAN2 Silent Mode
   if(rv != 8){Serial.println("Error in init Ports Bank B"); return ERROR;}
   else{Serial.println("Init Ports Bank B successful");}
-
+  }
+  {
   // set PullUps where needed
   rv = 0;
   rv += GPIO_Exp_WriteRegister(GPIO_EXP_GPPUA, 0x00); // No PullUps needed
   rv += GPIO_Exp_WriteRegister(GPIO_EXP_GPPUB, 0x00); // no PullUps needed
   if(rv != 2){Serial.println("Error in set PullUp Resistors"); return ERROR;}else{Serial.println("Set PullUp Resistors successful");}
-
+  }
+  {
   // set Interrupt Settings 
   rv = 0;
   // Enable Interrupts for Pins 7, 5, 3, 2, 1, 0
@@ -415,12 +412,13 @@ int init_GPIO_Exp_Ports(){
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IOCONA, 1, HIGH);
 
   if(rv != 7){Serial.println("Error in init Interrupts for GPIO Expansion"); return ERROR;}else{Serial.println("Init Interrupts for GPIO Expansion successful");}
-
+  }
+  {
   // Initial Value
   rv = 0;
   rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
   if(rv != 1){Serial.println("Error in init Interrupts for GPIO Expansion"); return ERROR;}else{Serial.println("Init Interrupts for GPIO Expansion successful");}
-
+  }
   return SUCCESS;
 }
 
