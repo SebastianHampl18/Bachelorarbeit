@@ -934,7 +934,6 @@ int check_RF_Acknowledge(int mode){
   Selection learn mode IV: Light interrupts 4x every 2s
   Selection erase mode I: Flashes permanently
   */
-
   static unsigned long time_wait_ACK = 0;
 
   if(Learn_RF_ACK_Waiting == false){

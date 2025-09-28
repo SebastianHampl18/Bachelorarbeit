@@ -284,7 +284,6 @@ int learn_RFControl(int mode){
   // Check for valid mode
   if(mode >= 1 && mode <= 6){
 
-  
     // Wait for Timer
     if(millis() < time_wait_Learn_RF && time_wait_Learn_RF > 0){
       return 0;
@@ -296,12 +295,8 @@ int learn_RFControl(int mode){
       signal_active = true;
 
       // Set Timer
-      if(mode <= 4){
-        time_wait_Learn_RF = millis() + 100;
-      }
-      else{
-        time_wait_Learn_RF = millis() + 3100;
-      }
+      if(mode <= 4){ time_wait_Learn_RF = millis() + 100; }
+      else{ time_wait_Learn_RF = millis() + 3100; }
 
       // lowactive Signal activate
       rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW); 
