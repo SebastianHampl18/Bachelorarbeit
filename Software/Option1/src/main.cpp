@@ -402,7 +402,9 @@ int init_GPIO_Exp_Ports(){
   rv += GPIO_Exp_WriteBit(GPIO_EXP_DEFVALA, 3, LOW);
   rv += GPIO_Exp_WriteBit(GPIO_EXP_DEFVALA, 5, LOW);
 
-  // Set Interrupt Control Regsiter to comparison against previous Values or DEFVAL Regsister
+  // Set Interrupt Control Regsiter to comparison against previous 
+  //      Values or DEFVAL Regsister
+
   // Pins 5, 3, 2 and 0 are compared against defVal (set to 1)
   // Pins 7 and 1 are compared against previous Value (set to 0)
   // -> 0b 0010 1101
@@ -411,13 +413,13 @@ int init_GPIO_Exp_Ports(){
   // Set Interrupt polarity to High_active
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IOCONA, 1, HIGH);
 
-  if(rv != 7){Serial.println("Error in init Interrupts for GPIO Expansion"); return ERROR;}else{Serial.println("Init Interrupts for GPIO Expansion successful");}
+  if(rv != 7){return ERROR;}
   }
   {
   // Initial Value
   rv = 0;
   rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-  if(rv != 1){Serial.println("Error in init Interrupts for GPIO Expansion"); return ERROR;}else{Serial.println("Init Interrupts for GPIO Expansion successful");}
+  if(rv != 1){return ERROR;}
   }
   return SUCCESS;
 }
@@ -745,8 +747,6 @@ void ISR_GPIO_Expansion(){
 void process_ISR_GPIO_Expansion(){
   // Read Interrupt Pending Register
   // Set Flags for Interrupts
-
-
   int flags = GPIO_Exp_ReadRegister(GPIO_EXP_INTFA);
   int rv = GPIO_Exp_ReadRegister(GPIO_EXP_INTCAPA);
 
@@ -1272,12 +1272,7 @@ void handleRFConReturn() {
 }
 
 int send_RemoteDrive_Request(){
-/**
- * @brief Depending on the System, this function sends a CAN Message to the VCU or powers the MOSFET to send the Signal for Remote Drive to VCU via wired Connection. 
- * 
- * @return 1 at Success, -1 at fail
- */
-
+  
   static bool Signal_active = false;
   static int timer_end = 0;
   int rv = 0;
@@ -1294,7 +1289,6 @@ int send_RemoteDrive_Request(){
         Serial.println("Write failed");
         ISR_RX_2_Flag = false; // Reset Flag
         Signal_active = false;
-
         return ERROR;
       }
     }
