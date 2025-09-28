@@ -407,18 +407,19 @@ int GPIO_Exp_ReadRegister(int reg){
   }
 
   // Write Address and Write Bit to Buffer
-  Wire.beginTransmission((GPIO_EXP_ADRESS << 1) || READ); // I2C Adresse + Read Bit
+  // Device Adress + Readbit
+  Wire.beginTransmission((GPIO_EXP_ADRESS << 1) || READ);
 
   // Write register address to Buffer
-  int rv = Wire.write(reg);              // Registeradresse senden
+  int rv = Wire.write(reg);              
   if(rv <= 0){ return ERROR;}
 
   // Send Buffer to Communication
-  rv = Wire.endTransmission(false);  // Stop-Bedingung vermeiden (Repeated Start)
+  rv = Wire.endTransmission(false);  // Repeated Start, No Stoppbit
   if(rv != 0){ return ERROR;}
 
   // Write Address and Read bit to Buffer
-  // Send Request for Register value
+  // Send Request for Register value (1 Byte)
   Wire.requestFrom(GPIO_EXP_ADRESS, 1);
 
   // Read Register from Communication
