@@ -1132,10 +1132,12 @@ void handleEinstellungen() {
     if (kart_server.method() == HTTP_POST) {
       // Werte aus Formular speichern
       if (kart_server.hasArg("wifi_name")) {
-        ESP_storage.putString("WIFI_Name", kart_server.arg("wifi_name"));
+        ESP_storage.putString("WIFI_Name", 
+          kart_server.arg("wifi_name"));
       }
       if (kart_server.hasArg("wifi_password")) {
-        ESP_storage.putString("WIFI_Password", kart_server.arg("wifi_password"));
+        ESP_storage.putString("WIFI_Password", 
+          kart_server.arg("wifi_password"));
       }
 
       if (kart_server.hasArg("display_off")) {
