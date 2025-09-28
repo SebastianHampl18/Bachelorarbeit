@@ -224,17 +224,23 @@ void loop() {
   }
   
   if(ESP_storage.getInt("LED_enable", FALSE) == TRUE){
-    if(ISR_LED_Signal_Flag == true && LED_cur_state == OFF && ID_cur_state == OFF){
-    // The Microcontroller has recieved a Signal from VCU, it has to activate Status LED
-    // The Status LED must now be switched on as long as the signal is active
-    // This Signal low priority compared to Identification via RF Control
+    if(ISR_LED_Signal_Flag == true && LED_cur_state == OFF 
+      && ID_cur_state == OFF){
+
+    // The Controller has recieved a Signal from VCU, 
+    //    it has to activate Status LED
+    // The LED must be switched on as long as the signal is active
+    // This Signal low priority compared to ID via RF Control
       LED_cur_state = ON;
       Status_LED_ON();
     }
-    if(ISR_LED_Signal_Flag == false && LED_cur_state == ON && ID_cur_state == OFF){
-    // The Microcontroller has recieved a Signal from VCU, Status LED activation has ended
-    // The Status LED must now be switched off as the signal is no longer acive
-    // This Signal low priority compared to Identification via RF Control
+    if(ISR_LED_Signal_Flag == false && LED_cur_state == ON 
+      && ID_cur_state == OFF){
+
+    // The Microcontroller has recieved a Signal from VCU, 
+    //    Status LED activation has ended
+    // The LED must be switched off as the signal is no longer active
+    // This Signal low priority compared to ID via RF Control
       LED_cur_state = OFF;
       Status_LED_OFF();
     }
@@ -799,7 +805,6 @@ void process_ISR_GPIO_Expansion(){
         ISR_RX_4_Flag = false;
       }
     }
-
   }
 }
 
