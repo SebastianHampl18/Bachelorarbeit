@@ -449,10 +449,8 @@ void init_Interrupts(){
 
 void init_Timer(){
 
-  Serial.println("Init Timer");
-
   /*************** Timer 1 - LED Flashing via CAN ******************************************************/
-  // Timer 1, Prescaler 8000 -> 1 tick = 0.01 ms (bei 80 MHz APB), countUp
+  // Timer 1, Prescaler 8000 -> 1 tick = 0.01 ms, countUp
   TIM_LED_Flashing = timerBegin(1, 8000, true);
 
   // init Interrupt for Timer overflow
@@ -460,7 +458,7 @@ void init_Timer(){
 
   // set Timer-Alarm: 500 ms = 0.5 Sekunden -> Period = 1 sec
   timerAlarmWrite(TIM_LED_Flashing, 5000, true); // true = auto-reload
-  timerAlarmDisable(TIM_LED_Flashing);            // Timer will be activated by CAN-receive
+  timerAlarmDisable(TIM_LED_Flashing);     // will be activated by ISR
   /*****************************************************************************************************/
 }
 
