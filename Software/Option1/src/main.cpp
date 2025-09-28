@@ -153,7 +153,7 @@ void setup() {
   //init_Interrupts();
   //init_Timer();
   init_storage();
-  //init_can1();
+  init_can1();
   //init_CAN2();
   init_wifi();
   
@@ -428,10 +428,17 @@ void init_Interrupts(){
 
   Serial.println("Init Interrupts");
   // Init Interrupts
+  // Interrupt GPIO Expansion
+  attachInterrupt(digitalPinToInterrupt(INT_PE_PIN), 
+    ISR_GPIO_Expansion, RISING);
 
-  attachInterrupt(digitalPinToInterrupt(INT_PE_PIN), ISR_GPIO_Expansion, RISING);
-  attachInterrupt(digitalPinToInterrupt(SPI_INT_CAN2_PIN), ISR_CAN2, RISING);
-  attachInterrupt(digitalPinToInterrupt(SPI_INT_TP_PIN), ISR_TouchController, RISING);
+  // Interrupt CAN2-Controller
+  attachInterrupt(digitalPinToInterrupt(SPI_INT_CAN2_PIN), 
+    ISR_CAN2, RISING);
+
+  // Interrupt Touch Display
+  attachInterrupt(digitalPinToInterrupt(SPI_INT_TP_PIN), 
+    ISR_TouchController, RISING);
 }
 
 void init_Timer(){
@@ -545,7 +552,9 @@ void init_wifi(){
   }
 
   // Access Point starten
-  if(WiFi.softAP(ESP_storage.getString("WIFI_Name", "SMS REVO SL"), ESP_storage.getString("WIFI_Password"))) {
+  if(WiFi.softAP(ESP_storage.getString("WIFI_Name", "SMS REVO SL"), 
+    ESP_storage.getString("WIFI_Password"))) {
+
     // Debugging Infos
     Serial.println("Access Point gestartet");
     Serial.print("IP-Adresse des Access Points: ");
@@ -1900,7 +1909,9 @@ void handleDownloadLog() {
     if (file) {
       // Header setzen, damit der Browser einen Download startet
       kart_server.sendHeader("Content-Type", "text/plain");
-      kart_server.sendHeader("Content-Disposition", "attachment; filename=Error.log");
+      kart_server.sendHeader("Content-Disposition", 
+        "attachment; filename=Error.log");
+        
       kart_server.sendHeader("Connection", "close");
       kart_server.streamFile(file, "text/plain");
       file.close();

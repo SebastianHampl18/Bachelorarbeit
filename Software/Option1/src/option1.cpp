@@ -326,10 +326,11 @@ int learn_RFControl(int mode){
         return ERROR;
       }
 
-      if(mode >= 5){
-        mode -= 4; 
+      int cmp_mode = mode;
+      if(cmp_mode >= 5){
+        cmp_mode -= 4; 
       }
-      if(ctr < mode){
+      if(ctr < cmp_mode){
         // Signal not complete, continue
         // Set Timer for Wait
         if(mode <= 4){
