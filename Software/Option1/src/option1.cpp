@@ -284,6 +284,7 @@ int learn_RFControl(int mode){
   // Check for valid mode
   if(mode >= 1 && mode <= 6){
 
+  
     // Wait for Timer
     if(millis() < time_wait_Learn_RF && time_wait_Learn_RF > 0){
       return 0;
@@ -333,12 +334,8 @@ int learn_RFControl(int mode){
       if(ctr < cmp_mode){
         // Signal not complete, continue
         // Set Timer for Wait
-        if(mode <= 4){
-          time_wait_Learn_RF = millis() + 100;
-        }
-        else{
-          time_wait_Learn_RF = millis() + 3100;
-        }
+        if(mode <= 4){ time_wait_Learn_RF = millis() + 100; }
+        else{ time_wait_Learn_RF = millis() + 3100; }
         return 0;
       }
       else{
