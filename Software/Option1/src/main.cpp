@@ -821,7 +821,9 @@ void process_CAN2_Message(){
 
     // Message in Buffer 0
     // Read Identifier from Controller
-    int identifier = (read_SPI_Register(CAN2, CAN2_RXB0SIDH) << 3) | (read_SPI_Register(CAN2, CAN2_RXB0SIDL) >> 5);
+    int identifier = (read_SPI_Register(CAN2, CAN2_RXB0SIDH) << 3); 
+    identifier |= (read_SPI_Register(CAN2, CAN2_RXB0SIDL) >> 5);
+
     if(identifier == RFID_Data.id){
       // RFID Message recieved
       // Read Data Length Code
@@ -830,14 +832,16 @@ void process_CAN2_Message(){
       // Read Data Bytes
       uint64_t data = 0;
       for(int i=0; i<dlc; i++){
-        data = data | (read_SPI_Register(CAN2, CAN2_RXB0D0 + i) << (i * 8));
+        data = data | (read_SPI_Register(CAN2, CAN2_RXB0D0 + i); 
+        data = data << (i * 8));
       }
       // Process Data
       // generate mask for data
       uint64_t mask = ~(0xFFFFFFFFFFFFFFFF << Customer_ID.length);
 
       // Extract Signals
-      uint64_t Customer_identifier = (data >> Customer_ID.start_bit) & mask;
+      uint64_t Customer_identifier = (data >> Customer_ID.start_bit); 
+      Customer_identifier &= mask;
 
       // Handle data
       if(Customer_identifier == MASTER_ID){
@@ -1660,7 +1664,6 @@ void IRAM_ATTR TIM_LED_Flashing_overflow(){
         led_state = OFF;
       }
     }
-
     else{
       if(LED_Flashing_CTR > 0){
       // Flash LED
