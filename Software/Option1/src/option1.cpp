@@ -477,23 +477,8 @@ int GPIO_Exp_WriteBit(int reg, int bit, int value){
 
 int GPIO_Exp_ReadBit(int reg, int bit){
 
-  /**
-   * @brief Reads one single Bit from registers of the GPIO Expansion
-   * 
-   * @param reg: 8bit Register Address in Hex
-   * @param bit: Bit position to be read
-   * 
-   * @return -1: Bit Value ot of Range
-   * @return -1: Register Address out of range
-   * @return -1: Read register failed
-   * @return bit_value: Data read and processed successfully 
-   */
-
-   // Check for Bit Value out of Range
-  if(bit > 7){
-    Serial.println("Value out of Range");
-    return ERROR;
-  }
+  // Check for Bit Value out of Range
+  if(bit > 7){ return ERROR;}
 
   // Check for Address out of Range
   if(reg<0x00 || (reg < 0x10 && reg > 0x0A) || reg > 0x1A){
@@ -503,10 +488,7 @@ int GPIO_Exp_ReadBit(int reg, int bit){
 
   // Read Register from GPIO Port Expansion
   int value = GPIO_Exp_ReadRegister(reg);
-  if(value == ERROR){
-    Serial.println("Read Register Failed");
-    return ERROR;
-  }
+  if(value == ERROR){ return ERROR;}
 
   // mask and filter for single bit
   u_int8_t bit_value = value >> bit;
