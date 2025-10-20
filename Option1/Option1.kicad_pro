@@ -481,9 +481,6 @@
     },
     "net_colors": null,
     "netclass_assignments": {
-      "/Powersupply/3.3V_D1": [
-        "3.3V"
-      ],
       "12V": [
         "12V"
       ],

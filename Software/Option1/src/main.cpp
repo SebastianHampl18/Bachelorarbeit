@@ -147,7 +147,7 @@ void setup() {
   //init_files();
   Serial.begin(115200);
   Serial.println("Setup Start");
-  init_ports();
+  //init_ports();
   //init_display();
   //init_GPIO_Exp_Ports();
   //init_Interrupts();
@@ -336,7 +336,7 @@ void init_ports(){
   pinMode(INT_PE_PIN, PIN_INPUT);
 
   // UART
-  MicroUSB.begin(115200, SERIAL_8N1, UART_RX_PIN, UART_TX_PIN);
+  MicroUSB.begin(115200, SERIAL_8N1, UART_TX_PIN, UART_RX_PIN);
 
   // I2C
   Wire.begin(I2C_SDA_PIN, I2C_SCL_PIN);
@@ -1060,7 +1060,7 @@ void handleLivedaten() {
     "  document.getElementById('soc').innerText = data.soc + ' %';"
     "  document.getElementById('temp').innerText = data.temp + ' °C';"
     "}"
-    "setInterval(updateValues,1000);"
+    "setInterval(updateValues,200);"
     "</script>"
     "</head><body>"
     "<div class='card'>"
@@ -1077,12 +1077,10 @@ void handleLivedaten() {
 
 void handleValues() {
   float speed, soc, bat_temp;
-  noInterrupts();
   speed = CAN_speed;
   soc = CAN_soc;
   bat_temp = CAN_battery_temp;
-  interrupts();
-
+  
   String json = "{";
   json += "\"speed\":" + String(speed, 1) + ",";
   json += "\"soc\":" + String(soc, 1) + ",";
@@ -1912,7 +1910,7 @@ void handleDownloadLog() {
       "<!DOCTYPE html><html lang=\"de\"><head>"
       "<meta charset=\"UTF-8\">"
       "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
-      "<title>SMS REVO SL - Hersteller</title>"
+      "<title>SMS REVO SL - Download</title>"
       "<style>"
       "body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }"
       ".card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); max-width:400px; width:100%; }"
