@@ -295,12 +295,8 @@ int learn_RFControl(int mode){
       signal_active = true;
 
       // Set Timer
-      if(mode <= 4){
-        time_wait_Learn_RF = millis() + 100;
-      }
-      else{
-        time_wait_Learn_RF = millis() + 3100;
-      }
+      if(mode <= 4){ time_wait_Learn_RF = millis() + 100; }
+      else{ time_wait_Learn_RF = millis() + 3100; }
 
       // lowactive Signal activate
       rv = GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, LOW); 
@@ -326,18 +322,15 @@ int learn_RFControl(int mode){
         return ERROR;
       }
 
-      if(mode >= 5){
-        mode -= 4; 
+      int cmp_mode = mode;
+      if(cmp_mode >= 5){
+        cmp_mode -= 4; 
       }
-      if(ctr < mode){
+      if(ctr < cmp_mode){
         // Signal not complete, continue
         // Set Timer for Wait
-        if(mode <= 4){
-          time_wait_Learn_RF = millis() + 100;
-        }
-        else{
-          time_wait_Learn_RF = millis() + 3100;
-        }
+        if(mode <= 4){ time_wait_Learn_RF = millis() + 100; }
+        else{ time_wait_Learn_RF = millis() + 3100; }
         return 0;
       }
       else{
@@ -357,18 +350,6 @@ I²C Read and Write Functions
 ****************************/
 
 int GPIO_Exp_WriteRegister(int reg, int value){
-  /**
- * @brief Writes 8bit Value to a register of the GPIO Expansion
- * 
- * @param reg: Register Adress as Hex
- * @param value: 8bit value to be writen in register
- * 
- * @return 1 at Success
- * @return -1: Writing Address Failed
- * @return -1: Value out of Range
- * @return -1: Writing Data Failed
- * @return -1: Sending Buffer Failed
- */
 
   // Check for Value out of Range
   if(value > 255 || value < 0){
@@ -410,91 +391,38 @@ int GPIO_Exp_WriteRegister(int reg, int value){
 }
 
 int GPIO_Exp_ReadRegister(int reg){
-  /**
-   * @brief Reads Regsiter from GPIO Expansion
-   * 
-   * @param reg: Register adress in hex
-   * 
-   * @return -1: Write register Address Failed
-   * @return -1: Sendig Data Buffer failed
-   * @return -1: Data Could not be read
-   * @return -1: Register Address out of Range
-   * @return data: Data was read successfully
-   */
-
-  Serial.println("\n\nReading Register from GPIO Expansion");
 
   // Check for Address out of Range
   if(reg<0x00 || (reg < 0x10 && reg > 0x0A) || reg > 0x1A){
     Serial.println("Register Address out of Range");
     return ERROR;
   }
-  else{
-    Serial.println("Register Address is in Range");
-  }
 
   // Write Address and Write Bit to Buffer
-  Serial.println("Begin Transmission - Address: " + String(GPIO_EXP_ADRESS, HEX));
-  Wire.beginTransmission((GPIO_EXP_ADRESS << 1) || READ); // I2C Adresse + Read Bit
+  // Device Adress + Readbit
+  Wire.beginTransmission((GPIO_EXP_ADRESS << 1) || READ);
 
   // Write register address to Buffer
-  Serial.println("Writing Register Address to Buffer");
-  int rv = Wire.write(reg);              // Registeradresse senden
-  Serial.print("Read rom Register done - Return Value: ");
-  Serial.println(rv);
-  if(rv <= 0){
-    Serial.println("Write Failed");
-    return ERROR;
-  }
-  else{
-    Serial.println("Register Address written to Buffer");
-  }
+  int rv = Wire.write(reg);              
+  if(rv <= 0){ return ERROR;}
 
   // Send Buffer to Communication
-  Serial.println("Sending Buffer to Communication");
-  rv = Wire.endTransmission(false);  // Stop-Bedingung vermeiden (Repeated Start)
-  if(rv != 0){
-    Serial.println("sending Data failed");
-    return ERROR;
-  }
-  else{
-    Serial.println("Data sent via I2C");
-  }
+  rv = Wire.endTransmission(false);  // Repeated Start, No Stoppbit
+  if(rv != 0){ return ERROR;}
 
   // Write Address and Read bit to Buffer
-  Serial.println("Requesting Data from Communication");
+  // Send Request for Register value (1 Byte)
   Wire.requestFrom(GPIO_EXP_ADRESS, 1);
 
   // Read Register from Communication
   if (Wire.available()) {
-    Serial.println("Data available");
-    Serial.println("Reading Data");
-    return Wire.read(); // Byte zurückgeben
+    // Read from Receive Buffer
+    return Wire.read(); // Return Byte
   }
-  else{
-    Serial.println("Data could not be read");
-  }
-  return ERROR; // Fehlerwert
+  return ERROR; // Receive Buffer empty
 }
 
 int GPIO_Exp_WriteBit(int reg, int bit, int value){
-
-  /**
-   * @brief Reads the Value from addressed Register and only changes designated bit without touching rest of the register
-   * 
-  * @param reg: Regsiteradress in hex
-  * @param bit: Bitposition to be changed at
-  * @param value: Binary Value to be set at bit position
-  *
-  * @return -1: Register Read Error
-  * @return -1: Non Binary Value
-  * @return -1: Register Write Error
-  * @return -1: Data Send Error
-  * @return -1: Register Address out of Range
-  * @return 1: Writing Successful
-  */
-
-  Serial.println("Writing Bit to GPIO Expansion");
 
   // Check for value in Range
   if(value > 1 || value < 0){
@@ -521,10 +449,6 @@ int GPIO_Exp_WriteBit(int reg, int bit, int value){
     Serial.println("Register could not be read");
     return ERROR;
   }
-  else{
-    Serial.print("Register Read, Value: ");
-    Serial.println(reg_value);
-  }
 
   // Changes Bit in Register Data and write data to Buffer
   if(value == HIGH){
@@ -539,32 +463,14 @@ int GPIO_Exp_WriteBit(int reg, int bit, int value){
     Serial.println("Writing Failed");
     return ERROR;
   }
-  else{
-    Serial.println("Value written to Buffer");
-  }
   
   return SUCCESS;  
 }
 
 int GPIO_Exp_ReadBit(int reg, int bit){
 
-  /**
-   * @brief Reads one single Bit from registers of the GPIO Expansion
-   * 
-   * @param reg: 8bit Register Address in Hex
-   * @param bit: Bit position to be read
-   * 
-   * @return -1: Bit Value ot of Range
-   * @return -1: Register Address out of range
-   * @return -1: Read register failed
-   * @return bit_value: Data read and processed successfully 
-   */
-
-   // Check for Bit Value out of Range
-  if(bit > 7){
-    Serial.println("Value out of Range");
-    return ERROR;
-  }
+  // Check for Bit Value out of Range
+  if(bit > 7){ return ERROR;}
 
   // Check for Address out of Range
   if(reg<0x00 || (reg < 0x10 && reg > 0x0A) || reg > 0x1A){
@@ -574,10 +480,7 @@ int GPIO_Exp_ReadBit(int reg, int bit){
 
   // Read Register from GPIO Port Expansion
   int value = GPIO_Exp_ReadRegister(reg);
-  if(value == ERROR){
-    Serial.println("Read Register Failed");
-    return ERROR;
-  }
+  if(value == ERROR){ return ERROR;}
 
   // mask and filter for single bit
   u_int8_t bit_value = value >> bit;

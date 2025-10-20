@@ -153,7 +153,7 @@ void setup() {
   //init_Interrupts();
   //init_Timer();
   init_storage();
-  //init_can1();
+  init_can1();
   //init_CAN2();
   init_wifi();
   
@@ -224,17 +224,23 @@ void loop() {
   }
   
   if(ESP_storage.getInt("LED_enable", FALSE) == TRUE){
-    if(ISR_LED_Signal_Flag == true && LED_cur_state == OFF && ID_cur_state == OFF){
-    // The Microcontroller has recieved a Signal from VCU, it has to activate Status LED
-    // The Status LED must now be switched on as long as the signal is active
-    // This Signal low priority compared to Identification via RF Control
+    if(ISR_LED_Signal_Flag == true && LED_cur_state == OFF 
+      && ID_cur_state == OFF){
+
+    // The Controller has recieved a Signal from VCU, 
+    //    it has to activate Status LED
+    // The LED must be switched on as long as the signal is active
+    // This Signal low priority compared to ID via RF Control
       LED_cur_state = ON;
       Status_LED_ON();
     }
-    if(ISR_LED_Signal_Flag == false && LED_cur_state == ON && ID_cur_state == OFF){
-    // The Microcontroller has recieved a Signal from VCU, Status LED activation has ended
-    // The Status LED must now be switched off as the signal is no longer acive
-    // This Signal low priority compared to Identification via RF Control
+    if(ISR_LED_Signal_Flag == false && LED_cur_state == ON 
+      && ID_cur_state == OFF){
+
+    // The Microcontroller has recieved a Signal from VCU, 
+    //    Status LED activation has ended
+    // The LED must be switched off as the signal is no longer active
+    // This Signal low priority compared to ID via RF Control
       LED_cur_state = OFF;
       Status_LED_OFF();
     }
@@ -349,20 +355,15 @@ void init_ports(){
 }
 
 int init_GPIO_Exp_Ports(){
-
-  Serial.println("Init GPIO Expansion");
-  // Initialize GPIO Expansion
-
+  
   // SET Bank for addressing
   int rv = GPIO_Exp_WriteBit(0x05, 7, HIGH);
   if(rv == ERROR){
     Serial.println("Setting Bank for address failed");
     return ERROR;
   }
-  else{
-    Serial.println("Setting Bank for address successful");
-  }
-  
+
+  {
   rv = 0;
   // set Pin Direction
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRA, 0, PIN_INPUT); // LED Learn Mode
@@ -385,13 +386,15 @@ int init_GPIO_Exp_Ports(){
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IODIRB, 7, PIN_OUTPUT); // CAN2 Silent Mode
   if(rv != 8){Serial.println("Error in init Ports Bank B"); return ERROR;}
   else{Serial.println("Init Ports Bank B successful");}
-
+  }
+  {
   // set PullUps where needed
   rv = 0;
   rv += GPIO_Exp_WriteRegister(GPIO_EXP_GPPUA, 0x00); // No PullUps needed
   rv += GPIO_Exp_WriteRegister(GPIO_EXP_GPPUB, 0x00); // no PullUps needed
   if(rv != 2){Serial.println("Error in set PullUp Resistors"); return ERROR;}else{Serial.println("Set PullUp Resistors successful");}
-
+  }
+  {
   // set Interrupt Settings 
   rv = 0;
   // Enable Interrupts for Pins 7, 5, 3, 2, 1, 0
@@ -405,7 +408,9 @@ int init_GPIO_Exp_Ports(){
   rv += GPIO_Exp_WriteBit(GPIO_EXP_DEFVALA, 3, LOW);
   rv += GPIO_Exp_WriteBit(GPIO_EXP_DEFVALA, 5, LOW);
 
-  // Set Interrupt Control Regsiter to comparison against previous Values or DEFVAL Regsister
+  // Set Interrupt Control Regsiter to comparison against previous 
+  //      Values or DEFVAL Regsister
+
   // Pins 5, 3, 2 and 0 are compared against defVal (set to 1)
   // Pins 7 and 1 are compared against previous Value (set to 0)
   // -> 0b 0010 1101
@@ -414,13 +419,14 @@ int init_GPIO_Exp_Ports(){
   // Set Interrupt polarity to High_active
   rv += GPIO_Exp_WriteBit(GPIO_EXP_IOCONA, 1, HIGH);
 
-  if(rv != 7){Serial.println("Error in init Interrupts for GPIO Expansion"); return ERROR;}else{Serial.println("Init Interrupts for GPIO Expansion successful");}
-
+  if(rv != 7){return ERROR;}
+  }
+  {
   // Initial Value
   rv = 0;
   rv += GPIO_Exp_WriteBit(GPIO_EXP_GPIOB, 1, HIGH);
-  if(rv != 1){Serial.println("Error in init Interrupts for GPIO Expansion"); return ERROR;}else{Serial.println("Init Interrupts for GPIO Expansion successful");}
-
+  if(rv != 1){return ERROR;}
+  }
   return SUCCESS;
 }
 
@@ -428,18 +434,23 @@ void init_Interrupts(){
 
   Serial.println("Init Interrupts");
   // Init Interrupts
+  // Interrupt GPIO Expansion
+  attachInterrupt(digitalPinToInterrupt(INT_PE_PIN), 
+    ISR_GPIO_Expansion, RISING);
 
-  attachInterrupt(digitalPinToInterrupt(INT_PE_PIN), ISR_GPIO_Expansion, RISING);
-  attachInterrupt(digitalPinToInterrupt(SPI_INT_CAN2_PIN), ISR_CAN2, RISING);
-  attachInterrupt(digitalPinToInterrupt(SPI_INT_TP_PIN), ISR_TouchController, RISING);
+  // Interrupt CAN2-Controller
+  attachInterrupt(digitalPinToInterrupt(SPI_INT_CAN2_PIN), 
+    ISR_CAN2, RISING);
+
+  // Interrupt Touch Display
+  attachInterrupt(digitalPinToInterrupt(SPI_INT_TP_PIN), 
+    ISR_TouchController, RISING);
 }
 
 void init_Timer(){
 
-  Serial.println("Init Timer");
-
   /*************** Timer 1 - LED Flashing via CAN ******************************************************/
-  // Timer 1, Prescaler 8000 -> 1 tick = 0.01 ms (bei 80 MHz APB), countUp
+  // Timer 1, Prescaler 8000 -> 1 tick = 0.01 ms, countUp
   TIM_LED_Flashing = timerBegin(1, 8000, true);
 
   // init Interrupt for Timer overflow
@@ -447,7 +458,7 @@ void init_Timer(){
 
   // set Timer-Alarm: 500 ms = 0.5 Sekunden -> Period = 1 sec
   timerAlarmWrite(TIM_LED_Flashing, 5000, true); // true = auto-reload
-  timerAlarmDisable(TIM_LED_Flashing);            // Timer will be activated by CAN-receive
+  timerAlarmDisable(TIM_LED_Flashing);     // will be activated by ISR
   /*****************************************************************************************************/
 }
 
@@ -545,7 +556,9 @@ void init_wifi(){
   }
 
   // Access Point starten
-  if(WiFi.softAP(ESP_storage.getString("WIFI_Name", "SMS REVO SL"), ESP_storage.getString("WIFI_Password"))) {
+  if(WiFi.softAP(ESP_storage.getString("WIFI_Name", "SMS REVO SL"), 
+    ESP_storage.getString("WIFI_Password"))) {
+
     // Debugging Infos
     Serial.println("Access Point gestartet");
     Serial.print("IP-Adresse des Access Points: ");
@@ -738,8 +751,6 @@ void ISR_GPIO_Expansion(){
 void process_ISR_GPIO_Expansion(){
   // Read Interrupt Pending Register
   // Set Flags for Interrupts
-
-
   int flags = GPIO_Exp_ReadRegister(GPIO_EXP_INTFA);
   int rv = GPIO_Exp_ReadRegister(GPIO_EXP_INTCAPA);
 
@@ -792,7 +803,6 @@ void process_ISR_GPIO_Expansion(){
         ISR_RX_4_Flag = false;
       }
     }
-
   }
 }
 
@@ -811,7 +821,9 @@ void process_CAN2_Message(){
 
     // Message in Buffer 0
     // Read Identifier from Controller
-    int identifier = (read_SPI_Register(CAN2, CAN2_RXB0SIDH) << 3) | (read_SPI_Register(CAN2, CAN2_RXB0SIDL) >> 5);
+    int identifier = (read_SPI_Register(CAN2, CAN2_RXB0SIDH) << 3); 
+    identifier |= (read_SPI_Register(CAN2, CAN2_RXB0SIDL) >> 5);
+
     if(identifier == RFID_Data.id){
       // RFID Message recieved
       // Read Data Length Code
@@ -820,14 +832,16 @@ void process_CAN2_Message(){
       // Read Data Bytes
       uint64_t data = 0;
       for(int i=0; i<dlc; i++){
-        data = data | (read_SPI_Register(CAN2, CAN2_RXB0D0 + i) << (i * 8));
+        data = data | (read_SPI_Register(CAN2, CAN2_RXB0D0 + i); 
+        data = data << (i * 8));
       }
       // Process Data
       // generate mask for data
       uint64_t mask = ~(0xFFFFFFFFFFFFFFFF << Customer_ID.length);
 
       // Extract Signals
-      uint64_t Customer_identifier = (data >> Customer_ID.start_bit) & mask;
+      uint64_t Customer_identifier = (data >> Customer_ID.start_bit); 
+      Customer_identifier &= mask;
 
       // Handle data
       if(Customer_identifier == MASTER_ID){
@@ -922,7 +936,6 @@ int check_RF_Acknowledge(int mode){
   Selection learn mode IV: Light interrupts 4x every 2s
   Selection erase mode I: Flashes permanently
   */
-
   static unsigned long time_wait_ACK = 0;
 
   if(Learn_RF_ACK_Waiting == false){
@@ -987,10 +1000,15 @@ void handleRoot() {
       "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
       "<title>SMS REVO SL</title>"
       "<style>"
-        "body { margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#f2f2f2; font-family:Arial,sans-serif; }"
-        ".card { background:#fff; padding:20px 30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); }"
+        "body { margin:0; display:flex; justify-content:center;" 
+        "align-items:center; height:100vh; background:#f2f2f2; "
+        "font-family:Arial,sans-serif; }"
+        ".card { background:#fff; padding:20px 30px; border-radius:12px; "
+        "text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); }"
         "h1 { color:red; margin-bottom:20px; }"
-        "a.btn { display:inline-block; margin:8px; padding:12px 18px; border-radius:8px; text-decoration:none; color:white; font-weight:bold; }"
+        "a.btn { display:inline-block; margin:8px; padding:12px 18px; "
+        "border-radius:8px; text-decoration:none; color:white; "
+        "font-weight:bold; }"
         "a.green { background:green; }"
         "a.gray { background:gray; }"
         "a.blue { background:blue; }"
@@ -1065,9 +1083,15 @@ void handleLivedaten() {
     "</head><body>"
     "<div class='card'>"
     "<h1>Livedaten</h1>"
-    "<div class='databox'><span class='label'>Geschwindigkeit</span><span class='value' id='speed'>--</span></div>"
-    "<div class='databox'><span class='label'>State of Charge</span><span class='value' id='soc'>--</span></div>"
-    "<div class='databox'><span class='label'>Akkutemperatur</span><span class='value' id='temp'>--</span></div>"
+    "<div class='databox'><span class='label'>Geschwindigkeit</span>"
+      "<span class='value' id='speed'>--</span></div>"
+
+    "<div class='databox'><span class='label'>State of Charge</span>"
+      "<span class='value' id='soc'>--</span></div>"
+    
+    "<div class='databox'><span class='label'>Akkutemperatur</span>"
+      "<span class='value' id='temp'>--</span></div>"
+
     "<a class='btn gray' href='/'>Zurück</a>"
     "</div>"
     "</body></html>";
@@ -1117,10 +1141,12 @@ void handleEinstellungen() {
     if (kart_server.method() == HTTP_POST) {
       // Werte aus Formular speichern
       if (kart_server.hasArg("wifi_name")) {
-        ESP_storage.putString("WIFI_Name", kart_server.arg("wifi_name"));
+        ESP_storage.putString("WIFI_Name", 
+          kart_server.arg("wifi_name"));
       }
       if (kart_server.hasArg("wifi_password")) {
-        ESP_storage.putString("WIFI_Password", kart_server.arg("wifi_password"));
+        ESP_storage.putString("WIFI_Password", 
+          kart_server.arg("wifi_password"));
       }
 
       if (kart_server.hasArg("display_off")) {
@@ -1263,12 +1289,7 @@ void handleRFConReturn() {
 }
 
 int send_RemoteDrive_Request(){
-/**
- * @brief Depending on the System, this function sends a CAN Message to the VCU or powers the MOSFET to send the Signal for Remote Drive to VCU via wired Connection. 
- * 
- * @return 1 at Success, -1 at fail
- */
-
+  
   static bool Signal_active = false;
   static int timer_end = 0;
   int rv = 0;
@@ -1285,7 +1306,6 @@ int send_RemoteDrive_Request(){
         Serial.println("Write failed");
         ISR_RX_2_Flag = false; // Reset Flag
         Signal_active = false;
-
         return ERROR;
       }
     }
@@ -1655,7 +1675,6 @@ void IRAM_ATTR TIM_LED_Flashing_overflow(){
         led_state = OFF;
       }
     }
-
     else{
       if(LED_Flashing_CTR > 0){
       // Flash LED
@@ -1846,14 +1865,15 @@ void handleSettingsToggle() {
       "</div>"
       "<script>"
       "function sendToggle(key, state){"
-      "  fetch('/hersteller',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},"
+      "  fetch('/hersteller',{method:'POST',headers:{'Content-Type':"
+      "     'application/x-www-form-urlencoded'},"
       "  body:'key='+key+'&state='+(state?'true':'false')});"
       "}"
-      "document.getElementById('displayToggle').addEventListener('change',function(){"
-      "  sendToggle('Display_enable',this.checked);"
-      "});"
       "document.getElementById('rfToggle').addEventListener('change',function(){"
       "  sendToggle('RF_enable',this.checked);"
+      "});"
+      "document.getElementById('displayToggle').addEventListener('change',function(){"
+      "  sendToggle('Display_enable',this.checked);"
       "});"
       "document.getElementById('wifiToggle').addEventListener('change',function(){"
       "  sendToggle('WiFi_enable',this.checked);"
@@ -1898,7 +1918,9 @@ void handleDownloadLog() {
     if (file) {
       // Header setzen, damit der Browser einen Download startet
       kart_server.sendHeader("Content-Type", "text/plain");
-      kart_server.sendHeader("Content-Disposition", "attachment; filename=Error.log");
+      kart_server.sendHeader("Content-Disposition", 
+        "attachment; filename=Error.log");
+        
       kart_server.sendHeader("Connection", "close");
       kart_server.streamFile(file, "text/plain");
       file.close();
