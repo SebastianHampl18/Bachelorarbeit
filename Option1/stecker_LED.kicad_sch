@@ -247,6 +247,16 @@
 	)
 	(wire
 		(pts
+			(xy 33.02 60.96) (xy 39.37 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6e918fb7-bb46-457d-8f6f-f392bb9a12f1")
+	)
+	(wire
+		(pts
 			(xy 33.02 66.04) (xy 39.37 66.04)
 		)
 		(stroke
@@ -255,19 +265,9 @@
 		)
 		(uuid "ad22a345-b136-44ed-ba1e-51c1278fe8d3")
 	)
-	(wire
-		(pts
-			(xy 33.02 60.96) (xy 39.37 60.96)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ed16c57a-f8ac-41af-bc54-c3d08b82261c")
-	)
-	(hierarchical_label "CAN_L"
+	(hierarchical_label "5V"
 		(shape input)
-		(at 33.02 63.5 180)
+		(at 33.02 60.96 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -276,7 +276,7 @@
 			)
 			(justify right)
 		)
-		(uuid "857cf8ac-42c0-436f-b0e4-60e6d66a5fd5")
+		(uuid "1ddba978-07fc-44d7-854d-0a78a0743369")
 	)
 	(hierarchical_label "Status_LED +"
 		(shape input)
@@ -291,22 +291,9 @@
 		)
 		(uuid "a8c232db-b51d-40c9-9e67-a8c9fbb0a580")
 	)
-	(hierarchical_label "CAN_H"
-		(shape input)
-		(at 33.02 66.04 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.254)
-				(bold yes)
-			)
-			(justify right)
-		)
-		(uuid "b43fe886-3d53-4430-bd81-ec1e762ae077")
-	)
 	(hierarchical_label "GND"
 		(shape input)
-		(at 33.02 60.96 180)
+		(at 33.02 66.04 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -342,6 +329,19 @@
 			(justify right)
 		)
 		(uuid "db97c0ea-8240-4a44-9865-e6d26782460f")
+	)
+	(hierarchical_label "3.3V"
+		(shape input)
+		(at 33.02 63.5 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+			)
+			(justify right)
+		)
+		(uuid "f04fe6ac-725c-47cf-a854-4055e9dfeced")
 	)
 	(symbol
 		(lib_id "EasyEda2KiCad:1989780")

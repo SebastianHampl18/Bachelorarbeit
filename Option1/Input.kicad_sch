@@ -616,7 +616,7 @@
 		)
 		(uuid "cbe242e6-0fc6-4d00-abae-b4c3551e9e80")
 	)
-	(hierarchical_label "48V"
+	(hierarchical_label "V_IN"
 		(shape input)
 		(at 31.75 78.74 180)
 		(effects
