@@ -1748,6 +1748,150 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "easyeda2kicad:CL10A226MQ8NRNC"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "C"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "CL10A226MQ8NRNC"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "easyeda2kicad:C0603"
+				(at 0 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_SAMSUNG_CL10A226MQ8NRNC_22uF-226-20-6-3V_C59461.html"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part" "C59461"
+				(at 0 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "CL10A226MQ8NRNC_0_1"
+				(polyline
+					(pts
+						(xy -0.51 0) (xy -2.54 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.51 -2.03) (xy -0.51 2.03)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.51 2.03) (xy 0.51 -2.03)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 0) (xy 0.51 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin unspecified line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "easyeda2kicad:CL10B104KA8NNNC"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -1892,6 +2036,126 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "easyeda2kicad:SS14"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "SS14"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "easyeda2kicad:SMA_L4.2-W2.6-LS5.3-RD"
+				(at 0 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://lcsc.com/product-detail/Schottky-Barrier-Diodes-SBD_SS14_C2480.html"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part" "C2480"
+				(at 0 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "SS14_0_1"
+				(polyline
+					(pts
+						(xy -2.03 1.52) (xy -2.03 1.78) (xy -1.52 1.78) (xy -1.52 -2.03) (xy -1.02 -2.03) (xy -1.02 -1.78)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 1.52) (xy -1.27 0) (xy 1.27 -1.78) (xy 1.27 1.52)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin unspecified line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 5.08 0 180)
+					(length 3.81)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
 	(junction
 		(at 120.65 69.85)
@@ -1904,6 +2168,18 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "309107ea-8286-4b01-a178-030f3d6b3ece")
+	)
+	(junction
+		(at 72.39 69.85)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3abfb15c-8379-430b-817d-4f3f79d7cbbd")
+	)
+	(junction
+		(at 48.26 55.88)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "43aa28e9-c1bf-451f-a4db-e1cd8a0d0857")
 	)
 	(junction
 		(at 128.27 50.8)
@@ -1936,16 +2212,16 @@
 		(uuid "aa2c6cd1-6c66-4269-a250-abfe8dba061d")
 	)
 	(junction
-		(at 68.58 60.96)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "ad0be85f-a926-4703-9f22-57951c299fe8")
-	)
-	(junction
 		(at 184.15 63.5)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "bfab3f48-52fe-4d31-8d2c-cc4d091160dd")
+	)
+	(junction
+		(at 48.26 69.85)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c3b8b9af-e375-4820-8de0-c32cf31295a8")
 	)
 	(junction
 		(at 128.27 45.72)
@@ -2055,6 +2331,16 @@
 	)
 	(wire
 		(pts
+			(xy 72.39 69.85) (xy 73.66 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "19a141d8-142c-4fd3-8ea9-621e11e3d54c")
+	)
+	(wire
+		(pts
 			(xy 120.65 60.96) (xy 120.65 69.85)
 		)
 		(stroke
@@ -2065,7 +2351,7 @@
 	)
 	(wire
 		(pts
-			(xy 68.58 55.88) (xy 90.17 55.88)
+			(xy 72.39 55.88) (xy 90.17 55.88)
 		)
 		(stroke
 			(width 0)
@@ -2075,7 +2361,17 @@
 	)
 	(wire
 		(pts
-			(xy 19.05 60.96) (xy 19.05 55.88)
+			(xy 72.39 55.88) (xy 72.39 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1eef9fbd-8232-4451-b157-596fe76f460d")
+	)
+	(wire
+		(pts
+			(xy 19.05 69.85) (xy 19.05 55.88)
 		)
 		(stroke
 			(width 0)
@@ -2225,6 +2521,16 @@
 	)
 	(wire
 		(pts
+			(xy 48.26 55.88) (xy 52.07 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5452df2c-5e6d-4e6b-adb0-14925f7ce4ba")
+	)
+	(wire
+		(pts
 			(xy 149.86 55.88) (xy 170.18 55.88)
 		)
 		(stroke
@@ -2242,6 +2548,16 @@
 			(type default)
 		)
 		(uuid "5874ff5d-29f4-49f2-b19c-a9b531e7510e")
+	)
+	(wire
+		(pts
+			(xy 62.23 55.88) (xy 66.04 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "596c94f1-a7e1-4ab5-a743-99d8adb7387f")
 	)
 	(wire
 		(pts
@@ -2285,7 +2601,7 @@
 	)
 	(wire
 		(pts
-			(xy 45.72 55.88) (xy 52.07 55.88)
+			(xy 45.72 55.88) (xy 48.26 55.88)
 		)
 		(stroke
 			(width 0)
@@ -2305,13 +2621,13 @@
 	)
 	(wire
 		(pts
-			(xy 68.58 60.96) (xy 71.12 60.96)
+			(xy 48.26 69.85) (xy 72.39 69.85)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "93fee6ce-c312-48aa-a1cc-5a2c4ea0c4c7")
+		(uuid "80633242-67b6-4973-a647-26a075b53f8e")
 	)
 	(wire
 		(pts
@@ -2382,16 +2698,6 @@
 			(type default)
 		)
 		(uuid "acc4831d-6822-4bc7-bbcc-b3647c241519")
-	)
-	(wire
-		(pts
-			(xy 68.58 55.88) (xy 68.58 60.96)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ace6b1db-db6a-4c41-b63d-bfd0357edf65")
 	)
 	(wire
 		(pts
@@ -2495,6 +2801,16 @@
 	)
 	(wire
 		(pts
+			(xy 48.26 67.31) (xy 48.26 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "df1ab853-9ece-4626-ad2b-7faf40dc7189")
+	)
+	(wire
+		(pts
 			(xy 128.27 50.8) (xy 128.27 45.72)
 		)
 		(stroke
@@ -2505,7 +2821,7 @@
 	)
 	(wire
 		(pts
-			(xy 19.05 60.96) (xy 68.58 60.96)
+			(xy 19.05 69.85) (xy 48.26 69.85)
 		)
 		(stroke
 			(width 0)
@@ -2522,16 +2838,6 @@
 			(type default)
 		)
 		(uuid "e5ee7469-c53b-40c2-81d5-0ec0f76f5f01")
-	)
-	(wire
-		(pts
-			(xy 59.69 55.88) (xy 62.23 55.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ebd84cd6-8861-493c-919f-1a2996e5ba10")
 	)
 	(wire
 		(pts
@@ -2585,6 +2891,16 @@
 	)
 	(wire
 		(pts
+			(xy 48.26 55.88) (xy 48.26 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f495d387-34aa-4b6b-a742-cc70c0f80a15")
+	)
+	(wire
+		(pts
 			(xy 168.91 53.34) (xy 171.45 53.34)
 		)
 		(stroke
@@ -2624,7 +2940,7 @@
 		(uuid "feb2de16-284d-4b3a-b7c1-2ad4b79c4ab1")
 	)
 	(label "GND"
-		(at 68.58 55.88 0)
+		(at 72.39 55.88 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2695,7 +3011,7 @@
 	)
 	(global_label "5V"
 		(shape input)
-		(at 62.23 55.88 0)
+		(at 66.04 55.88 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2705,7 +3021,7 @@
 		)
 		(uuid "2896dfa3-779f-4ab0-bc8e-2f5bbfad1054")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 67.5133 55.88 0)
+			(at 71.3233 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2772,7 +3088,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape input)
-		(at 71.12 60.96 0)
+		(at 73.66 69.85 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3365,6 +3681,82 @@
 		)
 	)
 	(symbol
+		(lib_id "easyeda2kicad:SS14")
+		(at 57.15 55.88 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4bc593ec-3a2f-47af-b85d-8aa18697a77c")
+		(property "Reference" "D1405"
+			(at 57.15 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SS14"
+			(at 57.15 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "easyeda2kicad:SMA_L4.2-W2.6-LS5.3-RD"
+			(at 57.15 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Schottky-Barrier-Diodes-SBD_SS14_C2480.html"
+			(at 57.15 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 57.15 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C2480"
+			(at 57.15 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "30000ba6-c4f2-4cc7-a52c-42a0f2dfb848")
+		)
+		(pin "2"
+			(uuid "c0112a93-80a7-4c57-98ab-6a543dd1a1ec")
+		)
+		(instances
+			(project ""
+				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
+					(reference "D1405")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "easyeda2kicad:0603WAF2201T5E")
 		(at 132.08 87.63 0)
 		(mirror y)
@@ -3525,7 +3917,7 @@
 	)
 	(symbol
 		(lib_id "Diode:1N5819WS")
-		(at 146.05 55.88 180)
+		(at 149.86 53.34 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3533,7 +3925,7 @@
 		(dnp no)
 		(uuid "629b49b9-3594-4d35-b141-1e1088bb68cf")
 		(property "Reference" "D1403"
-			(at 146.05 61.468 0)
+			(at 149.86 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3541,7 +3933,7 @@
 			)
 		)
 		(property "Value" "1N5819WS"
-			(at 145.796 59.182 0)
+			(at 149.86 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3549,7 +3941,7 @@
 			)
 		)
 		(property "Footprint" "Diode_SMD:D_SOD-323"
-			(at 146.05 51.435 0)
+			(at 149.86 48.895 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3558,7 +3950,7 @@
 			)
 		)
 		(property "Datasheet" "https://datasheet.lcsc.com/lcsc/2204281430_Guangdong-Hottech-1N5819WS_C191023.pdf"
-			(at 146.05 55.88 0)
+			(at 149.86 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3567,7 +3959,7 @@
 			)
 		)
 		(property "Description" "40V 600mV@1A 1A SOD-323 Schottky Barrier Diodes, SOD-323"
-			(at 146.05 55.88 0)
+			(at 149.86 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3585,6 +3977,84 @@
 			(project "Option1"
 				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
 					(reference "D1403")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "easyeda2kicad:CL10A226MQ8NRNC")
+		(at 48.26 62.23 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "76176e7d-bfeb-4f10-a145-d026b81a7926")
+		(property "Reference" "C1401"
+			(at 41.91 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "22uF / 6.3V"
+			(at 44.45 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "easyeda2kicad:C0603"
+			(at 55.88 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_SAMSUNG_CL10A226MQ8NRNC_22uF-226-20-6-3V_C59461.html"
+			(at 58.42 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 48.26 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C59461"
+			(at 60.96 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2d914cf3-d5bb-43bd-a0ff-87caa1d2261b")
+		)
+		(pin "2"
+			(uuid "8a858fd4-f7dd-426e-bd4e-e1ae94fb4b08")
+		)
+		(instances
+			(project "Option1"
+				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
+					(reference "C1401")
 					(unit 1)
 				)
 			)
@@ -3840,84 +4310,15 @@
 	)
 	(symbol
 		(lib_id "Diode:1N5819WS")
-		(at 55.88 55.88 0)
+		(at 146.05 55.88 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "d472315a-3092-4a67-ba8d-f4e07080a58c")
-		(property "Reference" "D1405"
-			(at 55.88 59.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1N5819WS"
-			(at 55.5625 52.07 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "Diode_SMD:D_SOD-323"
-			(at 55.88 60.325 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://datasheet.lcsc.com/lcsc/2204281430_Guangdong-Hottech-1N5819WS_C191023.pdf"
-			(at 55.88 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "40V 600mV@1A 1A SOD-323 Schottky Barrier Diodes, SOD-323"
-			(at 55.88 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "bb05c04d-bebf-4bc3-8661-637d5d3a677d")
-		)
-		(pin "1"
-			(uuid "098e71a4-0bdd-40e5-9d52-45bebb24580a")
-		)
-		(instances
-			(project "Option1"
-				(path "/b9e5f262-9648-4b79-bdd1-af888b822329/38430192-9545-4dc5-9188-f56f0a78c828"
-					(reference "D1405")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Diode:1N5819WS")
-		(at 149.86 53.34 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "e83dc791-1da2-4ff4-9315-83726a59a86e")
 		(property "Reference" "D1402"
-			(at 149.5425 46.99 0)
+			(at 146.05 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3925,7 +4326,7 @@
 			)
 		)
 		(property "Value" "1N5819WS"
-			(at 149.5425 49.53 0)
+			(at 146.05 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3933,7 +4334,7 @@
 			)
 		)
 		(property "Footprint" "Diode_SMD:D_SOD-323"
-			(at 149.86 57.785 0)
+			(at 146.05 60.325 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3942,7 +4343,7 @@
 			)
 		)
 		(property "Datasheet" "https://datasheet.lcsc.com/lcsc/2204281430_Guangdong-Hottech-1N5819WS_C191023.pdf"
-			(at 149.86 53.34 0)
+			(at 146.05 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3951,7 +4352,7 @@
 			)
 		)
 		(property "Description" "40V 600mV@1A 1A SOD-323 Schottky Barrier Diodes, SOD-323"
-			(at 149.86 53.34 0)
+			(at 146.05 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
