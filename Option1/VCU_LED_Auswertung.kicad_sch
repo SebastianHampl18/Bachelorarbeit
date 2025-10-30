@@ -401,7 +401,7 @@
 	)
 	(wire
 		(pts
-			(xy 76.2 66.04) (xy 92.71 66.04)
+			(xy 88.9 66.04) (xy 92.71 66.04)
 		)
 		(stroke
 			(width 0)
@@ -463,7 +463,7 @@
 	)
 	(hierarchical_label "VCU_LED"
 		(shape input)
-		(at 76.2 66.04 180)
+		(at 88.9 66.04 180)
 		(effects
 			(font
 				(size 1.27 1.27)

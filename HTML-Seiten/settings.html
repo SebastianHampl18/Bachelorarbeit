@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Einstellungen - SMS REVO SL</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f2f2f2;
+      font-family: Arial, sans-serif;
+    }
+    .card {
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      max-width: 400px;
+      width: 100%;
+    }
+    h1 {
+      color: red;
+      margin-bottom: 20px;
+    }
+    a.btn {
+      display: inline-block;
+      margin: 8px;
+      padding: 12px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+    a.green { background: green; }
+    a.gray { background: gray; }
+    a.download { background: blue; }
+    form { margin-top: 20px; }
+    input[type=text],
+    input[type=password] {
+      padding: 8px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 80%;
+    }
+    input[type=submit],
+    button {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      background: green;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 6px;
+    }
+    input[type=submit]:hover,
+    button:hover {
+      background: darkgreen;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 24px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: green;
+    }
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+    #RF_Connect_Return {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Einstellungen</h1>
+
+    <form method="POST" action="/einstellungen">
+      <label for="wifi_name">WIFI Name:</label><br>
+      <input type="text" id="wifi_name" name="wifi_name" value="[WIFI_Name]"><br>
+
+      <label for="wifi_password">WIFI Passwort:</label><br>
+      <input type="password" id="wifi_password" name="wifi_password" minlength="8" required value="[WIFI_Password]"><br>
+
+      <label for="display_off">Display Off:</label><br>
+      <label class="switch">
+        <input type="checkbox" name="display_off" [checked]>
+        <span class="slider"></span>
+      </label><br><br>
+
+      <input type="submit" value="Speichern">
+      <p>Netzwerk Änderungen werden beim nächsten Neustart wirksam!</p>
+    </form>
+
+    <hr>
+
+    <form method="POST" action="/einstellungen">
+      <button type="submit" name="action" value="remote_bind">Funkfernbedienung verbinden</button><br>
+      <button type="submit" name="action" value="remote_unbind">Funkfernbedienung löschen</button><br>
+      <button type="submit" name="action" value="remote_unbind_all">Alle Funkfernbedienungen löschen</button><br>
+
+      <div id="RF_Connect_Return">warte auf Verbindungsanfrage...</div>
+    </form>
+
+    <hr>
+
+    <a class="btn download" href="/downloadLog">📥 Logdatei herunterladen</a>
+    <a class="btn gray" href="/">Zurück</a>
+  </div>
+
+  <script>
+    function updateRFConReturn() {
+      fetch('/RF_Connect_Return')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('RF_Connect_Return').innerText =
+            'Verbindungsstatus: ' + data;
+        });
+    }
+    setInterval(updateRFConReturn, 2000);
+    updateRFConReturn();
+  </script>
+</body>
+</html>

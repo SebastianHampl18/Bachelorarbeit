@@ -2,62 +2,162 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Kart Settings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings</title>
   <style>
     body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      background: #f2f2f2;
       font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
-      padding: 20px;
     }
-    h2 {
-      color: #333;
-    }
-    .container {
+    .card {
+      margin-top: 40px;
       background: #fff;
-      border-radius: 10px;
-      padding: 20px;
-      max-width: 400px;
-      margin: auto;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
-    input[type=number] {
+      padding: 20px 30px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      max-width: 350px;
       width: 100%;
-      padding: 8px;
-      margin: 8px 0;
-      box-sizing: border-box;
     }
-    input[type=submit], button {
-      padding: 10px 20px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 5px;
+    h1 {
+      color: red;
+      margin-bottom: 20px;
+    }
+    a.btn {
+      display: inline-block;
+      margin: 8px;
+      padding: 12px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+    a.gray { background: gray; }
+
+    /* Schalter-Design */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+      margin: 10px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
       cursor: pointer;
-      font-size: 16px;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
     }
-    input[type=submit] {
-      background-color: #4CAF50;
-      color: white;
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background: white;
+      transition: .4s;
+      border-radius: 50%;
     }
-    button {
-      background-color: #008CBA;
-      color: white;
+    input:checked + .slider {
+      background-color: green;
     }
-    button:hover, input[type=submit]:hover {
-      opacity: 0.9;
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+    .label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Kart Settings</h2>
+  <div class="card">
+    <h1>Hersteller Einstellungen</h1>
 
-    <form action="/setKart" method="GET">
-      <label for="speed">Max Speed:</label>
-      <input type="number" id="speed" name="speed" value="50" min="0" max="200">
-      <input type="submit" value="Speichern">
-    </form>
+    <div class="label">Display</div>
+    <label class="switch">
+      <input type="checkbox" id="displayToggle" [Display_enable]>
+      <span class="slider"></span>
+    </label>
 
-    <button onclick="location.href='index.html'">Zurück</button>
+    <div class="label">Funkempfänger</div>
+    <label class="switch">
+      <input type="checkbox" id="rfToggle" [RF_enable]>
+      <span class="slider"></span>
+    </label>
+
+    <div class="label">WiFi</div>
+    <label class="switch">
+      <input type="checkbox" id="wifiToggle" [WiFi_enable]>
+      <span class="slider"></span>
+    </label>
+
+    <div class="label">RFID</div>
+    <label class="switch">
+      <input type="checkbox" id="rfidToggle" [RFID_enable]>
+      <span class="slider"></span>
+    </label>
+
+    <div class="label">LED</div>
+    <label class="switch">
+      <input type="checkbox" id="ledToggle" [LED_enable]>
+      <span class="slider"></span>
+    </label>
+
+    <div class="label">Funksignale via CAN</div>
+    <label class="switch">
+      <input type="checkbox" id="rfCanToggle" [RF_CAN_enable]>
+      <span class="slider"></span>
+    </label>
+
+    <br>
+    <a href="/" class="btn gray">Zurück</a>
   </div>
+
+  <script>
+    function sendToggle(key, state) {
+      fetch('/hersteller', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'key=' + key + '&state=' + (state ? 'true' : 'false')
+      });
+    }
+
+    document.getElementById('rfToggle').addEventListener('change', function() {
+      sendToggle('RF_enable', this.checked);
+    });
+    document.getElementById('displayToggle').addEventListener('change', function() {
+      sendToggle('Display_enable', this.checked);
+    });
+    document.getElementById('wifiToggle').addEventListener('change', function() {
+      sendToggle('WiFi_enable', this.checked);
+    });
+    document.getElementById('rfidToggle').addEventListener('change', function() {
+      sendToggle('RFID_enable', this.checked);
+    });
+    document.getElementById('ledToggle').addEventListener('change', function() {
+      sendToggle('LED_enable', this.checked);
+    });
+    document.getElementById('rfCanToggle').addEventListener('change', function() {
+      sendToggle('RF_CAN_en', this.checked);
+    });
+  </script>
 </body>
 </html>
